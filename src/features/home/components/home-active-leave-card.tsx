@@ -30,7 +30,7 @@ export const HomeActiveLeaveCard = ({ leave }: HomeActiveLeaveCardProps) => (
         <View>
           <Text className="text-sm font-medium text-charcoal">{leave.leave_cd}</Text>
           <Text variant="subtext" size="sm">
-            {formatDate(leave.from_dt)} — {formatDate(leave.to_dt)}
+            {formatDate(leave.from_dt1)} — {formatDate(leave.to_dt1)}
           </Text>
         </View>
         <Text className="text-lg font-bold text-foreground">
