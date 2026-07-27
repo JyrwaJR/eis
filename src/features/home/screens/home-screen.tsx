@@ -15,6 +15,7 @@ import { Text } from '@components/ui/text';
 import { EmptyScreen } from '@components/screens';
 import { useLeaves } from '@hooks';
 import { isActiveLeave } from '../utils';
+import { Ternary } from '@components/common';
 
 export const HomeScreen = () => {
   const { user, isAuthLoading, logout } = useAuthStore();
@@ -52,26 +53,30 @@ export const HomeScreen = () => {
           <HomeQuickActions />
         </View>
 
-        {activeLeaves?.length > 0 && (
-          <View className="mb-4">
-            <Text variant="heading" size="lg" className="mb-4">
-              Active Leaves
-            </Text>
-            {activeLeaves.map((item) => (
-              <HomeActiveLeaveCard key={item.id} leave={item} />
-            ))}
-          </View>
-        )}
+        <Ternary
+          condition={activeLeaves.length > 0}
+          ifTrue={
+            <View className="mb-4">
+              <Text variant="heading" size="lg" className="mb-4">
+                Active Leaves
+              </Text>
+              {activeLeaves.map((item) => (
+                <HomeActiveLeaveCard key={item.id} leave={item} />
+              ))}
+            </View>
+          }
+          ifFalse={null}
+        />
 
         <View className="mb-6">
           <Text variant="heading" size="lg" className="mb-4">
             Leave History
           </Text>
-          {otherLeaves.length === 0 ? (
-            <HomeLeaveEmptyCard />
-          ) : (
-            otherLeaves.map((item) => <HomeLeavePreview key={item.id} leave={item} />)
-          )}
+          <Ternary
+            condition={otherLeaves.length === 0}
+            ifTrue={<HomeLeaveEmptyCard />}
+            ifFalse={<HomeLeavePreview leave={otherLeaves[0]} />}
+          />
         </View>
       </ScrollView>
     </Container>
