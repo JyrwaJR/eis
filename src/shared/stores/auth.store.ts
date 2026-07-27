@@ -1,7 +1,7 @@
 import { create } from 'zustand';
 import { createJSONStorage, persist } from 'zustand/middleware';
 import * as SecureStore from 'expo-secure-store';
-import { UserT } from '../types/auth';
+import { RoleT, UserT } from '../types/auth';
 import { TokenStoreManager } from '@stores/token.store';
 import { logger } from '@utils/logger';
 import { rpc } from '@utils/api';
@@ -13,7 +13,7 @@ type AuthStore = {
   setEmpCode: (emp_cd: string) => void;
   isSignedIn: boolean;
   isAuthLoading: boolean;
-  role: string;
+  role: RoleT;
 
   fetchUser: () => Promise<void>;
   refresh: () => void;
