@@ -25,7 +25,7 @@ const QuickActionsSkeleton = () => (
     <View className="flex-row justify-between">
       {Array.from({ length: 4 }).map((_, i) => (
         <View key={i} className="items-center gap-y-2">
-          <Skeleton className="h-14 w-14 rounded-2xl" />
+          <Skeleton className="h-14 w-14 rounded-md" />
           <Skeleton className="h-3 w-16 rounded" />
         </View>
       ))}
