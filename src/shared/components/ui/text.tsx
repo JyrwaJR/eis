@@ -62,7 +62,7 @@ function withoutTextSize(classes: string): string {
  * text-size classes from the `variant` output so that `size` controls font
  * sizing. See the `Text` component for details.
  */
-const textVariants = cva('text-foreground', {
+const textVariants = cva('font-sans text-foreground', {
   variants: {
     variant: {
       /* Display — all weight 500 */

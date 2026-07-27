@@ -117,6 +117,11 @@ module.exports = {
         pill: '9999px',
       },
 
+      /* ── Font Family ──────────────────────────────────── */
+      fontFamily: {
+        sans: ['Inter'],
+      },
+
       /* ── HP Design System — Font Sizes ───────────────── */
       fontSize: {
         'display-xxl': ['72px', { lineHeight: '1.0', fontWeight: '500' }],
