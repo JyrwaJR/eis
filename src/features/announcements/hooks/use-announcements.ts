@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import { METHODS, QUERY_KEYS } from '@utils/constants';
+import { METHODS, QUERY_KEYS, STALE_TIMES } from '@utils/constants';
 import { AnnouncementT } from '../types';
 import { rpc } from '@utils/api';
 import { transformData } from '@utils/helpers';
@@ -12,6 +12,7 @@ export const useAnnouncements = () => {
     queryKey: QUERY_KEYS.ANNOUNCEMENT.LIST(),
     queryFn: () => rpc<AnnouncementT[]>(METHODS.GET_NOTIFICATIONS),
     select: (res) => res.data,
+    staleTime: STALE_TIMES.ANNOUNCEMENT,
   });
 
   const announcement = transformData<AnnouncementT>(data);
