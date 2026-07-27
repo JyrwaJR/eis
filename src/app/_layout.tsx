@@ -6,6 +6,8 @@ import '../shared/styles/global.css';
 import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { logger } from '../shared/utils/logger';
+import { useFonts } from 'expo-font';
+import { Inter_400Regular, Inter_500Medium, Inter_700Bold } from '@expo-google-fonts/inter';
 
 // Handle initial route settings
 export const unstable_settings = {
@@ -26,18 +28,19 @@ SplashScreen.setOptions({
 
 /** Root layout that wraps every screen with global providers and UI shell. */
 export default function Layout() {
+  const [loaded, error] = useFonts({
+    Inter_400Regular,
+    Inter_500Medium,
+    Inter_700Bold,
+  });
+
+  // Keep the native splash screen visible until fonts have loaded (or failed).
+  // This prevents a white flash: the splash stays up during the async font
+  // fetch and only tears down once the app is fully ready to paint.
   useEffect(() => {
-    let cancelled = false;
+    if (!loaded && !error) return;
 
-    const initialize = async () => {
-      // --- Async startup work (fonts, auth token hydration, etc.) goes here ---
-
-      // Brief delay lets React commit the first frame before we tear down
-      // the native splash screen, preventing a white flash.
-      await new Promise((resolve) => setTimeout(resolve, 500));
-
-      if (cancelled) return;
-
+    const hideSplash = async () => {
       try {
         await SplashScreen.hideAsync();
       } catch (e) {
@@ -45,12 +48,15 @@ export default function Layout() {
       }
     };
 
-    initialize();
+    hideSplash();
+  }, [loaded, error]);
 
-    return () => {
-      cancelled = true;
-    };
-  }, []);
+  // Block rendering until fonts are available so the first paint includes the
+  // correct typeface (no FOUT). If fonts fail to load, render anyway — the
+  // system fallback fonts will be used.
+  if (!loaded && !error) {
+    return null;
+  }
 
   return (
     <ProviderWrapper>
