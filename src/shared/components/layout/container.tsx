@@ -14,8 +14,8 @@ type Props = {
  * theme-aware background color.
  *
  * - **Light mode:** `bg-background` resolves to `hsl(0 0% 100%)` — pure white canvas
- * - **Dark mode:**  The explicit `dark:bg-[#1A1A1A]` ensures the background becomes
- *   ink (#1A1A1A), matching the `--background` token defined in `global.css`.
+ * - **Dark mode:**  `dark:bg-gray-900` provides an ink-like background (#111827),
+ *   keeping the canvas appropriately dark while using a standard Tailwind token.
  *
  * @example
  * ```tsx
@@ -25,5 +25,7 @@ type Props = {
  * ```
  */
 export const Container = ({ children, className }: Props) => {
-  return <View className={cn('flex-1 bg-background p-2', className)}>{children}</View>;
+  return (
+    <View className={cn('flex-1 bg-background p-2 dark:bg-gray-900', className)}>{children}</View>
+  );
 };
