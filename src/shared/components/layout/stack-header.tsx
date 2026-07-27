@@ -30,7 +30,7 @@ export const StackHeader = memo(() => {
 
   return (
     <View
-      className={cn('border-b border-gray-200 bg-card dark:border-gray-700 dark:bg-gray-800')}
+      className={cn('border-b border-gray-200 bg-card dark:border-gray-700 dark:bg-gray-900')}
       style={{ paddingTop: insets.top }}>
       <View className="min-h-[56px] flex-row items-center justify-between px-4 py-3">
         <View className="flex-1 flex-row items-center justify-start">

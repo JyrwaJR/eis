@@ -49,7 +49,7 @@ const FilterChip = ({ label, selected, onPress, disabled }: FilterChipProps) => 
     activeOpacity={0.7}
     className={cn(
       'mr-3 rounded-md border px-4 py-1.5',
-      selected ? 'border-blue-600 bg-blue-600' : 'border-border bg-card'
+      selected ? 'border-blue-600 bg-blue-600' : 'border-border'
     )}>
     <Text className={cn('text-xs font-semibold', selected ? 'text-white' : 'text-charcoal')}>
       {label}
@@ -124,11 +124,11 @@ export const FilterCard = ({
   });
 
   return (
-    <View className={cn('rounded-2xl border border-border bg-card shadow-sm', className)}>
+    <View className={cn('rounded-md border border-border p-2', className)}>
       {/* Header / Toggle Button */}
       <TouchableOpacity
         onPress={handleToggle}
-        className="flex-row items-center justify-between rounded-t-md p-4 ">
+        className="flex-row items-center justify-between rounded-md p-4 ">
         <View className="flex-row items-center gap-2">
           <Icon name="funnel" size={16} color="#64748B" />
           <Text className="text-sm font-semibold text-charcoal">Filters</Text>

@@ -29,6 +29,8 @@ export function CustomDrawerContent(props: DrawerContentComponentProps) {
   const gray900 = color.gray[900];
   const theme = useTheme();
   const isDark = theme === 'dark';
+  const iconColor = isDark ? color.white : color.black;
+  const iconActiveColor = isDark ? color.blue[500] : color.blue[400];
 
   return (
     <DrawerContentScrollView
@@ -55,11 +57,11 @@ export function CustomDrawerContent(props: DrawerContentComponentProps) {
                   'flex-row items-center gap-2 rounded-md p-4',
                   isActive ? 'bg-primary-soft' : 'bg-transparent'
                 )}>
-                <Icon name={item.icon} size={24} color={isActive ? '#fff' : '#fff'} />
+                <Icon name={item.icon} size={24} color={isActive ? iconActiveColor : iconColor} />
                 <Text
                   className={cn(
                     'ml-2 text-base font-medium',
-                    isActive ? 'text-primary' : 'text-charcoal'
+                    isActive ? 'text-blue-500 dark:text-blue-400' : ''
                   )}>
                   {item.title}
                 </Text>
