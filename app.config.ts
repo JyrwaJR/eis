@@ -108,7 +108,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
   },
   orientation: 'default',
   icon: ASSETS.iosIcon,
-  userInterfaceStyle: 'light',
+  userInterfaceStyle: 'automatic',
   splash: {
     image: ASSETS.iosSplash,
     resizeMode: 'contain',
