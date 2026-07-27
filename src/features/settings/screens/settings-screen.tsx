@@ -1,6 +1,5 @@
 import React from 'react';
 import { View, ScrollView } from 'react-native';
-import { Text } from '@components/ui/text';
 import { Container } from '@components/layout/container';
 import { SectionHeader } from '@components/common/section-header';
 import { useLocalAuthStore } from '@stores/local-auth.store';
@@ -15,6 +14,8 @@ import {
   AlertDialogCancel,
   AlertDialogHeader,
 } from '@components/ui';
+import { useThemeStore } from '@stores/theme.store';
+import { useTheme } from '@hooks/use-theme';
 
 /**
  * Settings screen for the app.
@@ -35,6 +36,8 @@ import {
 export const SettingsScreen = () => {
   const { setIsEnabled, isEnabled } = useLocalAuthStore();
   const [isOpenConfirmEnableBiometric, setIsOpenConfirmEnableBiometric] = React.useState(false);
+  const { theme, toggleTheme } = useThemeStore();
+  const resolvedTheme = useTheme();
 
   /**
    * Handles the user's confirmation to toggle biometric authentication.
@@ -51,6 +54,17 @@ export const SettingsScreen = () => {
         <View className="py-6">
           {/* Appearance Section */}
           <SectionHeader title="Appearance" />
+          <View className="mb-8 overflow-hidden rounded-md border border-border px-4">
+            <SettingRow
+              icon={theme === 'dark' ? 'moon' : 'sunny'}
+              iconColor={resolvedTheme === 'dark' ? '#FFFFFF' : '#64748B'}
+              label="Dark Mode"
+              description="Reduce eye strain with a darker color scheme"
+              value={theme === 'dark'}
+              onValueChange={() => toggleTheme()}
+              showBorder={true}
+            />
+          </View>
 
           {/* Notifications Section */}
           <SectionHeader title="Security" />
@@ -64,12 +78,6 @@ export const SettingsScreen = () => {
               onValueChange={() => setIsOpenConfirmEnableBiometric(true)}
               showBorder={true}
             />
-          </View>
-
-          <View className="mt-4 items-center">
-            <Text variant="subtext" size="sm" className="text-graphite">
-              v1.0.0 (Build 100)
-            </Text>
           </View>
         </View>
       </ScrollView>
