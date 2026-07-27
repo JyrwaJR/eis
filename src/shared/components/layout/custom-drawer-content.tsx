@@ -7,6 +7,8 @@ import { cn } from '@utils/helpers/cn';
 import { Icon } from '@components/ui';
 import { IoniconsIconName } from '@react-native-vector-icons/ionicons';
 import { Text } from '@components/ui/text';
+import color from 'tailwindcss/colors';
+import { useTheme } from '@hooks/use-theme';
 
 export type MenuItemsT = {
   id?: number;
@@ -24,6 +26,9 @@ const menuItems: MenuItemsT[] = [
 export function CustomDrawerContent(props: DrawerContentComponentProps) {
   const pathname = usePathname();
   const insets = useSafeAreaInsets();
+  const gray900 = color.gray[900];
+  const theme = useTheme();
+  const isDark = theme === 'dark';
 
   return (
     <DrawerContentScrollView
@@ -31,8 +36,9 @@ export function CustomDrawerContent(props: DrawerContentComponentProps) {
       contentContainerStyle={{
         paddingTop: insets.top,
         flex: 1,
+        backgroundColor: isDark ? gray900 : '#ffffff',
       }}
-      className="bg-background">
+      className="bg-background dark:bg-gray-900">
       <View className="mb-6 flex-row items-center justify-center pt-4">
         <Text className={cn('text-center text-2xl font-semibold')}>
           {process.env.EXPO_PUBLIC_APP_NAME}
@@ -49,7 +55,7 @@ export function CustomDrawerContent(props: DrawerContentComponentProps) {
                   'flex-row items-center gap-2 rounded-md p-4',
                   isActive ? 'bg-primary-soft' : 'bg-transparent'
                 )}>
-                <Icon name={item.icon} size={24} color={isActive ? 'primary' : ''} />
+                <Icon name={item.icon} size={24} color={isActive ? '#fff' : '#fff'} />
                 <Text
                   className={cn(
                     'ml-2 text-base font-medium',
