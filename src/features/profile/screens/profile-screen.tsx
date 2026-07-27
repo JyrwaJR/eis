@@ -5,24 +5,28 @@ import { useAuthStore } from '@stores/auth.store';
 import { Text } from '@components/ui/text';
 import { SettingRow } from '@components/common/setting-row';
 import { ProfileDetailRow } from '../components/profile-detail-row';
-import { ConfirmLogoutAlert } from '../components';
+import { ConfirmLogoutAlert, ProfileScreenSkeleton } from '../components';
 import { useProfileSections } from '../hooks/use-profile-sections';
 import { Card, CardHeader, CardContent } from '@components/ui/card';
 import { GovtHeader } from '@components/common/govt-header';
+import { useProfile } from '../hooks';
 
 export const ProfileScreen = () => {
-  const { user, emp_cd } = useAuthStore();
+  const { emp_cd } = useAuthStore();
   const [showLogoutAlert, setShowLogoutAlert] = React.useState(false);
-  const profileSections = useProfileSections(user);
+  const { data: profile, isLoading } = useProfile();
+  const profileSections = useProfileSections(profile);
+
+  if (isLoading) return <ProfileScreenSkeleton />;
 
   return (
     <Container>
       {/* Identity Header — Govt branding */}
       <View className="border-b border-border bg-background pb-4 pt-4">
         <GovtHeader
-          title={user ? `${user.emp_fname} ${user.emp_lname}` : 'Loading...'}
-          subtitle={user ? `Current DDO: ${user.ddo_code} - ${user.ddo_name}` : undefined}
-          badge={emp_cd ? `Employee Code: ${emp_cd}` : undefined}
+          title={profile ? `${profile.emp_fname} ${profile.emp_lname}` : 'Loading...'}
+          subtitle={profile ? `Current DDO: ${profile.ddo_code} - ${profile.ddo_name}` : undefined}
+          badge={emp_cd ? `Employee Code: ${emp_cd}` : '-'}
         />
 
         {/* Employee code inline when no badge */}
