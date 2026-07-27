@@ -1,5 +1,5 @@
 import type { UserT } from '@sharedTypes/auth';
-import { formatDate } from '@utils/formatters';
+import { formatDate, truncateText } from '@utils/formatters';
 
 type ProfileSection = {
   title: string;
@@ -29,7 +29,7 @@ export const useProfileSections = (user: UserT | null | undefined): ProfileSecti
       { label: 'Parent Department', value: user?.parent_dept },
       { label: 'Designation', value: user?.emp_designation },
       { label: 'State Service', value: user?.state_service },
-      { label: 'Office Name', value: `${user?.office_id} - ${user?.office_name}` },
+      { label: 'Office Name', value: `${user?.office_name}` },
       { label: 'DDO Code', value: user?.ddo_code },
       { label: 'DDO Name', value: user?.ddo_name },
       { label: 'Joining Date', value: formatDate(user?.emp_date_of_joining) },
@@ -44,7 +44,7 @@ export const useProfileSections = (user: UserT | null | undefined): ProfileSecti
     title: 'Pay Details',
     fields: [
       { label: 'Pay Commission', value: user?.pay_comm },
-      { label: 'Pay Scale', value: user?.pay_scale },
+      { label: 'Pay Scale', value: truncateText({ text: user?.pay_scale ?? '', maxLength: 30 }) },
       { label: 'Basic Pay', value: user?.basic_pay },
       { label: 'W.E.F Date', value: formatDate(user?.wef_dt) },
     ],
