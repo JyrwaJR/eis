@@ -18,6 +18,7 @@ export const HomeQuickActions = () => {
             key={action.label}
             onPress={() => action.route && router.push(action.route as Route)}
             activeOpacity={0.7}
+            hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
             className="items-center">
             <View className="mb-2 h-14 w-14 items-center justify-center rounded-2xl bg-primary-soft">
               <Icon name={action.icon} size={26} color="#024ad8" />
