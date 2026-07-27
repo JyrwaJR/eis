@@ -8,6 +8,7 @@
 export const QUERY_KEYS = {
   AUTH: {
     ME: ['me'] as const,
+    OAUTH_TOKEN: ['oauth-token'] as const,
   },
   HOME: {
     OVERVIEW: (...args: string[]) => ['home', 'overview', ...args] as const,

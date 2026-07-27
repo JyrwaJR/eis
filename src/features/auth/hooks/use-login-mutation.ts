@@ -1,4 +1,4 @@
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { z } from 'zod';
 import { LoginSchema } from '../validators/login.schema';
 import { rpc } from '@utils/api';
@@ -19,6 +19,7 @@ type LoginResponse = {
 
 export const useLoginMutation = () => {
   const { fetchUser, setEmpCode } = useAuthStore();
+  const { invalidateQueries } = useQueryClient();
   return useMutation<ApiResponse<LoginResponse>, unknown, LoginFormInputs>({
     mutationKey: QUERY_KEYS.AUTH.ME,
     meta: { auth: true },
@@ -53,11 +54,13 @@ export const useLoginMutation = () => {
       }
       logger.info('Unsuccessful login — removing access token');
       await TokenStoreManager.removeAccessToken();
+      invalidateQueries({ queryKey: QUERY_KEYS.AUTH.OAUTH_TOKEN });
 
       return data;
     },
     onError: async (error) => {
       await TokenStoreManager.removeAccessToken();
+      invalidateQueries({ queryKey: QUERY_KEYS.AUTH.OAUTH_TOKEN });
       return error;
     },
   });

@@ -2,6 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import { TokenStoreManager } from '@stores/token.store';
 import { logger } from '@utils/logger';
 import RNFetchBlob from 'rn-fetch-blob';
+import { QUERY_KEYS } from '@utils/constants';
 
 const BASIC_AUTH_TOKEN = process.env.EXPO_PUBLIC_BASIC_AUTH;
 
@@ -36,7 +37,7 @@ type GetOAuthResponse = {
  */
 export function useGetOAuthToken() {
   return useQuery({
-    queryKey: ['oauth-token'],
+    queryKey: QUERY_KEYS.AUTH.OAUTH_TOKEN,
     queryFn: async () => {
       const res = await RNFetchBlob.config({ trusty: true }).fetch(
         'POST',
