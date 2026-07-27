@@ -22,6 +22,7 @@ export type UserT = {
   emp_status: string;
   emp_supan_dt: string;
   emp_type: string;
+  emp_gazetted: 'Y' | 'N';
   gis_applicable: string;
   inc_dt: string;
 
@@ -30,9 +31,13 @@ export type UserT = {
   parent_dept: string;
   pay_comm: string;
   pay_scale: string;
+
   pf_agency: string;
   pf_series: string;
   pf_type: string;
+  pf_no: string;
+  pf_pran_no: string;
+
   state_service: string;
   trea_code: string;
   wef_dt: string;

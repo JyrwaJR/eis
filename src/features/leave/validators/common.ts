@@ -25,13 +25,12 @@ export const leaveRemarksValidation = z.string('Leave remarks').nullable().optio
 
 export const leaveReasonTextValidation = z
   .string('Reason is required')
-  .min(3, 'Reason is required')
-  .regex(ONLY_LETTER_REGEX, 'Reason should be letters');
+  .min(3, 'Reason is required');
 
 export const leaveReasonCodeValidation = z
   .string('Reason code is required')
   .min(1, 'Reason is required')
-  .regex(ONLY_LETTER_REGEX, 'Reason code should only be letters');
+  .regex(ONLY_NUMBER_REGEX, 'Reason code should only be letters');
 
 // ─── Cross-field validation logic ────────────────────────────
 

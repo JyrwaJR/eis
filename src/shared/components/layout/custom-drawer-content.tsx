@@ -20,6 +20,8 @@ export type MenuItemsT = {
 const menuItems: MenuItemsT[] = [
   { title: 'Home', href: '/' as Route, icon: 'home-outline' },
   { title: 'Income Tax', href: '/tax' as Route, icon: 'cash-outline' },
+  { title: 'NPS statement', href: '/settings' as Route, icon: 'cash-sharp' },
+  { title: 'GPF Pay Slip', href: '/settings' as Route, icon: 'cash' },
   { title: 'Settings', href: '/settings' as Route, icon: 'settings-outline' },
 ];
 

@@ -24,8 +24,8 @@ const isDev = process.env.NODE_ENV === 'development';
 
 const defaultValues: CreateLeaveInputs = {
   leave_cd: 'SL',
-  from_dt: isDev ? '2026-07-19' : '',
-  to_dt: isDev ? '2026-07-30' : '',
+  from_dt: isDev ? '2027-06-01' : '',
+  to_dt: isDev ? '2028-07-30' : '',
   no_days: isDev ? '1' : '',
   order_no: isDev ? '10' : '',
   order_dt: isDev ? '2026-05-25' : '',

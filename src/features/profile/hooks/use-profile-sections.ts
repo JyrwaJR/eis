@@ -35,7 +35,9 @@ export const useProfileSections = (user: UserT | null | undefined): ProfileSecti
       { label: 'Joining Date', value: formatDate(user?.emp_date_of_joining) },
       { label: 'Increment Date', value: formatDate(user?.inc_dt) },
       { label: 'Superannuation', value: formatDate(user?.emp_supan_dt) },
+      { label: 'Pan Number', value: user?.emp_pan_number },
       { label: 'City Class', value: user?.emp_city_class },
+      { label: 'Gazetted', value: user?.emp_gazetted },
       { label: 'Employee Type', value: user?.emp_type },
     ],
   },
@@ -44,7 +46,10 @@ export const useProfileSections = (user: UserT | null | undefined): ProfileSecti
     title: 'Pay Details',
     fields: [
       { label: 'Pay Commission', value: user?.pay_comm },
-      { label: 'Pay Scale', value: truncateText({ text: user?.pay_scale ?? '', maxLength: 30 }) },
+      {
+        label: 'Pay Scale/Level',
+        value: truncateText({ text: user?.pay_scale ?? '', maxLength: 30 }),
+      },
       { label: 'Basic Pay', value: user?.basic_pay },
       { label: 'W.E.F Date', value: formatDate(user?.wef_dt) },
     ],
@@ -56,6 +61,9 @@ export const useProfileSections = (user: UserT | null | undefined): ProfileSecti
       { label: 'PF Type', value: user?.pf_type },
       { label: 'PF Agency', value: user?.pf_agency },
       { label: 'PF Series', value: user?.pf_series },
+      user?.emp_type === 'DB'
+        ? { label: 'PF Account No', value: user?.pf_no }
+        : { label: 'Pran Account No', value: user?.pf_pran_no },
     ],
   },
 
