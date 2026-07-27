@@ -30,9 +30,9 @@ const Input = React.forwardRef<React.ElementRef<typeof TextInput>, InputProps>(
       <TextInput
         ref={ref}
         className={cn(
-          'w-full rounded-md border bg-background px-4 py-3 text-body-md text-foreground',
+          'w-full rounded-md border bg-background px-4 py-3 text-body-md text-foreground dark:bg-gray-900 dark:text-white',
           'min-h-[44px]',
-          isFocused ? 'border-ink' : 'border-input',
+          isFocused ? 'border-ink dark:border-gray-100' : 'border-input dark:border-gray-600',
           error ? 'border-destructive bg-destructive/5' : '',
           multiline && 'min-h-[100px]',
           className

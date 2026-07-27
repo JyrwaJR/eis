@@ -88,7 +88,10 @@ export const DialogContent = ({ children, className, onClose, ...props }: Dialog
         className="pointer-events-box-none items-center justify-center px-4">
         <Animated.View
           style={[contentStyle]}
-          className={cn('w-full max-w-sm rounded-md bg-card p-6 shadow-2xl', className)}
+          className={cn(
+            'w-full max-w-sm rounded-md bg-card p-6 shadow-2xl dark:bg-gray-800',
+            className
+          )}
           {...props}>
           <Pressable onPress={(e) => e.stopPropagation()}>{children}</Pressable>
         </Animated.View>

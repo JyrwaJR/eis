@@ -54,7 +54,7 @@ export const AccordionItem = ({
   return (
     <View
       className={cn(
-        'border-b border-border bg-card px-6 py-5 first:rounded-t-lg last:rounded-b-lg last:border-b-0',
+        'border-b border-border bg-card px-6 py-5 first:rounded-t-lg last:rounded-b-lg last:border-b-0 dark:border-gray-700 dark:bg-gray-800',
         className
       )}>
       {React.Children.map(children, (child) =>

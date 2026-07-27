@@ -13,13 +13,14 @@ export const TabLayout = () => {
   const tabConfig = COMMON_TABS;
 
   return (
-    <View className="flex-1">
+    <View className="flex-1 bg-background dark:bg-gray-900">
       <StackHeader />
       <Tabs
         key={role}
         tabBar={(props) => <CustomTabBar {...props} insets={insets} tabConfig={tabConfig} />}
         screenOptions={{
           headerShown: false,
+          sceneStyle: { backgroundColor: 'transparent' },
         }}>
         {tabConfig.map((tab) => (
           <Tabs.Screen

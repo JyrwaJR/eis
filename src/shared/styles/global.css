@@ -93,7 +93,7 @@
     --sidebar-ring: 220 98% 43%;
   }
 
-  .dark {
+  :root[class='dark'] {
     /* ── HP Design System (Dark) ─────────────────────────
        Ink/navy canvas, white text, HP Electric Blue primary.
        Based on DESIGN.md dark slab tokens.                     */

@@ -25,7 +25,7 @@ export const Image = ({
 
   return (
     <View
-      className={cn('relative overflow-hidden bg-muted', containerClassName)}
+      className={cn('relative overflow-hidden bg-muted dark:bg-gray-800', containerClassName)}
       style={{ minHeight: 40, minWidth: 40 }}>
       {/* Image Layer */}
       <RNImage

@@ -69,7 +69,7 @@ export function Skeleton({ className, animate = true }: SkeletonProps) {
 
   return (
     <Animated.View
-      className={cn('bg-muted', className)}
+      className={cn('bg-muted dark:bg-gray-800', className)}
       style={animatedStyle}
       accessibilityLabel="Loading..."
       accessible={false}

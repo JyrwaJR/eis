@@ -12,11 +12,11 @@ import { cn } from '../../utils/helpers/cn';
  * - **elevated**: No border, `shadow-lg` — for modal-like cards, floating panels
  * - **flat**: No border, no shadow — for cards inside other cards
  */
-const cardVariants = cva('rounded-md bg-card shadow-sm', {
+const cardVariants = cva('rounded-md bg-card shadow-sm dark:bg-gray-800', {
   variants: {
     variant: {
       default: '',
-      bordered: 'border border-border',
+      bordered: 'border border-border dark:border-gray-700',
       elevated: 'shadow-lg',
       flat: 'shadow-none',
     },

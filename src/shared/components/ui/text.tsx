@@ -92,7 +92,7 @@ const textVariants = cva('font-sans text-foreground dark:text-white', {
       subtext: 'text-caption-md text-muted-foreground',
       error: 'text-caption-md text-destructive',
       link: 'text-link-md text-primary',
-      label: 'text-caption-md font-medium text-foreground/70',
+      label: 'text-caption-md font-medium text-foreground/70 dark:text-white/70',
     },
     size: {
       default: '',

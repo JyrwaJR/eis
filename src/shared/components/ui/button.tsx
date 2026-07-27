@@ -24,9 +24,9 @@ export const buttonVariants = cva(
       variant: {
         primary: 'bg-primary',
         ink: 'bg-ink',
-        outline: 'border border-primary bg-background',
-        'outline-ink': 'border border-ink bg-background',
-        link: 'bg-background',
+        outline: 'border border-primary bg-background dark:bg-gray-900',
+        'outline-ink': 'border border-ink bg-background dark:bg-gray-900',
+        link: 'bg-background dark:bg-gray-900',
         destructive: 'bg-destructive',
         ghost: 'bg-transparent',
       },

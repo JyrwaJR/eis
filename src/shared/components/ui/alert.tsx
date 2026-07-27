@@ -7,7 +7,7 @@ import { cn } from '../../utils/helpers/cn';
 const alertVariants = cva('relative w-full rounded-lg border p-4 flex-row items-start gap-x-3', {
   variants: {
     variant: {
-      default: 'bg-secondary border-border',
+      default: 'bg-secondary border-border dark:bg-gray-800 dark:border-gray-700',
       destructive: 'bg-destructive/10 border-destructive/30',
     },
   },

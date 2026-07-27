@@ -117,8 +117,8 @@ export const SelectSheet = (props: SelectSheetProps) => {
         onPress={() => setOpen(true)}
         disabled={disabled}
         className={cn(
-          'min-h-[44px] w-full flex-row items-center justify-between rounded-md border bg-background px-4',
-          error ? 'border-destructive bg-destructive/5' : 'border-input'
+          'min-h-[44px] w-full flex-row items-center justify-between rounded-md border bg-background px-4 dark:bg-gray-900',
+          error ? 'border-destructive bg-destructive/5' : 'border-input dark:border-gray-600'
         )}
         accessibilityRole="button"
         accessibilityLabel={`${label ?? 'Field'}: ${displayText}. Tap to change.`}>
@@ -126,7 +126,7 @@ export const SelectSheet = (props: SelectSheetProps) => {
           weight={selectedOption ? 'semibold' : 'default'}
           className={cn(
             'flex-1 text-body-md',
-            selectedOption ? 'text-foreground' : 'text-muted-foreground'
+            selectedOption ? 'text-foreground dark:text-white' : 'text-muted-foreground'
           )}>
           {displayText}
         </Text>
@@ -212,7 +212,9 @@ const SelectSheetModal = (props: SelectSheetModalProps) => {
 
       {/* Sheet Container */}
       <View style={StyleSheet.absoluteFill} className="pointer-events-box-none justify-end">
-        <Animated.View style={[sheetStyle]} className="rounded-lg bg-background pb-2">
+        <Animated.View
+          style={[sheetStyle]}
+          className="rounded-lg bg-background pb-2 dark:bg-gray-900">
           {/* Handle bar */}
           <View className="items-center py-3">
             <View className="h-1.5 w-10 rounded-md bg-gray-300 dark:bg-gray-600" />
