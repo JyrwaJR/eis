@@ -26,12 +26,13 @@ const quickActions = [
     icon: CalendarIcon,
   },
   {
-    title: 'Pay Slips',
+    title: 'Salary Statements',
     icon: DocumentAttachmentIcon,
   },
   {
     title: 'Support',
     icon: HelpSquareIcon,
+    primary: true,
   },
 ];
 
@@ -48,7 +49,7 @@ export function HomeScreen() {
         {/* Welcome */}
 
         <Text className="text-2xl font-bold">
-          Welcome, {user?.emp_fname} {user?.emp_lname}
+          Welcome, {user?.emp_fname} {user?.emp_mname} {user?.emp_lname}
         </Text>
 
         <Text className="mt-1 text-gray-500">IT Department</Text>
