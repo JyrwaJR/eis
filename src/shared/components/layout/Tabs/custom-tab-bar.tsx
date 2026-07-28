@@ -1,9 +1,9 @@
-import { TouchableOpacity, View } from 'react-native';
-import { Text } from '@components/ui/text';
-import { Icon } from '@components/ui/icon';
+import { TouchableOpacity, View, Text } from 'react-native';
 import { TabRouteT } from '@sharedTypes/tab';
 import { cn } from '@utils/helpers/cn';
-import color from 'tailwindcss/colors';
+import { HugeiconsIcon } from '@hugeicons/react-native';
+import React from 'react';
+import { getTabIcons } from '@utils/helpers/get-icon';
 
 export const CustomTabBar = ({
   state,
@@ -12,21 +12,15 @@ export const CustomTabBar = ({
   insets,
   tabConfig,
 }: any & { tabConfig: TabRouteT[] }) => {
-  const primaryColor = color.blue[500];
-
-  const blackColor = color.black;
-
   return (
     <View
-      className="flex-row items-center justify-center gap-0 border-t border-border bg-background px-4 py-2 shadow-sm dark:border-gray-700 dark:bg-gray-900"
-      style={{ paddingBottom: insets.bottom + 8 }}>
+      className="flex-row items-center justify-between gap-0 border-t border-border bg-background px-4 py-2 shadow-sm dark:border-gray-700 dark:bg-gray-900"
+      style={{ paddingBottom: insets.bottom + 6 }}>
       {state.routes.map((route: any, index: number) => {
         const { options } = descriptors[route.key];
         const isFocused = state.index === index;
 
         const config = tabConfig.find((t: TabRouteT) => t.name === route.name);
-        const iconName = config?.icon || 'help-circle-outline';
-        const activeIconName = config?.activeIcon || 'help-circle';
         const label =
           (options.tabBarLabel as string) || options.title || config?.title || route.name;
 
@@ -42,27 +36,34 @@ export const CustomTabBar = ({
           }
         };
 
+        const icon = getTabIcons(route.name);
+
+        const isShowDivider = index < state.routes.length - 1;
         return (
-          <TouchableOpacity
-            key={route.key}
-            onPress={onPress}
-            activeOpacity={0.7}
-            testID={`TAB_${route.name.toUpperCase().replace('INDEX', 'HOME')}`}
-            className={cn(
-              'flex-1 items-center justify-center rounded-md p-2',
-              isFocused ? 'border-b-2 border-primary bg-primary-soft/40' : ''
-            )}>
-            <Icon
-              name={isFocused ? activeIconName : iconName}
-              size={isFocused ? 25 : 20}
-              color={isFocused ? primaryColor : blackColor}
-            />
-            <Text
-              size="xs"
-              className={cn(isFocused ? 'font-bold text-primary' : 'font-medium text-black')}>
-              {label}
-            </Text>
-          </TouchableOpacity>
+          <React.Fragment key={route.key}>
+            <TouchableOpacity
+              key={route.key}
+              onPress={onPress}
+              activeOpacity={0.7}
+              testID={`TAB_${route.name.toUpperCase().replace('INDEX', 'HOME')}`}
+              className={cn(
+                'mx-2 flex-1 items-center justify-center gap-2 rounded-md p-2',
+                isFocused ? 'border border-primary bg-primary/20' : ''
+              )}>
+              <HugeiconsIcon
+                className={cn(isFocused ? 'text-primary' : 'text-black')}
+                icon={icon}
+                size={24}
+              />
+              <Text
+                className={cn(
+                  isFocused ? 'text-md font-bold text-primary' : 'font-semibold text-black'
+                )}>
+                {label}
+              </Text>
+            </TouchableOpacity>
+            {isShowDivider && <View className="h-full w-[1px] bg-gray-300" />}
+          </React.Fragment>
         );
       })}
     </View>
