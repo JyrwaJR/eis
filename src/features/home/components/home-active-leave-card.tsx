@@ -1,16 +1,13 @@
 import React from 'react';
-import { View } from 'react-native';
-import { Card, CardContent } from '@components/ui/card';
-import { Text } from '@components/ui/text';
-import { Icon } from '@components/ui/icon';
+import { View, Text, TouchableOpacity } from 'react-native';
 import { cn } from '@utils/helpers/cn';
-import type { LeaveListItem } from '@sharedTypes/leave';
-import { formatDate } from '@utils/formatters/formatters';
 import { getStatusColor } from '@utils/helpers';
-
-interface HomeActiveLeaveCardProps {
-  leave: LeaveListItem;
-}
+import { useLeaves } from '@hooks';
+import { isActiveLeave } from '../utils';
+import { formatDate } from '@utils/formatters';
+import { LeaveListItem } from '@sharedTypes/leave';
+import { router } from 'expo-router';
+import { PAGE_ROUTES } from '@utils/constants';
 
 /**
  * Active leave card displayed in the "Active Applications" section.
@@ -18,28 +15,45 @@ interface HomeActiveLeaveCardProps {
  * Shows leave type, date range, status badge, and duration.
  * Styled per EIS design: white card, 16px radius, soft shadow, pill-shaped status badge.
  */
-export const HomeActiveLeaveCard = ({ leave }: HomeActiveLeaveCardProps) => (
-  <Card variant="default" className="bg-surface-container-lowest mb-3 rounded-2xl shadow-sm">
-    <CardContent className="p-4">
-      <View className="mb-3 flex-row items-center justify-between">
-        <View className="flex-row items-center gap-2">
-          <Icon name="umbrella" size={20} color="#024ad8" />
-          <Text variant="caption-md" weight="semibold" className="text-on-surface">
-            {leave.leave_desc}
-          </Text>
+export const HomeActiveLeaveCard = () => {
+  const { data: leaves } = useLeaves();
+  const activeLeaves = leaves?.filter((leave) => isActiveLeave(leave));
+
+  const onPressLeave = (leave: LeaveListItem) => {
+    const { leave_cd, from_dt1, order_dt1 } = leave;
+    const pageUrl = PAGE_ROUTES.LEAVE.DETAILS({
+      leave_cd,
+      from_dt: from_dt1,
+      order_dt: order_dt1,
+    });
+    router.push(pageUrl);
+  };
+  return (
+    <>
+      {activeLeaves.map((item, index) => (
+        <View key={index} className="mb-3 rounded-md border border-gray-200 bg-white p-4">
+          <TouchableOpacity onPress={() => onPressLeave(item)} className="flex-row justify-between">
+            <View>
+              <Text className="text-sm text-primary">{item.leave_desc}</Text>
+              <Text className="font-semibold text-primary">{item.reason_for_leave}</Text>
+
+              <View className="flex-1 flex-row gap-x-2">
+                <Text className="mt-1 text-gray-500">{formatDate(item.from_dt1)}</Text>
+                <Text className="mt-1 text-gray-500">-</Text>
+                <Text className="mt-1 text-gray-500">{formatDate(item.to_dt1)}</Text>
+              </View>
+            </View>
+
+            <View
+              className={cn(
+                'items-center justify-center rounded-md px-3 py-1',
+                getStatusColor(item.verify_flg_desc).bg
+              )}>
+              <Text className="text-base">{item.verify_flg_desc}</Text>
+            </View>
+          </TouchableOpacity>
         </View>
-        <View className={cn('rounded-full px-3 py-1', getStatusColor(leave.verify_flg_desc).bg)}>
-          <Text className="text-xs font-semibold">{leave.verify_flg_desc}</Text>
-        </View>
-      </View>
-      <View className="flex-row items-center justify-between">
-        <Text variant="caption-md" className="text-on-surface-variant">
-          {formatDate(leave.from_dt1)} — {formatDate(leave.to_dt1)}
-        </Text>
-        <Text variant="caption-md" weight="bold" className="text-on-surface">
-          {leave.no_days} {parseInt(leave.no_days) === 1 ? 'day' : 'days'}
-        </Text>
-      </View>
-    </CardContent>
-  </Card>
-);
+      ))}
+    </>
+  );
+};

@@ -13,8 +13,8 @@ export interface PageHeaderConfig {
 
 export const PAGE_HEADERS = {
   // TABS
-  '/': { title: 'Home', showDrawer: true },
-  '/statement': { title: 'Statements', showDrawer: true },
+  '/': { title: 'MeghEIS', showDrawer: true },
+  '/statement': { title: 'Salary', showDrawer: true },
   '/leaves': { title: 'My Leaves', showDrawer: true },
   '/pension': { title: 'Pensions', showDrawer: true },
   '/profile': { title: 'My Profile', showDrawer: true },

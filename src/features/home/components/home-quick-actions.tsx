@@ -1,9 +1,14 @@
 import React from 'react';
-import { View, TouchableOpacity } from 'react-native';
-import { Icon } from '@components/ui/icon';
+import { View, Pressable } from 'react-native';
 import { Text } from '@components/ui/text';
 import { Route, router } from 'expo-router';
-import { HOME_QUICK_ACTIONS } from '@features/home/utils/constants';
+import {
+  CalendarIcon,
+  CalendarUserIcon,
+  DocumentAttachmentIcon,
+  HelpSquareIcon,
+} from '@hugeicons/core-free-icons';
+import { HugeiconsIcon } from '@hugeicons/react-native';
 
 /**
  * Quick-action shortcut buttons displayed in a 2x2 grid.
@@ -11,34 +16,53 @@ import { HOME_QUICK_ACTIONS } from '@features/home/utils/constants';
  * Each action shows a rounded icon button with a centered icon and label below.
  * Matches the EIS design — 44px minimum touch targets, 16px card radius.
  */
+
+type QuickAction = {
+  title: string;
+  icon: any;
+  href?: Route;
+  primary?: boolean;
+};
+
+const quickActions: QuickAction[] = [
+  {
+    title: 'Apply Leave',
+    icon: CalendarUserIcon,
+    href: '/leaves',
+    primary: true,
+  },
+  {
+    title: 'Holiday List',
+    icon: CalendarIcon,
+  },
+  {
+    title: 'Salary Statements',
+    icon: DocumentAttachmentIcon,
+  },
+  {
+    title: 'Support',
+    icon: HelpSquareIcon,
+    primary: true,
+  },
+];
+
 export const HomeQuickActions = () => {
-  const topRow = HOME_QUICK_ACTIONS.slice(0, 2);
-  const bottomRow = HOME_QUICK_ACTIONS.slice(2, 4);
-
-  const renderAction = (action: (typeof HOME_QUICK_ACTIONS)[number]) => (
-    <TouchableOpacity
-      key={action.label}
-      onPress={() => action.route && router.push(action.route as Route)}
-      activeOpacity={0.7}
-      className="flex-1 items-center">
-      <View className="mb-2 h-14 w-14 items-center justify-center rounded-2xl bg-primary/10">
-        <Icon name={action.icon} size={26} color="#024ad8" />
-      </View>
-      <Text variant="caption-md" className="text-on-surface-variant text-center font-medium">
-        {action.label}
-      </Text>
-    </TouchableOpacity>
-  );
-
   return (
-    <View className="mx-5">
-      <Text variant="display-xs" className="text-on-surface mb-4">
-        Quick Actions
-      </Text>
-      <View className="bg-surface-container-lowest rounded-2xl p-4 shadow-sm">
-        <View className="mb-6 flex-row justify-between gap-4">{topRow.map(renderAction)}</View>
-        <View className="flex-row justify-between gap-4">{bottomRow.map(renderAction)}</View>
-      </View>
+    <View className="flex-row flex-wrap justify-between">
+      {quickActions.map((item, index) => (
+        <Pressable
+          key={index}
+          onPress={() => item.href && router.push(item.href)}
+          className={`mb-4 h-28 w-[48%] items-center justify-center rounded-md ${
+            item.primary ? 'bg-primary' : 'border border-gray-200 bg-white'
+          }`}>
+          <HugeiconsIcon icon={item.icon} size={28} color={item.primary ? '#fff' : '#0036a4'} />
+
+          <Text className={`mt-2 font-semibold ${item.primary ? 'text-white' : 'text-primary'}`}>
+            {item.title}
+          </Text>
+        </Pressable>
+      ))}
     </View>
   );
 };
