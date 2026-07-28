@@ -20,43 +20,37 @@ const HomeHeaderSkeleton = () => (
  * placeholders arranged in a horizontal row.
  */
 const QuickActionsSkeleton = () => (
-  <View className="mx-6">
-    <Skeleton className="mb-4 h-5 w-32 rounded-md" />
-    <View className="flex-row justify-between">
-      {Array.from({ length: 4 }).map((_, i) => (
-        <View key={i} className="items-center gap-y-2">
-          <Skeleton className="h-14 w-14 rounded-md" />
-          <Skeleton className="h-3 w-16 rounded" />
-        </View>
-      ))}
+  <View className="px-5">
+    <View className="bg-surface-container-lowest rounded-2xl p-4">
+      <Skeleton className="mb-4 h-5 w-32 rounded-md" />
+      <View className="flex-row justify-between">
+        {Array.from({ length: 4 }).map((_, i) => (
+          <View key={i} className="items-center gap-y-2">
+            <Skeleton className="h-12 w-12 rounded-full" />
+            <Skeleton className="h-3 w-16 rounded" />
+          </View>
+        ))}
+      </View>
     </View>
   </View>
 );
 
 /**
- * Skeleton placeholder that mimics an {@link HomeActiveLeaveCard}.
+ * Skeleton placeholder that mimics a {@link HomeActiveLeaveCard}.
  *
- * Renders a card shape with an icon + "Active Leave" title on the left,
- * a status badge on the right, and leave description + date range below.
+ * Renders a card shape leave type + status badge and date range.
  */
 const ActiveLeaveCardSkeleton = () => (
-  <View className="mb-4 rounded-2xl border border-gray-100 bg-white p-5 shadow-sm dark:border-gray-800 dark:bg-gray-900">
-    {/* Header row: icon + title + badge */}
-    <View className="mb-3 flex-row items-center justify-between">
-      <View className="flex-row items-center gap-x-2">
-        <Skeleton className="h-6 w-6 rounded" />
-        <Skeleton className="h-5 w-28 rounded-md" />
-      </View>
-      <Skeleton className="h-6 w-20 rounded-md" />
-    </View>
-    {/* Body row: leave description + date range + day count */}
+  <View className="bg-surface-container-lowest mb-3 rounded-2xl p-4 shadow-sm">
+    {/* Header row: title + badge */}
     <View className="flex-row items-center justify-between">
-      <View className="gap-y-1.5">
-        <Skeleton className="h-4 w-32 rounded" />
-        <Skeleton className="h-3 w-44 rounded" />
+      <View className="flex-row items-center gap-x-2">
+        <Skeleton className="h-5 w-32 rounded-md" />
+        <Skeleton className="h-6 w-20 rounded-full" />
       </View>
-      <Skeleton className="h-5 w-14 rounded" />
     </View>
+    {/* Date range */}
+    <Skeleton className="mt-2 h-4 w-44 rounded" />
   </View>
 );
 
@@ -64,11 +58,11 @@ const ActiveLeaveCardSkeleton = () => (
  * Skeleton placeholder that mimics a {@link HomeLeavePreview} row.
  *
  * Renders a card-like row with a leave description + status badge on the
- * left, a chevron icon on the right, and date + day count subtext below.
+ * left, a chevron icon on the right, and date subtext below.
  */
 const LeavePreviewSkeleton = () => (
-  <View className="mb-3 rounded-2xl border border-gray-100 bg-white p-4 shadow-sm dark:border-gray-800 dark:bg-gray-900">
-    {/* Top row: description + badge + chevron */}
+  <View className="bg-surface-container-lowest mb-3 rounded-2xl p-4 shadow-sm">
+    {/* Top row: description + badge */}
     <View className="mb-2 flex-row items-center justify-between">
       <View className="flex-1 flex-row items-center gap-x-2">
         <Skeleton className="h-5 w-40 rounded-md" />
@@ -77,9 +71,7 @@ const LeavePreviewSkeleton = () => (
       <Skeleton className="ml-2 h-5 w-5 rounded" />
     </View>
     {/* Date range */}
-    <Skeleton className="mb-1 h-3 w-36 rounded" />
-    {/* Day count */}
-    <Skeleton className="h-3 w-12 rounded" />
+    <Skeleton className="h-3 w-36 rounded" />
   </View>
 );
 
@@ -87,43 +79,41 @@ const LeavePreviewSkeleton = () => (
  * Full-page skeleton loading state for the home dashboard screen.
  *
  * Mirrors the layout of {@link HomeScreen} with shimmer placeholders for:
- * - `HomeHeader` (greeting + user name)
- * - `HomeQuickActions` (four action-icon buttons)
- * - `HomeActiveLeaveCard` (one active leave card)
- * - Section heading "Active Leaves"
- * - Section heading "Leave History" + three `HomeLeavePreview` rows
- *
- * Replace the generic `<LoadingScreen />` in `home-screen.tsx` with this
- * component to provide a content-aware loading experience.
+ * - HomeHeader (greeting + user name)
+ * - Active Applications section (one leave card skeleton)
+ * - Quick Actions section (4 circular button placeholders)
+ * - Recent History section (heading + "View All" + one leave preview)
  *
  * @example
  * ```tsx
- * // In home-screen.tsx:
  * if (isLoading) return <HomeScreenSkeleton />;
  * ```
  */
 export const HomeScreenSkeleton = () => (
   <Container className="flex-1">
-    <ScrollView>
-      {/* HomeHeader placeholder */}
-      <HomeHeaderSkeleton />
+    {/* HomeHeader placeholder (full width, outside scroll) */}
+    <HomeHeaderSkeleton />
+
+    <ScrollView
+      className="flex-1 px-5"
+      contentContainerStyle={{ paddingTop: 20, paddingBottom: 40 }}>
+      {/* Active Applications section */}
+      <View className="mb-6">
+        <Skeleton className="mb-4 h-5 w-40 rounded-md" />
+        <ActiveLeaveCardSkeleton />
+      </View>
 
       {/* Quick Actions section */}
       <View className="mb-6">
         <QuickActionsSkeleton />
       </View>
 
-      {/* Active Leaves section */}
-      <View className="mb-4">
-        <Skeleton className="mb-4 h-5 w-32 rounded-md" />
-        <ActiveLeaveCardSkeleton />
-      </View>
-
-      {/* Leave History section */}
+      {/* Recent History section */}
       <View className="mb-6">
-        <Skeleton className="mb-4 h-5 w-32 rounded-md" />
-        <LeavePreviewSkeleton />
-        <LeavePreviewSkeleton />
+        <View className="mb-4 flex-row items-center justify-between">
+          <Skeleton className="h-5 w-36 rounded-md" />
+          <Skeleton className="h-4 w-16 rounded" />
+        </View>
         <LeavePreviewSkeleton />
       </View>
     </ScrollView>
