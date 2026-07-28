@@ -63,7 +63,7 @@ export const CustomTabBar = ({
                 {label}
               </Text>
             </TouchableOpacity>
-            {isShowDivider && <View className="h-full w-[1px] bg-gray-300" />}
+            {isShowDivider && <View className="h-full w-0.5 bg-border" />}
           </React.Fragment>
         );
       })}

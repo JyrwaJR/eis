@@ -56,10 +56,10 @@ export function CustomDrawerContent(props: DrawerContentComponentProps) {
       }}
       className="bg-stone">
       <View className="mb-6 flex-col items-center justify-center gap-y-3 pt-4">
-        <Text className={cn('text-center text-3xl font-semibold tracking-[2px] text-primary')}>
+        <Text className={cn('text-center text-3xl font-black tracking-[2px] text-primary')}>
           {process.env.EXPO_PUBLIC_APP_NAME}
         </Text>
-        <Text className={cn('text-center text-lg font-medium tracking-widest')}>
+        <Text className={cn('text-center text-lg font-medium tracking-widest text-gray-500')}>
           Meghalaya Employees Information System
         </Text>
       </View>
