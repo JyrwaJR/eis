@@ -14,7 +14,7 @@ export interface PageHeaderConfig {
 export const PAGE_HEADERS = {
   // TABS
   '/': { title: 'MeghEIS', showDrawer: true },
-  '/statement': { title: 'Salary', showDrawer: true },
+  '/statement': { title: 'Salary Statement', showDrawer: true },
   '/leaves': { title: 'My Leaves', showDrawer: true },
   '/pension': { title: 'Pensions', showDrawer: true },
   '/profile': { title: 'My Profile', showDrawer: true },

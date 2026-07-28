@@ -38,6 +38,7 @@ const quickActions: QuickAction[] = [
   {
     title: 'Salary Statements',
     icon: DocumentAttachmentIcon,
+    href: '/statement',
   },
   {
     title: 'Support',
