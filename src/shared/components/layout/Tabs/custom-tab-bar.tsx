@@ -14,7 +14,7 @@ export const CustomTabBar = ({
 }: any & { tabConfig: TabRouteT[] }) => {
   return (
     <View
-      className="flex-row items-center justify-between gap-0 border-t border-border bg-background px-4 py-2 shadow-sm dark:border-gray-700 dark:bg-gray-900"
+      className="flex-row items-center justify-between gap-0 border-t border-border bg-background px-2 py-2"
       style={{ paddingBottom: insets.bottom + 6 }}>
       {state.routes.map((route: any, index: number) => {
         const { options } = descriptors[route.key];
@@ -48,17 +48,17 @@ export const CustomTabBar = ({
               activeOpacity={0.7}
               testID={`TAB_${route.name.toUpperCase().replace('INDEX', 'HOME')}`}
               className={cn(
-                'mx-2 flex-1 items-center justify-center gap-2 rounded-md p-2',
-                isFocused ? 'border border-primary bg-primary/20' : ''
+                'mx-3 flex-1 items-center justify-center gap-2 rounded-md p-2',
+                isFocused ? 'bg-primary' : ''
               )}>
               <HugeiconsIcon
-                className={cn(isFocused ? 'text-primary' : 'text-black')}
+                className={cn(isFocused ? 'text-white' : 'text-primary')}
                 icon={icon}
                 size={24}
               />
               <Text
                 className={cn(
-                  isFocused ? 'text-md font-bold text-primary' : 'font-semibold text-black'
+                  isFocused ? 'text-md font-bold text-white' : 'font-semibold text-primary'
                 )}>
                 {label}
               </Text>
