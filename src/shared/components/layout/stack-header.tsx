@@ -28,8 +28,8 @@ export const StackHeader = memo(() => {
   const showBack = config.showBackButton && canGoBack;
 
   const showDrawer = config.showDrawer;
-  const isShowButton = showBack || showDrawer;
 
+  const showPlaceHolder = showBack || showDrawer;
   return (
     <>
       <View
@@ -37,35 +37,33 @@ export const StackHeader = memo(() => {
         style={{ paddingTop: insets.top }}>
         <TricolorStrip />
         <View className="min-h-[56px] flex-row items-center justify-between gap-x-3 p-3">
-          {isShowButton && (
-            <View className="flex-row items-center justify-start">
-              {showDrawer ? (
-                <DrawerToggleButton tintColor={iconColor} />
-              ) : (
-                showBack && (
-                  <TouchableOpacity
-                    onPress={handleBack}
-                    hitSlop={{ top: 15, bottom: 15, left: 15, right: 15 }}
-                    activeOpacity={0.7}>
-                    <HugeiconsIcon
-                      icon={ArrowLeft02FreeIcons}
-                      strokeWidth={2}
-                      size={26}
-                      className="text-primary"
-                    />
-                  </TouchableOpacity>
-                )
-              )}
-            </View>
-          )}
+          <View className="flex-row items-center justify-start">
+            {showDrawer ? (
+              <DrawerToggleButton tintColor={iconColor} />
+            ) : (
+              showBack && (
+                <TouchableOpacity
+                  onPress={handleBack}
+                  hitSlop={{ top: 15, bottom: 15, left: 15, right: 15 }}
+                  activeOpacity={0.7}>
+                  <HugeiconsIcon
+                    icon={ArrowLeft02FreeIcons}
+                    strokeWidth={2}
+                    size={26}
+                    className="text-primary"
+                  />
+                </TouchableOpacity>
+              )
+            )}
+          </View>
 
-          <View className="flex-[3] items-center justify-center">
+          <View className="w-full flex-[4] items-center justify-center">
             <Text className="text-2xl font-black leading-loose tracking-widest text-primary">
               {config.title}
             </Text>
           </View>
 
-          <View className="flex-1 flex-row items-center justify-end" />
+          {showPlaceHolder && <View className="flex-1 flex-row items-center justify-end" />}
         </View>
 
         {config.bottomContent && <View className="px-4 pb-3">{config.bottomContent}</View>}

@@ -12,7 +12,6 @@ type AuthStore = {
   emp_cd: string;
   setEmpCode: (emp_cd: string) => void;
   isSignedIn: boolean;
-  isGazetted: boolean;
   isAuthLoading: boolean;
   role: RoleT;
 
@@ -49,12 +48,10 @@ export const useAuthStore = create<AuthStore>()(
 
             if (res.success && res.data) {
               logger.info('AuthStore: fetchUser success', { empCode });
-              const isGazetted = res.data.emp_gazetted === 'Y' ? true : false;
               set({
                 user: res.data,
                 isSignedIn: true,
                 role: 'USER',
-                isGazetted: isGazetted,
                 isAuthLoading: false,
               });
             } else {

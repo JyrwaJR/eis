@@ -45,7 +45,7 @@ export function CustomDrawerContent(props: DrawerContentComponentProps) {
   const pathname = usePathname();
   const insets = useSafeAreaInsets();
 
-  const menuItems = empType === 'dc' ? dcMenuItems : dbMenuItems;
+  const menuItems = empType === 'DC' ? dcMenuItems : dbMenuItems;
 
   return (
     <DrawerContentScrollView
