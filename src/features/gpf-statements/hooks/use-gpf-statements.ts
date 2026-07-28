@@ -1,6 +1,5 @@
 import { useAuthStore } from '@stores/auth.store';
 import { useQuery } from '@tanstack/react-query';
-import { axiosHttp, http } from '@utils/api';
 import { GPFStatement } from '../types';
 import { QUERY_KEYS, STALE_TIMES } from '@utils/constants';
 import { axiosInstanceWithoutEncryption } from '@utils/api/axios';
@@ -12,7 +11,7 @@ type Props = {
 export function useGpfStatements({ financialYear }: Props) {
   const { isSignedIn, user } = useAuthStore();
 
-  const isEnabled = !!financialYear;
+  const isEnabled = !!financialYear && isSignedIn;
 
   const queryKey = QUERY_KEYS.GPF.STATEMENTS(
     financialYear,
