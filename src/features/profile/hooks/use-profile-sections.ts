@@ -37,7 +37,7 @@ export const useProfileSections = (user: UserT | null | undefined): ProfileSecti
       { label: 'Superannuation', value: formatDate(user?.emp_supan_dt) },
       { label: 'Pan Number', value: user?.emp_pan_number },
       { label: 'City Class', value: user?.emp_city_class },
-      { label: 'Gazetted', value: user?.emp_gazetted },
+      { label: 'Gazetted', value: user?.emp_gazetted === 'N' ? 'No' : 'Yes' },
       { label: 'Employee Type', value: user?.emp_type },
     ],
   },

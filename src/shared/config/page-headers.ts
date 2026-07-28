@@ -32,6 +32,8 @@ export const PAGE_HEADERS = {
   '/tax/detail': { title: 'Tax Computation', showBackButton: true },
   '/tax/edit': { title: 'Edit Tax Details', showBackButton: true },
   '/tax/create': { title: 'New Tax Record', showBackButton: true },
+  '/gpf-statements': { title: 'GPF Statements', showBackButton: true },
+  '/nps-statements': { title: 'NPS Statements', showBackButton: true },
 } as const satisfies Record<string, PageHeaderConfig>;
 
 export type PageHeaderRoute = keyof typeof PAGE_HEADERS;
