@@ -5,36 +5,47 @@ import { KeyboardSafeView } from '@components/layout/keyboard-safe-view';
 import { Skeleton } from '@components/ui/skeleton';
 
 /**
- * Skeleton placeholder that mimics the GovtHeader component.
+ * Skeleton placeholder that mimics the AuthLoginHeader component.
  *
- * Renders shimmer bars for the icon, "Government of India" text,
+ * Renders shimmer bars for the tricolor strip, branding bar (icon + text),
  * title, and subtitle.
  */
 const LoginHeaderSkeleton = () => (
-  <View className="mb-8 items-center gap-y-2">
-    <Skeleton className="mb-3 h-16 w-16 rounded-md" />
-    <Skeleton className="h-3 w-28 rounded" />
-    <Skeleton className="h-8 w-48 rounded-md" />
-    <Skeleton className="h-4 w-36 rounded" />
+  <View>
+    {/* Tricolor strip */}
+    <Skeleton className="h-[6px] w-full" />
+    {/* Branding bar */}
+    <View className="border-outline-variant h-[60px] flex-row items-center border-b px-5">
+      <Skeleton className="h-6 w-6 rounded" />
+      <Skeleton className="ml-2 h-5 w-32 rounded" />
+    </View>
+    {/* Title section */}
+    <View className="mb-8 mt-8 items-center gap-y-2">
+      <Skeleton className="h-7 w-40 rounded-md" />
+      <Skeleton className="h-5 w-48 rounded" />
+    </View>
   </View>
 );
 
 /**
- * Skeleton placeholder that mimics a single form field (label + input).
+ * Skeleton placeholder that mimics a single form field with icon prefix.
  *
  * Used twice — once for Employee Code and once for Password.
  */
 const LoginFormFieldSkeleton = () => (
-  <View className="mb-4">
+  <View className="my-2">
     <Skeleton className="mb-2 h-4 w-28 rounded" />
-    <Skeleton className="h-12 w-full rounded-lg" />
+    <View className="relative">
+      <View className="absolute left-3 top-0 z-10 h-[44px] justify-center">
+        <Skeleton className="h-5 w-5 rounded" />
+      </View>
+      <Skeleton className="h-[44px] w-full rounded-md" />
+    </View>
   </View>
 );
 
 /**
- * Skeleton placeholder that mimics the "Forgot password?" link.
- *
- * Renders a small shimmer bar positioned to the right, matching the link layout.
+ * Skeleton placeholder that mimics the "Forgot Password?" link.
  */
 const LoginForgotLinkSkeleton = () => (
   <View className="mb-8 items-end">
@@ -44,15 +55,11 @@ const LoginForgotLinkSkeleton = () => (
 
 /**
  * Skeleton placeholder that mimics the Continue button.
- *
- * Renders a full-width shimmer bar matching Button dimensions.
  */
-const LoginButtonSkeleton = () => <Skeleton className="mb-8 h-12 w-full rounded-lg" />;
+const LoginButtonSkeleton = () => <Skeleton className="mb-8 h-[44px] w-full rounded-md" />;
 
 /**
  * Skeleton placeholder that mimics the AuthFooter component.
- *
- * Renders shimmer bars for the text and link in a centered row.
  */
 const LoginFooterSkeleton = () => (
   <View className="mt-10 flex-row items-center justify-center gap-x-1">
@@ -65,9 +72,9 @@ const LoginFooterSkeleton = () => (
  * Full-page skeleton loading state for the login screen.
  *
  * Mirrors the layout of LoginScreen with shimmer placeholders for:
- * - GovtHeader (icon, "Government of India", title, subtitle)
- * - Employee Code field (label + input)
- * - Password field (label + input)
+ * - AuthLoginHeader (tricolor strip, branding bar, title, subtitle)
+ * - Employee Code field (label + icon + input)
+ * - Password field (label + icon + input + toggle)
  * - Forgot password link
  * - Continue button
  * - AuthFooter (text + register link)
@@ -79,13 +86,15 @@ const LoginFooterSkeleton = () => (
  * ```
  */
 export const LoginScreenSkeleton = () => (
-  <Container>
-    <KeyboardSafeView contentContainerClassName="px-6 justify-center">
+  <Container className="p-0">
+    <KeyboardSafeView>
       <LoginHeaderSkeleton />
-      <LoginFormFieldSkeleton />
-      <LoginFormFieldSkeleton />
-      <LoginForgotLinkSkeleton />
-      <LoginButtonSkeleton />
+      <View className="px-5">
+        <LoginFormFieldSkeleton />
+        <LoginFormFieldSkeleton />
+        <LoginForgotLinkSkeleton />
+        <LoginButtonSkeleton />
+      </View>
       <LoginFooterSkeleton />
     </KeyboardSafeView>
   </Container>
