@@ -16,7 +16,7 @@ export const AuthFooter = ({ text, linkText, linkHref, testID, className }: Auth
   <View className={cn('mt-10 flex-row justify-center', className)}>
     <Text variant="subtext">{text} </Text>
     <Link testID={testID} href={linkHref}>
-      <Text variant="link" weight="semibold">
+      <Text variant="link" weight="semibold" className="underline underline-offset-2">
         {linkText}
       </Text>
     </Link>

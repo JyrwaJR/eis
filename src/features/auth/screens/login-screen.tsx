@@ -1,24 +1,24 @@
 import React from 'react';
-import { View, TouchableOpacity } from 'react-native';
+import { View, TouchableOpacity, Pressable } from 'react-native';
 import { Link } from 'expo-router';
-import { useForm, FormProvider } from 'react-hook-form';
+import { useForm, FormProvider, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { Text } from '@components/ui/text';
 import { Container, KeyboardSafeView } from '@components/layout';
 import { LoginSchema } from '../validators/login.schema';
 import { PAGE_ROUTES } from '@utils/constants/routes';
-import { FieldInput } from '@components/ui/field-input';
 import { Button } from '@components/ui/button';
+import { Input } from '@components/ui/input';
+import { Icon } from '@components/ui/icon';
 import { useLoginMutation } from '../hooks/use-login-mutation';
 import { useAuthStore } from '@stores/auth.store';
-import { AuthFooter } from '../components/auth-footer';
+import { AuthFooter, AuthLoginHeader } from '../components';
 import { LoginScreenSkeleton } from '../components/skeleton';
 import { useGetOAuthToken } from '../hooks/use-get-oauth-token';
 import { toast } from 'sonner-native';
 import { useRateLimit } from '@hooks';
 import { useSnackbar } from '@hooks/use-snackbar';
-import { GovtHeader } from '@components/common';
 
 /** Form field values inferred from the `LoginSchema` Zod validation schema. */
 type LoginFormInputs = z.infer<typeof LoginSchema>;
@@ -79,6 +79,7 @@ export const LoginScreen = () => {
   });
 
   const { showSnackbar } = useSnackbar();
+  const [showPassword, setShowPassword] = React.useState(false);
 
   const methods = useForm<LoginFormInputs>({
     resolver: zodResolver(LoginSchema),
@@ -138,43 +139,110 @@ export const LoginScreen = () => {
   const isButtonLoading = isOAuthFetching || isLoginPending;
 
   return (
-    <Container>
-      <KeyboardSafeView contentContainerClassName="justify-center">
-        <GovtHeader title="Authentication" subtitle="Please sign in to continue" />
+    <Container className="p-0">
+      <KeyboardSafeView>
+        <AuthLoginHeader title="Authentication" subtitle="Please sign in to continue" />
 
         {/* Form Section */}
         <FormProvider {...methods}>
-          <View className="w-full">
-            <FieldInput
-              name="emp_cd"
-              label="Employee Code"
-              placeholder="Please enter your Employee Code"
-              keyboardType="default"
-              autoCapitalize="none"
-              autoCorrect={false}
-              testID="PHONE_INPUT"
-              returnKeyType="next"
-            />
+          <View className="flex-1 px-5">
+            {/* Employee Code */}
+            <View className="my-2 w-full">
+              <Text
+                variant={methods.formState.errors.emp_cd ? 'error' : 'label'}
+                weight="medium"
+                className="mb-2 ml-1">
+                Employee Code
+              </Text>
+              <View className="relative">
+                <View className="absolute left-3 top-0 z-10 h-[44px] justify-center">
+                  <Icon name="card-outline" size={20} color="#747686" />
+                </View>
+                <Controller
+                  name="emp_cd"
+                  control={methods.control}
+                  render={({ field: { onChange, onBlur, value }, fieldState: { error } }) => (
+                    <Input
+                      value={value?.toString()}
+                      onChangeText={onChange}
+                      onBlur={onBlur}
+                      error={!!error}
+                      placeholder="Enter your code"
+                      keyboardType="default"
+                      autoCapitalize="none"
+                      autoCorrect={false}
+                      testID="PHONE_INPUT"
+                      returnKeyType="next"
+                      className="pl-10"
+                    />
+                  )}
+                />
+              </View>
+              {methods.formState.errors.emp_cd?.message && (
+                <Text variant="caption-sm" className="ml-1 mt-2 text-destructive">
+                  {methods.formState.errors.emp_cd.message}
+                </Text>
+              )}
+            </View>
 
-            <FieldInput
-              name="password"
-              testID="PASSWORD_INPUT"
-              secureTextEntry
-              label="Password"
-              placeholder="••••••••"
-              autoCapitalize="none"
-              autoCorrect={false}
-              spellCheck={false}
-              autoComplete="password"
-              returnKeyType="done"
-              onSubmitEditing={methods.handleSubmit(onSubmit)}
-            />
+            {/* Password */}
+            <View className="my-2 w-full">
+              <Text
+                variant={methods.formState.errors.password ? 'error' : 'label'}
+                weight="medium"
+                className="mb-2 ml-1">
+                Password
+              </Text>
+              <View className="relative">
+                <View className="absolute left-3 top-0 z-10 h-[44px] justify-center">
+                  <Icon name="lock-closed-outline" size={20} color="#747686" />
+                </View>
+                <Controller
+                  name="password"
+                  control={methods.control}
+                  render={({ field: { onChange, onBlur, value }, fieldState: { error } }) => (
+                    <Input
+                      value={value?.toString()}
+                      onChangeText={onChange}
+                      onBlur={onBlur}
+                      error={!!error}
+                      placeholder="Enter password"
+                      secureTextEntry={!showPassword}
+                      autoCapitalize="none"
+                      autoCorrect={false}
+                      spellCheck={false}
+                      autoComplete="password"
+                      returnKeyType="done"
+                      onSubmitEditing={methods.handleSubmit(onSubmit)}
+                      testID="PASSWORD_INPUT"
+                      className="pl-10 pr-12"
+                    />
+                  )}
+                />
+                <Pressable
+                  className="absolute right-3 top-0 z-10 h-[44px] justify-center"
+                  onPress={() => setShowPassword((prev) => !prev)}
+                  hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}>
+                  <Icon
+                    name={showPassword ? 'eye-outline' : 'eye-off-outline'}
+                    size={20}
+                    color="#747686"
+                  />
+                </Pressable>
+              </View>
+              {methods.formState.errors.password?.message && (
+                <Text variant="caption-sm" className="ml-1 mt-2 text-destructive">
+                  {methods.formState.errors.password.message}
+                </Text>
+              )}
+            </View>
+
             <View className="mb-8 mr-2 items-end">
               <Link href={PAGE_ROUTES.AUTH.FORGOT_PASSWORD()} asChild>
                 <TouchableOpacity
                   className="mt-2"
                   hitSlop={{ top: 15, bottom: 15, left: 15, right: 15 }}>
-                  <Text variant={'link'}>Forgot password?</Text>
+                  <Text variant={'link'}>Forgot Password?</Text>
                 </TouchableOpacity>
               </Link>
             </View>
@@ -183,7 +251,12 @@ export const LoginScreen = () => {
               onPress={methods.handleSubmit(onSubmit)}
               isLoading={isButtonLoading}
               disabled={isSignedIn || isLimited}>
-              {isOAuthError ? 'Retry Connection' : isLimited ? 'Please wait' : 'Continue'}
+              <View className="flex-row items-center gap-x-2">
+                <Text className="text-button-md uppercase tracking-wide text-primary-foreground">
+                  {isOAuthError ? 'Retry Connection' : isLimited ? 'Please wait' : 'Continue'}
+                </Text>
+                {!isButtonLoading && <Icon name="arrow-forward" size={18} color="#FFFFFF" />}
+              </View>
             </Button>
           </View>
         </FormProvider>
