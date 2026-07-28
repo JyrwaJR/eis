@@ -4,4 +4,5 @@ export type TabRouteT = {
   name: string;
   title: string;
   icon: IoniconsIconName;
+  activeIcon?: IoniconsIconName;
 };

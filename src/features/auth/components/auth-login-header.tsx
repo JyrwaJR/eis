@@ -1,23 +1,10 @@
 import React from 'react';
-import { View } from 'react-native';
-import { Text } from '@components/ui/text';
-import { Icon } from '@components/ui/icon';
+import { View, Text } from 'react-native';
 
 interface AuthLoginHeaderProps {
   title: string;
   subtitle?: string;
 }
-
-/**
- * Renders a 6px Indian tricolor gradient strip (saffron, white, green).
- */
-const TricolorStrip = () => (
-  <View className="h-[6px] w-full flex-row">
-    <View className="flex-1 bg-[#FF9933]" />
-    <View className="flex-1 bg-white" />
-    <View className="flex-1 bg-[#138808]" />
-  </View>
-);
 
 /**
  * Branded login header matching the Stitch mockup.
@@ -37,21 +24,10 @@ const TricolorStrip = () => (
  * ```
  */
 export const AuthLoginHeader = ({ title, subtitle }: AuthLoginHeaderProps) => (
-  <View>
-    <TricolorStrip />
-    <View className="h-[60px] flex-row items-center border-b border-[#c3c5d7] bg-white px-5 dark:border-gray-700 dark:bg-gray-900">
-      <Icon name="business-outline" size={22} color="#024ad8" />
-      <Text className="ml-2 text-display-xs font-bold text-[#024ad8]">GovAuth India</Text>
-    </View>
-    <View className="mb-8 mt-8 items-center">
-      <Text variant="display-xs" className="mb-2 text-center">
-        {title}
-      </Text>
-      {subtitle && (
-        <Text variant="body-md" className="text-center text-muted-foreground">
-          {subtitle}
-        </Text>
-      )}
+  <View className="mb-8 mt-8 items-center gap-y-3">
+    <View className="gap-y-3">
+      <Text className="text-center text-3xl font-medium tracking-[4px]">{title}</Text>
+      {subtitle && <Text className="text-center text-lg text-muted-foreground">{subtitle}</Text>}
     </View>
   </View>
 );

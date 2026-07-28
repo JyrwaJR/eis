@@ -12,8 +12,10 @@ export const CustomTabBar = ({
   insets,
   tabConfig,
 }: any & { tabConfig: TabRouteT[] }) => {
-  const primary = color.blue[500];
-  const gray500 = color.gray[500];
+  const primaryColor = color.blue[500];
+
+  const blackColor = color.black;
+
   return (
     <View
       className="flex-row items-center justify-center gap-0 border-t border-border bg-background px-4 py-2 shadow-sm dark:border-gray-700 dark:bg-gray-900"
@@ -24,6 +26,7 @@ export const CustomTabBar = ({
 
         const config = tabConfig.find((t: TabRouteT) => t.name === route.name);
         const iconName = config?.icon || 'help-circle-outline';
+        const activeIconName = config?.activeIcon || 'help-circle';
         const label =
           (options.tabBarLabel as string) || options.title || config?.title || route.name;
 
@@ -45,14 +48,18 @@ export const CustomTabBar = ({
             onPress={onPress}
             activeOpacity={0.7}
             testID={`TAB_${route.name.toUpperCase().replace('INDEX', 'HOME')}`}
-            className="flex-1 items-center justify-center p-2">
-            <Icon name={iconName} size={24} color={isFocused ? primary : gray500} />
+            className={cn(
+              'flex-1 items-center justify-center rounded-md p-2',
+              isFocused ? 'border-b-2 border-primary bg-primary-soft/40' : ''
+            )}>
+            <Icon
+              name={isFocused ? activeIconName : iconName}
+              size={isFocused ? 25 : 20}
+              color={isFocused ? primaryColor : blackColor}
+            />
             <Text
               size="xs"
-              className={cn(
-                isFocused ? 'font-semibold' : 'font-medium',
-                isFocused ? `text-primary` : `text-muted-foreground`
-              )}>
+              className={cn(isFocused ? 'font-bold text-primary' : 'font-medium text-black')}>
               {label}
             </Text>
           </TouchableOpacity>

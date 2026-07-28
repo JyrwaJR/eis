@@ -33,7 +33,7 @@ export const buttonVariants = cva(
       size: {
         default: 'h-11 px-6',
         sm: 'h-9 px-4',
-        lg: 'h-13 px-8',
+        lg: 'h-14 px-8',
         icon: 'h-11 w-11',
       },
     },
@@ -122,7 +122,7 @@ export const Button = ({
         typeof children === 'string' ? (
           // Wrap raw string children in <Text> — RN requires text nodes
           // to live inside a <Text> component or they are dropped silently
-          <Text className={cn('text-button-md uppercase tracking-wide', colors.textClass)}>
+          <Text className={cn('text-button-md uppercase tracking-widest', colors.textClass)}>
             {children}
           </Text>
         ) : (
@@ -131,7 +131,7 @@ export const Button = ({
       ) : (
         <Text
           className={cn(
-            'text-button-md uppercase tracking-wide',
+            'text-button-md uppercase tracking-widest',
             colors.textClass,
             variant === 'link' && 'underline'
           )}>

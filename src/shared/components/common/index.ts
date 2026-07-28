@@ -13,3 +13,4 @@ export * from './money-row';
 export * from './search-input';
 export * from './fab';
 export * from './network-banner';
+export * from './tricolor';

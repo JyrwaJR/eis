@@ -1,13 +1,14 @@
 import React, { memo, useCallback, useMemo } from 'react';
-import { View, TouchableOpacity } from 'react-native';
+import { View, Text, TouchableOpacity } from 'react-native';
 import { useRouter, useNavigation } from 'expo-router';
-import { Icon } from '@components/ui/icon';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useTheme } from '@hooks/use-theme';
 import { useRoutePath } from '@hooks/use-route-path';
 import { matchPageHeader, cn } from '@utils/helpers';
-import { Text } from '@components/ui/text';
 import { DrawerToggleButton } from '@react-navigation/drawer';
+import { TricolorStrip } from '@components/common/tricolor';
+import { ArrowLeft02FreeIcons } from '@hugeicons/core-free-icons';
+import { HugeiconsIcon } from '@hugeicons/react-native';
 
 export const StackHeader = memo(() => {
   const path = useRoutePath();
@@ -27,44 +28,49 @@ export const StackHeader = memo(() => {
   const showBack = config.showBackButton && canGoBack;
 
   const showDrawer = config.showDrawer;
+  const isShowButton = showBack || showDrawer;
 
   return (
-    <View
-      className={cn('border-b border-gray-200 bg-card dark:border-gray-700 dark:bg-gray-900')}
-      style={{ paddingTop: insets.top }}>
-      <View className="min-h-[56px] flex-row items-center justify-between px-4 py-3">
-        <View className="flex-1 flex-row items-center justify-start">
-          {showDrawer ? (
-            <DrawerToggleButton tintColor={iconColor} />
-          ) : (
-            showBack && (
-              <TouchableOpacity
-                onPress={handleBack}
-                className="mr-3"
-                hitSlop={{ top: 15, bottom: 15, left: 15, right: 15 }}
-                activeOpacity={0.7}>
-                <Icon name="chevron-back" size={24} color={iconColor} />
-              </TouchableOpacity>
-            )
+    <>
+      <View
+        className={cn('border-b border-gray-300 bg-stone-50 dark:border-gray-700 dark:bg-gray-900')}
+        style={{ paddingTop: insets.top }}>
+        <TricolorStrip />
+        <View className="min-h-[56px] flex-row items-center justify-between gap-x-3 p-3">
+          {isShowButton && (
+            <View className="flex-row items-center justify-start">
+              {showDrawer ? (
+                <DrawerToggleButton tintColor={iconColor} />
+              ) : (
+                showBack && (
+                  <TouchableOpacity
+                    onPress={handleBack}
+                    hitSlop={{ top: 15, bottom: 15, left: 15, right: 15 }}
+                    activeOpacity={0.7}>
+                    <HugeiconsIcon
+                      icon={ArrowLeft02FreeIcons}
+                      strokeWidth={2}
+                      size={26}
+                      className="text-primary"
+                    />
+                  </TouchableOpacity>
+                )
+              )}
+            </View>
           )}
-        </View>
 
-        <View className="flex-[3] items-center justify-center">
-          <Text variant="heading" size="lg" weight="semibold" numberOfLines={1}>
-            {config.title}
-          </Text>
-          {config.subtitle && (
-            <Text variant="subtext" size="xs" numberOfLines={1} className="mt-0.5">
-              {config.subtitle}
+          <View className="flex-[3] items-center justify-center">
+            <Text className="text-2xl font-black leading-loose tracking-widest text-primary">
+              {config.title}
             </Text>
-          )}
+          </View>
+
+          <View className="flex-1 flex-row items-center justify-end" />
         </View>
 
-        <View className="flex-1 flex-row items-center justify-end" />
+        {config.bottomContent && <View className="px-4 pb-3">{config.bottomContent}</View>}
       </View>
-
-      {config.bottomContent && <View className="px-4 pb-3">{config.bottomContent}</View>}
-    </View>
+    </>
   );
 });
 
