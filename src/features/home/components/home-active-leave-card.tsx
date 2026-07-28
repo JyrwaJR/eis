@@ -25,7 +25,7 @@ export const HomeActiveLeaveCard = ({ leave }: HomeActiveLeaveCardProps) => (
         <View className="flex-row items-center gap-2">
           <Icon name="umbrella" size={20} color="#024ad8" />
           <Text variant="caption-md" weight="semibold" className="text-on-surface">
-            {leave.leave_cd}
+            {leave.leave_desc}
           </Text>
         </View>
         <View className={cn('rounded-full px-3 py-1', getStatusColor(leave.verify_flg_desc).bg)}>

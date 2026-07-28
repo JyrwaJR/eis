@@ -2,13 +2,10 @@ import { DrawerContentComponentProps, DrawerContentScrollView } from '@react-nav
 import { Link, Route, usePathname } from 'expo-router';
 import React from 'react';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { Pressable, View } from 'react-native';
+import { Pressable, View, Text } from 'react-native';
 import { cn } from '@utils/helpers/cn';
 // import { Icon } from '@components/ui';
 import { IoniconsIconName } from '@react-native-vector-icons/ionicons';
-import { Text } from '@components/ui/text';
-import color from 'tailwindcss/colors';
-import { useTheme } from '@hooks/use-theme';
 import { useAuthStore } from '@stores/auth.store';
 import { HugeiconsIcon } from '@hugeicons/react-native';
 import { getDrawerIcons } from '@utils/helpers/get-icon';
@@ -47,11 +44,6 @@ export function CustomDrawerContent(props: DrawerContentComponentProps) {
   const empType = user?.emp_type;
   const pathname = usePathname();
   const insets = useSafeAreaInsets();
-  const gray900 = color.gray[900];
-  const theme = useTheme();
-  const isDark = theme === 'dark';
-  // const iconColor = isDark ? color.white : color.black;
-  // const iconActiveColor = isDark ? color.blue[500] : color.blue[400];
 
   const menuItems = empType === 'dc' ? dcMenuItems : dbMenuItems;
 
@@ -61,12 +53,14 @@ export function CustomDrawerContent(props: DrawerContentComponentProps) {
       contentContainerStyle={{
         paddingTop: insets.top,
         flex: 1,
-        backgroundColor: isDark ? gray900 : '#ffffff',
       }}
-      className="bg-background dark:bg-gray-900">
-      <View className="mb-6 flex-row items-center justify-center pt-4">
-        <Text className={cn('text-center text-4xl font-semibold')}>
+      className="bg-stone">
+      <View className="mb-6 flex-col items-center justify-center gap-y-3 pt-4">
+        <Text className={cn('text-center text-3xl font-semibold tracking-[2px] text-primary')}>
           {process.env.EXPO_PUBLIC_APP_NAME}
+        </Text>
+        <Text className={cn('text-center text-lg font-medium tracking-widest')}>
+          Meghalaya Employees Information System
         </Text>
       </View>
 
@@ -87,10 +81,8 @@ export function CustomDrawerContent(props: DrawerContentComponentProps) {
 
                   <Text
                     className={cn(
-                      'ml-2',
-                      isActive
-                        ? 'text-lg font-bold text-blue-500 dark:text-blue-400'
-                        : 'text-base font-semibold'
+                      'ml-2 text-lg',
+                      isActive ? 'font-bold text-primary' : 'font-semibold text-black'
                     )}>
                     {item.title}
                   </Text>
