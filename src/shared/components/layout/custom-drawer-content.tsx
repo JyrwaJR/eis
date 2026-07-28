@@ -10,6 +10,8 @@ import { Text } from '@components/ui/text';
 import color from 'tailwindcss/colors';
 import { useTheme } from '@hooks/use-theme';
 import { useAuthStore } from '@stores/auth.store';
+import { HugeiconsIcon } from '@hugeicons/react-native';
+import { getDrawerIcons } from '@utils/helpers/get-icon';
 
 export type MenuItemsT = {
   id?: number;
@@ -69,28 +71,33 @@ export function CustomDrawerContent(props: DrawerContentComponentProps) {
       </View>
 
       <View className="flex-1 flex-col gap-2 px-3">
-        {menuItems.map((item, i) => {
+        {menuItems.map((item, index) => {
           const isActive = pathname === item.href;
+          const icon = getDrawerIcons(item.href);
+          const isShowDivider = index < menuItems.length - 1;
           return (
-            <Link key={item.title + item.href} href={item.href} asChild>
-              <Pressable
-                className={cn(
-                  'flex-row items-center gap-2 rounded-md p-4',
-                  isActive ? 'border border-blue-500 bg-transparent' : 'bg-transparent'
-                )}>
-                {/* <Icon name={item.icon} size={24} color={isActive ? iconActiveColor : iconColor} /> */}
+            <React.Fragment key={index}>
+              <Link key={item.title + item.href} href={item.href} asChild>
+                <Pressable className={cn('flex-row items-center gap-2 rounded-md p-4')}>
+                  <HugeiconsIcon
+                    icon={icon}
+                    size={24}
+                    className={cn(isActive ? 'text-primary' : 'text-black')}
+                  />
 
-                <Text
-                  className={cn(
-                    'ml-2',
-                    isActive
-                      ? 'text-lg font-bold text-blue-500 dark:text-blue-400'
-                      : 'text-base font-semibold'
-                  )}>
-                  {`${i + 1}. ${item.title}`}
-                </Text>
-              </Pressable>
-            </Link>
+                  <Text
+                    className={cn(
+                      'ml-2',
+                      isActive
+                        ? 'text-lg font-bold text-blue-500 dark:text-blue-400'
+                        : 'text-base font-semibold'
+                    )}>
+                    {item.title}
+                  </Text>
+                </Pressable>
+              </Link>
+              {isShowDivider && <View className="h-0.5 w-full bg-border" />}
+            </React.Fragment>
           );
         })}
       </View>

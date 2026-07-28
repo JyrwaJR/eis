@@ -39,6 +39,7 @@ export const CustomTabBar = ({
         const icon = getTabIcons(route.name);
 
         const isShowDivider = index < state.routes.length - 1;
+
         return (
           <React.Fragment key={route.key}>
             <TouchableOpacity
