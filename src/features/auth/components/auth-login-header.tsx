@@ -24,9 +24,12 @@ interface AuthLoginHeaderProps {
  * ```
  */
 export const AuthLoginHeader = ({ title, subtitle }: AuthLoginHeaderProps) => (
-  <View className="mb-8 mt-8 items-center gap-y-3">
-    <View className="gap-y-3">
-      <Text className="text-center text-3xl font-medium tracking-[4px]">{title}</Text>
+  <View className="mb-8 items-center">
+    <View className="gap-y-2">
+      <Text className="text-center text-2xl font-medium tracking-[2px] text-primary">
+        {process.env.EXPO_PUBLIC_APP_NAME}
+      </Text>
+      <Text className="text-center text-3xl font-bold tracking-[4px]">{title}</Text>
       {subtitle && <Text className="text-center text-lg text-muted-foreground">{subtitle}</Text>}
     </View>
   </View>
