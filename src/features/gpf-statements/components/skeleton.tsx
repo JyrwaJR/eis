@@ -3,6 +3,12 @@ import { View } from 'react-native';
 import { Card, CardHeader, CardContent } from '@components/ui/card';
 import { Skeleton } from '@components/ui/skeleton';
 
+/**
+ * Renders placeholder skeletons for the GPF statement screen while data is loading.
+ *
+ * Displays an employee info card skeleton (header + 4 detail lines) and a
+ * monthly table skeleton (header row + 6 data rows) to match the screen layout.
+ */
 export const GpfStatementSkeleton = () => {
   return (
     <View className="gap-y-4">
