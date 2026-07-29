@@ -6,7 +6,7 @@ import { Card, CardHeader, CardTitle, CardContent } from '@components/ui/card';
 import { Text } from '@components/ui/text';
 import { EmptyScreen } from '@components/screens';
 import { useGpfStatements } from '../hooks';
-import { MonthlyTable, GpfStatementSkeleton } from '../components';
+import { MonthlyTable, SummaryTable, GpfStatementSkeleton } from '../components';
 
 /**
  * Displays a GPF statement for the selected financial year.
@@ -33,6 +33,7 @@ export const GpfStatementScreen = () => {
   if (isLoading) {
     return (
       <Container className="flex-1">
+        <SectionHeader title="GPF Statement" />
         <GpfStatementSkeleton />
       </Container>
     );
@@ -41,6 +42,7 @@ export const GpfStatementScreen = () => {
   if (!gpfStatements) {
     return (
       <Container className="flex-1">
+        <SectionHeader title="GPF Statement" />
         <EmptyScreen
           title="No GPF Statement Found"
           message="No GPF statement is available for the selected financial year."
@@ -50,7 +52,7 @@ export const GpfStatementScreen = () => {
     );
   }
 
-  const { emp, monthly_data } = gpfStatements;
+  const { emp, monthly_data, summary } = gpfStatements;
 
   return (
     <Container className="flex-1">
@@ -79,6 +81,20 @@ export const GpfStatementScreen = () => {
         </Text>
 
         <MonthlyTable data={monthly_data} />
+
+        {/* Statement Summary */}
+        {summary && summary.length > 0 && (
+          <>
+            <Text
+              variant="heading"
+              size="lg"
+              weight="semibold"
+              className="mb-3 mt-6 text-foreground">
+              Summary
+            </Text>
+            <SummaryTable data={summary} />
+          </>
+        )}
       </ScrollView>
     </Container>
   );
