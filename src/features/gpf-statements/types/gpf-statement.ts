@@ -5,18 +5,18 @@ export type GPFEmployeeInfo = {
   interest_rate: string;
 };
 
-export type MonthlyData = {
-  Month: string;
-  Subscription: string;
-  Refund: string;
-  Other: string;
-  Category: string;
-  Total: string;
-  Debit: string;
-  Type: string;
+export type GPFMonthlyData = {
+  month: string;
+  subscription: string;
+  refund: string;
+  other: string;
+  category: string;
+  total: string;
+  debit: string;
+  type: string;
 };
 
-export type Summary = {
+export type GPFSummary = {
   summary: string;
   balanceI: string;
   balanceII: string;
@@ -25,7 +25,7 @@ export type Summary = {
 };
 
 export type GPFStatement = {
-  monthly_data: MonthlyData[];
-  summary: Summary[];
+  monthly_data: GPFMonthlyData[];
+  summary: GPFSummary[];
   emp: GPFEmployeeInfo;
 };

@@ -123,7 +123,11 @@ export const Button = ({
           // Wrap raw string children in <Text> — RN requires text nodes
           // to live inside a <Text> component or they are dropped silently
           <Text
-            className={cn('text-button-md uppercase tracking-widest', colors.textClass, className)}>
+            className={cn(
+              'text-button-md font-bold uppercase tracking-widest',
+              colors.textClass,
+              className
+            )}>
             {children}
           </Text>
         ) : (

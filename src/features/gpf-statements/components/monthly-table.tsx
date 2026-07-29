@@ -2,7 +2,7 @@ import React from 'react';
 import { View, ScrollView } from 'react-native';
 import { Card, CardContent } from '@components/ui/card';
 import { Text } from '@components/ui/text';
-import type { MonthlyData } from '../types';
+import type { GPFMonthlyData } from '../types';
 
 const COLUMNS = [
   { key: 'Month', label: 'Month', minWidth: 100 },
@@ -23,7 +23,7 @@ const COLUMNS = [
  *
  * @param data - Array of MonthlyData objects to display.
  */
-export const MonthlyTable = ({ data }: { data: MonthlyData[] }) => {
+export const MonthlyTable = ({ data }: { data: GPFMonthlyData[] }) => {
   if (!data || data.length === 0) return null;
 
   return (
@@ -52,7 +52,7 @@ export const MonthlyTable = ({ data }: { data: MonthlyData[] }) => {
                 {COLUMNS.map((col) => (
                   <View key={col.key} style={{ minWidth: col.minWidth }} className="px-3 py-2">
                     <Text variant="caption-md" className="text-foreground">
-                      {row[col.key as keyof MonthlyData] || '-'}
+                      {row[col.key as keyof GPFMonthlyData] || '-'}
                     </Text>
                   </View>
                 ))}

@@ -1,7 +1,9 @@
 import React from 'react';
-import { View } from 'react-native';
+import { TouchableOpacity, View } from 'react-native';
 import { Text } from '@components/ui/text';
-import type { Summary } from '../types/gpf-statement';
+import { ScrollView } from 'react-native-gesture-handler';
+import { GPFSummary } from '../types';
+import { cn } from '@utils/helpers';
 
 /**
  * Renders the GPF summary data in a vertical key-value pair layout.
@@ -15,53 +17,52 @@ import type { Summary } from '../types/gpf-statement';
  *
  * @param data - Array of Summary objects to display.
  */
+interface Summary extends GPFSummary {
+  id: string;
+}
+
+const rowItemStyle = 'w-[130px] p-md text-[14px] text-right text-black font-semibold';
+const rowHeaderStyle = 'w-[130px] p-md text-right text-[12px] font-bold uppercase text-white';
+
 export const SummaryVerticalView = ({ data }: { data: Summary[] }) => {
   if (!data || data.length === 0) return null;
 
   return (
     <View className="mt-4">
-      <Text variant="heading" size="lg" weight="semibold" className="mb-3 text-foreground">
-        Summary Details
-      </Text>
-      {data.map((row, index) => (
-        <View key={row.summary}>
-          {index > 0 && <View className="my-3 border-t border-gray-200" />}
-          <View className="gap-y-3">
-            <View className="flex-row items-center border-b border-gray-100 pb-2">
-              <Text className="w-32 text-sm font-medium text-muted-foreground">Description</Text>
-              <Text className="flex-1 text-sm font-semibold text-foreground">
-                {row.summary || '-'}
-              </Text>
+      <View className="mb-sm flex-row items-center justify-between px-xs">
+        <Text className="text-[18px] font-semibold text-black">GPF Summary Details</Text>
+        <TouchableOpacity>
+          <Text className="text-[14px] font-semibold text-primary">Download PDF</Text>
+        </TouchableOpacity>
+      </View>
+
+      <View className="bg-surface overflow-hidden rounded-md border border-border">
+        <ScrollView horizontal showsHorizontalScrollIndicator={false} bounces={true}>
+          <View>
+            {/* Table Header */}
+            <View className="flex-row items-center rounded-t-md border-b border-border bg-primary">
+              <Text className={cn(rowHeaderStyle)}>Summary</Text>
+              <Text className={cn(rowHeaderStyle)}>Balance I</Text>
+              <Text className={cn(rowHeaderStyle)}>Balance II</Text>
+              <Text className={cn(rowHeaderStyle)}>Total</Text>
+              <Text className={cn(rowHeaderStyle)}>Missing Credits</Text>
             </View>
-            <View className="flex-row items-center border-b border-gray-100 pb-2">
-              <Text className="w-32 text-sm font-medium text-muted-foreground">Balance I</Text>
-              <Text className="flex-1 text-sm font-semibold text-foreground">
-                {row.balanceI || '-'}
-              </Text>
-            </View>
-            <View className="flex-row items-center border-b border-gray-100 pb-2">
-              <Text className="w-32 text-sm font-medium text-muted-foreground">Balance II</Text>
-              <Text className="flex-1 text-sm font-semibold text-foreground">
-                {row.balanceII || '-'}
-              </Text>
-            </View>
-            <View className="flex-row items-center border-b border-gray-100 pb-2">
-              <Text className="w-32 text-sm font-medium text-muted-foreground">Total</Text>
-              <Text className="flex-1 text-sm font-semibold text-foreground">
-                {row.total || '-'}
-              </Text>
-            </View>
-            <View className="flex-row items-center pb-2">
-              <Text className="w-32 text-sm font-medium text-muted-foreground">
-                Missing Credits
-              </Text>
-              <Text className="flex-1 text-sm font-semibold text-foreground">
-                {row.missingCredits || '-'}
-              </Text>
-            </View>
+
+            {/* Table Body (Rows) */}
+            {data.map((row) => (
+              <View key={row.id} className={`flex-row items-center border-b border-border`}>
+                <Text className={cn(rowItemStyle)}>{row.summary}</Text>
+                <Text className={cn(rowItemStyle)}>{row.balanceI}</Text>
+                <Text className={cn(rowItemStyle)}>{row.balanceII}</Text>
+                <Text className={cn(rowItemStyle)}>{row.total}</Text>
+                <Text className={cn(rowItemStyle)}>
+                  {row.missingCredits ? row.missingCredits : '-'}
+                </Text>
+              </View>
+            ))}
           </View>
-        </View>
-      ))}
+        </ScrollView>
+      </View>
     </View>
   );
 };

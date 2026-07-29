@@ -41,6 +41,10 @@ export const QUERY_KEYS = {
     DETAIL: (...args: (string | undefined)[]) => ['income-tax', 'detail', ...args].filter(Boolean),
   },
   SALARY_YEAR: (...args: string[]) => ['salary', 'year', ...args] as const,
+  GPF: {
+    STATEMENTS: (...args: any[]) => ['gpf', 'statements', ...args].filter(Boolean),
+    FINANCIAL_YEARS: (...args: any[]) => ['gpf', 'financial-years', ...args].filter(Boolean),
+  },
 };
 
 /**
@@ -77,4 +81,5 @@ export const STALE_TIMES = {
   PENSION: 1000 * 60 * 15, // 15 minutes
   /** Tax data — slow-changing annually. */
   TAX: 1000 * 60 * 15, // 15 minutes
+  GPF: 1000 * 60 * 15,
 } as const;

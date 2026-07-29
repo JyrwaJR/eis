@@ -1,5 +1,13 @@
 import React, { useEffect, useState, useCallback } from 'react';
-import { View, TouchableOpacity, Modal, ScrollView, Pressable, StyleSheet } from 'react-native';
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  Modal,
+  ScrollView,
+  Pressable,
+  StyleSheet,
+} from 'react-native';
 import Animated, {
   useAnimatedStyle,
   useSharedValue,
@@ -11,9 +19,11 @@ import Animated, {
 } from 'react-native-reanimated';
 import { Icon } from '@components/ui/icon';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { Text } from './text';
 import { cn } from '@utils/helpers/cn';
 import { Ternary } from '@components/common';
+import { Button } from './button';
+import { HugeiconsIcon } from '@hugeicons/react-native';
+import { FileNotFoundIcon, Refresh01Icon } from '@hugeicons/core-free-icons';
 
 /**
  * A single option shape for the {@link SelectSheet} component.
@@ -106,7 +116,11 @@ export const SelectSheet = (props: SelectSheetProps) => {
   return (
     <View className="my-2 w-full">
       {label && (
-        <Text variant={error ? 'error' : 'label'} weight="medium" className="mb-2 ml-1">
+        <Text
+          className={cn(
+            'mb-2 ml-1 text-lg font-semibold',
+            error ? 'text-destructive' : 'text-muted-foreground'
+          )}>
           {label}
         </Text>
       )}
@@ -117,27 +131,24 @@ export const SelectSheet = (props: SelectSheetProps) => {
         onPress={() => setOpen(true)}
         disabled={disabled}
         className={cn(
-          'min-h-[44px] w-full flex-row items-center justify-between rounded-md border bg-background px-4 dark:bg-gray-900',
+          'min-h-[50px] w-full flex-row items-center justify-between rounded-md border bg-background px-4 dark:bg-gray-900',
           error ? 'border-destructive bg-destructive/5' : 'border-input dark:border-gray-600'
         )}
         accessibilityRole="button"
         accessibilityLabel={`${label ?? 'Field'}: ${displayText}. Tap to change.`}>
         <Text
-          weight={selectedOption ? 'semibold' : 'default'}
           className={cn(
             'flex-1 text-body-md',
-            selectedOption ? 'text-foreground dark:text-white' : 'text-muted-foreground'
+            selectedOption
+              ? 'font-semibold text-foreground dark:text-white'
+              : 'text-muted-foreground'
           )}>
           {displayText}
         </Text>
         <Icon name="chevron-down" size={18} color="#9ca3af" />
       </TouchableOpacity>
 
-      {error && (
-        <Text variant="caption-sm" className="ml-1 mt-2 text-destructive">
-          {error}
-        </Text>
-      )}
+      {error && <Text className="ml-1 mt-2 text-base text-destructive">{error}</Text>}
 
       {/* Bottom Sheet */}
       <SelectSheetModal
@@ -221,9 +232,7 @@ const SelectSheetModal = (props: SelectSheetModalProps) => {
           </View>
 
           {/* Title */}
-          <Text variant="body-lg" weight="medium" className="px-5 pb-4">
-            {title}
-          </Text>
+          <Text className="px-5 pb-4 text-lg font-bold">{title}</Text>
 
           {/* Options / Empty State */}
           <ScrollView
@@ -233,21 +242,21 @@ const SelectSheetModal = (props: SelectSheetModalProps) => {
             <Ternary
               condition={options.length === 0}
               ifTrue={
-                <View className="items-center justify-center px-5 py-10">
-                  <Icon name="information-circle-outline" size={32} color="#9ca3af" />
-                  <Text className="mt-3 text-center text-muted-foreground">
+                <View className="items-center justify-center gap-y-2 px-5 py-10">
+                  <View className="rounded-md  bg-primary p-2">
+                    <HugeiconsIcon icon={FileNotFoundIcon} className="text-white" size={48} />
+                  </View>
+                  <Text className="mt-3 text-center text-lg text-graphite">
                     No options available
                   </Text>
                   {refetch && (
-                    <TouchableOpacity
+                    <Button
                       activeOpacity={0.7}
                       onPress={refetch}
-                      className="mt-4 flex-row items-center gap-x-2 rounded-lg bg-blue-50 px-6 py-2.5 dark:bg-blue-900/20">
-                      <Icon name="refresh" size={18} color="#3b82f6" />
-                      <Text weight="semibold" className="text-blue-600 dark:text-blue-400">
-                        Retry
-                      </Text>
-                    </TouchableOpacity>
+                      className="mt-4 flex-row items-center gap-x-2 rounded-lg bg-primary px-6 py-2.5 ">
+                      <HugeiconsIcon icon={Refresh01Icon} className="text-white" size={20} />
+                      <Text className="font-semibold text-white">Retry</Text>
+                    </Button>
                   )}
                 </View>
               }
@@ -262,31 +271,20 @@ const SelectSheetModal = (props: SelectSheetModalProps) => {
                     }}
                     className={cn(
                       'mx-3 flex-row items-center justify-between rounded-md border border-transparent px-4 py-4',
-                      isSelected
-                        ? 'bg-blue-50 dark:bg-blue-900/20'
-                        : 'active:bg-gray-50 dark:active:bg-gray-800'
+                      isSelected ? 'text-primary ' : 'text-graphite'
                     )}
                     accessibilityRole="button"
                     accessibilityLabel={`${option.label}${isSelected ? ', selected' : ''}`}>
                     <View className="flex-1">
                       <Text
-                        weight={isSelected ? 'semibold' : 'medium'}
                         className={cn(
                           'text-base',
-                          isSelected
-                            ? 'text-blue-600 dark:text-blue-400'
-                            : 'text-gray-900 dark:text-gray-100'
+                          isSelected ? 'font-semibold text-primary ' : 'font-medium text-graphite'
                         )}>
                         {option.label}
                       </Text>
                       {option.subtitle && (
-                        <Text
-                          variant="caption-sm"
-                          className={
-                            isSelected
-                              ? 'text-blue-500/70 dark:text-blue-400/70'
-                              : 'text-gray-500 dark:text-gray-400'
-                          }>
+                        <Text className={isSelected ? 'text-primary ' : 'text-graphite'}>
                           {option.subtitle}
                         </Text>
                       )}

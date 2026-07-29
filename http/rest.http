@@ -17,3 +17,23 @@ Authorization: Bearer {{TOKEN}}
 { 
 
 }
+
+###
+# @name get gpf financial year
+POST http://10.179.35.51:82/api/fetch/gpf/financialyear
+
+{ 
+  "gpfSeries": "POL",
+  "gpfAccNo": "12279"
+}
+
+### 
+# @name get gpf statement
+POST http://10.179.35.51:82/api/fetch/gpf/statement
+
+{ 
+  "financial_year": "2024-2025",
+  "rtype": "S",
+  "gpfSeries": "MEG/POL",
+  "gpfAccNo": "12279"
+}
