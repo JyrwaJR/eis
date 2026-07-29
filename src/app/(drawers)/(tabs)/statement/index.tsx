@@ -1,5 +1,5 @@
-import { StatementScreen } from '@features/salary/screens/salary-statements-screen';
+import { SalaryStatement } from '@features/salary/screens/salary-statements-screen';
 
 export default function Home() {
-  return <StatementScreen />;
+  return <SalaryStatement />;
 }

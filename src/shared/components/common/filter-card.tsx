@@ -2,8 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { View, ScrollView, TouchableOpacity } from 'react-native';
 import { Text } from '@components/ui/text';
 import { cn } from '@utils/helpers/cn';
-import { Icon } from '@components/ui/icon';
 import { months as defaultMonths } from '@utils/helpers';
+import { HugeiconsIcon } from '@hugeicons/react-native';
+import { ChevronDownIcon, ChevronUpIcon, FilterVerticalIcon } from '@hugeicons/core-free-icons';
 
 /** A selectable filter option with label and value. */
 export interface FilterOption {
@@ -49,9 +50,9 @@ const FilterChip = ({ label, selected, onPress, disabled }: FilterChipProps) => 
     activeOpacity={0.7}
     className={cn(
       'mr-3 rounded-md border px-4 py-1.5',
-      selected ? 'border-blue-600 bg-blue-600' : 'border-border'
+      selected ? 'border-primary bg-primary' : 'border-border'
     )}>
-    <Text className={cn('text-xs font-semibold', selected ? 'text-white' : 'text-charcoal')}>
+    <Text className={cn('text-sm font-bold', selected ? 'text-white' : 'text-charcoal')}>
       {label}
     </Text>
   </TouchableOpacity>
@@ -130,10 +131,14 @@ export const FilterCard = ({
         onPress={handleToggle}
         className="flex-row items-center justify-between rounded-md p-4 ">
         <View className="flex-row items-center gap-2">
-          <Icon name="funnel" size={16} color="#64748B" />
-          <Text className="text-sm font-semibold text-charcoal">Filters</Text>
+          <HugeiconsIcon icon={FilterVerticalIcon} size={20} className="text-primary" />
+          <Text className="text-lg font-bold text-primary">Filters</Text>
         </View>
-        <Icon name={showContent ? 'chevron-up' : 'chevron-down'} size={20} color="#94A3B8" />
+        <HugeiconsIcon
+          icon={showContent ? ChevronUpIcon : ChevronDownIcon}
+          size={20}
+          className="text-primary"
+        />
       </TouchableOpacity>
 
       {/* Collapsible Content */}
