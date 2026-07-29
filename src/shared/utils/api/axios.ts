@@ -23,7 +23,7 @@ export function createAxiosInstance(options?: { encryption?: boolean }) {
 
 const axiosInstance = createAxiosInstance({ encryption: true });
 
-const axiosInstanceWithoutEncryption = createAxiosInstance();
+const axiosInstanceWithoutEncryption = createAxiosInstance({ encryption: false });
 
 /**
  * Default Axios instance with encryption enabled.
