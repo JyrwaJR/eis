@@ -14,7 +14,8 @@ import {
 import { HugeiconsIcon } from '@hugeicons/react-native';
 import { transformData } from '@utils/helpers';
 import React from 'react';
-import { View, Text, ScrollView } from 'react-native';
+import { View, ScrollView, Text } from 'react-native';
+import { Card } from '@components/ui/card';
 import { useAuthStore } from '@stores/auth.store';
 
 export function GPFStatementScreen() {
@@ -25,17 +26,10 @@ export function GPFStatementScreen() {
   if (!gpfStatement) {
     return (
       <Container>
-        <View className="flex-row items-center justify-between gap-x-2 gap-y-2">
-          <View className="flex-grow">
-            <Text className="text-3xl font-bold leading-[32px] text-primary">GPF Statement</Text>
-          </View>
-          <View className="w-1/3">
-            <GPFYearSelectSheet
-              onSelect={(value) => setSelectedYear(value)}
-              selectedyear={selectedYear}
-            />
-          </View>
-        </View>
+        <GPFYearSelectSheet
+          onSelect={(value) => setSelectedYear(value)}
+          selectedyear={selectedYear}
+        />
         <EmptyScreen
           title="No GPF Statement"
           message={'No GPF Statement found, please select a year and try again'}
@@ -55,99 +49,90 @@ export function GPFStatementScreen() {
       {/* Main Content Area */}
       <ScrollView
         className="flex-1"
-        contentContainerStyle={{ gap: 3 }}
+        contentContainerStyle={{ gap: 16 }}
         showsVerticalScrollIndicator={false}>
         {/* Title & Year Selector */}
-        <View className="flex-row items-center justify-between gap-2">
-          <View className="flex-grow">
-            <Text className="text-3xl font-bold leading-[32px] text-primary">GPF Statement</Text>
-          </View>
-          <View className="w-1/3">
-            <GPFYearSelectSheet
-              onSelect={(value) => setSelectedYear(value)}
-              selectedyear={selectedYear}
-            />
-          </View>
-        </View>
+        <GPFYearSelectSheet
+          onSelect={(value) => setSelectedYear(value)}
+          selectedyear={selectedYear}
+        />
 
         {/* Employee Information Card */}
-        <View className="bg-surface mb-5 rounded-md border border-border p-lg">
-          <View className="flex-row flex-wrap gap-y-4">
-            {/* Treasury */}
+        <Card variant="elevated" className="p-lg">
+          <View className="flex-row flex-wrap gap-y-5">
+            {/* Treasury - full width */}
             <View className="w-full flex-row items-start gap-sm">
-              <View className="bg-primary-fixed/30 mt-1 rounded-md p-2">
+              <View className="bg-primary-fixed/30 mt-0.5 rounded-md p-2">
                 <HugeiconsIcon icon={LandmarkIcon} size={20} color="#024ad8" />
               </View>
-              <View className="flex-1 gap-y-2">
-                <Text className="text-[14px] text-graphite">Treasury</Text>
-                <Text className="text-[16px] font-semibold" numberOfLines={1}>
+              <View className="flex-1 gap-y-1">
+                <Text className="text-caption-md text-graphite">Treasury</Text>
+                <Text className="text-body-emphasis" numberOfLines={1}>
                   {emp?.treasury}
                 </Text>
               </View>
             </View>
 
-            {/* DDO */}
+            {/* DDO - full width */}
             <View className="w-full flex-row items-start gap-sm">
-              <View className="bg-primary-fixed/30 mt-1 rounded-md p-2">
+              <View className="bg-primary-fixed/30 mt-0.5 rounded-md p-2">
                 <HugeiconsIcon icon={BadgeCheckIcon} size={20} color="#024ad8" />
               </View>
-              <View className="flex-1 gap-y-2">
-                <Text className="text-[14px] text-graphite">DDO</Text>
-                <Text className="text-[14px] font-semibold" numberOfLines={1}>
+              <View className="flex-1 gap-y-1">
+                <Text className="text-caption-md text-graphite">DDO</Text>
+                <Text className="text-body-emphasis" numberOfLines={1}>
                   {emp?.ddo}
                 </Text>
               </View>
             </View>
 
-            <View className="w-1/2 flex-row items-start gap-sm">
-              <View className="bg-primary-fixed/30 mt-1 rounded-md p-2">
+            {/* GPF Number & Series - side by side */}
+            <View className="w-1/2 flex-row items-start gap-sm pr-xs">
+              <View className="bg-primary-fixed/30 mt-0.5 rounded-md p-2">
                 <HugeiconsIcon icon={IdentityCardIcon} size={20} color="#024ad8" />
               </View>
-              <View className="flex-1 gap-y-2">
-                <Text className="text-[14px] text-graphite">GPF Number</Text>
-                <Text className="text-[14px] font-semibold" numberOfLines={1}>
+              <View className="flex-1 gap-y-1">
+                <Text className="text-caption-md text-graphite">GPF Number</Text>
+                <Text className="text-body-emphasis" numberOfLines={1}>
                   {user?.pf_no}
                 </Text>
               </View>
             </View>
-            <View className="w-1/2 flex-row items-start gap-sm">
-              <View className="bg-primary-fixed/30 mt-1 rounded-md p-2">
+            <View className="w-1/2 flex-row items-start gap-sm pl-xs">
+              <View className="bg-primary-fixed/30 mt-0.5 rounded-md p-2">
                 <HugeiconsIcon icon={BadgeCheckIcon} size={20} color="#024ad8" />
               </View>
-              <View className="flex-1 gap-y-2">
-                <Text className="text-[14px] text-graphite">GPF Series</Text>
-                <Text className="text-[14px] font-semibold" numberOfLines={1}>
+              <View className="flex-1 gap-y-1">
+                <Text className="text-caption-md text-graphite">GPF Series</Text>
+                <Text className="text-body-emphasis" numberOfLines={1}>
                   {user?.pf_series}
                 </Text>
               </View>
             </View>
 
-            {/* Date of Birth */}
-            <View className="w-1/2 flex-row items-start gap-sm pr-sm">
-              <View className="bg-primary-fixed/30 mt-1 rounded-md p-2">
+            {/* Date of Birth & Interest Rate - side by side */}
+            <View className="w-1/2 flex-row items-start gap-sm pr-xs">
+              <View className="bg-primary-fixed/30 mt-0.5 rounded-md p-2">
                 <HugeiconsIcon icon={Calendar02Icon} size={20} color="#024ad8" />
               </View>
-              <View className="flex-1 gap-y-2">
-                <Text className="text-[14px] text-graphite">Date of Birth</Text>
-                <Text className="text-[16px] font-semibold">{emp?.dob}</Text>
+              <View className="flex-1 gap-y-1">
+                <Text className="text-caption-md text-graphite">Date of Birth</Text>
+                <Text className="text-body-emphasis">{emp?.dob}</Text>
               </View>
             </View>
-
-            {/* Interest Rate */}
-            <View className="w-1/2 flex-row items-start gap-sm pl-sm">
-              <View className="bg-primary-fixed/30 mt-1 rounded-md p-2">
+            <View className="w-1/2 flex-row items-start gap-sm pl-xs">
+              <View className="bg-primary-fixed/30 mt-0.5 rounded-md p-2">
                 <HugeiconsIcon icon={TrendingUp} size={20} color="#024ad8" />
               </View>
-              <View className="flex-1 gap-y-2">
-                <Text className="text-[14px] text-graphite">Interest Rate</Text>
-                <Text className="text-[16px] font-semibold">{emp.interest_rate}%</Text>
+              <View className="flex-1 gap-y-1">
+                <Text className="text-caption-md text-graphite">Interest Rate</Text>
+                <Text className="text-body-emphasis">{emp.interest_rate}%</Text>
               </View>
             </View>
           </View>
-        </View>
+        </Card>
 
         {/* Monthly Statement Section */}
-
         <GPFMonthlyTable data={monthlyData} />
 
         {/* Statement Summary */}
