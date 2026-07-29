@@ -7,6 +7,12 @@ import { ScrollView, View, Text, RefreshControl } from 'react-native';
 import { HomeActiveLeaveCard, HomeLeaveHistory, HomeQuickActions } from '../components';
 import { useLeaves } from '@hooks';
 
+const getNameInitials = (fname?: string, lName?: string) => {
+  if (!fname || !lName) return '';
+  const firstNameInitial = fname.charAt(0);
+  const lastNameInitial = lName.charAt(0);
+  return `${firstNameInitial}${lastNameInitial}`;
+};
 export function HomeScreen() {
   const { user } = useAuthStore();
   const { isFetching, refetch } = useLeaves();
@@ -19,11 +25,19 @@ export function HomeScreen() {
         className="flex-1">
         {/* Welcome */}
 
-        <Text className="text-2xl font-bold">
-          Welcome, {user?.emp_fname} {user?.emp_mname} {user?.emp_lname}
-        </Text>
-
-        <Text className="mt-1 text-gray-500">{user?.emp_dept}</Text>
+        <View className="flex-1 flex-row items-center justify-between">
+          <View className="flex-1 items-start justify-center">
+            <Text className="text-2xl font-bold">
+              Welcome, {user?.emp_fname} {user?.emp_mname} {user?.emp_lname}
+            </Text>
+            <Text className="mt-1 text-graphite">{user?.emp_dept}</Text>
+          </View>
+          <View className="items-center justify-center rounded-md bg-primary p-5">
+            <Text className="text-4xl font-black  uppercase text-white">
+              {getNameInitials(user?.emp_fname, user?.emp_lname)}
+            </Text>
+          </View>
+        </View>
 
         {/* Active Applications */}
 

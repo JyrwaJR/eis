@@ -8,6 +8,8 @@ import { formatDate } from '@utils/formatters';
 import { LeaveListItem } from '@sharedTypes/leave';
 import { router } from 'expo-router';
 import { PAGE_ROUTES } from '@utils/constants';
+import { HugeiconsIcon } from '@hugeicons/react-native';
+import { CalendarRemove02Icon } from '@hugeicons/core-free-icons';
 
 /**
  * Active leave card displayed in the "Active Applications" section.
@@ -28,6 +30,18 @@ export const HomeActiveLeaveCard = () => {
     });
     router.push(pageUrl);
   };
+
+  if (!activeLeaves || activeLeaves.length === 0) {
+    return (
+      <View className="flex-1 flex-col items-center justify-center gap-y-2 border border-border p-6">
+        <HugeiconsIcon icon={CalendarRemove02Icon} className="text-graphite/60" size={48} />
+        <Text className="text-center text-lg font-medium tracking-wider text-graphite">
+          No active leaves at the moment.
+        </Text>
+      </View>
+    );
+  }
+
   return (
     <>
       {activeLeaves.map((item, index) => (

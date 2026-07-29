@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, TouchableOpacity } from 'react-native';
+import { View, TouchableOpacity, Image } from 'react-native';
 import { Text } from '@components/ui/text';
 import { router } from 'expo-router';
 import { PAGE_ROUTES } from '@utils/constants/routes';
@@ -8,6 +8,7 @@ import { formatDate } from '@utils/formatters/formatters';
 import { getStatusColor } from '@utils/helpers';
 import { useLeaves } from '@hooks';
 import { isActiveLeave } from '../utils';
+import { Button } from '@components/ui';
 
 /**
  * Leave history preview card shown in the "Recent History" section.
@@ -29,12 +30,36 @@ export const HomeLeaveHistory = () => {
     router.push(pageUrl);
   };
 
+  if (!leaveHistory || leaveHistory.length === 0) {
+    return (
+      <View className="flex-1  items-center justify-center gap-y-4 border border-border p-6">
+        <Image
+          source={require('../../../shared/assets/images/empty-list.jpg')}
+          className="aspect-square h-64 object-cover object-center "
+        />
+        <Text className="text-center text-lg font-bold tracking-wider text-black">
+          No leave history
+        </Text>
+        <Text className="text-center text-lg font-medium tracking-wider text-graphite">
+          You {`haven't`} taken any leaves yet. When you do, they will appear here.
+        </Text>
+        <Button
+          size={'lg'}
+          variant={'primary'}
+          className="font-bold tracking-widest"
+          onPress={() => router.push(PAGE_ROUTES.LEAVE.CREATE)}>
+          Apply for Your First Leave
+        </Button>
+      </View>
+    );
+  }
+
   return (
     <>
       {leaveHistory.map((item, index) => (
         <View
           key={index}
-          className="flex-row items-center justify-between border-b border-gray-200 py-4">
+          className="flex-row items-center justify-between border-b border-border py-4">
           <TouchableOpacity onPress={() => onPressLeave(item)}>
             <Text className="text-sm text-primary">{item.leave_desc}</Text>
             <Text className="text-lg font-semibold">{item.reason_for_leave}</Text>

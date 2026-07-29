@@ -122,7 +122,8 @@ export const Button = ({
         typeof children === 'string' ? (
           // Wrap raw string children in <Text> — RN requires text nodes
           // to live inside a <Text> component or they are dropped silently
-          <Text className={cn('text-button-md uppercase tracking-widest', colors.textClass)}>
+          <Text
+            className={cn('text-button-md uppercase tracking-widest', colors.textClass, className)}>
             {children}
           </Text>
         ) : (
@@ -133,7 +134,8 @@ export const Button = ({
           className={cn(
             'text-button-md uppercase tracking-widest',
             colors.textClass,
-            variant === 'link' && 'underline'
+            variant === 'link' && 'underline',
+            className
           )}>
           {title}
         </Text>
