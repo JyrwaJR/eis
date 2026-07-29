@@ -14,3 +14,5 @@ export * from './search-input';
 export * from './fab';
 export * from './network-banner';
 export * from './tricolor';
+export * from './auth-redirect';
+export * from './local-auth-redirect';

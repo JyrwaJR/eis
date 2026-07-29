@@ -11,8 +11,8 @@ import { NotificationProvider } from './notification-provider';
 import { TQueryProvider } from './query-provider';
 import { ThemeProvider } from './theme-provider';
 // Shared Components & Redirects
-import { AuthRedirect } from '@features/auth/components/auth-redirect';
-import { LocalAuthRedirect } from '@features/auth/components/local-auth-redirect';
+import { AuthRedirect } from '@components/common/auth-redirect';
+import { LocalAuthRedirect } from '@components/common/local-auth-redirect';
 import { UpdateModal } from './update-modal';
 import { GlobalErrorBoundary } from './global-error-boundary';
 import { AnimationProvider } from './animation-provider';
