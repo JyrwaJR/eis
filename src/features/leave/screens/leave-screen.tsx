@@ -1,53 +1,38 @@
 import React from 'react';
-import { FlatList, RefreshControl } from 'react-native';
-import { router } from 'expo-router';
-import { Container } from '@components/layout/container';
-import { LeaveListSkeleton } from '../components/skeleton';
-import { LeaveCard } from '../components/leave-card';
-import { useLeaves } from '@hooks/use-leaves';
-import { SectionHeader } from '@components/common/section-header';
-import { EmptyScreen } from '@components/screens';
-import { PAGE_ROUTES } from '@utils/constants/routes';
-import { FAB } from '@components/common';
+import { View, Text, TouchableOpacity, FlatList, RefreshControl } from 'react-native';
+import { HugeiconsIcon } from '@hugeicons/react-native';
+import { Add01Icon } from '@hugeicons/core-free-icons';
+import { Container } from '@components/layout';
+import { LeaveCard } from '@features/leave';
+import { useLeaves } from '@hooks';
 
-export const LeaveScreen = () => {
-  const { data: leaves, isLoading, isFetching, refetch } = useLeaves();
-
-  if (isLoading) {
-    return (
-      <>
-        <LeaveListSkeleton />
-        <FAB icon="add" onPress={() => router.push(PAGE_ROUTES.LEAVE.CREATE)} />
-      </>
-    );
-  }
-
-  if (!leaves || leaves.length === 0) {
-    return (
-      <>
-        <EmptyScreen
-          title="No Leaves Found"
-          message="You have not applied for any leaves yet"
-          refresh={refetch}
-        />
-        <FAB icon="add" onPress={() => router.push(PAGE_ROUTES.LEAVE.CREATE)} />
-      </>
-    );
-  }
-
+export function LeavesScreen() {
+  const { data: leaves, refetch, isFetching } = useLeaves();
   return (
     <Container className="flex-1">
-      <SectionHeader title="My Leaves" />
+      {/* Main Content */}
+      <View className="flex-1 pb-20 pt-6">
+        <Text className="mb-6 text-2xl font-bold text-graphite dark:text-white">My Leaves</Text>
 
-      <FlatList
-        data={leaves}
-        keyExtractor={(item) => item.id}
-        refreshControl={<RefreshControl onRefresh={refetch} refreshing={isFetching} />}
-        renderItem={({ item }) => <LeaveCard item={item} />}
-        contentContainerClassName="pb-20"
-        showsVerticalScrollIndicator={false}
-      />
-      <FAB icon="add" onPress={() => router.push(PAGE_ROUTES.LEAVE.CREATE)} />
+        <View className="flex-col gap-y-4 space-y-4">
+          {/* Leave Card 1 */}
+          <FlatList
+            data={leaves}
+            keyExtractor={(item) => item.id}
+            refreshControl={<RefreshControl onRefresh={refetch} refreshing={isFetching} />}
+            renderItem={({ item }) => <LeaveCard item={item} />}
+            contentContainerClassName="pb-20 gap-2"
+            showsVerticalScrollIndicator={false}
+          />
+        </View>
+      </View>
+
+      {/* Floating Action Button */}
+      <TouchableOpacity
+        activeOpacity={0.8}
+        className="absolute bottom-8 right-5 flex h-14 w-14 items-center justify-center rounded-md bg-primary shadow-md active:scale-95">
+        <HugeiconsIcon icon={Add01Icon} size={28} color="#ffffff" />
+      </TouchableOpacity>
     </Container>
   );
-};
+}
