@@ -24,16 +24,24 @@ export function GPFStatementScreen() {
 
   if (!gpfStatement) {
     return (
-      <>
-        <View className="flex-col items-center justify-between gap-y-2 py-sm">
-          <Text className="text-2xl font-bold leading-[32px]">GPF Statement</Text>
-          <GPFYearSelectSheet
-            onSelect={(value) => setSelectedYear(value)}
-            selectedyear={selectedYear}
-          />
+      <Container>
+        <View className="flex-row items-center justify-between gap-x-2 gap-y-2">
+          <View className="flex-grow">
+            <Text className="text-3xl font-bold leading-[32px] text-primary">GPF Statement</Text>
+          </View>
+          <View className="w-1/3">
+            <GPFYearSelectSheet
+              onSelect={(value) => setSelectedYear(value)}
+              selectedyear={selectedYear}
+            />
+          </View>
         </View>
-        <EmptyScreen title="GPF Statement" refresh={refetch} />
-      </>
+        <EmptyScreen
+          title="No GPF Statement"
+          message={'No GPF Statement found, please select a year and try again'}
+          refresh={refetch}
+        />
+      </Container>
     );
   }
 
@@ -50,12 +58,16 @@ export function GPFStatementScreen() {
         contentContainerStyle={{ gap: 3, paddingBlock: 20 }}
         showsVerticalScrollIndicator={false}>
         {/* Title & Year Selector */}
-        <View className="flex-col items-center justify-between gap-y-2 py-sm">
-          <Text className="text-2xl font-bold leading-[32px]">GPF Statement</Text>
-          <GPFYearSelectSheet
-            onSelect={(value) => setSelectedYear(value)}
-            selectedyear={selectedYear}
-          />
+        <View className="flex-row items-center justify-between gap-x-2 gap-y-2">
+          <View className="flex-grow">
+            <Text className="text-3xl font-bold leading-[32px] text-primary">GPF Statement</Text>
+          </View>
+          <View className="w-1/3">
+            <GPFYearSelectSheet
+              onSelect={(value) => setSelectedYear(value)}
+              selectedyear={selectedYear}
+            />
+          </View>
         </View>
 
         {/* Employee Information Card */}
