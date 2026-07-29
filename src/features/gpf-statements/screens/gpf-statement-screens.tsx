@@ -60,9 +60,9 @@ export function GPFStatementScreen() {
 
         {/* Employee Information Card */}
         <View className="bg-surface mb-5 rounded-md border border-border p-lg">
-          <View className="flex-row flex-wrap">
+          <View className="flex-row flex-wrap gap-y-4">
             {/* Treasury */}
-            <View className="mb-lg w-full flex-row items-start gap-sm">
+            <View className="w-full flex-row items-start gap-sm">
               <View className="bg-primary-fixed/30 mt-1 rounded-md p-2">
                 <HugeiconsIcon icon={LandmarkIcon} size={20} color="#024ad8" />
               </View>
@@ -75,7 +75,7 @@ export function GPFStatementScreen() {
             </View>
 
             {/* DDO */}
-            <View className="mb-lg w-full flex-row items-start gap-sm">
+            <View className="w-full flex-row items-start gap-sm">
               <View className="bg-primary-fixed/30 mt-1 rounded-md p-2">
                 <HugeiconsIcon icon={BadgeCheckIcon} size={20} color="#024ad8" />
               </View>
@@ -87,7 +87,7 @@ export function GPFStatementScreen() {
               </View>
             </View>
 
-            <View className="mb-lg w-1/2 flex-row items-start gap-sm">
+            <View className="w-1/2 flex-row items-start gap-sm">
               <View className="bg-primary-fixed/30 mt-1 rounded-md p-2">
                 <HugeiconsIcon icon={IdentityCardIcon} size={20} color="#024ad8" />
               </View>
@@ -98,7 +98,7 @@ export function GPFStatementScreen() {
                 </Text>
               </View>
             </View>
-            <View className="mb-lg w-1/2 flex-row items-start gap-sm">
+            <View className="w-1/2 flex-row items-start gap-sm">
               <View className="bg-primary-fixed/30 mt-1 rounded-md p-2">
                 <HugeiconsIcon icon={BadgeCheckIcon} size={20} color="#024ad8" />
               </View>
