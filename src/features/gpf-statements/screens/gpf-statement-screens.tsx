@@ -54,11 +54,11 @@ export function GPFStatementScreen() {
     <Container>
       {/* Main Content Area */}
       <ScrollView
-        className="px-margin_horizontal flex-1"
-        contentContainerStyle={{ gap: 3, paddingBlock: 20 }}
+        className="flex-1"
+        contentContainerStyle={{ gap: 3 }}
         showsVerticalScrollIndicator={false}>
         {/* Title & Year Selector */}
-        <View className="flex-row items-center justify-between gap-x-2 gap-y-2">
+        <View className="flex-row items-center justify-between gap-2">
           <View className="flex-grow">
             <Text className="text-3xl font-bold leading-[32px] text-primary">GPF Statement</Text>
           </View>

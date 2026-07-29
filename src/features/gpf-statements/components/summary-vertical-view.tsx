@@ -1,9 +1,11 @@
 import React from 'react';
-import { TouchableOpacity, View } from 'react-native';
-import { Text } from '@components/ui/text';
+import { View, Text } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import { GPFSummary } from '../types';
 import { cn } from '@utils/helpers';
+import { Button } from '@components/ui';
+import { HugeiconsIcon } from '@hugeicons/react-native';
+import { DownloadIcon } from '@hugeicons/core-free-icons';
 
 /**
  * Renders the GPF summary data in a vertical key-value pair layout.
@@ -28,12 +30,13 @@ export const SummaryVerticalView = ({ data }: { data: Summary[] }) => {
   if (!data || data.length === 0) return null;
 
   return (
-    <View className="mt-4">
-      <View className="mb-sm flex-row items-center justify-between px-xs">
+    <View className="mt-4 gap-sm rounded-md border border-border p-2">
+      <View className="flex-row items-center justify-between px-xs">
         <Text className="text-[18px] font-semibold text-black">GPF Summary Details</Text>
-        <TouchableOpacity>
-          <Text className="text-[14px] font-semibold text-primary">Download PDF</Text>
-        </TouchableOpacity>
+        <Button size={'sm'} onPress={() => {}} className="gap-x-2">
+          <HugeiconsIcon icon={DownloadIcon} strokeWidth={2} className="text-white" size={16} />
+          <Text className="text-[12px] font-semibold text-white">PDF</Text>
+        </Button>
       </View>
 
       <View className="bg-surface overflow-hidden rounded-md border border-border">
