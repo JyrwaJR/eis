@@ -1,5 +1,5 @@
-import { LeaveScreen } from '@features/leave/screens/leave-screen';
+import { LeaveDetailScreen } from '@features/leave';
 
 export default function page() {
-  return <LeaveScreen />;
+  return <LeaveDetailScreen />;
 }
