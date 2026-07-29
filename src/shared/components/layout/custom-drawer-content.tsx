@@ -9,6 +9,7 @@ import { IoniconsIconName } from '@react-native-vector-icons/ionicons';
 import { useAuthStore } from '@stores/auth.store';
 import { HugeiconsIcon } from '@hugeicons/react-native';
 import { getDrawerIcons } from '@utils/helpers/get-icon';
+import { getDrawerItems } from '@utils/helpers/get-drawer-items';
 
 export type MenuItemsT = {
   id?: number;
@@ -17,49 +18,27 @@ export type MenuItemsT = {
   icon: IoniconsIconName;
 };
 
-const fotterMenuItems: MenuItemsT[] = [
-  { title: 'Settings', href: '/settings' as Route, icon: 'settings-outline' },
-];
-
-const commonMenuItems: MenuItemsT[] = [
-  { title: 'Home', href: '/' as Route, icon: 'home-outline' },
-  { title: 'Announcements', href: '/announcements' as Route, icon: 'home-outline' },
-  // { title: 'Income Tax', href: '/tax' as Route, icon: 'cash-outline' },
-];
-
-const dbMenuItems: MenuItemsT[] = [
-  ...commonMenuItems,
-  { title: 'GPF Statements', href: '/gpf-statements' as Route, icon: 'cash' },
-  ...fotterMenuItems,
-];
-
-const dcMenuItems: MenuItemsT[] = [
-  ...commonMenuItems,
-  { title: 'NPS Statements', href: '/nps-statements' as Route, icon: 'cash-sharp' },
-  ...fotterMenuItems,
-];
-
 export function CustomDrawerContent(props: DrawerContentComponentProps) {
   const { user } = useAuthStore();
   const empType = user?.emp_type;
   const pathname = usePathname();
   const insets = useSafeAreaInsets();
 
-  const menuItems = empType === 'DC' ? dcMenuItems : dbMenuItems;
+  const menuItems = getDrawerItems(empType);
 
   return (
     <DrawerContentScrollView
       {...props}
+      contentContainerClassName="flex-1"
       contentContainerStyle={{
         paddingTop: insets.top,
-        flex: 1,
       }}
       className="bg-stone">
       <View className="mb-6 flex-col items-center justify-center gap-y-3 pt-4">
         <Text className={cn('text-center text-3xl font-black tracking-[2px] text-primary')}>
           {process.env.EXPO_PUBLIC_APP_NAME}
         </Text>
-        <Text className={cn('text-center text-lg font-medium tracking-widest text-gray-500')}>
+        <Text className={cn('text-center text-lg tracking-widest text-graphite')}>
           Meghalaya Employees Information System
         </Text>
       </View>

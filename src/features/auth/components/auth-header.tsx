@@ -23,7 +23,7 @@ export const AuthHeader = ({
   <View className={cn('mb-10 items-center', containerClassName)}>
     <View
       className={cn(
-        'mb-6 h-16 w-16 items-center justify-center rounded-2xl bg-blue-100 dark:bg-blue-900/30',
+        'mb-6 h-16 w-16 items-center justify-center rounded-2xl bg-primary',
         iconContainerClassName
       )}>
       {icon ? icon : emoji ? <Text className="text-3xl">{emoji}</Text> : null}

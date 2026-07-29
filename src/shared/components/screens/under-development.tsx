@@ -4,7 +4,8 @@ import { useRouter } from 'expo-router';
 import { Button } from '@components/ui';
 import { PAGE_ROUTES } from '@utils/constants';
 import { Container } from '@components/layout';
-import { Icon } from '@components/ui/icon';
+import { HugeiconsIcon } from '@hugeicons/react-native';
+import { ToolsIcon } from '@hugeicons/core-free-icons';
 
 interface UnderDevelopmentProps {
   title?: string;
@@ -21,11 +22,11 @@ export const UnderDevelopment = ({
 
   return (
     <Container className="flex-1 items-center justify-center">
-      <View className="mb-6 items-center justify-center rounded-md bg-primary-soft p-6">
-        <Icon name="construct" size={48} color="#024ad8" />
+      <View className="mb-6 items-center justify-center rounded-md bg-primary p-6">
+        <HugeiconsIcon icon={ToolsIcon} className="text-white" size={48} />
       </View>
 
-      <Text className="mb-4 text-center text-xl font-bold text-foreground">{title}</Text>
+      <Text className="mb-4 text-center text-2xl font-bold text-foreground">{title}</Text>
 
       <Text className="mb-8 text-center text-base leading-6 text-graphite">{message}</Text>
 

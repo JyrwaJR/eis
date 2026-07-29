@@ -33,9 +33,11 @@ export type RpcRequest<TParams = unknown> = {
  */
 export const rpc = async <TResult, TParams = unknown>(
   functionName: string,
-  params?: TParams
+  params?: TParams,
+  target?: 'eis'
 ): Promise<ApiResponse<TResult>> => {
-  return http.post<TResult>('/make_request', {
+  const endpoint: string = target === 'eis' ? `/make_request` : '/make_request';
+  return http.post<TResult>(endpoint, {
     functionName,
     ...params,
   });

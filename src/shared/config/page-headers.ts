@@ -24,7 +24,7 @@ export const PAGE_HEADERS = {
   '/announcements': { title: 'Announcement Board', showBackButton: true },
   '/auth': { title: 'GovtAuth India' },
   '/auth/sign-up': { title: 'Sign Up', showBackButton: true },
-  '/auth/forgot-password': { title: 'Forgot Password', showBackButton: true },
+  '/auth/forgot-password': { title: 'Forgot Password', showBackButton: true, showDrawer: false },
   '/dev/ui-lab': { title: 'UI Laboratory', showBackButton: true },
   '/leaves/[id]': { title: 'My Leaves', showBackButton: true },
   '/leaves/create': { title: 'Apply for Leaves', showBackButton: true },

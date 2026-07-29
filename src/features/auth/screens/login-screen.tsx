@@ -152,7 +152,7 @@ export const LoginScreen = () => {
 
         {/* Form Section */}
         <FormProvider {...methods}>
-          <View className="gap-y-8">
+          <View className="gap-y-4">
             {/* Employee Code */}
             <View className="w-full">
               <Text className="mb-2 ml-1 text-base font-semibold">Employee Code</Text>

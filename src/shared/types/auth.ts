@@ -1,5 +1,7 @@
 export type RoleT = 'SUPER_ADMIN' | 'ADMIN' | 'USER';
 
+export type EmployeeTypeT = 'DC' | 'DB';
+
 export type UserT = {
   basic_pay: string;
   current_gis_group: string;
@@ -21,7 +23,7 @@ export type UserT = {
   emp_sex: string;
   emp_status: string;
   emp_supan_dt: string;
-  emp_type: string;
+  emp_type: EmployeeTypeT;
   emp_gazetted: 'Y' | 'N';
   gis_applicable: string;
   inc_dt: string;

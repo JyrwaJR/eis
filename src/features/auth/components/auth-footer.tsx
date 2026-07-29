@@ -21,7 +21,7 @@ export const AuthFooter = ({
   className,
   replace,
 }: AuthFooterProps) => (
-  <View className={cn('mt-10 flex-row items-center justify-center', className)}>
+  <View className={cn('mt-10 flex-row items-center justify-center pb-5', className)}>
     <Text variant="subtext">{text} </Text>
     <TouchableOpacity
       hitSlop={{ top: 15, bottom: 15, left: 15, right: 15 }}
