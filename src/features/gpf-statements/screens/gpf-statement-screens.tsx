@@ -1,7 +1,7 @@
 import React from 'react';
-import { ScrollView, RefreshControl } from 'react-native';
+import { View, ScrollView, RefreshControl } from 'react-native';
 import { Container } from '@components/layout/container';
-import { SectionHeader, DetailRow } from '@components/common';
+import { SectionHeader } from '@components/common';
 import { Card, CardHeader, CardTitle, CardContent } from '@components/ui/card';
 import { Text } from '@components/ui/text';
 import { EmptyScreen } from '@components/screens';
@@ -68,10 +68,30 @@ export const GpfStatementScreen = () => {
             <CardTitle>Employee Information</CardTitle>
           </CardHeader>
           <CardContent>
-            <DetailRow label="Treasury" value={emp.treasury} />
-            <DetailRow label="DDO" value={emp.ddo} />
-            <DetailRow label="Date of Birth" value={emp.dob} />
-            <DetailRow label="Interest Rate" value={emp.interest_rate} />
+            <View className="gap-y-3">
+              <View className="flex-row items-center border-b border-gray-100 pb-2">
+                <Text className="w-32 text-sm font-medium text-muted-foreground">Treasury</Text>
+                <Text className="flex-1 text-sm font-semibold text-foreground">{emp.treasury}</Text>
+              </View>
+              <View className="flex-row items-center border-b border-gray-100 pb-2">
+                <Text className="w-32 text-sm font-medium text-muted-foreground">DDO</Text>
+                <Text className="flex-1 text-sm font-semibold text-foreground">{emp.ddo}</Text>
+              </View>
+              <View className="flex-row items-center border-b border-gray-100 pb-2">
+                <Text className="w-32 text-sm font-medium text-muted-foreground">
+                  Date of Birth
+                </Text>
+                <Text className="flex-1 text-sm font-semibold text-foreground">{emp.dob}</Text>
+              </View>
+              <View className="flex-row items-center pb-2">
+                <Text className="w-32 text-sm font-medium text-muted-foreground">
+                  Interest Rate
+                </Text>
+                <Text className="flex-1 text-sm font-semibold text-foreground">
+                  {emp.interest_rate}
+                </Text>
+              </View>
+            </View>
           </CardContent>
         </Card>
 
