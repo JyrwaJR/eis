@@ -1,5 +1,5 @@
-import { UnderDevelopment } from '@components/screens';
+import { GpfStatementScreen } from '@features/gpf-statements';
 
 export default function page() {
-  return <UnderDevelopment />;
+  return <GpfStatementScreen />;
 }
