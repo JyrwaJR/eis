@@ -11,13 +11,13 @@ import { MonthlyTable, GpfStatementSkeleton } from '../components';
 /**
  * Displays a GPF statement for the selected financial year.
  *
- * Renders employee information (treasury, DDO, DOB, interest rate)
- * followed by a horizontally scrollable table of monthly subscription,
- * refund, and deduction data.
+ * Renders employee information (treasury, DDO, DOB, interest rate),
+ * a horizontally scrollable table of monthly subscription/refund data,
+ * and a summary table with balance totals.
  *
  * - Loading state: Skeleton placeholder
  * - Empty state: EmptyScreen with message and refresh action
- * - Data state: Employee info card + monthly data table
+ * - Data state: Employee info card + monthly data table + summary table
  * - Refreshing: Pull-to-refresh via RefreshControl
  */
 export const GpfStatementScreen = () => {
@@ -33,7 +33,6 @@ export const GpfStatementScreen = () => {
   if (isLoading) {
     return (
       <Container className="flex-1">
-        <SectionHeader title="GPF Statement" />
         <GpfStatementSkeleton />
       </Container>
     );
@@ -42,7 +41,6 @@ export const GpfStatementScreen = () => {
   if (!gpfStatements) {
     return (
       <Container className="flex-1">
-        <SectionHeader title="GPF Statement" />
         <EmptyScreen
           title="No GPF Statement Found"
           message="No GPF statement is available for the selected financial year."

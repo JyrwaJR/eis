@@ -16,7 +16,7 @@ export type MonthlyData = {
   Type: string;
 };
 
-type Summary = {
+export type Summary = {
   summary: string;
   balanceI: string;
   balanceII: string;

@@ -6,12 +6,13 @@ import { Skeleton } from '@components/ui/skeleton';
 /**
  * Renders placeholder skeletons for the GPF statement screen while data is loading.
  *
- * Displays an employee info card skeleton (header + 4 detail lines) and a
- * monthly table skeleton (header row + 6 data rows) to match the screen layout.
+ * Displays employee info, monthly table, and summary table skeletons
+ * matching the screen layout.
  */
 export const GpfStatementSkeleton = () => {
   return (
     <View className="gap-y-4">
+      {/* Employee info skeleton */}
       <Card variant="bordered">
         <CardHeader>
           <Skeleton className="h-5 w-48" />
@@ -24,10 +25,21 @@ export const GpfStatementSkeleton = () => {
         </CardContent>
       </Card>
 
+      {/* Monthly table skeleton */}
       <Card variant="bordered">
         <CardContent className="gap-y-2">
           <Skeleton className="h-8 w-full" />
           {Array.from({ length: 6 }).map((_, i) => (
+            <Skeleton key={i} className="h-6 w-full" />
+          ))}
+        </CardContent>
+      </Card>
+
+      {/* Summary table skeleton */}
+      <Card variant="bordered">
+        <CardContent className="gap-y-2">
+          <Skeleton className="h-8 w-full" />
+          {Array.from({ length: 3 }).map((_, i) => (
             <Skeleton key={i} className="h-6 w-full" />
           ))}
         </CardContent>
