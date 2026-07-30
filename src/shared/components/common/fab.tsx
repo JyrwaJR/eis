@@ -1,11 +1,11 @@
 import { cn } from '@utils/helpers/cn';
 import React from 'react';
 import { TouchableOpacity, TouchableOpacityProps } from 'react-native';
-import { Icon } from '@components/ui/icon';
-import type { IoniconsIconName } from '@react-native-vector-icons/ionicons';
 import { cva, type VariantProps } from 'class-variance-authority';
+import { HugeiconsIcon } from '@hugeicons/react-native';
+import { Add01FreeIcons } from '@hugeicons/core-free-icons';
 
-const fabVariants = cva('absolute items-center justify-center rounded-md shadow-lg', {
+const fabVariants = cva('absolute items-center justify-center rounded-md', {
   variants: {
     variant: {
       primary: 'bg-primary shadow-primary/30',
@@ -57,13 +57,13 @@ const fabVariants = cva('absolute items-center justify-center rounded-md shadow-
  */
 interface FABProps extends TouchableOpacityProps, VariantProps<typeof fabVariants> {
   /** Name of the Ionicons icon to display inside the button. */
-  icon?: IoniconsIconName;
+  icon?: any;
   /** Callback invoked when the button is pressed. */
   onPress: () => void;
 }
 
 export const FAB = ({
-  icon = 'add' as IoniconsIconName,
+  icon = Add01FreeIcons,
   onPress,
   className,
   variant = 'primary',
@@ -89,7 +89,7 @@ export const FAB = ({
       accessibilityRole="button"
       accessibilityLabel={props.accessibilityLabel ?? 'Floating action button'}
       {...props}>
-      <Icon name={icon} size={iconSize} color={iconColor} />
+      <HugeiconsIcon icon={icon} size={iconSize} color={iconColor} />
     </TouchableOpacity>
   );
 };
