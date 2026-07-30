@@ -1,5 +1,4 @@
 import {
-  CalendarCheckOut01Icon,
   Home09Icon,
   HugeiconsIcon,
   Payment01Icon,
@@ -8,6 +7,7 @@ import {
   DocumentAttachmentIcon,
   GoogleDocIcon,
   Settings01Icon,
+  CalendarAdd01Icon,
 } from '@hugeicons/core-free-icons';
 
 export const getTabIcons = (path: string): typeof HugeiconsIcon => {
@@ -17,7 +17,7 @@ export const getTabIcons = (path: string): typeof HugeiconsIcon => {
     case 'statement/index':
       return Payment01Icon;
     case 'leaves/index':
-      return CalendarCheckOut01Icon;
+      return CalendarAdd01Icon;
     case 'profile/index':
       return UserSquareIcon;
     default:

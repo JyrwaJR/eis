@@ -63,6 +63,7 @@ export const CreateLeaveSubmitButton = memo(
 
     return (
       <Button
+        size={'lg'}
         testID="LEAVE_SUBMIT_BUTTON"
         title={isPending ? loadingText : isLimited ? `Please wait ${secondsRemaining}` : label}
         onPress={onPress}

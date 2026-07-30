@@ -5,9 +5,33 @@ import { Add01Icon } from '@hugeicons/core-free-icons';
 import { Container } from '@components/layout';
 import { LeaveCard } from '@features/leave';
 import { useLeaves } from '@hooks';
+import { EmptyScreen } from '@components/screens';
+import { router } from 'expo-router';
+import { PAGE_ROUTES } from '@utils/constants';
 
 export function LeavesScreen() {
   const { data: leaves, refetch, isFetching } = useLeaves();
+
+  if (leaves.length === 0) {
+    const onPress = () => {
+      if (leaves.length > 0) {
+        refetch();
+      }
+      router.push(PAGE_ROUTES.LEAVE.CREATE);
+    };
+
+    return (
+      <Container>
+        <EmptyScreen
+          refresh={onPress}
+          title="No leave history"
+          message="You haven't applied for any leave yet. When you do, they will appear here."
+          refreshLabel={leaves.length > 0 ? 'Refresh' : 'Apply for leave'}
+        />
+      </Container>
+    );
+  }
+
   return (
     <Container className="flex-1">
       {/* Main Content */}
@@ -30,6 +54,7 @@ export function LeavesScreen() {
       {/* Floating Action Button */}
       <TouchableOpacity
         activeOpacity={0.8}
+        onPress={() => router.push(PAGE_ROUTES.LEAVE.CREATE)}
         className="absolute bottom-8 right-5 flex h-14 w-14 items-center justify-center rounded-md bg-primary shadow-md active:scale-95">
         <HugeiconsIcon icon={Add01Icon} size={28} color="#ffffff" />
       </TouchableOpacity>

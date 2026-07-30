@@ -54,6 +54,15 @@ export function LeaveDetailScreen() {
     );
   }
 
+  const statusIcon =
+    data.verify_flg_desc === 'Verified'
+      ? Tick01FreeIcons
+      : data.verify_flg_desc === 'Pending'
+        ? StatusIcon
+        : data.verify_flg_desc === 'Entry'
+          ? ClockCheckIcon
+          : CheckUnread01Icon;
+
   return (
     <Container className="flex-1">
       {/* Scrollable Content Canvas */}
@@ -66,7 +75,7 @@ export function LeaveDetailScreen() {
             getStatusColor(data.verify_flg_desc).border
           )}>
           <HugeiconsIcon
-            icon={Tick01FreeIcons}
+            icon={statusIcon}
             size={20}
             className={cn(getStatusColor(data.verify_flg_desc).text)}
           />
@@ -96,10 +105,6 @@ export function LeaveDetailScreen() {
         </View>
         {/* Primary Details Card */}
         <View className="relative mb-6 flex-col overflow-hidden rounded-b-md border border-border bg-white p-4">
-          {/* Subtle top tint */}
-
-          {/* Leave Dates Row */}
-
           {/* Order Info Grid */}
           <View className="z-10 flex-row justify-between pt-4">
             <View className="flex-1 flex-col pr-2">
@@ -113,9 +118,9 @@ export function LeaveDetailScreen() {
           </View>
 
           {/* Reason */}
-          <View className="z-10 flex-col pt-4">
+          <View className="z-10 flex-col  pt-4">
             <Text className="mb-1.5 text-sm text-graphite">Type</Text>
-            <View className="self-start rounded-md border border-border bg-graphite/5 p-2.5">
+            <View className="w-full self-start rounded-md border border-border bg-graphite/5 p-2.5">
               <Text className="text-base font-semibold">{data.leave_desc}</Text>
             </View>
           </View>
@@ -140,7 +145,7 @@ export function LeaveDetailScreen() {
             {/* Opening */}
             <View className="w-[48%] flex-col items-center rounded-md border border-border bg-graphite/5 p-3">
               <Text className="text-sm text-graphite">Opening</Text>
-              <Text className="mt-0.5 text-xl font-bold">{data.opening_bal}</Text>
+              <Text className="mt-0.5 text-xl font-bold">{data.opening_bal ?? 'N/A'}</Text>
             </View>
 
             {/* 
@@ -161,7 +166,9 @@ export function LeaveDetailScreen() {
             {/* Closing */}
             <View className="w-[48%] flex-col items-center rounded-md border border-primary bg-primary/10 p-3">
               <Text className="text-sm text-primary">Closing</Text>
-              <Text className="mt-0.5 text-xl font-bold text-primary">{data.closing_bal}</Text>
+              <Text className="mt-0.5 text-xl font-bold text-primary">
+                {data.closing_bal ?? 'N/A'}
+              </Text>
             </View>
           </View>
         </View>
@@ -178,17 +185,9 @@ export function LeaveDetailScreen() {
               <Text className="text-base text-graphite">Status</Text>
               <View className="flex-row items-center gap-2">
                 <HugeiconsIcon
-                  icon={
-                    data.verify_flg_desc === 'Verified'
-                      ? Tick01FreeIcons
-                      : data.verify_flg_desc === 'Pending'
-                        ? StatusIcon
-                        : data.verify_flg_desc === 'Entry'
-                          ? ClockCheckIcon
-                          : CheckUnread01Icon
-                  }
+                  icon={statusIcon}
                   size={18}
-                  className={cn('mr-1.5', getStatusColor(data.verify_flg_desc).text)}
+                  className={cn('mr-1.5', getStatusColor(data.verify_flg_desc).icon)}
                 />
                 <Text
                   className={cn(

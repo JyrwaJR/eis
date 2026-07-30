@@ -44,11 +44,11 @@ export const getStatusColor = (
     // Tax: Not Filed
     case 'NOT_FILED':
       return {
-        bg: 'bg-amber-100 dark:bg-amber-900/30',
-        text: 'text-amber-800 dark:text-amber-400',
-        icon: '#D97706',
+        bg: 'bg-amber-100',
+        text: 'text-amber-500 ',
+        icon: 'text-amber-500',
         iconName: 'time-outline',
-        border: 'border-amber-800 dark:border-amber-400',
+        border: 'border-amber-500',
       };
 
     // Tax: Filed (info stage, not success)

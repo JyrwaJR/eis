@@ -171,12 +171,7 @@ export function useGpfStatements({ financialYear }: Props) {
 
   const isEnabled = !!financialYear && isSignedIn && user?.emp_type === 'DB' && isDataPresent;
 
-  const queryKey = QUERY_KEYS.GPF.STATEMENTS(
-    financialYear,
-    user?.pf_type,
-    user?.pf_series,
-    user?.pf_no
-  );
+  const queryKey = QUERY_KEYS.GPF.STATEMENTS(financialYear, 'S', user?.pf_series, user?.pf_no);
 
   return useQuery({
     enabled: isEnabled,
@@ -185,15 +180,11 @@ export function useGpfStatements({ financialYear }: Props) {
       axiosInstanceWithoutEncryption.post<{ data: GPFStatement }>(
         'http://10.179.35.51:82/api/fetch/gpf/statement',
         {
-          // financial_year: financialYear,
-          // rtype: user?.pf_type,
-          // gpfSeries: user?.pf_series,
-          // gpfAccNo: user?.pf_no,
-
           financial_year: financialYear,
+          // TODO: On Live api rtype will be remove
           rtype: 'S',
-          gpfSeries: 'POL',
-          gpfAccNo: '12279',
+          gpfSeries: user?.pf_series,
+          gpfAccNo: user?.pf_no,
         }
       ),
     select: (data) => data.data.data,
