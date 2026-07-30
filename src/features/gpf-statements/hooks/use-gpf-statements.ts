@@ -2,6 +2,7 @@ import { useAuthStore } from '@stores/auth.store';
 import { useQuery } from '@tanstack/react-query';
 import { GPFStatement } from '../types';
 import { QUERY_KEYS, STALE_TIMES } from '@utils/constants';
+import { axiosInstanceWithoutEncryption } from '@utils/api/axios';
 
 type Props = {
   financialYear: string;
@@ -180,19 +181,22 @@ export function useGpfStatements({ financialYear }: Props) {
   return useQuery({
     enabled: isEnabled,
     queryKey: queryKey,
-    queryFn: () => mockGPFStatement,
-    // axios.post<{ data: GPFStatement }>('http://10.179.35.51:82/api/fetch/gpf/statement', {
-    //   // financial_year: financialYear,
-    //   // rtype: user?.pf_type,
-    //   // gpfSeries: user?.pf_series,
-    //   // gpfAccNo: user?.pf_no,
-    //
-    //   financial_year: financialYear,
-    //   rtype: 'S',
-    //   gpfSeries: 'POL',
-    //   gpfAccNo: '12279',
-    // }),
-    // select: (data) => data.data.data,
+    queryFn: () =>
+      axiosInstanceWithoutEncryption.post<{ data: GPFStatement }>(
+        'http://10.179.35.51:82/api/fetch/gpf/statement',
+        {
+          // financial_year: financialYear,
+          // rtype: user?.pf_type,
+          // gpfSeries: user?.pf_series,
+          // gpfAccNo: user?.pf_no,
+
+          financial_year: financialYear,
+          rtype: 'S',
+          gpfSeries: 'POL',
+          gpfAccNo: '12279',
+        }
+      ),
+    select: (data) => data.data.data,
     staleTime: STALE_TIMES.GPF,
   });
 }

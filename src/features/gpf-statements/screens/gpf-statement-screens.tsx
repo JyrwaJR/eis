@@ -17,13 +17,22 @@ import React from 'react';
 import { View, ScrollView, Text } from 'react-native';
 import { Card } from '@components/ui/card';
 import { useAuthStore } from '@stores/auth.store';
+import { useSnackbar } from '@hooks';
 
 export function GPFStatementScreen() {
   const [selectedYear, setSelectedYear] = React.useState<string>('');
+  const { showSnackbar } = useSnackbar();
   const { user } = useAuthStore();
   const { data: gpfStatement, refetch } = useGpfStatements({ financialYear: selectedYear });
 
   if (!gpfStatement) {
+    const onPressRefresh = () => {
+      if (!selectedYear) {
+        showSnackbar('Please select a finanical year');
+        return;
+      }
+      refetch();
+    };
     return (
       <Container>
         <GPFYearSelectSheet
@@ -33,7 +42,7 @@ export function GPFStatementScreen() {
         <EmptyScreen
           title="No GPF Statement"
           message={'No GPF Statement found, please select a year and try again'}
-          refresh={refetch}
+          refresh={onPressRefresh}
         />
       </Container>
     );
