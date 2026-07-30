@@ -1,12 +1,12 @@
 import React from 'react';
-import { View, Text, FlatList, RefreshControl } from 'react-native';
+import { View, FlatList, RefreshControl } from 'react-native';
 import { Container } from '@components/layout';
 import { LeaveCard } from '@features/leave';
 import { useLeaves } from '@hooks';
 import { EmptyScreen } from '@components/screens';
 import { router } from 'expo-router';
 import { PAGE_ROUTES } from '@utils/constants';
-import { FAB } from '@components/common';
+import { FAB, SectionHeader } from '@components/common';
 
 export function LeavesScreen() {
   const { data: leaves, refetch, isFetching } = useLeaves();
@@ -34,9 +34,9 @@ export function LeavesScreen() {
   return (
     <Container className="flex-1">
       {/* Main Content */}
-      <View className="flex-1 pb-20 pt-6">
-        <Text className="mb-6 text-2xl font-bold text-graphite dark:text-white">My Leaves</Text>
 
+      <View className="flex-1 pb-20">
+        <SectionHeader title="Recent Leave History" />
         <View className="flex-col gap-y-4 space-y-4">
           {/* Leave Card 1 */}
           <FlatList

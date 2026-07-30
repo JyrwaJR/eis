@@ -6,13 +6,8 @@ import React from 'react';
 import { ScrollView, View, Text, RefreshControl } from 'react-native';
 import { HomeActiveLeaveCard, HomeLeaveHistory, HomeQuickActions } from '../components';
 import { useLeaves } from '@hooks';
+import { getInitials } from '@utils/helpers';
 
-const getNameInitials = (fname?: string, lName?: string) => {
-  if (!fname || !lName) return '';
-  const firstNameInitial = fname.charAt(0);
-  const lastNameInitial = lName.charAt(0);
-  return `${firstNameInitial}${lastNameInitial}`;
-};
 export function HomeScreen() {
   const { user } = useAuthStore();
   const { isFetching, refetch } = useLeaves();
@@ -34,7 +29,7 @@ export function HomeScreen() {
           </View>
           <View className="items-center justify-center rounded-md bg-primary p-5">
             <Text className="text-4xl font-black  uppercase text-white">
-              {getNameInitials(user?.emp_fname, user?.emp_lname)}
+              {getInitials(user?.emp_fname, user?.emp_mname, user?.emp_lname)}
             </Text>
           </View>
         </View>

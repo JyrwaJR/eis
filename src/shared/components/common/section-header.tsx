@@ -1,6 +1,5 @@
 import React from 'react';
-import { View } from 'react-native';
-import { Text } from '../ui/text';
+import { View, Text } from 'react-native';
 import { cn } from '@utils/helpers/cn';
 
 interface SectionHeaderProps {
@@ -25,43 +24,15 @@ interface SectionHeaderProps {
  * - `section` — A clean heading with a left accent bar, optional icon, and a subtle bottom separator.
  * - `splash` — A full-width banner with rounded bottom corners, suited for page top headers.
  */
-export const SectionHeader = ({
-  title,
-  icon,
-  subtitle,
-  rightElement,
-  className,
-}: SectionHeaderProps) => {
+export const SectionHeader = ({ title, className }: SectionHeaderProps) => {
   return (
-    <View className={cn('mb-4', className)}>
-      <View className="flex-row items-center gap-x-4">
-        {/* Left accent bar */}
-        <View className="h-10 w-[3px] rounded-md bg-blue-500" />
-
-        {/* Icon */}
-        {icon && (
-          <View className="h-12 w-12 items-center justify-center rounded-2xl bg-primary-soft">
-            <Text className="text-xl">{icon}</Text>
-          </View>
-        )}
-
-        {/* Title + subtitle */}
-        <View className="flex-1">
-          <Text variant="heading" size="3xl" weight="bold" className="text-foreground">
-            {title}
-          </Text>
-          {subtitle && (
-            <Text variant="subtext" size="sm" className="mt-1">
-              {subtitle}
-            </Text>
-          )}
+    <View className={cn('my-5', className)}>
+      <View className="flex-row items-center justify-between">
+        <View className="flex-row items-center gap-sm">
+          <View className="h-4 w-0.5 rounded-md bg-primary" />
+          <Text className="text-xl font-bold tracking-widest">{title}</Text>
         </View>
-
-        {rightElement}
       </View>
-
-      {/* Separator */}
-      <View className="ml-[23px] mt-4 h-[2px] rounded-md bg-muted" />
     </View>
   );
 };

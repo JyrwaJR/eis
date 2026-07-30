@@ -19,6 +19,7 @@ import {
 import { useSnackbar } from '@hooks/use-snackbar';
 import { useUpdateLeave } from '../hooks/use-update-leave';
 import { LeaveTypeCode } from '@sharedTypes/leave';
+import { SectionHeader } from '@components/common';
 
 /**
  * Route search parameters expected by the update leave screen.
@@ -179,7 +180,7 @@ export const UpdateLeaveScreen = () => {
           contentContainerStyle={{ flexGrow: 1 }}
           showsVerticalScrollIndicator={false}
           className="px-0">
-          <Text className="mb-6 text-2xl font-bold">Update Leave</Text>
+          <SectionHeader title="Update Leave" />
 
           <FormProvider {...methods}>
             <View className="w-full gap-y-2">

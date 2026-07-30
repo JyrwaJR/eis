@@ -23,6 +23,7 @@ import { Controller, useForm, useWatch } from 'react-hook-form';
 import { calculateDaysBetweenDatesWithoutWeekends, cn, formatDateInput } from '@utils/helpers';
 import { PAGE_ROUTES } from '@utils/constants';
 import { LeaveTypeCode } from '@sharedTypes/leave';
+import { SectionHeader } from '@components/common';
 
 const isDev = process.env.NODE_ENV === 'development';
 
@@ -105,7 +106,7 @@ export function CreateLeaveScreen() {
           className="flex-1"
           contentContainerStyle={{ paddingBottom: 40 }}
           showsVerticalScrollIndicator={false}>
-          <Text className="mb-6 text-2xl font-bold">Apply for Leave</Text>
+          <SectionHeader title="Apply for leave" />
 
           <View className="flex-col gap-y-5 space-y-5">
             {/* Leave Type (Mocked Dropdown) */}
