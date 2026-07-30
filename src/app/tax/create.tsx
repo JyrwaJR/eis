@@ -5,9 +5,8 @@ import { Text } from '@components/ui/text';
 import { FormProvider, useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { router } from 'expo-router';
-import { Button, toast } from '@components/ui';
+import { Button, Input, toast } from '@components/ui';
 import { SectionHeader } from '@components/common/section-header';
-import { FieldInput } from '@components/ui/field-input';
 import { useUpdateTaxDetail } from '@features/income-tax/hooks';
 import { CreateTaxSkeleton } from '@features/income-tax/components/skeleton';
 import { UpdateTaxSchema, UpdateTaxInput } from '@features/income-tax/validators/tax.validator';
@@ -105,41 +104,143 @@ export default function CreateTaxRecordScreen() {
 
           <View className="mb-6">
             <SectionHeader title="Deductions" />
-            <FieldInput
+            <Controller
               name="deductions80C"
-              label="Section 80C"
-              placeholder="Max Rs 1,50,000"
-              keyboardType="numeric"
+              render={({ field: { onChange, onBlur, value }, fieldState: { error } }) => (
+                <View className="my-2 w-full">
+                  <Text variant={error ? 'error' : 'label'} weight="medium" className="mb-2 ml-1">
+                    Section 80C
+                  </Text>
+                  <Input
+                    value={value?.toString()}
+                    onChangeText={onChange}
+                    onBlur={onBlur}
+                    placeholder="Max Rs 1,50,000"
+                    keyboardType="numeric"
+                    error={!!error}
+                  />
+                  {error && (
+                    <Text variant="caption-sm" className="ml-1 mt-2 text-destructive">
+                      {error.message}
+                    </Text>
+                  )}
+                </View>
+              )}
             />
-            <FieldInput
+            <Controller
               name="deductions80D"
-              label="Section 80D"
-              placeholder="Max Rs 1,00,000"
-              keyboardType="numeric"
+              render={({ field: { onChange, onBlur, value }, fieldState: { error } }) => (
+                <View className="my-2 w-full">
+                  <Text variant={error ? 'error' : 'label'} weight="medium" className="mb-2 ml-1">
+                    Section 80D
+                  </Text>
+                  <Input
+                    value={value?.toString()}
+                    onChangeText={onChange}
+                    onBlur={onBlur}
+                    placeholder="Max Rs 1,00,000"
+                    keyboardType="numeric"
+                    error={!!error}
+                  />
+                  {error && (
+                    <Text variant="caption-sm" className="ml-1 mt-2 text-destructive">
+                      {error.message}
+                    </Text>
+                  )}
+                </View>
+              )}
             />
-            <FieldInput
+            <Controller
               name="hraExemption"
-              label="HRA Exemption"
-              placeholder="Enter amount"
-              keyboardType="numeric"
+              render={({ field: { onChange, onBlur, value }, fieldState: { error } }) => (
+                <View className="my-2 w-full">
+                  <Text variant={error ? 'error' : 'label'} weight="medium" className="mb-2 ml-1">
+                    HRA Exemption
+                  </Text>
+                  <Input
+                    value={value?.toString()}
+                    onChangeText={onChange}
+                    onBlur={onBlur}
+                    placeholder="Enter amount"
+                    keyboardType="numeric"
+                    error={!!error}
+                  />
+                  {error && (
+                    <Text variant="caption-sm" className="ml-1 mt-2 text-destructive">
+                      {error.message}
+                    </Text>
+                  )}
+                </View>
+              )}
             />
-            <FieldInput
+            <Controller
               name="ltaExemption"
-              label="LTA Exemption"
-              placeholder="Enter amount"
-              keyboardType="numeric"
+              render={({ field: { onChange, onBlur, value }, fieldState: { error } }) => (
+                <View className="my-2 w-full">
+                  <Text variant={error ? 'error' : 'label'} weight="medium" className="mb-2 ml-1">
+                    LTA Exemption
+                  </Text>
+                  <Input
+                    value={value?.toString()}
+                    onChangeText={onChange}
+                    onBlur={onBlur}
+                    placeholder="Enter amount"
+                    keyboardType="numeric"
+                    error={!!error}
+                  />
+                  {error && (
+                    <Text variant="caption-sm" className="ml-1 mt-2 text-destructive">
+                      {error.message}
+                    </Text>
+                  )}
+                </View>
+              )}
             />
-            <FieldInput
+            <Controller
               name="homeLoanInterest"
-              label="Home Loan Interest u/s 24(b)"
-              placeholder="Max Rs 2,00,000"
-              keyboardType="numeric"
+              render={({ field: { onChange, onBlur, value }, fieldState: { error } }) => (
+                <View className="my-2 w-full">
+                  <Text variant={error ? 'error' : 'label'} weight="medium" className="mb-2 ml-1">
+                    Home Loan Interest u/s 24(b)
+                  </Text>
+                  <Input
+                    value={value?.toString()}
+                    onChangeText={onChange}
+                    onBlur={onBlur}
+                    placeholder="Max Rs 2,00,000"
+                    keyboardType="numeric"
+                    error={!!error}
+                  />
+                  {error && (
+                    <Text variant="caption-sm" className="ml-1 mt-2 text-destructive">
+                      {error.message}
+                    </Text>
+                  )}
+                </View>
+              )}
             />
-            <FieldInput
+            <Controller
               name="npsContribution"
-              label="NPS u/s 80CCD(1B)"
-              placeholder="Max Rs 50,000"
-              keyboardType="numeric"
+              render={({ field: { onChange, onBlur, value }, fieldState: { error } }) => (
+                <View className="my-2 w-full">
+                  <Text variant={error ? 'error' : 'label'} weight="medium" className="mb-2 ml-1">
+                    NPS u/s 80CCD(1B)
+                  </Text>
+                  <Input
+                    value={value?.toString()}
+                    onChangeText={onChange}
+                    onBlur={onBlur}
+                    placeholder="Max Rs 50,000"
+                    keyboardType="numeric"
+                    error={!!error}
+                  />
+                  {error && (
+                    <Text variant="caption-sm" className="ml-1 mt-2 text-destructive">
+                      {error.message}
+                    </Text>
+                  )}
+                </View>
+              )}
             />
           </View>
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, ScrollView } from 'react-native';
-import { Button, FieldInput } from '@components/ui';
-import { FormProvider, useForm } from 'react-hook-form';
+import { Button, Input, Text } from '@components/ui';
+import { FormProvider, useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { Container } from '@components/layout/container';
@@ -49,45 +49,136 @@ export const SignUpScreen = () => {
             <View className="w-full gap-y-2">
               <View className="flex-row justify-between gap-x-2">
                 <View className="flex-1">
-                  <FieldInput
+                  <Controller
                     name="first_name"
-                    label="First name"
-                    placeholder="John"
-                    testID="FIRST_NAME_INPUT"
+                    render={({ field: { onChange, onBlur, value }, fieldState: { error } }) => (
+                      <View className="my-2 w-full">
+                        <Text
+                          variant={error ? 'error' : 'label'}
+                          weight="medium"
+                          className="mb-2 ml-1">
+                          First name
+                        </Text>
+                        <Input
+                          value={value?.toString()}
+                          onChangeText={onChange}
+                          onBlur={onBlur}
+                          placeholder="John"
+                          error={!!error}
+                          testID="FIRST_NAME_INPUT"
+                        />
+                        {error && (
+                          <Text variant="caption-sm" className="ml-1 mt-2 text-destructive">
+                            {error.message}
+                          </Text>
+                        )}
+                      </View>
+                    )}
                   />
                 </View>
                 <View className="flex-1">
-                  <FieldInput
+                  <Controller
                     name="last_name"
-                    label="Last name"
-                    placeholder="Doe"
-                    testID="LAST_NAME_INPUT"
+                    render={({ field: { onChange, onBlur, value }, fieldState: { error } }) => (
+                      <View className="my-2 w-full">
+                        <Text
+                          variant={error ? 'error' : 'label'}
+                          weight="medium"
+                          className="mb-2 ml-1">
+                          Last name
+                        </Text>
+                        <Input
+                          value={value?.toString()}
+                          onChangeText={onChange}
+                          onBlur={onBlur}
+                          placeholder="Doe"
+                          error={!!error}
+                          testID="LAST_NAME_INPUT"
+                        />
+                        {error && (
+                          <Text variant="caption-sm" className="ml-1 mt-2 text-destructive">
+                            {error.message}
+                          </Text>
+                        )}
+                      </View>
+                    )}
                   />
                 </View>
               </View>
 
-              <FieldInput
+              <Controller
                 name="phone_no"
-                label="Phone Number"
-                placeholder="9876543210"
-                keyboardType="phone-pad"
-                testID="PHONE_NUMBER_INPUT"
+                render={({ field: { onChange, onBlur, value }, fieldState: { error } }) => (
+                  <View className="my-2 w-full">
+                    <Text variant={error ? 'error' : 'label'} weight="medium" className="mb-2 ml-1">
+                      Phone Number
+                    </Text>
+                    <Input
+                      value={value?.toString()}
+                      onChangeText={onChange}
+                      onBlur={onBlur}
+                      placeholder="9876543210"
+                      keyboardType="phone-pad"
+                      error={!!error}
+                      testID="PHONE_NUMBER_INPUT"
+                    />
+                    {error && (
+                      <Text variant="caption-sm" className="ml-1 mt-2 text-destructive">
+                        {error.message}
+                      </Text>
+                    )}
+                  </View>
+                )}
               />
 
-              <FieldInput
+              <Controller
                 name="password"
-                label="Password"
-                placeholder="Create a password"
-                secureTextEntry
-                testID="PASSWORD_INPUT"
+                render={({ field: { onChange, onBlur, value }, fieldState: { error } }) => (
+                  <View className="my-2 w-full">
+                    <Text variant={error ? 'error' : 'label'} weight="medium" className="mb-2 ml-1">
+                      Password
+                    </Text>
+                    <Input
+                      value={value?.toString()}
+                      onChangeText={onChange}
+                      onBlur={onBlur}
+                      placeholder="Create a password"
+                      secureTextEntry
+                      error={!!error}
+                      testID="PASSWORD_INPUT"
+                    />
+                    {error && (
+                      <Text variant="caption-sm" className="ml-1 mt-2 text-destructive">
+                        {error.message}
+                      </Text>
+                    )}
+                  </View>
+                )}
               />
 
-              <FieldInput
+              <Controller
                 name="confirm_password"
-                label="Confirm Password"
-                placeholder="Create a password"
-                secureTextEntry
-                testID="CONFIRM_PASSWORD_INPUT"
+                render={({ field: { onChange, onBlur, value }, fieldState: { error } }) => (
+                  <View className="my-2 w-full">
+                    <Text variant={error ? 'error' : 'label'} weight="medium" className="mb-2 ml-1">
+                      Confirm Password
+                    </Text>
+                    <Input
+                      value={value?.toString()}
+                      onChangeText={onChange}
+                      onBlur={onBlur}
+                      placeholder="Create a password"
+                      secureTextEntry
+                      error={!!error}
+                      testID="CONFIRM_PASSWORD_INPUT"
+                    />
+                    {error && (
+                      <Text variant="caption-sm" className="ml-1 mt-2 text-destructive">
+                        {error.message}
+                      </Text>
+                    )}
+                  </View>
+                )}
               />
 
               <AuthTermsText />

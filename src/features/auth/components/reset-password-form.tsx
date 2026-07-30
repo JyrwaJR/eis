@@ -1,9 +1,9 @@
 import React from 'react';
 import { View } from 'react-native';
-import { FormProvider } from 'react-hook-form';
+import { FormProvider, Controller } from 'react-hook-form';
 import { Button } from '@components/ui/button';
 import { Text } from '@components/ui/text';
-import { FieldInput } from '@components/ui/field-input';
+import { Input } from '@components/ui/input';
 import { useResetPassword } from '../hooks/use-reset-password';
 
 export const ResetPasswordForm = () => {
@@ -22,12 +22,51 @@ export const ResetPasswordForm = () => {
     <View className="w-full">
       {status === 'INPUT_PASSWORD' && (
         <FormProvider {...passwordMethods}>
-          <FieldInput name="password" label="New Password" placeholder="••••••••" secureTextEntry />
-          <FieldInput
+          <Controller
+            name="password"
+            render={({ field: { onChange, onBlur, value }, fieldState: { error } }) => (
+              <View className="my-2 w-full">
+                <Text variant={error ? 'error' : 'label'} weight="medium" className="mb-2 ml-1">
+                  New Password
+                </Text>
+                <Input
+                  value={value?.toString()}
+                  onChangeText={onChange}
+                  onBlur={onBlur}
+                  placeholder="••••••••"
+                  secureTextEntry
+                  error={!!error}
+                />
+                {error && (
+                  <Text variant="caption-sm" className="ml-1 mt-2 text-destructive">
+                    {error.message}
+                  </Text>
+                )}
+              </View>
+            )}
+          />
+          <Controller
             name="confirm_password"
-            label="Confirm Password"
-            placeholder="••••••••"
-            secureTextEntry
+            render={({ field: { onChange, onBlur, value }, fieldState: { error } }) => (
+              <View className="my-2 w-full">
+                <Text variant={error ? 'error' : 'label'} weight="medium" className="mb-2 ml-1">
+                  Confirm Password
+                </Text>
+                <Input
+                  value={value?.toString()}
+                  onChangeText={onChange}
+                  onBlur={onBlur}
+                  placeholder="••••••••"
+                  secureTextEntry
+                  error={!!error}
+                />
+                {error && (
+                  <Text variant="caption-sm" className="ml-1 mt-2 text-destructive">
+                    {error.message}
+                  </Text>
+                )}
+              </View>
+            )}
           />
 
           <Button
@@ -45,13 +84,30 @@ export const ResetPasswordForm = () => {
               OTP sent to {phone_no}
             </Text>
 
-            <FieldInput
+            <Controller
               name="otp"
-              label="Enter OTP"
-              placeholder="123456"
-              keyboardType="number-pad"
-              maxLength={6}
-              className="text-center text-2xl tracking-widest"
+              render={({ field: { onChange, onBlur, value }, fieldState: { error } }) => (
+                <View className="my-2 w-full">
+                  <Text variant={error ? 'error' : 'label'} weight="medium" className="mb-2 ml-1">
+                    Enter OTP
+                  </Text>
+                  <Input
+                    value={value?.toString()}
+                    onChangeText={onChange}
+                    onBlur={onBlur}
+                    placeholder="123456"
+                    keyboardType="number-pad"
+                    maxLength={6}
+                    className="text-center text-2xl tracking-widest"
+                    error={!!error}
+                  />
+                  {error && (
+                    <Text variant="caption-sm" className="ml-1 mt-2 text-destructive">
+                      {error.message}
+                    </Text>
+                  )}
+                </View>
+              )}
             />
           </View>
 
