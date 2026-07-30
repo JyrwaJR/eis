@@ -74,15 +74,27 @@ export const ConfirmLogoutAlert = ({ open, onValueChange }: ConfirmLogoutAlertPr
     <AlertDialog open={open} onOpenChange={handleCancelOrDismiss}>
       <AlertDialogContent onClose={handleCancelOrDismiss}>
         <AlertDialogHeader>
-          <AlertDialogTitle variant={'display-sm'} weight={'semibold'} className="leading-relaxed">
+          <AlertDialogTitle
+            variant={'display-sm'}
+            weight={'semibold'}
+            className="text-center leading-relaxed">
             Log Out
           </AlertDialogTitle>
           <AlertDialogDescription>Are you sure you want to log out?</AlertDialogDescription>
         </AlertDialogHeader>
 
         <AlertDialogFooter>
-          <AlertDialogCancel variant={'outline'} onPress={handleCancelOrDismiss} />
-          <AlertDialogAction variant="destructive" title="Log Out" onPress={handleConfirm} />
+          <AlertDialogCancel
+            className="text-center"
+            variant={'outline'}
+            onPress={handleCancelOrDismiss}
+          />
+          <AlertDialogAction
+            className="text-center"
+            variant="destructive"
+            title="Log Out"
+            onPress={handleConfirm}
+          />
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>

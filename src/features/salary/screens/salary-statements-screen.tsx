@@ -91,11 +91,15 @@ export function SalaryStatement() {
             </View>
 
             <View className="flex-row gap-x-4 space-x-4">
-              <TouchableOpacity className="h-11 flex-row items-center space-x-2 rounded-md bg-primary/10 px-4 py-3 dark:bg-primary/20">
+              <TouchableOpacity
+                disabled
+                className="h-11 flex-row items-center space-x-2 rounded-md bg-primary/10 px-4 py-3 disabled:opacity-50">
                 <HugeiconsIcon icon={FileDownloadIcon} size={20} color="#2563eb" className="mr-2" />
                 <Text className="ml-1 text-sm font-semibold text-primary">PDF</Text>
               </TouchableOpacity>
-              <TouchableOpacity className="h-11 flex-row items-center space-x-2 rounded-md border border-border px-4 py-3 dark:border-neutral-600">
+              <TouchableOpacity
+                disabled
+                className="h-11 flex-row items-center space-x-2 rounded-md border border-border px-4 py-3 disabled:opacity-50">
                 <HugeiconsIcon icon={ShareIcon} size={20} color="#6b7280" className="mr-2" />
                 <Text className="ml-1 text-sm font-semibold text-graphite dark:text-gray-300">
                   Share
@@ -107,7 +111,7 @@ export function SalaryStatement() {
           {/* Details Grid (Stacked on Mobile) */}
           <View className="flex-col gap-y-6 space-y-6">
             {/* Earnings Section */}
-            <View className="overflow-hidden rounded-md border border-border bg-white shadow-sm dark:border-neutral-700 dark:bg-neutral-800">
+            <View className="overflow-hidden rounded-md border border-border bg-white  dark:border-neutral-700 dark:bg-neutral-800">
               <View className="flex-row items-center border-b border-border bg-gray-50 p-4 dark:border-neutral-700 dark:bg-neutral-700/50">
                 <HugeiconsIcon icon={Add01Icon} size={20} color="#10b981" className="mr-2" />
                 <Text className="ml-2 text-base font-semibold text-gray-900 dark:text-white">
@@ -139,7 +143,7 @@ export function SalaryStatement() {
             </View>
 
             {/* Deductions Section */}
-            <View className="overflow-hidden rounded-md border border-border bg-white shadow-sm dark:border-neutral-700 dark:bg-neutral-800">
+            <View className="overflow-hidden rounded-md border border-border bg-white  dark:border-neutral-700 dark:bg-neutral-800">
               <View className="flex-row items-center border-b border-border bg-gray-50 p-4 dark:border-neutral-700 dark:bg-neutral-700/50">
                 <HugeiconsIcon icon={CrossIcon} size={20} color="#f43f5e" className="mr-2" />
                 <Text className="ml-2 text-base font-semibold text-gray-900 dark:text-white">
@@ -183,7 +187,9 @@ export function SalaryStatement() {
             {formatCurrency(salary?.net_pay)}
           </Text>
         </View>
-        <TouchableOpacity className="h-12 flex-row items-center justify-center gap-x-2 rounded-md bg-primary px-6 shadow-sm">
+        <TouchableOpacity
+          disabled
+          className="h-12 flex-row items-center justify-center gap-x-2 rounded-md bg-primary px-6 disabled:bg-primary/50">
           <HugeiconsIcon icon={FileDownloadIcon} size={20} color="white" className="mr-2" />
           <Text className="text-sm font-semibold uppercase tracking-wide text-white">
             Download PDF

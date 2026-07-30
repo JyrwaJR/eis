@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, ScrollView, TouchableOpacity, SafeAreaView } from 'react-native';
+import { View, Text, ScrollView, TouchableOpacity } from 'react-native';
 import { HugeiconsIcon } from '@hugeicons/react-native';
 import {
   CheckmarkBadge01Icon,
@@ -9,7 +9,6 @@ import {
   Briefcase02Icon,
   Wallet02Icon,
   IdentityCardIcon,
-  Moon02Icon,
   Logout01Icon,
 } from '@hugeicons/core-free-icons';
 import { useAuthStore } from '@stores/auth.store';
@@ -17,6 +16,7 @@ import { useProfile } from '../hooks/use-profile';
 import { ProfileScreenSkeleton, ConfirmLogoutAlert } from '../components';
 import { EmptyScreen } from '@components/screens';
 import { formatDate } from '@utils/formatters';
+import { Container } from '@components/layout';
 
 /** Extracts up to 3 initials from first, middle, and last name. */
 const getInitials = (fname?: string, mname?: string, lname?: string): string =>
@@ -43,9 +43,9 @@ function SectionCard({
   children: React.ReactNode;
 }) {
   return (
-    <View className="mb-5 rounded-xl border border-l-4 border-gray-200 border-l-blue-600 bg-white p-4 shadow-sm dark:border-neutral-700 dark:border-l-blue-500 dark:bg-neutral-800">
+    <View className="rounded-md border border-l-2 border-border border-l-primary bg-white p-4">
       <View className="mb-4 flex-row items-center">
-        <HugeiconsIcon icon={icon} size={20} color="#4b5563" />
+        <HugeiconsIcon icon={icon} size={20} className="text-primary" />
         <Text className="ml-2 text-base font-semibold text-gray-900 dark:text-white">{title}</Text>
       </View>
       {children}
@@ -124,16 +124,18 @@ export const ProfileScreen = () => {
     );
 
   const fullName = getFullName(profile.emp_fname, profile.emp_mname, profile.emp_lname);
+
   const initials = getInitials(profile.emp_fname, profile.emp_mname, profile.emp_lname);
+  console.log(profile);
 
   return (
-    <SafeAreaView className="flex-1 bg-gray-50 dark:bg-neutral-900">
+    <Container>
       <ScrollView
         className="flex-1"
         contentContainerStyle={{ paddingBottom: 60, paddingTop: 24 }}
         showsVerticalScrollIndicator={false}>
         {/* ── Identity Section ── */}
-        <View className="mb-8 flex-col items-center px-5">
+        <View className="mb-8 flex-col items-center">
           {/* Avatar with initials */}
           <View className="relative mb-4 h-24 w-24 items-center justify-center rounded-full border-4 border-white bg-blue-100 shadow-sm dark:border-neutral-800 dark:bg-blue-900/40">
             <Text className="text-3xl font-bold text-blue-700 dark:text-blue-400">{initials}</Text>
@@ -143,19 +145,17 @@ export const ProfileScreen = () => {
 
           {/* Name and designation */}
           <Text className="mb-1 text-2xl font-bold text-gray-900 dark:text-white">{fullName}</Text>
-          <Text className="mb-3 text-center text-base text-gray-500 dark:text-gray-400">
+          <Text className="mb-3 text-center text-base text-graphite">
             {profile.emp_designation} • {profile.emp_dept}
           </Text>
 
           {/* Badges */}
           <View className="flex-row flex-wrap justify-center gap-2">
-            <View className="flex-row items-center rounded-md bg-gray-200 px-3 py-1 dark:bg-neutral-800">
+            <View className="flex-row items-center rounded-md bg-graphite/10 px-3 py-1 ">
               <View className="mr-1.5">
                 <HugeiconsIcon icon={BadgeIcon} size={16} color="#4b5563" />
               </View>
-              <Text className="text-sm font-medium text-gray-700 dark:text-gray-300">
-                {emp_cd || '-'}
-              </Text>
+              <Text className="text-sm font-medium text-graphite">{emp_cd || '-'}</Text>
             </View>
             <View className="flex-row items-center rounded-md bg-green-100 px-3 py-1 dark:bg-green-900/30">
               <View className="mr-1.5">
@@ -169,7 +169,7 @@ export const ProfileScreen = () => {
         </View>
 
         {/* ── Details Sections ── */}
-        <View className="px-5">
+        <View className="gap-y-4">
           {/* Personal Details */}
           <SectionCard title="Personal Details" icon={UserIcon}>
             <View className="flex-row flex-wrap justify-between gap-y-4">
@@ -284,23 +284,12 @@ export const ProfileScreen = () => {
         <View className="mb-4 mt-8 gap-y-4 px-5">
           <TouchableOpacity
             activeOpacity={0.7}
-            className="h-12 w-full flex-row items-center justify-center rounded-md border border-gray-300 bg-white dark:border-neutral-600 dark:bg-neutral-800">
-            <View className="mr-2">
-              <HugeiconsIcon icon={Moon02Icon} size={20} color="#4b5563" />
-            </View>
-            <Text className="text-sm font-semibold uppercase tracking-wide text-gray-700 dark:text-gray-300">
-              Toggle Dark Mode
-            </Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity
-            activeOpacity={0.7}
             onPress={() => setShowLogoutAlert(true)}
-            className="h-12 w-full flex-row items-center justify-center rounded-md border border-red-200 bg-red-50 dark:border-red-900/50 dark:bg-red-900/10">
+            className="h-12 w-full flex-row items-center justify-center rounded-md border border-destructive bg-destructive/5">
             <View className="mr-2">
-              <HugeiconsIcon icon={Logout01Icon} size={20} color="#dc2626" />
+              <HugeiconsIcon icon={Logout01Icon} size={20} className="text-destructive" />
             </View>
-            <Text className="text-sm font-semibold uppercase tracking-wide text-red-600 dark:text-red-400">
+            <Text className="text-sm font-semibold uppercase tracking-wide text-destructive">
               Logout
             </Text>
           </TouchableOpacity>
@@ -308,13 +297,13 @@ export const ProfileScreen = () => {
 
         {/* Footer */}
         <View className="items-center pb-8 opacity-60">
-          <Text className="text-xs text-gray-500 dark:text-gray-400">
+          <Text className="text-xs text-graphite">
             NIC e-HRMS v2.0 {'\u2022'} Government of India
           </Text>
         </View>
 
         <ConfirmLogoutAlert open={showLogoutAlert} onValueChange={setShowLogoutAlert} />
       </ScrollView>
-    </SafeAreaView>
+    </Container>
   );
 };

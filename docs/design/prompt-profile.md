@@ -104,50 +104,44 @@ Each section is a `--surface-card`, 16px radius, Soft Lift shadow, 16px padding,
 
 ```typescript
 UserT = {
-  // Identity
-  emp_fname: "Jane"
-  emp_mname: "M"
-  emp_lname: "Doe"
-  emp_birth_dt: "15/08/1990"
-  emp_sex: "Female"
-  emp_type: "Regular"
-
-  // Contact
-  emp_email: "jane.doe@example.com"
-  emp_phone: "9876543210"
-
-  // Employment
-  emp_designation: "Software Engineer"
-  emp_dept: "IT Department"
-  emp_date_of_joining: "15/01/2022"
-  emp_city_class: "X"
-  emp_status: "Active"
-  emp_supan_dt: "01/01/2022"
-  inc_dt: "01/07/2023"
-
-  // Government
-  ddo_code: "DDO123"
-  ddo_name: "DDO Office New Delhi"
-  trea_code: "TREA001"
-  office_id: "OFF001"
-  office_name: "New Delhi Office"
-  parent_dept: "Ministry of Electronics & IT"
-  pay_comm: "7th CPC"
-  pay_scale: "56100–177500"
-  pf_agency: "Central"
-  pf_series: "CG"
-  pf_type: "Tier 1"
-  wef_dt: "01/01/2022"
-  state_service: "Delhi"
-
-  // Financial
-  basic_pay: "56100.00"
-  emp_bank_account_no: "12345678901"
-  emp_bank_ifsc: "SBIN0001234"
-  emp_pan_number: "ABCDE1234F"
-  current_gis_group: "Group D"
-  gis_applicable: "Yes"
-}
+    basic_pay:           string;
+    current_gis_group:   string;
+    ddo_code:            string;
+    ddo_name:            string;
+    emp_bank_account_no: string;
+    emp_bank_ifsc:       string;
+    emp_birth_dt:        Date;
+    emp_city_class:      string;
+    emp_date_of_joining: Date;
+    emp_dept:            string;
+    emp_designation:     string;
+    emp_email:           string;
+    emp_fname:           string;
+    emp_gazetted:        string;
+    emp_lname:           string;
+    emp_mname:           string;
+    emp_pan_number:      string;
+    emp_phone:           string;
+    emp_sex:             string;
+    emp_status:          string;
+    emp_supan_dt:        Date;
+    emp_type:            string;
+    gis_applicable:      string;
+    inc_dt:              Date;
+    off_id:              string;
+    office_name:         string;
+    parent_dept:         string;
+    pay_comm:            string;
+    pay_scale:           string;
+    pf_agency:           string;
+    pf_no:               string;
+    pf_pran_no:          string;
+    pf_series:           string;
+    pf_type:             string;
+    state_service:       string;
+    trea_code:           string;
+    wef_dt:              Date;
+};
 ```
 
 ### Navigation
