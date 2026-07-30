@@ -4,13 +4,20 @@ import { PAGE_ROUTES } from '@utils/constants';
 import { Link } from 'expo-router';
 import React from 'react';
 import { ScrollView, View, Text, RefreshControl } from 'react-native';
-import { HomeActiveLeaveCard, HomeLeaveHistory, HomeQuickActions } from '../components';
+import {
+  HomeActiveLeaveCard,
+  HomeLeaveHistory,
+  HomeQuickActions,
+  HomeScreenSkeleton,
+} from '../components';
 import { useLeaves } from '@hooks';
 import { getInitials } from '@utils/helpers';
 
 export function HomeScreen() {
   const { user } = useAuthStore();
-  const { isFetching, refetch } = useLeaves();
+  const { isLoading, isFetching, refetch } = useLeaves();
+
+  if (isLoading) return <HomeScreenSkeleton />;
 
   return (
     <Container>

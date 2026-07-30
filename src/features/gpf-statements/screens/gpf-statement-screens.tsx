@@ -2,7 +2,11 @@ import { Container } from '@components/layout';
 import { EmptyScreen } from '@components/screens';
 import { GPFYearSelectSheet } from '@features/gpf-statements/components/gpf-years-select';
 import { useGpfStatements } from '@features/gpf-statements/hooks';
-import { GPFMonthlyTable, SummaryVerticalView } from '@features/gpf-statements/components';
+import {
+  GPFMonthlyTable,
+  SummaryVerticalView,
+  GpfStatementSkeleton,
+} from '@features/gpf-statements/components';
 import { GPFMonthlyData, GPFSummary } from '@features/gpf-statements/types';
 import {
   BadgeCheckIcon,
@@ -23,7 +27,19 @@ export function GPFStatementScreen() {
   const [selectedYear, setSelectedYear] = React.useState<string>('');
   const { showSnackbar } = useSnackbar();
   const { user } = useAuthStore();
-  const { data: gpfStatement, refetch } = useGpfStatements({ financialYear: selectedYear });
+  const {
+    data: gpfStatement,
+    isLoading,
+    refetch,
+  } = useGpfStatements({ financialYear: selectedYear });
+
+  if (isLoading) {
+    return (
+      <Container>
+        <GpfStatementSkeleton />
+      </Container>
+    );
+  }
 
   if (!gpfStatement) {
     const onPressRefresh = () => {

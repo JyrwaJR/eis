@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, FlatList, RefreshControl } from 'react-native';
 import { Container } from '@components/layout';
-import { LeaveCard } from '@features/leave';
+import { LeaveCard, LeaveListSkeleton } from '@features/leave';
 import { useLeaves } from '@hooks';
 import { EmptyScreen } from '@components/screens';
 import { router } from 'expo-router';
@@ -9,7 +9,9 @@ import { PAGE_ROUTES } from '@utils/constants';
 import { FAB, SectionHeader } from '@components/common';
 
 export function LeavesScreen() {
-  const { data: leaves, refetch, isFetching } = useLeaves();
+  const { data: leaves, isLoading, refetch, isFetching } = useLeaves();
+
+  if (isLoading) return <LeaveListSkeleton />;
 
   if (leaves.length === 0) {
     const onPress = () => {
