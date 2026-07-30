@@ -1,7 +1,6 @@
 import React from 'react';
-import { View } from 'react-native';
+import { View, Text } from 'react-native';
 import { cn } from '@utils/helpers/cn';
-import { Text } from '../ui/text';
 
 type MoneyRowProps = {
   label: string;
@@ -28,7 +27,7 @@ export const MoneyRow = ({ label, value, isBold = false, isDeduction = false }: 
       className={cn(
         'text-sm font-medium tabular-nums',
         isBold ? 'text-base font-bold text-foreground' : 'text-foreground',
-        isDeduction && !isBold && 'text-red-500'
+        isDeduction && !isBold && 'text-red-500 dark:text-white'
       )}>
       {isDeduction && !isBold ? '-' : ''}₹
       {value.toLocaleString('en-IN', { minimumFractionDigits: 2 })}

@@ -1,6 +1,5 @@
 import React from 'react';
-import { View } from 'react-native';
-import { Text } from '@components/ui/text';
+import { View, Text } from 'react-native';
 import { Card } from '@components/ui/card';
 import { ILeaveDetails } from '../types';
 import { LeaveTypeCode } from '@sharedTypes/leave';
@@ -28,7 +27,7 @@ export const LeaveBalanceCard = ({ item }: LeaveBalanceCardProps) => (
           </View>
           <View>
             <Text className="text-sm font-semibold text-foreground">{item.leave_desc}</Text>
-            <Text variant="subtext" size="xs">
+            <Text className="text-xs text-muted-foreground">
               {item.closing_bal_as_on ? `Closing as of ${item.closing_bal_as_on}` : '-'}
             </Text>
           </View>

@@ -1,9 +1,9 @@
 import React from 'react';
-import { View } from 'react-native';
+import { View, Text } from 'react-native';
 import { FormProvider, Controller } from 'react-hook-form';
 import { Button } from '@components/ui/button';
-import { Text } from '@components/ui/text';
 import { Input } from '@components/ui/input';
+import { cn } from '@utils/helpers/cn';
 import { useResetPassword } from '../hooks/use-reset-password';
 
 export const ResetPasswordForm = () => {
@@ -26,7 +26,11 @@ export const ResetPasswordForm = () => {
             name="password"
             render={({ field: { onChange, onBlur, value }, fieldState: { error } }) => (
               <View className="my-2 w-full">
-                <Text variant={error ? 'error' : 'label'} weight="medium" className="mb-2 ml-1">
+                <Text
+                  className={cn(
+                    'mb-2 ml-1',
+                    error ? 'text-sm text-destructive' : 'text-sm font-medium text-foreground/70'
+                  )}>
                   New Password
                 </Text>
                 <Input
@@ -38,9 +42,7 @@ export const ResetPasswordForm = () => {
                   error={!!error}
                 />
                 {error && (
-                  <Text variant="caption-sm" className="ml-1 mt-2 text-destructive">
-                    {error.message}
-                  </Text>
+                  <Text className="ml-1 mt-2 text-xs text-destructive">{error.message}</Text>
                 )}
               </View>
             )}
@@ -49,7 +51,11 @@ export const ResetPasswordForm = () => {
             name="confirm_password"
             render={({ field: { onChange, onBlur, value }, fieldState: { error } }) => (
               <View className="my-2 w-full">
-                <Text variant={error ? 'error' : 'label'} weight="medium" className="mb-2 ml-1">
+                <Text
+                  className={cn(
+                    'mb-2 ml-1',
+                    error ? 'text-sm text-destructive' : 'text-sm font-medium text-foreground/70'
+                  )}>
                   Confirm Password
                 </Text>
                 <Input
@@ -61,9 +67,7 @@ export const ResetPasswordForm = () => {
                   error={!!error}
                 />
                 {error && (
-                  <Text variant="caption-sm" className="ml-1 mt-2 text-destructive">
-                    {error.message}
-                  </Text>
+                  <Text className="ml-1 mt-2 text-xs text-destructive">{error.message}</Text>
                 )}
               </View>
             )}
@@ -80,7 +84,7 @@ export const ResetPasswordForm = () => {
       {status === 'INPUT_OTP' && (
         <FormProvider {...otpMethods}>
           <View className="mb-4">
-            <Text variant="subtext" className="mb-6 text-center">
+            <Text className="mb-6 text-center text-sm text-muted-foreground">
               OTP sent to {phone_no}
             </Text>
 
@@ -88,7 +92,11 @@ export const ResetPasswordForm = () => {
               name="otp"
               render={({ field: { onChange, onBlur, value }, fieldState: { error } }) => (
                 <View className="my-2 w-full">
-                  <Text variant={error ? 'error' : 'label'} weight="medium" className="mb-2 ml-1">
+                  <Text
+                    className={cn(
+                      'mb-2 ml-1',
+                      error ? 'text-sm text-destructive' : 'text-sm font-medium text-foreground/70'
+                    )}>
                     Enter OTP
                   </Text>
                   <Input
@@ -102,9 +110,7 @@ export const ResetPasswordForm = () => {
                     error={!!error}
                   />
                   {error && (
-                    <Text variant="caption-sm" className="ml-1 mt-2 text-destructive">
-                      {error.message}
-                    </Text>
+                    <Text className="ml-1 mt-2 text-xs text-destructive">{error.message}</Text>
                   )}
                 </View>
               )}

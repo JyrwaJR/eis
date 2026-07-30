@@ -1,10 +1,10 @@
 import React from 'react';
-import { View, ScrollView } from 'react-native';
+import { View, ScrollView, Text } from 'react-native';
 import { Container } from '@components/layout/container';
-import { Text } from '@components/ui/text';
 import { FormProvider, useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { router } from 'expo-router';
+import { cn } from '@utils/helpers/cn';
 import { Button, Input, toast } from '@components/ui';
 import { SectionHeader } from '@components/common/section-header';
 import { useUpdateTaxDetail } from '@features/income-tax/hooks';
@@ -108,7 +108,11 @@ export default function CreateTaxRecordScreen() {
               name="deductions80C"
               render={({ field: { onChange, onBlur, value }, fieldState: { error } }) => (
                 <View className="my-2 w-full">
-                  <Text variant={error ? 'error' : 'label'} weight="medium" className="mb-2 ml-1">
+                  <Text
+                    className={cn(
+                      'mb-2 ml-1',
+                      error ? 'text-sm text-destructive' : 'text-sm font-medium text-foreground/70'
+                    )}>
                     Section 80C
                   </Text>
                   <Input
@@ -120,9 +124,7 @@ export default function CreateTaxRecordScreen() {
                     error={!!error}
                   />
                   {error && (
-                    <Text variant="caption-sm" className="ml-1 mt-2 text-destructive">
-                      {error.message}
-                    </Text>
+                    <Text className="ml-1 mt-2 text-xs text-destructive">{error.message}</Text>
                   )}
                 </View>
               )}
@@ -131,7 +133,11 @@ export default function CreateTaxRecordScreen() {
               name="deductions80D"
               render={({ field: { onChange, onBlur, value }, fieldState: { error } }) => (
                 <View className="my-2 w-full">
-                  <Text variant={error ? 'error' : 'label'} weight="medium" className="mb-2 ml-1">
+                  <Text
+                    className={cn(
+                      'mb-2 ml-1',
+                      error ? 'text-sm text-destructive' : 'text-sm font-medium text-foreground/70'
+                    )}>
                     Section 80D
                   </Text>
                   <Input
@@ -143,9 +149,7 @@ export default function CreateTaxRecordScreen() {
                     error={!!error}
                   />
                   {error && (
-                    <Text variant="caption-sm" className="ml-1 mt-2 text-destructive">
-                      {error.message}
-                    </Text>
+                    <Text className="ml-1 mt-2 text-xs text-destructive">{error.message}</Text>
                   )}
                 </View>
               )}
@@ -154,7 +158,11 @@ export default function CreateTaxRecordScreen() {
               name="hraExemption"
               render={({ field: { onChange, onBlur, value }, fieldState: { error } }) => (
                 <View className="my-2 w-full">
-                  <Text variant={error ? 'error' : 'label'} weight="medium" className="mb-2 ml-1">
+                  <Text
+                    className={cn(
+                      'mb-2 ml-1',
+                      error ? 'text-sm text-destructive' : 'text-sm font-medium text-foreground/70'
+                    )}>
                     HRA Exemption
                   </Text>
                   <Input
@@ -166,9 +174,7 @@ export default function CreateTaxRecordScreen() {
                     error={!!error}
                   />
                   {error && (
-                    <Text variant="caption-sm" className="ml-1 mt-2 text-destructive">
-                      {error.message}
-                    </Text>
+                    <Text className="ml-1 mt-2 text-xs text-destructive">{error.message}</Text>
                   )}
                 </View>
               )}
@@ -177,7 +183,11 @@ export default function CreateTaxRecordScreen() {
               name="ltaExemption"
               render={({ field: { onChange, onBlur, value }, fieldState: { error } }) => (
                 <View className="my-2 w-full">
-                  <Text variant={error ? 'error' : 'label'} weight="medium" className="mb-2 ml-1">
+                  <Text
+                    className={cn(
+                      'mb-2 ml-1',
+                      error ? 'text-sm text-destructive' : 'text-sm font-medium text-foreground/70'
+                    )}>
                     LTA Exemption
                   </Text>
                   <Input
@@ -189,9 +199,7 @@ export default function CreateTaxRecordScreen() {
                     error={!!error}
                   />
                   {error && (
-                    <Text variant="caption-sm" className="ml-1 mt-2 text-destructive">
-                      {error.message}
-                    </Text>
+                    <Text className="ml-1 mt-2 text-xs text-destructive">{error.message}</Text>
                   )}
                 </View>
               )}
@@ -200,7 +208,11 @@ export default function CreateTaxRecordScreen() {
               name="homeLoanInterest"
               render={({ field: { onChange, onBlur, value }, fieldState: { error } }) => (
                 <View className="my-2 w-full">
-                  <Text variant={error ? 'error' : 'label'} weight="medium" className="mb-2 ml-1">
+                  <Text
+                    className={cn(
+                      'mb-2 ml-1',
+                      error ? 'text-sm text-destructive' : 'text-sm font-medium text-foreground/70'
+                    )}>
                     Home Loan Interest u/s 24(b)
                   </Text>
                   <Input
@@ -212,9 +224,7 @@ export default function CreateTaxRecordScreen() {
                     error={!!error}
                   />
                   {error && (
-                    <Text variant="caption-sm" className="ml-1 mt-2 text-destructive">
-                      {error.message}
-                    </Text>
+                    <Text className="ml-1 mt-2 text-xs text-destructive">{error.message}</Text>
                   )}
                 </View>
               )}
@@ -223,7 +233,11 @@ export default function CreateTaxRecordScreen() {
               name="npsContribution"
               render={({ field: { onChange, onBlur, value }, fieldState: { error } }) => (
                 <View className="my-2 w-full">
-                  <Text variant={error ? 'error' : 'label'} weight="medium" className="mb-2 ml-1">
+                  <Text
+                    className={cn(
+                      'mb-2 ml-1',
+                      error ? 'text-sm text-destructive' : 'text-sm font-medium text-foreground/70'
+                    )}>
                     NPS u/s 80CCD(1B)
                   </Text>
                   <Input
@@ -235,9 +249,7 @@ export default function CreateTaxRecordScreen() {
                     error={!!error}
                   />
                   {error && (
-                    <Text variant="caption-sm" className="ml-1 mt-2 text-destructive">
-                      {error.message}
-                    </Text>
+                    <Text className="ml-1 mt-2 text-xs text-destructive">{error.message}</Text>
                   )}
                 </View>
               )}

@@ -1,6 +1,5 @@
 import React from 'react';
-import { View, Pressable } from 'react-native';
-import { Text } from '@components/ui/text';
+import { View, Pressable, Text } from 'react-native';
 import { Route, router } from 'expo-router';
 import {
   CalendarIcon,

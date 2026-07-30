@@ -1,6 +1,5 @@
 import React from 'react';
-import { View } from 'react-native';
-import { Text } from '@components/ui/text';
+import { View, Text } from 'react-native';
 import { Icon } from '@components/ui/icon';
 import type { IoniconsIconName } from '@react-native-vector-icons/ionicons';
 import { Card } from '@components/ui/card';
@@ -38,9 +37,7 @@ const InfoRow = ({
       <Icon name={icon} size={20} color={'#636363'} />
     </View>
     <View className="flex-1">
-      <Text variant="subtext" size="xs" className="mb-0.5 font-medium text-graphite">
-        {label}
-      </Text>
+      <Text className="mb-0.5 text-xs font-medium text-graphite">{label}</Text>
       <Text className="text-sm font-semibold text-foreground">{value}</Text>
     </View>
   </View>
@@ -62,9 +59,7 @@ export const LeaveDetailInfo = ({ leave }: LeaveDetailInfoProps) => (
     <InfoRow icon="alarm-outline" label="Order Date" value={leave.order_dt} />
     {leave.reason_for_leave && (
       <View className="mt-2 rounded-md bg-secondary p-4">
-        <Text variant="subtext" size="xs" className="mb-1.5 font-medium text-graphite">
-          Reason
-        </Text>
+        <Text className="mb-1.5 text-xs font-medium text-graphite">Reason</Text>
         <Text className="text-sm leading-5 text-charcoal">{leave.reason_for_leave}</Text>
       </View>
     )}

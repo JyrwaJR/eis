@@ -1,6 +1,5 @@
 import React from 'react';
-import { View, TouchableOpacity } from 'react-native';
-import { Text } from '@components/ui/text';
+import { View, TouchableOpacity, Text } from 'react-native';
 import { Button } from '@components/ui/button';
 import { useRouter } from 'expo-router';
 import { PAGE_ROUTES } from '@utils/constants/routes';
@@ -37,13 +36,9 @@ export const Forbidden = ({
         <Icon name="shield-checkmark" size={48} color="#EF4444" />
       </View>
 
-      <Text variant="heading" size="3xl" className="mb-2 text-center text-foreground">
-        {title}
-      </Text>
+      <Text className="mb-2 text-center text-4xl font-semibold text-foreground">{title}</Text>
 
-      <Text variant="subtext" className="mb-8 text-center text-base leading-6">
-        {message}
-      </Text>
+      <Text className="mb-8 text-center text-base leading-6 text-muted-foreground">{message}</Text>
 
       <Button onPress={handlePress} variant={'outline'} activeOpacity={0.8}>
         Go Back Home

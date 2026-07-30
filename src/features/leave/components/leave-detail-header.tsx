@@ -1,7 +1,6 @@
 import React from 'react';
-import { View } from 'react-native';
+import { View, Text } from 'react-native';
 import { cn } from '@utils/helpers/cn';
-import { Text } from '@components/ui/text';
 import { getStatusColor } from '@utils/helpers/get-status-color';
 import { ILeaveDetails } from '../types';
 import { LEAVE_ICONS } from '../utils/constants';
@@ -57,10 +56,8 @@ export const LeaveDetailHeader = ({ leave }: LeaveDetailHeaderProps) => {
           </View>
         </View>
 
-        <Text variant="heading" size="2xl" className="mb-1 text-foreground">
-          {leave.leave_desc}
-        </Text>
-        <Text variant="subtext" size="sm">
+        <Text className="mb-1 text-2xl font-semibold text-foreground">{leave.leave_desc}</Text>
+        <Text className="text-sm text-muted-foreground">
           {leave.no_days} {parseInt(leave.no_days) === 1 ? 'day' : 'days'}
         </Text>
       </Card>

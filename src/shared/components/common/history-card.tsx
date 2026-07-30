@@ -1,8 +1,7 @@
 import React from 'react';
-import { View, TouchableOpacity } from 'react-native';
+import { View, TouchableOpacity, Text } from 'react-native';
 import { Icon } from '@components/ui/icon';
 import { cn } from '@utils/helpers/cn';
-import { Text } from '@components/ui/text';
 import { formatDate } from '@utils/formatters/formatters';
 import { getStatusColor } from '@utils/helpers';
 
@@ -47,7 +46,7 @@ export const SalaryStatementListItem = ({
             <Text className="text-lg font-bold text-foreground">
               {item.month} {item.year}
             </Text>
-            <Text variant="subtext" className="text-xs font-medium">
+            <Text className="text-xs font-medium text-muted-foreground">
               Credited on {formatDate(item.created_at)}
             </Text>
           </View>

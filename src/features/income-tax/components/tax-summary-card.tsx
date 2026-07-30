@@ -1,6 +1,5 @@
 import React from 'react';
-import { View, TouchableOpacity } from 'react-native';
-import { Text } from '@components/ui/text';
+import { View, TouchableOpacity, Text } from 'react-native';
 import { Card } from '@components/ui/card';
 import { cn } from '@utils/helpers/cn';
 import { EmployeeTaxSummary } from '../types';

@@ -1,6 +1,5 @@
 import React from 'react';
-import { View, TouchableOpacity } from 'react-native';
-import { Text } from '@components/ui/text';
+import { View, TouchableOpacity, Text } from 'react-native';
 import { Card } from '@components/ui/card';
 import { AnnouncementT } from '../types';
 import { formatDate } from '@utils/formatters';
@@ -16,14 +15,12 @@ export const AnnouncementCard = ({ item }: { item: AnnouncementT }) => {
           {item.type === 'UR' && <View className="h-2 w-2 rounded-md bg-primary" />}
         </View>
 
-        <Text variant="heading" size="sm" className="mb-1 text-foreground">
-          {item.title}
-        </Text>
+        <Text className="mb-1 text-sm font-semibold text-foreground">{item.title}</Text>
 
-        <Text numberOfLines={2} variant="subtext" className="mb-3 text-sm leading-5">
+        <Text numberOfLines={2} className="mb-3 text-sm leading-5 text-muted-foreground">
           {item.body}
         </Text>
-        <Text numberOfLines={2} variant="subtext" className="mb-3 text-sm leading-5">
+        <Text numberOfLines={2} className="mb-3 text-sm leading-5 text-muted-foreground">
           {item.message}
         </Text>
 

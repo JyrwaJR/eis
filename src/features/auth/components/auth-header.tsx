@@ -1,6 +1,5 @@
 import React from 'react';
-import { View } from 'react-native';
-import { Text } from '@components/ui/text';
+import { View, Text } from 'react-native';
 import { cn } from '@utils/helpers/cn';
 
 interface AuthHeaderProps {
@@ -28,11 +27,7 @@ export const AuthHeader = ({
       )}>
       {icon ? icon : emoji ? <Text className="text-3xl">{emoji}</Text> : null}
     </View>
-    <Text variant="heading" size="3xl" weight="semibold" className="text-center">
-      {title}
-    </Text>
-    <Text variant="subtext" className="mt-2 text-center">
-      {subtitle}
-    </Text>
+    <Text className="text-center text-4xl font-semibold">{title}</Text>
+    <Text className="mt-2 text-center text-sm text-muted-foreground">{subtitle}</Text>
   </View>
 );

@@ -1,7 +1,6 @@
 import * as React from 'react';
-import { View, ViewProps, Text as RNText } from 'react-native';
+import { View, ViewProps, Text } from 'react-native';
 import { cva, type VariantProps } from 'class-variance-authority';
-import { Text } from './text';
 import { cn } from '../../utils/helpers/cn';
 
 /**
@@ -68,9 +67,9 @@ CardHeader.displayName = 'CardHeader';
 /**
  * Card title using `{typography.display-xs}` (20px/500) weight per HP spec.
  */
-const CardTitle = React.forwardRef<RNText, React.ComponentProps<typeof Text>>(
+const CardTitle = React.forwardRef<Text, React.ComponentProps<typeof Text>>(
   ({ className, ...props }, ref) => (
-    <Text ref={ref} variant="display-xs" className={cn('leading-tight', className)} {...props} />
+    <Text ref={ref} className={cn('text-xl leading-tight', className)} {...props} />
   )
 );
 
@@ -79,14 +78,9 @@ CardTitle.displayName = 'CardTitle';
 /**
  * Card description using muted foreground color.
  */
-const CardDescription = React.forwardRef<RNText, React.ComponentProps<typeof Text>>(
+const CardDescription = React.forwardRef<Text, React.ComponentProps<typeof Text>>(
   ({ className, ...props }, ref) => (
-    <Text
-      ref={ref}
-      variant="caption-md"
-      className={cn('text-muted-foreground', className)}
-      {...props}
-    />
+    <Text ref={ref} className={cn('text-sm text-muted-foreground', className)} {...props} />
   )
 );
 CardDescription.displayName = 'CardDescription';

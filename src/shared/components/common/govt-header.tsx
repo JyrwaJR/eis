@@ -1,6 +1,5 @@
 import React from 'react';
-import { View } from 'react-native';
-import { Text } from '../ui/text';
+import { View, Text } from 'react-native';
 import { cn } from '@utils/helpers/cn';
 
 interface GovtHeaderProps {
@@ -15,17 +14,9 @@ export const GovtHeader = ({ title, subtitle, badge, className }: GovtHeaderProp
     <View className="mb-3 h-[70px] w-[70px] items-center justify-center opacity-80">
       <Text className="text-7xl">🏛️</Text>
     </View>
-    <Text variant={'subtext'} className="text-center text-[11px]">
-      Government of India
-    </Text>
-    <Text variant={'heading'} className="text-center">
-      {title}
-    </Text>
-    {subtitle && (
-      <Text variant={'subtext'} className="text-center">
-        {subtitle}
-      </Text>
-    )}
+    <Text className="text-center text-[11px] text-muted-foreground">Government of India</Text>
+    <Text className="text-center text-2xl font-semibold">{title}</Text>
+    {subtitle && <Text className="text-center text-sm text-muted-foreground">{subtitle}</Text>}
     {badge && (
       <View className="mt-4 rounded-md bg-gray-200 px-4 py-1 dark:bg-gray-800">
         <Text className="text-xs font-bold uppercase text-charcoal">{badge}</Text>

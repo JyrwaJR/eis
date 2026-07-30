@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Modal, View, Pressable, ViewProps, StyleSheet } from 'react-native';
+import { Modal, View, Pressable, ViewProps, StyleSheet, Text } from 'react-native';
 import Animated, {
   useAnimatedStyle,
   useSharedValue,
@@ -9,7 +9,6 @@ import Animated, {
   Extrapolate,
   runOnJS,
 } from 'react-native-reanimated';
-import { Text } from './text';
 import { cn } from '../../utils/helpers/cn';
 
 interface DialogProps {
@@ -109,9 +108,9 @@ export const DialogFooter = ({ className, ...props }: ViewProps) => (
 );
 
 export const DialogTitle = ({ className, ...props }: React.ComponentProps<typeof Text>) => (
-  <Text variant="display-xs" className={className} {...props} />
+  <Text className={cn('text-xl text-foreground', className)} {...props} />
 );
 
 export const DialogDescription = ({ className, ...props }: React.ComponentProps<typeof Text>) => (
-  <Text variant="caption-md" className={cn('text-muted-foreground', className)} {...props} />
+  <Text className={cn('text-sm text-muted-foreground', className)} {...props} />
 );

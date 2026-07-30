@@ -1,6 +1,5 @@
 import React from 'react';
-import { View, TouchableOpacity, Switch } from 'react-native';
-import { Text } from '@components/ui/text';
+import { View, TouchableOpacity, Switch, Text } from 'react-native';
 import { Icon } from '@components/ui/icon';
 import type { IoniconsIconName } from '@react-native-vector-icons/ionicons';
 import { cn } from '@utils/helpers/cn';

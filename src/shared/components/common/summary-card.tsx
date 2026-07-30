@@ -1,6 +1,5 @@
 import React from 'react';
-import { View } from 'react-native';
-import { Text } from '../ui/text';
+import { View, Text } from 'react-native';
 import { cn } from '@utils/helpers/cn';
 import { useAuthStore } from '@stores/auth.store';
 import { getStatusColor } from '@utils/helpers';

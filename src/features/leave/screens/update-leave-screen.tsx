@@ -1,10 +1,10 @@
 import React, { useCallback, useEffect, useMemo } from 'react';
-import { View, ScrollView } from 'react-native';
-import { Input, Text } from '@components/ui';
+import { View, ScrollView, Text } from 'react-native';
+import { Input } from '@components/ui';
 import { FormProvider, useForm, useWatch, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Container, KeyboardSafeView } from '@components/layout';
-import { calculateDaysBetweenDatesWithoutWeekends, formatDateInput } from '@utils/helpers';
+import { calculateDaysBetweenDatesWithoutWeekends, formatDateInput, cn } from '@utils/helpers';
 import { UpdateLeaveSchema, type UpdateLeaveInput } from '../validators';
 import { useLeaveDetail, useLeaveReason } from '../hooks';
 import { useLocalSearchParams, useRouter } from 'expo-router';
@@ -210,9 +210,12 @@ export const UpdateLeaveScreen = () => {
                     render={({ field: { value, onChange }, fieldState: { error } }) => (
                       <View className="my-2 w-full">
                         <Text
-                          variant={error ? 'error' : 'label'}
-                          weight="medium"
-                          className="mb-2 ml-1">
+                          className={cn(
+                            'mb-2 ml-1',
+                            error
+                              ? 'text-sm text-destructive'
+                              : 'text-sm font-medium text-foreground/70'
+                          )}>
                           From Date
                         </Text>
                         <Input
@@ -225,7 +228,7 @@ export const UpdateLeaveScreen = () => {
                           testID="FROM_DATE_INPUT"
                         />
                         {error && (
-                          <Text variant="caption-sm" className="ml-1 mt-2 text-destructive">
+                          <Text className="ml-1 mt-2 text-xs text-destructive">
                             {error.message}
                           </Text>
                         )}
@@ -240,9 +243,12 @@ export const UpdateLeaveScreen = () => {
                     render={({ field: { value, onChange }, fieldState: { error } }) => (
                       <View className="my-2 w-full">
                         <Text
-                          variant={error ? 'error' : 'label'}
-                          weight="medium"
-                          className="mb-2 ml-1">
+                          className={cn(
+                            'mb-2 ml-1',
+                            error
+                              ? 'text-sm text-destructive'
+                              : 'text-sm font-medium text-foreground/70'
+                          )}>
                           To Date
                         </Text>
                         <Input
@@ -255,7 +261,7 @@ export const UpdateLeaveScreen = () => {
                           testID="TO_DATE_INPUT"
                         />
                         {error && (
-                          <Text variant="caption-sm" className="ml-1 mt-2 text-destructive">
+                          <Text className="ml-1 mt-2 text-xs text-destructive">
                             {error.message}
                           </Text>
                         )}
@@ -270,7 +276,13 @@ export const UpdateLeaveScreen = () => {
                 name="no_days"
                 render={({ field: { value }, fieldState: { error } }) => (
                   <View className="my-2">
-                    <Text variant={error ? 'error' : 'label'} weight="medium" className="mb-2 ml-1">
+                    <Text
+                      className={cn(
+                        'mb-2 ml-1',
+                        error
+                          ? 'text-sm text-destructive'
+                          : 'text-sm font-medium text-foreground/70'
+                      )}>
                       Number of Days
                     </Text>
                     <Input
@@ -283,9 +295,7 @@ export const UpdateLeaveScreen = () => {
                       error={!!error?.message}
                     />
                     {error && (
-                      <Text variant="caption-sm" className="ml-1 mt-2 text-destructive">
-                        {error.message}
-                      </Text>
+                      <Text className="ml-1 mt-2 text-xs text-destructive">{error.message}</Text>
                     )}
                   </View>
                 )}
@@ -313,7 +323,13 @@ export const UpdateLeaveScreen = () => {
                 name="remarks"
                 render={({ field: { value, onChange }, fieldState: { error } }) => (
                   <View className="flex-col gap-y-1.5 space-y-1.5">
-                    <Text variant={error ? 'error' : 'label'} weight="medium" className="mb-2 ml-1">
+                    <Text
+                      className={cn(
+                        'mb-2 ml-1',
+                        error
+                          ? 'text-sm text-destructive'
+                          : 'text-sm font-medium text-foreground/70'
+                      )}>
                       Remarks
                     </Text>
                     <Input
@@ -327,9 +343,7 @@ export const UpdateLeaveScreen = () => {
                       error={!!error}
                     />
                     {error && (
-                      <Text variant="caption-sm" className="ml-1 mt-2 text-destructive">
-                        {error.message}
-                      </Text>
+                      <Text className="ml-1 mt-2 text-xs text-destructive">{error.message}</Text>
                     )}
                   </View>
                 )}

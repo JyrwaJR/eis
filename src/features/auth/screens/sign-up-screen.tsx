@@ -1,6 +1,7 @@
 import React from 'react';
-import { View, ScrollView } from 'react-native';
-import { Button, Input, Text } from '@components/ui';
+import { View, ScrollView, Text } from 'react-native';
+import { Button, Input } from '@components/ui';
+import { cn } from '@utils/helpers/cn';
 import { FormProvider, useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
@@ -54,9 +55,12 @@ export const SignUpScreen = () => {
                     render={({ field: { onChange, onBlur, value }, fieldState: { error } }) => (
                       <View className="my-2 w-full">
                         <Text
-                          variant={error ? 'error' : 'label'}
-                          weight="medium"
-                          className="mb-2 ml-1">
+                          className={cn(
+                            'mb-2 ml-1',
+                            error
+                              ? 'text-sm text-destructive'
+                              : 'text-sm font-medium text-foreground/70'
+                          )}>
                           First name
                         </Text>
                         <Input
@@ -68,7 +72,7 @@ export const SignUpScreen = () => {
                           testID="FIRST_NAME_INPUT"
                         />
                         {error && (
-                          <Text variant="caption-sm" className="ml-1 mt-2 text-destructive">
+                          <Text className="ml-1 mt-2 text-xs text-destructive">
                             {error.message}
                           </Text>
                         )}
@@ -82,9 +86,12 @@ export const SignUpScreen = () => {
                     render={({ field: { onChange, onBlur, value }, fieldState: { error } }) => (
                       <View className="my-2 w-full">
                         <Text
-                          variant={error ? 'error' : 'label'}
-                          weight="medium"
-                          className="mb-2 ml-1">
+                          className={cn(
+                            'mb-2 ml-1',
+                            error
+                              ? 'text-sm text-destructive'
+                              : 'text-sm font-medium text-foreground/70'
+                          )}>
                           Last name
                         </Text>
                         <Input
@@ -96,7 +103,7 @@ export const SignUpScreen = () => {
                           testID="LAST_NAME_INPUT"
                         />
                         {error && (
-                          <Text variant="caption-sm" className="ml-1 mt-2 text-destructive">
+                          <Text className="ml-1 mt-2 text-xs text-destructive">
                             {error.message}
                           </Text>
                         )}
@@ -110,7 +117,13 @@ export const SignUpScreen = () => {
                 name="phone_no"
                 render={({ field: { onChange, onBlur, value }, fieldState: { error } }) => (
                   <View className="my-2 w-full">
-                    <Text variant={error ? 'error' : 'label'} weight="medium" className="mb-2 ml-1">
+                    <Text
+                      className={cn(
+                        'mb-2 ml-1',
+                        error
+                          ? 'text-sm text-destructive'
+                          : 'text-sm font-medium text-foreground/70'
+                      )}>
                       Phone Number
                     </Text>
                     <Input
@@ -123,9 +136,7 @@ export const SignUpScreen = () => {
                       testID="PHONE_NUMBER_INPUT"
                     />
                     {error && (
-                      <Text variant="caption-sm" className="ml-1 mt-2 text-destructive">
-                        {error.message}
-                      </Text>
+                      <Text className="ml-1 mt-2 text-xs text-destructive">{error.message}</Text>
                     )}
                   </View>
                 )}
@@ -135,7 +146,13 @@ export const SignUpScreen = () => {
                 name="password"
                 render={({ field: { onChange, onBlur, value }, fieldState: { error } }) => (
                   <View className="my-2 w-full">
-                    <Text variant={error ? 'error' : 'label'} weight="medium" className="mb-2 ml-1">
+                    <Text
+                      className={cn(
+                        'mb-2 ml-1',
+                        error
+                          ? 'text-sm text-destructive'
+                          : 'text-sm font-medium text-foreground/70'
+                      )}>
                       Password
                     </Text>
                     <Input
@@ -148,9 +165,7 @@ export const SignUpScreen = () => {
                       testID="PASSWORD_INPUT"
                     />
                     {error && (
-                      <Text variant="caption-sm" className="ml-1 mt-2 text-destructive">
-                        {error.message}
-                      </Text>
+                      <Text className="ml-1 mt-2 text-xs text-destructive">{error.message}</Text>
                     )}
                   </View>
                 )}
@@ -160,7 +175,13 @@ export const SignUpScreen = () => {
                 name="confirm_password"
                 render={({ field: { onChange, onBlur, value }, fieldState: { error } }) => (
                   <View className="my-2 w-full">
-                    <Text variant={error ? 'error' : 'label'} weight="medium" className="mb-2 ml-1">
+                    <Text
+                      className={cn(
+                        'mb-2 ml-1',
+                        error
+                          ? 'text-sm text-destructive'
+                          : 'text-sm font-medium text-foreground/70'
+                      )}>
                       Confirm Password
                     </Text>
                     <Input
@@ -173,9 +194,7 @@ export const SignUpScreen = () => {
                       testID="CONFIRM_PASSWORD_INPUT"
                     />
                     {error && (
-                      <Text variant="caption-sm" className="ml-1 mt-2 text-destructive">
-                        {error.message}
-                      </Text>
+                      <Text className="ml-1 mt-2 text-xs text-destructive">{error.message}</Text>
                     )}
                   </View>
                 )}

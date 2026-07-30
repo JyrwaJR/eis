@@ -116,7 +116,6 @@ export const ProfileScreen = () => {
   const fullName = getFullName(profile.emp_fname, profile.emp_mname, profile.emp_lname);
 
   const initials = getInitials(profile.emp_fname, profile.emp_mname, profile.emp_lname);
-  console.log(profile);
 
   return (
     <Container>
@@ -128,7 +127,7 @@ export const ProfileScreen = () => {
         <View className="mb-8 flex-col items-center">
           {/* Avatar with initials */}
           <View className="relative mb-4 h-24 w-24 items-center justify-center rounded-full border-4 border-white bg-blue-100 shadow-sm dark:border-neutral-800 dark:bg-blue-900/40">
-            <Text className="text-3xl font-bold text-blue-700 dark:text-blue-400">{initials}</Text>
+            <Text className="text-3xl font-bold text-primary">{initials}</Text>
             {/* Online status indicator */}
             <View className="absolute bottom-0 right-0 h-6 w-6 rounded-full border-2 border-white bg-green-600 dark:border-neutral-800" />
           </View>

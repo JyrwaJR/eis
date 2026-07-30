@@ -1,18 +1,11 @@
-import { View } from 'react-native';
-import { Text } from '@components/ui/text';
+import { View, Text } from 'react-native';
 
 export const AuthTermsText = () => (
   <View className="p-2">
-    <Text variant="subtext" size="xs">
+    <Text className="text-xs text-muted-foreground">
       By creating an account, you agree to our{' '}
-      <Text variant="link" size="xs">
-        Terms of Service
-      </Text>{' '}
-      and{' '}
-      <Text variant="link" size="xs">
-        Privacy Policy
-      </Text>
-      .
+      <Text className="text-xs font-medium text-primary">Terms of Service</Text> and{' '}
+      <Text className="text-xs font-medium text-primary">Privacy Policy</Text>.
     </Text>
   </View>
 );

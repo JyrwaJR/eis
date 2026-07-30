@@ -1,6 +1,5 @@
 import React from 'react';
-import { View, TouchableOpacity, Image } from 'react-native';
-import { Text } from '@components/ui/text';
+import { View, TouchableOpacity, Image, Text } from 'react-native';
 import { router } from 'expo-router';
 import { PAGE_ROUTES } from '@utils/constants/routes';
 import type { LeaveListItem } from '@sharedTypes/leave';

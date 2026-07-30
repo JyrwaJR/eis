@@ -1,7 +1,6 @@
 import React from 'react';
-import { View, ScrollView, RefreshControl } from 'react-native';
+import { View, ScrollView, RefreshControl, Text } from 'react-native';
 import { Container } from '@components/layout/container';
-import { Text } from '@components/ui/text';
 import { Button } from '@components/ui/button';
 import { router } from 'expo-router';
 import { TaxDetailSkeleton } from '../components/skeleton';
@@ -48,10 +47,7 @@ export const EmployeeTaxDetailScreen = () => {
         />
 
         <Card variant="bordered" className="mb-6 p-5">
-          <Text
-            variant="subtext"
-            size="xs"
-            className="mb-4 font-bold uppercase tracking-wider text-graphite">
+          <Text className="mb-4 text-xs font-bold uppercase tracking-wider text-graphite">
             Employee Particulars
           </Text>
           <DetailRow label="Name" value={data.employeeName} />
@@ -88,8 +84,8 @@ export const EmployeeTaxDetailScreen = () => {
                 data.regime === 'NEW' ? 'bg-primary-soft' : 'bg-amber-100 dark:bg-amber-900/30'
               )}>
               <Text
-                variant="caption-sm"
                 className={cn(
+                  'text-xs',
                   'font-bold',
                   data.regime === 'NEW' ? 'text-primary' : 'text-amber-700 dark:text-amber-400'
                 )}>
@@ -99,16 +95,16 @@ export const EmployeeTaxDetailScreen = () => {
           </View>
           <View className="rounded-md bg-surface-soft p-3">
             <View className="mb-2 flex-row border-b border-border pb-2">
-              <Text variant="subtext" size="xs" className="flex-[2] font-bold uppercase">
+              <Text className="flex-[2] text-xs font-bold uppercase text-muted-foreground">
                 Slab
               </Text>
-              <Text variant="subtext" size="xs" className="flex-1 text-right font-bold uppercase">
+              <Text className="flex-1 text-right text-xs font-bold uppercase text-muted-foreground">
                 Rate
               </Text>
-              <Text variant="subtext" size="xs" className="flex-1 text-right font-bold uppercase">
+              <Text className="flex-1 text-right text-xs font-bold uppercase text-muted-foreground">
                 Amount
               </Text>
-              <Text variant="subtext" size="xs" className="flex-1 text-right font-bold uppercase">
+              <Text className="flex-1 text-right text-xs font-bold uppercase text-muted-foreground">
                 Tax
               </Text>
             </View>
@@ -119,22 +115,14 @@ export const EmployeeTaxDetailScreen = () => {
                   'flex-row py-2',
                   index < data.slabBreakdown.length - 1 && 'border-b border-border/50'
                 )}>
-                <Text variant="subtext" size="xs" className="flex-[2] text-charcoal">
-                  {slab.label}
-                </Text>
-                <Text
-                  variant="subtext"
-                  size="xs"
-                  className="flex-1 text-right font-medium text-charcoal">
+                <Text className="flex-[2] text-xs text-charcoal">{slab.label}</Text>
+                <Text className="flex-1 text-right text-xs font-medium text-charcoal">
                   {slab.rate}%
                 </Text>
-                <Text variant="subtext" size="xs" className="flex-1 text-right text-graphite">
+                <Text className="flex-1 text-right text-xs text-graphite">
                   Rs {slab.taxableAmount.toLocaleString('en-IN')}
                 </Text>
-                <Text
-                  variant="subtext"
-                  size="xs"
-                  className="flex-1 text-right font-semibold text-foreground">
+                <Text className="flex-1 text-right text-xs font-semibold text-foreground">
                   Rs {slab.taxAtSlab.toLocaleString('en-IN')}
                 </Text>
               </View>
@@ -201,12 +189,10 @@ export const EmployeeTaxDetailScreen = () => {
           />
           <DetailRow label="Tax Payable" value={'Rs ' + data.taxPayable.toLocaleString('en-IN')} />
           <View className="mt-3 flex-row items-center justify-between rounded-lg bg-surface-soft p-3">
-            <Text variant="subtext" size="xs" className="font-medium uppercase text-charcoal">
-              Filing Status
-            </Text>
+            <Text className="text-xs font-medium uppercase text-charcoal">Filing Status</Text>
             <Text
-              variant="body-emphasis"
               className={cn(
+                'text-base font-semibold',
                 data.filingStatus === 'PROCESSED'
                   ? 'text-semantic-up'
                   : data.filingStatus === 'FILED'

@@ -18,54 +18,54 @@ Every `<Text>` usage in the codebase falls into one of these pattern expansions.
 
 The current component always adds `font-sans text-foreground dark:text-white` via CVA base. When converting:
 
-| Component provides                      | Replace with                                                                                                                                                                        |
-| --------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `font-sans`                             | Omit (system default font)                                                                                                                                                          |
-| `text-body-md` (from `default` variant) | Add if the usage has no explicit text-size class in its className; omit if it already has one                                                                                       |
-| `text-foreground`                       | Add `text-foreground` only if no other text-color class is present (e.g., `text-muted-foreground`, `text-primary`, `text-destructive`, `text-charcoal`, `text-ink`, `text-red-500`) |
-| `dark:text-white`                       | Add `dark:text-white` only when there's no dark-mode-aware token (most semantic colors like `text-foreground` / `text-muted-foreground` already handle dark mode via CSS variables) |
+| Component provides                   | Replace with                                                                                                                                                                        |
+| ------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `font-sans`                          | Omit (system default font)                                                                                                                                                          |
+| `text-base` (from `default` variant) | Add if the usage has no explicit text-size class in its className; omit if it already has one                                                                                       |
+| `text-foreground`                    | Add `text-foreground` only if no other text-color class is present (e.g., `text-muted-foreground`, `text-primary`, `text-destructive`, `text-charcoal`, `text-ink`, `text-red-500`) |
+| `dark:text-white`                    | Add `dark:text-white` only when there's no dark-mode-aware token (most semantic colors like `text-foreground` / `text-muted-foreground` already handle dark mode via CSS variables) |
 
 ### Variants (no size override)
 
-| `variant` prop              | Expanded `className`                                                             |
-| --------------------------- | -------------------------------------------------------------------------------- |
-| `display-xxl`               | `text-display-xxl`                                                               |
-| `display-xl`                | `text-display-xl`                                                                |
-| `display-lg`                | `text-display-lg`                                                                |
-| `display-md`                | `text-display-md`                                                                |
-| `display-sm`                | `text-display-sm`                                                                |
-| `display-xs`                | `text-display-xs`                                                                |
-| `body-lg`                   | `text-body-lg`                                                                   |
-| `body-md`                   | `text-body-md`                                                                   |
-| `body-emphasis`             | `text-body-emphasis`                                                             |
-| `caption-md`                | `text-caption-md`                                                                |
-| `caption-bold`              | `text-caption-bold`                                                              |
-| `caption-sm`                | `text-caption-sm`                                                                |
-| `link-md`                   | `text-link-md text-primary`                                                      |
-| `button-md`                 | `text-button-md uppercase tracking-wide`                                         |
-| `button-sm`                 | `text-button-sm uppercase tracking-wider`                                        |
-| `price-md`                  | `text-price-md`                                                                  |
-| `default` (no variant prop) | `text-body-md` (16px/400/1.38) — omit if className already has a text-size class |
-| `heading`                   | `text-display-sm font-semibold`                                                  |
-| `subtext`                   | `text-caption-md text-muted-foreground`                                          |
-| `error`                     | `text-caption-md text-destructive`                                               |
-| `link`                      | `text-link-md text-primary`                                                      |
-| `label`                     | `text-caption-md font-medium text-foreground/70`                                 |
+| `variant` prop              | Expanded `className`                                          |
+| --------------------------- | ------------------------------------------------------------- |
+| `display-xxl`               | `text-7xl`                                                    |
+| `display-xl`                | `text-6xl`                                                    |
+| `display-lg`                | `text-5xl`                                                    |
+| `display-md`                | `text-4xl`                                                    |
+| `display-sm`                | `text-2xl`                                                    |
+| `display-xs`                | `text-xl`                                                     |
+| `body-lg`                   | `text-lg`                                                     |
+| `body-md`                   | `text-base`                                                   |
+| `body-emphasis`             | `text-base font-medium`                                       |
+| `caption-md`                | `text-sm`                                                     |
+| `caption-bold`              | `text-sm font-bold`                                           |
+| `caption-sm`                | `text-xs`                                                     |
+| `link-md`                   | `text-base font-medium text-primary`                          |
+| `button-md`                 | `text-sm font-semibold uppercase tracking-wide`               |
+| `button-sm`                 | `text-xs font-bold uppercase tracking-wider`                  |
+| `price-md`                  | `text-2xl`                                                    |
+| `default` (no variant prop) | `text-base` — omit if className already has a text-size class |
+| `heading`                   | `text-2xl font-semibold`                                      |
+| `subtext`                   | `text-sm text-muted-foreground`                               |
+| `error`                     | `text-sm text-destructive`                                    |
+| `link`                      | `text-base font-medium text-primary`                          |
+| `label`                     | `text-sm font-medium text-foreground/70`                      |
 
 ### Size override (when `size` prop provided alongside `variant`)
 
 The component strips the text-size class from the variant's output and replaces it with the size's text-size class. All non-size classes from the variant (color, weight, transform) are preserved.
 
-| `size` prop | Expands to        |
-| ----------- | ----------------- |
-| `xs`        | `text-caption-sm` |
-| `sm`        | `text-caption-md` |
-| `lg`        | `text-body-lg`    |
-| `xl`        | `text-display-xs` |
-| `2xl`       | `text-display-sm` |
-| `3xl`       | `text-display-md` |
+| `size` prop | Expands to |
+| ----------- | ---------- |
+| `xs`        | `text-xs`  |
+| `sm`        | `text-sm`  |
+| `lg`        | `text-lg`  |
+| `xl`        | `text-xl`  |
+| `2xl`       | `text-2xl` |
+| `3xl`       | `text-4xl` |
 
-**Example:** `variant="heading" size="3xl"` → `font-semibold` (from heading, minus `text-display-sm`) + `text-display-md` (from size=3xl) = `font-semibold text-display-md`
+**Example:** `variant="heading" size="3xl"` → `font-semibold` (from heading, minus `text-2xl`) + `text-4xl` (from size=3xl) = `font-semibold text-4xl`
 
 ### Weight override (when `weight` prop provided)
 
@@ -134,7 +134,7 @@ export const DialogTitle = ({ className, ...props }: React.ComponentProps<typeof
 // which does NOT include variant/size/weight. Verify no callers pass these to
 // DialogTitle/DialogDescription — they should only receive standard RN Text props + className.
 export const DialogTitle = ({ className, ...props }: React.ComponentProps<typeof Text>) => (
-  <Text className="text-display-xs" {...props} />
+  <Text className="text-xl" {...props} />
 );
 ```
 
@@ -143,10 +143,10 @@ export const DialogTitle = ({ className, ...props }: React.ComponentProps<typeof
 export const DialogDescription = ({ className, ...props }: React.ComponentProps<typeof Text>) => (
   <Text variant="caption-md" className={cn('text-muted-foreground', className)} {...props} />
 );
-// After — variant caption-md → text-caption-md. 'text-muted-foreground' in cn() is redundant
+// After — variant caption-md → text-sm. 'text-muted-foreground' in cn() is redundant
 // but harmless; keep it for clarity.
 export const DialogDescription = ({ className, ...props }: React.ComponentProps<typeof Text>) => (
-  <Text className={cn('text-caption-md text-muted-foreground', className)} {...props} />
+  <Text className={cn('text-sm text-muted-foreground', className)} {...props} />
 );
 ```
 
@@ -154,13 +154,13 @@ export const DialogDescription = ({ className, ...props }: React.ComponentProps<
 
 Change import: `import { Text } from './text'` → `import { Text } from 'react-native'`
 
-`alert.tsx` has 3 Text usages with variants: `body-emphasis`, `caption-md`, `caption-bold`. No `size` or `weight` overrides. Simple one-to-one replacement using the reference table — add `text-body-emphasis`, `text-caption-md`, and `text-caption-bold` classes respectively.
+`alert.tsx` has 3 Text usages with variants: `body-emphasis`, `caption-md`, `caption-bold`. No `size` or `weight` overrides. Simple one-to-one replacement using the reference table — add `text-base font-medium`, `text-sm`, and `text-sm font-bold` classes respectively.
 
 - [ ] **Step 3: Convert `accordion.tsx`**
 
 Change import: `import { Text } from './text'` → `import { Text } from 'react-native'`
 
-Usages use `variant="body-emphasis"` with `className`. One-to-one replacement.
+Usages use `variant="body-emphasis"` with `className`. One-to-one replacement — `variant="body-emphasis"` → `className="text-base font-medium"`.
 
 - [ ] **Step 4: Convert `card.tsx`**
 
@@ -168,20 +168,13 @@ Change import: `import { Text } from './text'` → `import { Text } from 'react-
 
 Two usages:
 
-- CardTitle uses `variant="display-xs"` with `className` → `className={cn('text-display-xs', className)}`
-- CardDescription uses `variant="caption-md"` with `className` → `className={cn('text-caption-md', className)}`
+- CardTitle uses `variant="display-xs"` with `className` → `className={cn('text-xl', className)}`
+- CardDescription uses `variant="caption-md"` with `className` → `className={cn('text-sm', className)}`
 
 - [ ] **Step 5: TypeScript verification**
 
 Run: `npx tsc --noEmit`
 Expected: No new errors. If errors exist, fix and re-run.
-
-- [ ] **Step 6: Commit**
-
-```bash
-git add src/shared/components/ui/dialog.tsx src/shared/components/ui/alert.tsx src/shared/components/ui/accordion.tsx src/shared/components/ui/card.tsx
-git commit -m "refactor: replace custom Text with RN Text in shared UI components"
-```
 
 ---
 
@@ -208,15 +201,15 @@ Inspect Text usages — convert variant/size/weight to className per reference t
 
 Change import: `import { Text } from '../ui/text'` → `import { Text } from 'react-native'`
 
-Notable: uses `variant="heading"` with `className`. Expand `heading` → `text-display-sm font-semibold` in className.
+Notable: uses `variant="heading"` with `className`. Expand `heading` → `text-2xl font-semibold` in className.
 
-Also uses `variant="subtext"`. Expand `subtext` → `text-caption-md text-muted-foreground`.
+Also uses `variant="subtext"`. Expand `subtext` → `text-sm text-muted-foreground`.
 
 - [ ] **Step 3: Convert `money-row.tsx`**
 
 Change import: `import { Text } from '../ui/text'` → `import { Text } from 'react-native'`
 
-Key concern: No variant prop used — relies on `default` variant (which adds `text-body-md` via base). The className already has `text-sm` which overrides `text-body-md`. But the base `text-foreground` and `dark:text-white` are lost.
+Key concern: No variant prop used — relies on `default` variant (which adds `text-base` via base). The className already has `text-sm` which overrides `text-base`. But the base `text-foreground` and `dark:text-white` are lost.
 
 **Add `text-foreground`** to both Text usages' className calls since neither has an explicit text-color class:
 
@@ -245,7 +238,7 @@ Change import: `import { Text } from '../ui/text'` → `import { Text } from 're
 
 Two usages:
 
-- `variant="subtext"` with `className="text-sm font-medium"` → `className="text-caption-md text-muted-foreground text-sm font-medium"` (tailwind-merge resolves `text-caption-md` vs `text-sm` — `text-sm` wins). Simplify to `className="text-sm font-medium text-muted-foreground"`.
+- `variant="subtext"` with `className="text-sm font-medium"` → `className="text-sm text-muted-foreground font-medium"` (tailwind-merge deduplicates `text-sm`). Simplify to `className="text-sm font-medium text-muted-foreground"`.
 - `className="text-sm font-semibold text-foreground"` — already has `text-foreground`, no change needed beyond import switch.
 
 - [ ] **Step 5: Convert `summary-card.tsx`**
@@ -272,35 +265,28 @@ Three usages to convert:
 <Text variant="heading" size="3xl" weight="bold" className="text-foreground">
   {title}
 </Text>
-// → heading = text-display-sm font-semibold
-//   size 3xl = text-display-md (overrides text-display-sm)
+// → heading = text-2xl font-semibold
+//   size 3xl = text-4xl (overrides text-2xl)
 //   weight bold = font-bold (overrides font-semibold via tailwind-merge)
-//   Result: font-semibold text-display-md font-bold text-foreground
-// → Simplified: text-display-md font-bold text-foreground
-<Text className="text-display-md font-bold text-foreground">{title}</Text>
+//   Result: font-semibold text-4xl font-bold text-foreground
+// → Simplified: text-4xl font-bold text-foreground
+<Text className="text-4xl font-bold text-foreground">{title}</Text>
 ```
 
 ```tsx
 // Usage 3 (line 54): Subtitle — variant="subtext" + size="sm" + className
 <Text variant="subtext" size="sm" className="mt-1">
-// → subtext = text-caption-md text-muted-foreground
-//   size sm = text-caption-md (same, redundant via tailwind-merge)
-//   Result: text-caption-md text-muted-foreground mt-1
-// → Simplified: text-caption-md text-muted-foreground mt-1
-<Text className="text-caption-md text-muted-foreground mt-1">
+// → subtext = text-sm text-muted-foreground
+//   size sm = text-sm (same, redundant via tailwind-merge)
+//   Result: text-sm text-muted-foreground mt-1
+// → Simplified: text-sm text-muted-foreground mt-1
+<Text className="text-sm text-muted-foreground mt-1">
 ```
 
 - [ ] **Step 7: TypeScript verification**
 
 Run: `npx tsc --noEmit`
 Expected: No new errors.
-
-- [ ] **Step 8: Commit**
-
-```bash
-git add src/shared/components/common/search-input.tsx src/shared/components/common/govt-header.tsx src/shared/components/common/money-row.tsx src/shared/components/common/detail-row.tsx src/shared/components/common/summary-card.tsx src/shared/components/common/section-header.tsx
-git commit -m "refactor: replace custom Text with RN Text in common components pt1"
-```
 
 ---
 
@@ -330,8 +316,8 @@ Two usages:
 ```tsx
 // Usage 2 (line 17): variant="subtext" + className
 <Text variant="subtext" className="text-xs font-medium uppercase tracking-wider">
-// → subtext = text-caption-md text-muted-foreground
-//   text-xs overrides text-caption-md
+// → subtext = text-sm text-muted-foreground
+//   text-xs overrides text-sm
 //   Result: text-xs font-medium uppercase tracking-wider text-muted-foreground
 <Text className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
 ```
@@ -364,13 +350,6 @@ Inspect and convert per reference table.
 
 Run: `npx tsc --noEmit`
 Expected: No new errors.
-
-- [ ] **Step 7: Commit**
-
-```bash
-git add src/shared/components/common/stats-box.tsx src/shared/components/common/setting-row.tsx src/shared/components/common/filter-card.tsx src/shared/components/common/history-card.tsx src/shared/components/common/year-filter.tsx
-git commit -m "refactor: replace custom Text with RN Text in common components pt2"
-```
 
 ---
 
@@ -405,13 +384,6 @@ Likely uses `variant="subtext"`. Expand per reference table.
 Run: `npx tsc --noEmit`
 Expected: No new errors.
 
-- [ ] **Step 5: Commit**
-
-```bash
-git add src/shared/components/screens/loading-screen.tsx src/shared/components/screens/forbidden.tsx src/shared/components/layout/paginated-list.tsx
-git commit -m "refactor: replace custom Text with RN Text in shared screens/layout"
-```
-
 ---
 
 ### Task 5: Feature — Auth (auth-term-text, auth-header, auth-footer, auth-divider, reset-password-form, sign-up-screen)
@@ -429,25 +401,25 @@ git commit -m "refactor: replace custom Text with RN Text in shared screens/layo
 
 Change import: `import { Text } from '@components/ui/text'` → `import { Text } from 'react-native'`
 
-Uses `variant="subtext"` with `size="xs"` and `weight="medium"`. Let's trace:
+Uses `variant="subtext"` with `size="xs"` and `weight="medium"`:
 
-- `variant="subtext"` → `text-caption-md text-muted-foreground`
-- `size="xs"` → `text-caption-sm` (overrides `text-caption-md`)
+- `variant="subtext"` → `text-sm text-muted-foreground`
+- `size="xs"` → `text-xs` (overrides `text-sm`)
 - `weight="medium"` → `font-medium`
-- Result: `text-caption-sm text-muted-foreground font-medium`
-- Also uses `variant="link"` → `text-link-md text-primary`
+- Result: `text-xs text-muted-foreground font-medium`
+- Also uses `variant="link"` → `text-base font-medium text-primary`
 
 - [ ] **Step 2: Convert `auth-header.tsx`**
 
 Change import: `import { Text } from '@components/ui/text'` → `import { Text } from 'react-native'`
 
-Uses `variant="heading"` with `size="3xl"` and `weight="semibold"`. Trace:
+Uses `variant="heading"` with `size="3xl"` and `weight="semibold"`:
 
-- `variant="heading"` → `text-display-sm font-semibold`
-- `size="3xl"` → `text-display-md` (overrides `text-display-sm`)
+- `variant="heading"` → `text-2xl font-semibold`
+- `size="3xl"` → `text-4xl` (overrides `text-2xl`)
 - `weight="semibold"` → `font-semibold` (redundant with heading's `font-semibold`)
-- Also uses `variant="subtext"` (common pattern)
-- Result: `font-semibold text-display-md font-semibold` → `text-display-md font-semibold`
+- Also uses `variant="subtext"`
+- Result: `text-4xl font-semibold`
 
 - [ ] **Step 3: Convert `auth-footer.tsx`**
 
@@ -465,12 +437,12 @@ Uses `variant="subtext"` with `weight="medium"`. Expand per reference table.
 
 Change import: `import { Text } from '@components/ui/text'` → `import { Text } from 'react-native'`
 
-Uses pattern: `variant={fieldError ? 'error' : 'label'}` with conditional className. This is used for form field labels/errors. Expand:
+Uses pattern: `variant={fieldError ? 'error' : 'label'}` with conditional className. Expand:
 
-- `error` → `text-caption-md text-destructive`
-- `label` → `text-caption-md font-medium text-foreground/70` (no `dark:text-white/70` since `text-foreground/70` handles it)
+- `error` → `text-sm text-destructive`
+- `label` → `text-sm font-medium text-foreground/70`
 
-Also uses `variant="caption-sm"` for validation messages, with `className="ml-1 mt-2 text-destructive"`, so replace `variant="caption-sm"` with just `text-caption-sm` in className.
+Also uses `variant="caption-sm"` for validation messages, with `className="ml-1 mt-2 text-destructive"`, so replace `variant="caption-sm"` with `text-xs` in className.
 
 - [ ] **Step 6: Convert `sign-up-screen.tsx`**
 
@@ -482,13 +454,6 @@ Same `error`/`label` pattern as reset-password-form. Expand per reference table.
 
 Run: `npx tsc --noEmit`
 Expected: No new errors.
-
-- [ ] **Step 8: Commit**
-
-```bash
-git add src/features/auth/components/auth-term-text.tsx src/features/auth/components/auth-header.tsx src/features/auth/components/auth-footer.tsx src/features/auth/components/auth-divider.tsx src/features/auth/components/reset-password-form.tsx src/features/auth/screens/sign-up-screen.tsx
-git commit -m "refactor: replace custom Text with RN Text in auth feature"
-```
 
 ---
 
@@ -531,15 +496,15 @@ Uses default variant with className. Add `text-foreground` if no text-color clas
 
 Change import: `import { Text } from '@components/ui/text'` → `import { Text } from 'react-native'`
 
-This file has **6 `<Text>` usages**, all with no `variant` prop (uses `default` → `text-body-md`). Convert each:
+This file has **6 `<Text>` usages**, all with no `variant` prop (uses `default` → `text-base`). Convert each:
 
-| Usage            | Current `className`                                            | Replace with                                                                                                                                                                                                                                           |
-| ---------------- | -------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| Line 40          | `text-center text-lg font-bold tracking-wider text-black`      | Add `text-body-md text-foreground` — **IMPORTANT**: `text-black` is NOT dark-mode-aware; the original base `dark:text-white` overrode it. Change to `text-center text-lg font-bold tracking-wider text-foreground` (semantic token handles dark mode). |
-| Line 43          | `text-center text-lg font-medium tracking-wider text-graphite` | `text-graphite` IS dark-mode-aware (CSS variable). Also add `text-body-md text-foreground`. Since `text-foreground` is overridden by `text-graphite`, it's redundant but harmless.                                                                     |
-| Line 64          | `text-sm text-primary`                                         | `text-primary` handles dark mode. No change beyond import.                                                                                                                                                                                             |
-| Line 65          | `text-lg font-semibold`                                        | This had `text-body-md` from default variant, overridden by `text-lg`. Add `text-foreground` since it has no explicit text-color.                                                                                                                      |
-| Lines 68-71 (x3) | `text-gray-500`                                                | **IMPORTANT**: `text-gray-500` is NOT dark-mode-aware. The original base `dark:text-white` overrode it to white. Change to `text-muted-foreground` (dark-mode-aware) or add `dark:text-white`.                                                         |
+| Usage            | Current `className`                                            | Replace with                                                                                                                                 |
+| ---------------- | -------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
+| Line 40          | `text-center text-lg font-bold tracking-wider text-black`      | Change to `text-center text-lg font-bold tracking-wider text-foreground`. `text-black` is NOT dark-mode-aware; `text-foreground` handles it. |
+| Line 43          | `text-center text-lg font-medium tracking-wider text-graphite` | `text-graphite` IS dark-mode-aware. Add `text-foreground` (redundant but harmless).                                                          |
+| Line 64          | `text-sm text-primary`                                         | Already correct — `text-primary` handles dark mode.                                                                                          |
+| Line 65          | `text-lg font-semibold`                                        | Add `text-foreground` — no explicit text-color class present.                                                                                |
+| Lines 68-71 (×3) | `text-gray-500`                                                | Change to `text-muted-foreground` (dark-mode-aware) or add `dark:text-white`. `text-gray-500` is NOT dark-mode-aware.                        |
 
 - [ ] **Step 6: Convert `update-leave-screen.tsx`**
 
@@ -551,13 +516,6 @@ Uses the `error`/`label` pattern and `caption-sm` for form validation. Expand pe
 
 Run: `npx tsc --noEmit`
 Expected: No new errors.
-
-- [ ] **Step 8: Commit**
-
-```bash
-git add src/features/leave/components/leave-detail-info.tsx src/features/leave/components/leave-detail-header.tsx src/features/leave/components/leave-balance-card.tsx src/features/home/components/home-quick-actions.tsx src/features/home/components/home-leave-history.tsx src/features/leave/screens/update-leave-screen.tsx
-git commit -m "refactor: replace custom Text with RN Text in leave/home features"
-```
 
 ---
 
@@ -580,13 +538,13 @@ Change import to `'react-native'`. Key usages:
 
 a) `variant="heading"` with `size="sm"` (no `weight` prop):
 
-- `heading` → `text-display-sm font-semibold`
-- `size="sm"` → `text-caption-md` (overrides `text-display-sm`)
-- Result: `font-semibold text-caption-md` → `text-caption-md font-semibold`
+- `heading` → `text-2xl font-semibold`
+- `size="sm"` → `text-sm` (overrides `text-2xl`)
+- Result: `text-sm font-semibold`
 
-b) `variant="subtext"` → `text-caption-md text-muted-foreground`
+b) `variant="subtext"` → `text-sm text-muted-foreground`
 
-c) 3 variant-less usages (lines 31, 36, 37): No variant prop — these used the `default` variant (`text-body-md`). Add `text-body-md text-foreground` to their className unless they already have an explicit text-size or text-color class. Check for stock Tailwind colors (e.g. `text-gray-*`) that would lose `dark:text-white`.
+c) 3 variant-less usages (lines 31, 36, 37): No variant prop — used `default` variant (`text-base`). Add `text-base text-foreground` unless they already have explicit text-size/color. Check for stock Tailwind colors that would lose `dark:text-white`.
 
 - [ ] **Step 2: Convert `tax-summary-card.tsx`**
 
@@ -596,7 +554,7 @@ Change import to `'react-native'`. Uses `variant="subtext"` and default variant.
 
 Change import to `'react-native'`. Uses `error`/`label` pattern and `caption-sm` for form validation. Same pattern as reset-password-form Task 5 Step 5.
 
-Also uses `weight="medium"` with `label` variant: `variant="label" weight="medium"` → `text-caption-md font-medium text-foreground/70 font-medium` → `text-caption-md font-medium text-foreground/70` (deduped).
+Also uses `weight="medium"` with `label` variant: `variant="label" weight="medium"` → `text-sm font-medium text-foreground/70` (deduped).
 
 - [ ] **Step 4: Convert `edit-tax-detail-screen.tsx`**
 
@@ -614,13 +572,6 @@ Change import to `'react-native'`. Same form validation pattern (`error`/`label`
 
 Run: `npx tsc --noEmit`
 Expected: No new errors.
-
-- [ ] **Step 8: Commit**
-
-```bash
-git add src/features/announcements/components/announcement-card.tsx src/features/income-tax/components/tax-summary-card.tsx src/features/income-tax/screens/create-tax-record-screen.tsx src/features/income-tax/screens/edit-tax-detail-screen.tsx src/features/income-tax/screens/tax-detail-screen.tsx src/app/tax/create.tsx
-git commit -m "refactor: replace custom Text with RN Text in announcements/income-tax features"
-```
 
 ---
 
@@ -687,22 +638,6 @@ rm src/shared/components/ui/text.tsx
 
 Run: `npx tsc --noEmit`
 Expected: No errors. If any file still imports from the removed component, fix those imports.
-
-- [ ] **Step 6: Run project build or lint**
-
-```bash
-npx tsc --noEmit
-```
-
-Expected: Clean exit.
-
-- [ ] **Step 7: Commit**
-
-```bash
-git add src/shared/components/ui/index.ts
-git rm src/shared/components/ui/text.tsx
-git commit -m "refactor: remove custom Text component and barrel export"
-```
 
 ---
 

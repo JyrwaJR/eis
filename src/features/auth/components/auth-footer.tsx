@@ -1,7 +1,6 @@
 import React from 'react';
-import { TouchableOpacity, View } from 'react-native';
+import { TouchableOpacity, View, Text } from 'react-native';
 import { router } from 'expo-router';
-import { Text } from '@components/ui/text';
 import { cn } from '@utils/helpers/cn';
 
 interface AuthFooterProps {
@@ -22,7 +21,7 @@ export const AuthFooter = ({
   replace,
 }: AuthFooterProps) => (
   <View className={cn('mt-10 flex-row items-center justify-center pb-5', className)}>
-    <Text variant="subtext">{text} </Text>
+    <Text className="text-sm text-muted-foreground">{text} </Text>
     <TouchableOpacity
       hitSlop={{ top: 15, bottom: 15, left: 15, right: 15 }}
       testID={testID}
@@ -33,7 +32,7 @@ export const AuthFooter = ({
           router.push(linkHref);
         }
       }}>
-      <Text variant="link" weight="semibold" className="underline underline-offset-2">
+      <Text className="text-base font-semibold text-primary underline underline-offset-2">
         {linkText}
       </Text>
     </TouchableOpacity>

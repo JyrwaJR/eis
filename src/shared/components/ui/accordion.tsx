@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { View, TouchableOpacity } from 'react-native';
+import { View, TouchableOpacity, Text } from 'react-native';
 import Animated, {
   useAnimatedStyle,
   useSharedValue,
@@ -10,7 +10,6 @@ import Animated, {
   runOnUI,
 } from 'react-native-reanimated';
 import { Icon } from '@components/ui/icon';
-import { Text } from './text';
 import { cn } from '../../utils/helpers/cn';
 
 const AccordionContext = React.createContext<{
@@ -96,9 +95,7 @@ export const AccordionTrigger = ({
         }
       }}
       className={cn('flex-row items-center justify-between py-4', className)}>
-      <Text variant="body-emphasis" className="flex-1">
-        {children}
-      </Text>
+      <Text className="flex-1 text-base font-medium">{children}</Text>
       <Animated.View style={arrowStyle}>
         <Icon name="chevron-down" size={18} color="#636363" />
       </Animated.View>

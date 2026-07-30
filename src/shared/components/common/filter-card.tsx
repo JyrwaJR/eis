@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, ScrollView, TouchableOpacity } from 'react-native';
-import { Text } from '@components/ui/text';
+import { View, ScrollView, TouchableOpacity, Text } from 'react-native';
 import { cn } from '@utils/helpers/cn';
 import { months as defaultMonths } from '@utils/helpers';
 import { HugeiconsIcon } from '@hugeicons/react-native';

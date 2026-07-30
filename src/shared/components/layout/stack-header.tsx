@@ -2,7 +2,6 @@ import React, { memo, useCallback, useMemo } from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import { useRouter, useNavigation } from 'expo-router';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { useTheme } from '@hooks/use-theme';
 import { useRoutePath } from '@hooks/use-route-path';
 import { matchPageHeader, cn } from '@utils/helpers';
 import { DrawerToggleButton } from '@react-navigation/drawer';
@@ -15,9 +14,7 @@ export const StackHeader = memo(() => {
   const config = useMemo(() => matchPageHeader(path), [path]);
   const router = useRouter();
   const navigation = useNavigation();
-  const theme = useTheme();
-  const isDark = theme === 'dark';
-  const iconColor = isDark ? '#FFFFFF' : '#1A1A1A';
+  const iconColor = '#024AD8';
   const insets = useSafeAreaInsets();
   const canGoBack = navigation.canGoBack();
 
@@ -32,9 +29,7 @@ export const StackHeader = memo(() => {
   const showPlaceHolder = showBack || showDrawer;
   return (
     <>
-      <View
-        className={cn('border-b border-gray-300 bg-stone-50 dark:border-gray-700 dark:bg-gray-900')}
-        style={{ paddingTop: insets.top }}>
+      <View className={cn('border-b border-border bg-stone-50')} style={{ paddingTop: insets.top }}>
         <TricolorStrip />
         <View className="min-h-[56px] flex-row items-center justify-between gap-x-3 p-3">
           <View className="flex-row items-center justify-start">

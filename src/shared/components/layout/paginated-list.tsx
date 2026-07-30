@@ -1,7 +1,13 @@
 import React from 'react';
-import { FlatList, FlatListProps, RefreshControl, View, ActivityIndicator } from 'react-native';
+import {
+  FlatList,
+  FlatListProps,
+  RefreshControl,
+  View,
+  ActivityIndicator,
+  Text,
+} from 'react-native';
 import { Skeleton } from '../ui/skeleton';
-import { Text } from '../ui/text';
 import { cn } from '../../utils/helpers/cn';
 
 interface PaginatedListProps<T> extends Omit<FlatListProps<T>, 'data'> {
@@ -73,9 +79,7 @@ export function PaginatedList<T>({
 
   const defaultEmptyComponent = (
     <View className="flex-1 items-center justify-center py-20">
-      <Text variant="subtext" className="text-center">
-        No items found.
-      </Text>
+      <Text className="text-center text-sm text-muted-foreground">No items found.</Text>
     </View>
   );
 

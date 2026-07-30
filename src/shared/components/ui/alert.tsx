@@ -1,7 +1,6 @@
 import * as React from 'react';
-import { View, ViewProps } from 'react-native';
+import { View, ViewProps, Text } from 'react-native';
 import { cva, type VariantProps } from 'class-variance-authority';
-import { Text } from './text';
 import { cn } from '../../utils/helpers/cn';
 
 const alertVariants = cva('relative w-full rounded-lg border p-4 flex-row items-start gap-x-3', {
@@ -38,9 +37,7 @@ const AlertTitle = React.forwardRef<
   React.ComponentPropsWithoutRef<typeof View> & { children?: React.ReactNode }
 >(({ className, children, ...props }, ref) => (
   <View ref={ref} {...props}>
-    <Text variant="caption-bold" className={cn('leading-tight', className)}>
-      {children}
-    </Text>
+    <Text className={cn('text-sm font-bold leading-tight', className)}>{children}</Text>
   </View>
 ));
 AlertTitle.displayName = 'AlertTitle';
@@ -50,7 +47,7 @@ const AlertDescription = React.forwardRef<
   React.ComponentPropsWithoutRef<typeof View> & { children?: React.ReactNode }
 >(({ className, children, ...props }, ref) => (
   <View ref={ref} {...props}>
-    <Text variant="caption-md" className={cn('leading-relaxed text-muted-foreground', className)}>
+    <Text className={cn('text-sm leading-relaxed text-muted-foreground', className)}>
       {children}
     </Text>
   </View>
