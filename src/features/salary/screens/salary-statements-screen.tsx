@@ -38,7 +38,7 @@ export function SalaryStatement() {
 
   const deductions = salary?.s_data?.filter((item) => parseFloat(item.amount) < 0) || [];
 
-  const noStatementMessage = `No salary statement is available for the selected month ${selectedMonth.toLowerCase()} and year ${selectedYear}.`;
+  const noStatementMessage = `No salary statement is available for the selected month ${selectedMonth.toLowerCase()} ${selectedYear}.`;
 
   if (isLoading || isLoadingSalYear) {
     return <SalaryStatementsListSkeleton />;

@@ -48,7 +48,8 @@ export function CustomDrawerContent(props: DrawerContentComponentProps) {
           return (
             <React.Fragment key={index}>
               <Link key={item.title + item.href} href={item.href} asChild>
-                <Pressable className={cn('flex-row items-center gap-2 rounded-md p-4')}>
+                <Pressable className={cn('flex-row items-center  gap-2 rounded-md p-4')}>
+                  {isActive && <View className="h-full w-0.5 rounded-md bg-primary" />}
                   <HugeiconsIcon
                     icon={icon}
                     size={24}
@@ -64,7 +65,7 @@ export function CustomDrawerContent(props: DrawerContentComponentProps) {
                   </Text>
                 </Pressable>
               </Link>
-              {isShowDivider && <View className="h-0.5 w-full bg-border" />}
+              {isShowDivider && <View className="h-0.5 w-full border-b border-border" />}
             </React.Fragment>
           );
         })}

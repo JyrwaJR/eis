@@ -48,22 +48,22 @@ export const CustomTabBar = ({
               activeOpacity={0.7}
               testID={`TAB_${route.name.toUpperCase().replace('INDEX', 'HOME')}`}
               className={cn(
-                'mx-3 flex-1 items-center justify-center gap-2 rounded-md p-2',
-                isFocused ? 'bg-primary' : ''
+                'mx-2 flex-1 items-center justify-center gap-2 rounded-md p-2',
+                !isFocused ? 'bg-primary' : 'border border-primary bg-primary/5'
               )}>
               <HugeiconsIcon
-                className={cn(isFocused ? 'text-white' : 'text-primary')}
+                className={cn(!isFocused ? 'text-white' : 'text-primary')}
                 icon={icon}
-                size={24}
+                size={20}
               />
               <Text
                 className={cn(
-                  isFocused ? 'text-md font-bold text-white' : 'font-semibold text-primary'
+                  !isFocused ? 'text-md font-bold text-white' : 'font-semibold text-primary'
                 )}>
                 {label}
               </Text>
             </TouchableOpacity>
-            {isShowDivider && <View className="h-full w-0.5 bg-border" />}
+            {isShowDivider && <View className="h-full w-0.5 border-r border-border" />}
           </React.Fragment>
         );
       })}
