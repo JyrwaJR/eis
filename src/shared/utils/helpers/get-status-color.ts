@@ -3,11 +3,13 @@ import type { IoniconsIconName } from '@react-native-vector-icons/ionicons';
 /**
  * Returns Tailwind CSS classes and Ionicons icon data for a given status label.
  *
- * Supports three statuses — `'Verified'`, `'Pending'`, and `'Rejected'` —
- * each with distinct colour schemes (green, orange, red). Any unrecognised
- * status falls back to a neutral gray theme.
+ * **Success** (green): `'Verified'`, `'PAID'`, `'PROCESSED'`
+ * **Pending** (amber): `'Pending'`, `'Entry'`, `'PENDING'`, `'HELD'`, `'NOT_FILED'`
+ * **Filed** (blue): `'FILED'`
+ * **Failure** (red): `'Rejected'`, `'FAILED'`
+ * Unknown statuses fall back to neutral gray.
  *
- * @param status - The status label (e.g. `'Verified'`, `'Pending'`, `'Rejected'`).
+ * @param status - The status label string (case-sensitive).
  * @returns An object containing background/text class names, icon colour, and icon name.
  */
 export const getStatusColor = (
@@ -20,8 +22,11 @@ export const getStatusColor = (
   border: string;
 } => {
   switch (status) {
-    case 'PAID':
+    // Leave: Verified
     case 'Verified':
+    // Salary: Paid / Processed
+    case 'PAID':
+    case 'PROCESSED':
       return {
         bg: 'bg-green-100 dark:bg-green-900/30',
         text: 'text-green-800 dark:text-green-400',
@@ -29,16 +34,37 @@ export const getStatusColor = (
         iconName: 'checkmark-circle-outline',
         border: 'border-green-800 dark:border-green-400',
       };
-    case 'Entry':
+
+    // Leave: Pending / Entry (draft)
     case 'Pending':
+    case 'Entry':
+    // Salary: Pending / Held
+    case 'PENDING':
+    case 'HELD':
+    // Tax: Not Filed
+    case 'NOT_FILED':
       return {
-        bg: 'bg-orange-100 dark:bg-orange-900/30',
-        text: 'text-orange-800 dark:text-orange-400',
-        icon: '#C2410C',
+        bg: 'bg-amber-100 dark:bg-amber-900/30',
+        text: 'text-amber-800 dark:text-amber-400',
+        icon: '#D97706',
         iconName: 'time-outline',
-        border: 'border-orange-800 dark:border-orange-400',
+        border: 'border-amber-800 dark:border-amber-400',
       };
+
+    // Tax: Filed (info stage, not success)
+    case 'FILED':
+      return {
+        bg: 'bg-blue-100 dark:bg-blue-900/30',
+        text: 'text-blue-800 dark:text-blue-400',
+        icon: '#1E40AF',
+        iconName: 'document-text-outline',
+        border: 'border-blue-800 dark:border-blue-400',
+      };
+
+    // Leave: Rejected
     case 'Rejected':
+    // Salary: Failed
+    case 'FAILED':
       return {
         bg: 'bg-red-100 dark:bg-red-900/30',
         text: 'text-red-800 dark:text-red-400',
@@ -46,6 +72,7 @@ export const getStatusColor = (
         iconName: 'close-circle-outline',
         border: 'border-red-800 dark:border-red-400',
       };
+
     default:
       return {
         bg: 'bg-gray-100 dark:bg-gray-800',
