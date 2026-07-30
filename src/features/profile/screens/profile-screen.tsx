@@ -60,17 +60,15 @@ function DetailItem({
 }) {
   return (
     <View className={`flex-col ${width}`}>
-      <Text className="mb-1 text-xs text-gray-500 dark:text-gray-400">{label}</Text>
-      <Text className="text-base font-medium leading-tight text-gray-900 dark:text-white">
-        {value || '-'}
-      </Text>
+      <Text className="mb-1 text-xs">{label}</Text>
+      <Text className="text-base font-medium leading-tight">{value || '-'}</Text>
     </View>
   );
 }
 
 /** Thin horizontal divider for separating logical groups inside a section. */
 function SectionDivider() {
-  return <View className="my-2 w-full border-t border-gray-100 dark:border-neutral-700/50" />;
+  return <View className="my-2 w-full border-t border-border" />;
 }
 
 /**
@@ -126,14 +124,14 @@ export const ProfileScreen = () => {
         {/* ── Identity Section ── */}
         <View className="mb-8 flex-col items-center">
           {/* Avatar with initials */}
-          <View className="relative mb-4 h-24 w-24 items-center justify-center rounded-full border-4 border-white bg-blue-100 shadow-sm dark:border-neutral-800 dark:bg-blue-900/40">
+          <View className="relative mb-4 h-24 w-24 items-center justify-center rounded-full border-4 border-white bg-primary/10 ">
             <Text className="text-3xl font-bold text-primary">{initials}</Text>
             {/* Online status indicator */}
-            <View className="absolute bottom-0 right-0 h-6 w-6 rounded-full border-2 border-white bg-green-600 dark:border-neutral-800" />
+            <View className="absolute bottom-0 right-0 h-6 w-6 rounded-full border-2 border-white bg-green-600" />
           </View>
 
           {/* Name and designation */}
-          <Text className="mb-1 text-2xl font-bold text-gray-900 dark:text-white">{fullName}</Text>
+          <Text className="mb-1 text-2xl font-bold">{fullName}</Text>
           <Text className="mb-3 text-center text-base text-graphite">
             {profile.emp_designation} • {profile.emp_dept}
           </Text>
@@ -146,11 +144,11 @@ export const ProfileScreen = () => {
               </View>
               <Text className="text-sm font-medium text-graphite">{emp_cd || '-'}</Text>
             </View>
-            <View className="flex-row items-center rounded-md bg-green-100 px-3 py-1 dark:bg-green-900/30">
+            <View className="flex-row items-center rounded-md bg-green-100 px-3 py-1">
               <View className="mr-1.5">
                 <HugeiconsIcon icon={CheckmarkBadge01Icon} size={16} color="#16a34a" />
               </View>
-              <Text className="text-sm font-bold text-green-700 dark:text-green-400">
+              <Text className="text-sm font-bold text-green-700">
                 {profile.emp_status || 'Active'}
               </Text>
             </View>
@@ -199,19 +197,11 @@ export const ProfileScreen = () => {
 
               <SectionDivider />
 
-              <Text className="mb-1.5 w-full text-sm text-gray-500 dark:text-gray-400">
-                Pay Information
-              </Text>
+              <Text className="mb-1.5 w-full text-sm text-graphite">Pay Information</Text>
               <View className="mb-2 w-full flex-row flex-wrap gap-x-4 gap-y-2">
-                <Text className="text-base font-medium text-gray-900 dark:text-white">
-                  {profile.pay_comm || '-'}
-                </Text>
-                <Text className="text-base font-medium text-gray-900 dark:text-white">
-                  {profile.pay_scale || '-'}
-                </Text>
-                <Text className="text-base font-medium text-gray-900 dark:text-white">
-                  ₹{profile.basic_pay || '-'}
-                </Text>
+                <Text className="text-base font-medium">{profile.pay_comm || '-'}</Text>
+                <Text className="text-base font-medium">{profile.pay_scale || '-'}</Text>
+                <Text className="text-base font-medium">₹{profile.basic_pay || '-'}</Text>
               </View>
 
               <DetailItem label="W.E.F Date" value={formatDate(profile.wef_dt)} />
@@ -236,9 +226,7 @@ export const ProfileScreen = () => {
 
               <SectionDivider />
 
-              <Text className="mb-1.5 w-full text-sm text-gray-500 dark:text-gray-400">
-                PF Information
-              </Text>
+              <Text className="mb-1.5 w-full text-sm text-graphite">PF Information</Text>
               <DetailItem label="PF Type" value={profile.pf_type || '-'} />
               <DetailItem label="PF Agency" value={profile.pf_agency || '-'} />
               <DetailItem label="PF Series" value={profile.pf_series || '-'} />
@@ -250,9 +238,7 @@ export const ProfileScreen = () => {
 
               <SectionDivider />
 
-              <Text className="mb-1.5 w-full text-sm text-gray-500 dark:text-gray-400">
-                GIS Information
-              </Text>
+              <Text className="mb-1.5 w-full text-sm text-graphite">GIS Information</Text>
               <DetailItem label="GIS Applicable" value={profile.gis_applicable || '-'} />
               <DetailItem label="Current GIS Group" value={profile.current_gis_group || '-'} />
             </View>
