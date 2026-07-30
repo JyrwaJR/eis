@@ -1,5 +1,3 @@
-import type { IoniconsIconName } from '@react-native-vector-icons/ionicons';
-
 /**
  * Returns Tailwind CSS classes and Ionicons icon data for a given status label.
  *
@@ -17,8 +15,6 @@ export const getStatusColor = (
 ): {
   bg: string;
   text: string;
-  icon: string;
-  iconName: IoniconsIconName;
   border: string;
 } => {
   switch (status) {
@@ -30,8 +26,6 @@ export const getStatusColor = (
       return {
         bg: 'bg-green-100 dark:bg-green-900/30',
         text: 'text-green-800 dark:text-green-400',
-        icon: '#166534',
-        iconName: 'checkmark-circle-outline',
         border: 'border-green-800 dark:border-green-400',
       };
 
@@ -46,8 +40,6 @@ export const getStatusColor = (
       return {
         bg: 'bg-amber-100',
         text: 'text-amber-500',
-        icon: 'text-amber-500',
-        iconName: 'time-outline',
         border: 'border-amber-500',
       };
 
@@ -56,8 +48,6 @@ export const getStatusColor = (
       return {
         bg: 'bg-blue-100 dark:bg-blue-900/30',
         text: 'text-blue-800 dark:text-blue-400',
-        icon: '#1E40AF',
-        iconName: 'document-text-outline',
         border: 'border-blue-800 dark:border-blue-400',
       };
 
@@ -68,8 +58,6 @@ export const getStatusColor = (
       return {
         bg: 'bg-red-100 dark:bg-red-900/30',
         text: 'text-red-800 dark:text-red-400',
-        icon: '#991B1B',
-        iconName: 'close-circle-outline',
         border: 'border-red-800 dark:border-red-400',
       };
 
@@ -77,8 +65,6 @@ export const getStatusColor = (
       return {
         bg: 'bg-gray-100 dark:bg-gray-800',
         text: 'text-gray-800 dark:text-gray-400',
-        icon: '#4B5563',
-        iconName: 'help-circle-outline',
         border: 'border-gray-800 dark:border-gray-400',
       };
   }

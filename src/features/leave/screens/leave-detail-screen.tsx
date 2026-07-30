@@ -98,7 +98,7 @@ export function LeaveDetailScreen() {
             </View>
             <View className="flex-1 flex-col">
               <Text className="mb-1 text-sm text-graphite">Order Date</Text>
-              <Text className="text-base font-semibold">{data.order_dt1}</Text>
+              <Text className="text-base font-semibold">{data.order_dt1 ?? '-'}</Text>
             </View>
           </View>
 
@@ -172,7 +172,7 @@ export function LeaveDetailScreen() {
                 <HugeiconsIcon
                   icon={getStatusIcon(data.verify_flg_desc)}
                   size={18}
-                  className={cn('mr-1.5', getStatusColor(data.verify_flg_desc).icon)}
+                  className={cn('mr-1.5', getStatusColor(data.verify_flg_desc).text)}
                 />
                 <Text
                   className={cn(
@@ -189,7 +189,7 @@ export function LeaveDetailScreen() {
             <View className="flex-col">
               <Text className="mb-1 text-sm text-graphite">Remarks</Text>
               <Text className="text-base italic text-graphite">
-                {data.remarks || data.reason_for_rejection}
+                {data.remarks || data.reason_for_rejection || 'N/A'}
               </Text>
             </View>
           </View>
