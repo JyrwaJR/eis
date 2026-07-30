@@ -4,8 +4,6 @@ import React from 'react';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Pressable, View, Text } from 'react-native';
 import { cn } from '@utils/helpers/cn';
-// import { Icon } from '@components/ui';
-import { IoniconsIconName } from '@react-native-vector-icons/ionicons';
 import { useAuthStore } from '@stores/auth.store';
 import { HugeiconsIcon } from '@hugeicons/react-native';
 import { getDrawerIcons } from '@utils/helpers/get-icon';
@@ -15,7 +13,6 @@ export type MenuItemsT = {
   id?: number;
   title: string;
   href: Route;
-  icon: IoniconsIconName;
 };
 
 export function CustomDrawerContent(props: DrawerContentComponentProps) {

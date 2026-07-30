@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { View, Text, ScrollView } from 'react-native';
-import { Container } from '@components/layout';
+import { Container, KeyboardSafeView } from '@components/layout';
 import { Input } from '@components/ui';
 
 import {
@@ -99,125 +99,102 @@ export function CreateLeaveScreen() {
   }
 
   return (
-    <Container>
-      <ScrollView
-        className="flex-1"
-        contentContainerStyle={{ paddingBottom: 40 }}
-        showsVerticalScrollIndicator={false}>
-        <Text className="mb-6 text-2xl font-bold">Apply for Leave</Text>
+    <KeyboardSafeView className="flex-1">
+      <Container>
+        <ScrollView
+          className="flex-1"
+          contentContainerStyle={{ paddingBottom: 40 }}
+          showsVerticalScrollIndicator={false}>
+          <Text className="mb-6 text-2xl font-bold">Apply for Leave</Text>
 
-        <View className="flex-col gap-y-5 space-y-5">
-          {/* Leave Type (Mocked Dropdown) */}
-          <View className="flex-col gap-y-1.5 space-y-1.5">
-            <Controller
-              control={methods.control}
-              name="leave_cd"
-              render={({ field: { value, onChange }, fieldState: { error } }) => (
-                <LeaveTypeDropdown
-                  title="Type"
-                  selectedType={value as LeaveTypeCode}
-                  error={error?.message}
-                  onSelect={(type) => {
-                    onChange(type);
-                  }}
-                />
-              )}
-            />
-          </View>
-
-          {/* Date Range */}
-          <View className="flex-row gap-x-2">
-            {/* From Date */}
-            <Controller
-              control={methods.control}
-              name="from_dt"
-              render={({ field: { value, onChange }, fieldState: { error } }) => (
-                <View className="my-2 w-1/2">
-                  <Text className={cn('mb-2 ml-1 font-medium', error && 'text-destructive')}>
-                    From Date
-                  </Text>
-                  <Input
-                    value={value}
-                    keyboardType="number-pad"
-                    onChangeText={(text) => onChange(formatDateInput(text))}
-                    placeholder="yyyy-mm-dd"
-                    error={!!error}
-                    testID="FROM_DATE_INPUT"
-                  />
-                  {error && (
-                    <Text className={cn('ml-1 mt-2 text-sm text-destructive')}>
-                      {error.message}
-                    </Text>
-                  )}
-                </View>
-              )}
-            />
-
-            {/* To Date */}
-            <View className="flex-1">
+          <View className="flex-col gap-y-5 space-y-5">
+            {/* Leave Type (Mocked Dropdown) */}
+            <View className="flex-col gap-y-1.5 space-y-1.5">
               <Controller
                 control={methods.control}
-                name="to_dt"
+                name="leave_cd"
                 render={({ field: { value, onChange }, fieldState: { error } }) => (
-                  <View className="my-2">
+                  <LeaveTypeDropdown
+                    title="Type"
+                    selectedType={value as LeaveTypeCode}
+                    error={error?.message}
+                    onSelect={(type) => {
+                      onChange(type);
+                    }}
+                  />
+                )}
+              />
+            </View>
+
+            {/* Date Range */}
+            <View className="flex-row gap-x-2">
+              {/* From Date */}
+              <Controller
+                control={methods.control}
+                name="from_dt"
+                render={({ field: { value, onChange }, fieldState: { error } }) => (
+                  <View className="my-2 w-1/2">
                     <Text className={cn('mb-2 ml-1 font-medium', error && 'text-destructive')}>
-                      To Date
+                      From Date
                     </Text>
                     <Input
                       value={value}
+                      keyboardType="number-pad"
                       onChangeText={(text) => onChange(formatDateInput(text))}
                       placeholder="yyyy-mm-dd"
-                      keyboardType="number-pad"
                       error={!!error}
-                      testID="TO_DATE_INPUT"
+                      testID="FROM_DATE_INPUT"
                     />
                     {error && (
-                      <Text className="ml-1 mt-2 text-sm text-destructive">{error.message}</Text>
+                      <Text className={cn('ml-1 mt-2 text-sm text-destructive')}>
+                        {error.message}
+                      </Text>
                     )}
                   </View>
                 )}
               />
-            </View>
-          </View>
 
-          <Controller
-            control={methods.control}
-            name="no_days"
-            render={({ field: { value }, fieldState: { error } }) => (
-              <View className="my-2">
-                <Text className={cn('mb-2 ml-1 font-medium', error && 'text-destructive')}>
-                  Number of Days
-                </Text>
-                <Input
-                  keyboardType="number-pad"
-                  placeholder="Auto-calculated"
-                  value={value}
-                  editable={false}
-                  testID="NUMBER_OF_DAYS_INPUT"
-                  error={!!error?.message}
+              {/* To Date */}
+              <View className="flex-1">
+                <Controller
+                  control={methods.control}
+                  name="to_dt"
+                  render={({ field: { value, onChange }, fieldState: { error } }) => (
+                    <View className="my-2">
+                      <Text className={cn('mb-2 ml-1 font-medium', error && 'text-destructive')}>
+                        To Date
+                      </Text>
+                      <Input
+                        value={value}
+                        onChangeText={(text) => onChange(formatDateInput(text))}
+                        placeholder="yyyy-mm-dd"
+                        keyboardType="number-pad"
+                        error={!!error}
+                        testID="TO_DATE_INPUT"
+                      />
+                      {error && (
+                        <Text className="ml-1 mt-2 text-sm text-destructive">{error.message}</Text>
+                      )}
+                    </View>
+                  )}
                 />
-
-                {error && (
-                  <Text className="ml-1 mt-2 text-sm text-destructive">{error.message}</Text>
-                )}
               </View>
-            )}
-          />
+            </View>
 
-          <View className="flex-1 flex-row gap-x-2">
             <Controller
               control={methods.control}
-              name="order_no"
+              name="no_days"
               render={({ field: { value }, fieldState: { error } }) => (
-                <View className="my-2 w-1/2">
+                <View className="my-2">
                   <Text className={cn('mb-2 ml-1 font-medium', error && 'text-destructive')}>
-                    Order Number
+                    Number of Days
                   </Text>
                   <Input
                     keyboardType="number-pad"
-                    placeholder="Please enter order number"
+                    placeholder="Auto-calculated"
                     value={value}
-                    testID="ORDER_NUMBER_INPUT"
+                    editable={false}
+                    testID="NUMBER_OF_DAYS_INPUT"
                     error={!!error?.message}
                   />
 
@@ -228,21 +205,20 @@ export function CreateLeaveScreen() {
               )}
             />
 
-            <View className="flex-1">
+            <View className="flex-1 flex-row gap-x-2">
               <Controller
                 control={methods.control}
-                name="order_dt"
-                render={({ field: { value, onChange }, fieldState: { error } }) => (
-                  <View className="my-2 w-full">
+                name="order_no"
+                render={({ field: { value }, fieldState: { error } }) => (
+                  <View className="my-2 w-1/2">
                     <Text className={cn('mb-2 ml-1 font-medium', error && 'text-destructive')}>
-                      Order Date
+                      Order Number
                     </Text>
                     <Input
                       keyboardType="number-pad"
-                      placeholder="yyyy-mm-dd"
+                      placeholder="Please enter order number"
                       value={value}
-                      onChangeText={(text) => onChange(formatDateInput(text))}
-                      testID="ORDER_DATE_INPUT"
+                      testID="ORDER_NUMBER_INPUT"
                       error={!!error?.message}
                     />
 
@@ -252,83 +228,109 @@ export function CreateLeaveScreen() {
                   </View>
                 )}
               />
+
+              <View className="flex-1">
+                <Controller
+                  control={methods.control}
+                  name="order_dt"
+                  render={({ field: { value, onChange }, fieldState: { error } }) => (
+                    <View className="my-2 w-full">
+                      <Text className={cn('mb-2 ml-1 font-medium', error && 'text-destructive')}>
+                        Order Date
+                      </Text>
+                      <Input
+                        keyboardType="number-pad"
+                        placeholder="yyyy-mm-dd"
+                        value={value}
+                        onChangeText={(text) => onChange(formatDateInput(text))}
+                        testID="ORDER_DATE_INPUT"
+                        error={!!error?.message}
+                      />
+
+                      {error && (
+                        <Text className="ml-1 mt-2 text-sm text-destructive">{error.message}</Text>
+                      )}
+                    </View>
+                  )}
+                />
+              </View>
             </View>
+            {/* Reason */}
+            <Controller
+              control={methods.control}
+              name="reason_cd"
+              render={({ field: { value, onChange }, fieldState: { error } }) => (
+                <LeaveReasonDropdown
+                  selectedReason={value as LeaveReasonCode}
+                  onSelect={(reason) => {
+                    onChange(reason);
+                  }}
+                  error={error?.message}
+                />
+              )}
+            />
+
+            {/* Reason Details */}
+
+            <Controller
+              control={methods.control}
+              name="reason_cd"
+              render={({ field: { value, onChange }, fieldState: { error } }) => (
+                <View className="flex-col gap-y-1.5 space-y-1.5">
+                  <Text className={cn('text-sm font-semibold', error && 'text-destructive')}>
+                    Reason for Leave
+                  </Text>
+                  <Input
+                    multiline
+                    numberOfLines={3}
+                    textAlignVertical="top"
+                    onChangeText={(reason) => onChange(reason)}
+                    value={value}
+                    placeholderTextColor="#9ca3af"
+                    error={!!error}
+                  />
+                  {error && (
+                    <Text className="ml-1 mt-2 text-sm text-destructive">{error.message}</Text>
+                  )}
+                </View>
+              )}
+            />
+
+            {/* Address During Leave */}
+            <Controller
+              control={methods.control}
+              name="remarks"
+              render={({ field: { value, onChange }, fieldState: { error } }) => (
+                <View className="flex-col gap-y-1.5 space-y-1.5">
+                  <Text className={cn('text-sm font-semibold', error && 'text-destructive')}>
+                    Remarks
+                  </Text>
+                  <Input
+                    multiline
+                    numberOfLines={3}
+                    textAlignVertical="top"
+                    onChangeText={(reason) => onChange(reason)}
+                    value={value || ''}
+                    placeholderTextColor="#9ca3af"
+                    error={!!error}
+                  />
+                  {error && (
+                    <Text className="ml-1 mt-2 text-sm text-destructive">{error.message}</Text>
+                  )}
+                </View>
+              )}
+            />
+
+            {/* Submit Action */}
+
+            <CreateLeaveSubmitButton
+              label="Apply for Leave"
+              onPress={methods.handleSubmit(onSubmit)}
+              isDirty={methods.formState.isDirty}
+            />
           </View>
-          {/* Reason */}
-          <Controller
-            control={methods.control}
-            name="reason_cd"
-            render={({ field: { value, onChange }, fieldState: { error } }) => (
-              <LeaveReasonDropdown
-                selectedReason={value as LeaveReasonCode}
-                onSelect={(reason) => {
-                  onChange(reason);
-                }}
-                error={error?.message}
-              />
-            )}
-          />
-
-          {/* Reason Details */}
-
-          <Controller
-            control={methods.control}
-            name="reason_cd"
-            render={({ field: { value, onChange }, fieldState: { error } }) => (
-              <View className="flex-col gap-y-1.5 space-y-1.5">
-                <Text className={cn('text-sm font-semibold', error && 'text-destructive')}>
-                  Reason for Leave
-                </Text>
-                <Input
-                  multiline
-                  numberOfLines={3}
-                  textAlignVertical="top"
-                  onChangeText={(reason) => onChange(reason)}
-                  value={value}
-                  placeholderTextColor="#9ca3af"
-                  error={!!error}
-                />
-                {error && (
-                  <Text className="ml-1 mt-2 text-sm text-destructive">{error.message}</Text>
-                )}
-              </View>
-            )}
-          />
-
-          {/* Address During Leave */}
-          <Controller
-            control={methods.control}
-            name="remarks"
-            render={({ field: { value, onChange }, fieldState: { error } }) => (
-              <View className="flex-col gap-y-1.5 space-y-1.5">
-                <Text className={cn('text-sm font-semibold', error && 'text-destructive')}>
-                  Remarks
-                </Text>
-                <Input
-                  multiline
-                  numberOfLines={3}
-                  textAlignVertical="top"
-                  onChangeText={(reason) => onChange(reason)}
-                  value={value || ''}
-                  placeholderTextColor="#9ca3af"
-                  error={!!error}
-                />
-                {error && (
-                  <Text className="ml-1 mt-2 text-sm text-destructive">{error.message}</Text>
-                )}
-              </View>
-            )}
-          />
-
-          {/* Submit Action */}
-
-          <CreateLeaveSubmitButton
-            label="Apply for Leave"
-            onPress={methods.handleSubmit(onSubmit)}
-            isDirty={methods.formState.isDirty}
-          />
-        </View>
-      </ScrollView>
-    </Container>
+        </ScrollView>
+      </Container>
+    </KeyboardSafeView>
   );
 }

@@ -40,7 +40,7 @@ export function LeaveCard({ item }: { item: LeaveListItem }) {
         <HugeiconsIcon
           icon={getStatusIcon(item.verify_flg_desc)}
           size={18}
-          className="mr-2 text-primary"
+          className={cn('mr-2 ', getStatusColor(item.verify_flg_desc).text)}
         />
         <Text className="ml-2 text-base text-graphite">{item.from_dt1}</Text>
       </View>

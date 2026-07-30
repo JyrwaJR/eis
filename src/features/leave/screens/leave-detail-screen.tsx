@@ -29,7 +29,6 @@ export function LeaveDetailScreen() {
   const isValidQueries = !!leave_cd && !!from_dt && !!order_dt;
 
   const { data, isLoading, isFetching, refetch } = useLeaveDetail({ from_dt, leave_cd, order_dt });
-  console.log(data);
 
   const isLeaveVerified =
     data?.verify_flg_desc === 'Verified' || data?.verify_flg_desc === 'Rejected';

@@ -1,16 +1,15 @@
 import React, { useCallback, useEffect, useMemo } from 'react';
 import { View, ScrollView } from 'react-native';
-import { FieldInput, Input, Text } from '@components/ui';
+import { Input, Text } from '@components/ui';
 import { FormProvider, useForm, useWatch, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Container, KeyboardSafeView } from '@components/layout';
-import { SectionHeader } from '@components/common';
 import { calculateDaysBetweenDatesWithoutWeekends, formatDateInput } from '@utils/helpers';
 import { UpdateLeaveSchema, type UpdateLeaveInput } from '../validators';
 import { useLeaveDetail, useLeaveReason } from '../hooks';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { PAGE_ROUTES } from '@utils/constants';
-import { LeaveReasonCode, LeaveTypeCode } from '../types';
+import { LeaveReasonCode } from '../types';
 import {
   LeaveTypeDropdown,
   LeaveReasonDropdown,
@@ -19,6 +18,7 @@ import {
 } from '../components';
 import { useSnackbar } from '@hooks/use-snackbar';
 import { useUpdateLeave } from '../hooks/use-update-leave';
+import { LeaveTypeCode } from '@sharedTypes/leave';
 
 /**
  * Route search parameters expected by the update leave screen.
@@ -173,15 +173,13 @@ export const UpdateLeaveScreen = () => {
   }
 
   return (
-    <Container className="flex-1">
-      <KeyboardSafeView className="flex-1">
+    <KeyboardSafeView className="flex-1">
+      <Container>
         <ScrollView
           contentContainerStyle={{ flexGrow: 1 }}
           showsVerticalScrollIndicator={false}
           className="px-0">
-          <View className="mt-4">
-            <SectionHeader subtitle="Update your leave request" title="Update Leave" />
-          </View>
+          <Text className="mb-6 text-2xl font-bold">Update Leave</Text>
 
           <FormProvider {...methods}>
             <View className="w-full gap-y-2">
@@ -270,17 +268,25 @@ export const UpdateLeaveScreen = () => {
                 control={methods.control}
                 name="no_days"
                 render={({ field: { value }, fieldState: { error } }) => (
-                  <FieldInput
-                    readOnly={isVerified}
-                    name="no_days"
-                    label="Number of days"
-                    keyboardType="number-pad"
-                    placeholder="Auto-calculated"
-                    value={value}
-                    editable={false}
-                    testID="NUMBER_OF_DAYS_INPUT"
-                    error={!!error?.message}
-                  />
+                  <View className="my-2">
+                    <Text variant={error ? 'error' : 'label'} weight="medium" className="mb-2 ml-1">
+                      Number of Days
+                    </Text>
+                    <Input
+                      keyboardType="number-pad"
+                      placeholder="Auto-calculated"
+                      value={value}
+                      editable={false}
+                      readOnly={isVerified}
+                      testID="NUMBER_OF_DAYS_INPUT"
+                      error={!!error?.message}
+                    />
+                    {error && (
+                      <Text variant="caption-sm" className="ml-1 mt-2 text-destructive">
+                        {error.message}
+                      </Text>
+                    )}
+                  </View>
                 )}
               />
 
@@ -301,15 +307,31 @@ export const UpdateLeaveScreen = () => {
               />
 
               {/* Remarks (optional) */}
-              <FieldInput
+              <Controller
+                control={methods.control}
                 name="remarks"
-                label="Remarks"
-                placeholder="Any additional remarks (optional)"
-                keyboardType="default"
-                multiline
-                numberOfLines={4}
-                testID="REMARKS_INPUT"
-                readOnly={isVerified}
+                render={({ field: { value, onChange }, fieldState: { error } }) => (
+                  <View className="flex-col gap-y-1.5 space-y-1.5">
+                    <Text variant={error ? 'error' : 'label'} weight="medium" className="mb-2 ml-1">
+                      Remarks
+                    </Text>
+                    <Input
+                      multiline
+                      numberOfLines={4}
+                      textAlignVertical="top"
+                      onChangeText={(text) => onChange(text)}
+                      value={value || ''}
+                      placeholderTextColor="#9ca3af"
+                      readOnly={isVerified}
+                      error={!!error}
+                    />
+                    {error && (
+                      <Text variant="caption-sm" className="ml-1 mt-2 text-destructive">
+                        {error.message}
+                      </Text>
+                    )}
+                  </View>
+                )}
               />
 
               {/* Spacer before button */}
@@ -329,7 +351,7 @@ export const UpdateLeaveScreen = () => {
             </View>
           </FormProvider>
         </ScrollView>
-      </KeyboardSafeView>
-    </Container>
+      </Container>
+    </KeyboardSafeView>
   );
 };
