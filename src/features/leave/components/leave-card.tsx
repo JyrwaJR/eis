@@ -6,7 +6,7 @@ import type { LeaveListItem } from '@sharedTypes/leave';
 import { useRouter } from 'expo-router';
 import { PAGE_ROUTES } from '@utils/constants';
 import { HugeiconsIcon } from '@hugeicons/react-native';
-import { Calendar01Icon } from '@hugeicons/core-free-icons';
+import { getStatusIcon } from '@utils/helpers/get-icon';
 
 export function LeaveCard({ item }: { item: LeaveListItem }) {
   const router = useRouter();
@@ -37,7 +37,11 @@ export function LeaveCard({ item }: { item: LeaveListItem }) {
       </View>
 
       <View className="mb-1.5 flex-row items-center">
-        <HugeiconsIcon icon={Calendar01Icon} size={18} className="mr-2 text-primary" />
+        <HugeiconsIcon
+          icon={getStatusIcon(item.verify_flg_desc)}
+          size={18}
+          className="mr-2 text-primary"
+        />
         <Text className="ml-2 text-base text-graphite">{item.from_dt1}</Text>
       </View>
 

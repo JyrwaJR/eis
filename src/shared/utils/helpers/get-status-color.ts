@@ -45,7 +45,7 @@ export const getStatusColor = (
     case 'NOT_FILED':
       return {
         bg: 'bg-amber-100',
-        text: 'text-amber-500 ',
+        text: 'text-amber-500',
         icon: 'text-amber-500',
         iconName: 'time-outline',
         border: 'border-amber-500',

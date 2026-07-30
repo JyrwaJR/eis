@@ -1,15 +1,7 @@
 import React from 'react';
 import { View, Text, ScrollView } from 'react-native';
 import { HugeiconsIcon } from '@hugeicons/react-native';
-import {
-  Tick01FreeIcons,
-  Wallet02Icon,
-  CheckmarkBadge01Icon,
-  Download01Icon,
-  CheckUnread01Icon,
-  StatusIcon,
-  ClockCheckIcon,
-} from '@hugeicons/core-free-icons';
+import { Wallet02Icon, CheckmarkBadge01Icon, Download01Icon } from '@hugeicons/core-free-icons';
 import { Container } from '@components/layout';
 import { Button } from '@components/ui';
 import { Redirect, router, useLocalSearchParams } from 'expo-router';
@@ -20,6 +12,7 @@ import { EmptyScreen } from '@components/screens';
 import { LeaveTypeCode } from '@sharedTypes/leave';
 import { Ternary } from '@components/common';
 import { cn, getStatusColor } from '@utils/helpers';
+import { getStatusIcon } from '@utils/helpers/get-icon';
 
 type LeaveDetailSearchParamsT = {
   /** Leave type code (e.g. `SL` for Sick Leave). */
@@ -36,6 +29,7 @@ export function LeaveDetailScreen() {
   const isValidQueries = !!leave_cd && !!from_dt && !!order_dt;
 
   const { data, isLoading, isFetching, refetch } = useLeaveDetail({ from_dt, leave_cd, order_dt });
+  console.log(data);
 
   const isLeaveVerified =
     data?.verify_flg_desc === 'Verified' || data?.verify_flg_desc === 'Rejected';
@@ -54,15 +48,6 @@ export function LeaveDetailScreen() {
     );
   }
 
-  const statusIcon =
-    data.verify_flg_desc === 'Verified'
-      ? Tick01FreeIcons
-      : data.verify_flg_desc === 'Pending'
-        ? StatusIcon
-        : data.verify_flg_desc === 'Entry'
-          ? ClockCheckIcon
-          : CheckUnread01Icon;
-
   return (
     <Container className="flex-1">
       {/* Scrollable Content Canvas */}
@@ -70,12 +55,12 @@ export function LeaveDetailScreen() {
         {/* Approval Banner */}
         <View
           className={cn(
-            'mb-6 w-full flex-row items-center justify-center gap-2 rounded-md border px-4 py-3',
+            'mb-6 w-full flex-row items-center justify-center gap-2 rounded-md border p-4',
             getStatusColor(data.verify_flg_desc).bg,
             getStatusColor(data.verify_flg_desc).border
           )}>
           <HugeiconsIcon
-            icon={statusIcon}
+            icon={getStatusIcon(data.verify_flg_desc)}
             size={20}
             className={cn(getStatusColor(data.verify_flg_desc).text)}
           />
@@ -93,7 +78,7 @@ export function LeaveDetailScreen() {
             <View>
               <Text className="text-base font-medium text-white">Leave Dates</Text>
               <Text className="mt-1 text-base font-semibold text-white">
-                {data.from_dt1} – {data.to_dt1}
+                {data.from_dt} – {data.to_dt}
               </Text>
             </View>
             <View className="rounded-md bg-white px-3 py-1">
@@ -185,7 +170,7 @@ export function LeaveDetailScreen() {
               <Text className="text-base text-graphite">Status</Text>
               <View className="flex-row items-center gap-2">
                 <HugeiconsIcon
-                  icon={statusIcon}
+                  icon={getStatusIcon(data.verify_flg_desc)}
                   size={18}
                   className={cn('mr-1.5', getStatusColor(data.verify_flg_desc).icon)}
                 />
