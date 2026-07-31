@@ -5,7 +5,7 @@ import { useAuthStore } from '@stores/auth.store';
 import { QUERY_KEYS } from '@utils/constants';
 
 export function useEPayslip({ geNumber }: { geNumber: string }) {
-  const { user } = useAuthStore();
+  const { user, isSignedIn } = useAuthStore();
   const isGeNumberExist = !!user?.ge_number;
   const enabled = !!isGeNumberExist || !!geNumber;
 
@@ -15,10 +15,10 @@ export function useEPayslip({ geNumber }: { geNumber: string }) {
       axiosInstanceWithoutEncryption.post<{ data: EPayslip }>(
         'http://10.179.35.51:82/api/get/epayslip',
         {
-          ge_number: '1069587',
+          ge_number: user?.ge_number || geNumber,
         }
       ),
     select: (data) => data.data.data,
-    enabled,
+    enabled: enabled && isSignedIn,
   });
 }

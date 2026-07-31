@@ -47,7 +47,7 @@ export const PayslipDetails = ({ payslip, downloadEnabled = true }: PayslipDetai
 
   return (
     <Container>
-      <ScrollView contentContainerClassName=" pt-6 pb-10" showsVerticalScrollIndicator={false}>
+      <ScrollView contentContainerClassName=" pb-10" showsVerticalScrollIndicator={false}>
         {/* Header Text Section */}
         <View className="mb-6">
           <Text className="mb-1 text-2xl font-bold text-gray-900">Slip Details</Text>
