@@ -142,8 +142,7 @@ module.exports = {
         'price-md': ['24px', { lineHeight: '1.17', fontWeight: '500' }],
       },
 
-      /* ── HP Design System — Spacing ──────────────────── */
-      gap: {
+      spacing: {
         xxs: '4px',
         xs: '8px',
         sm: '12px',
