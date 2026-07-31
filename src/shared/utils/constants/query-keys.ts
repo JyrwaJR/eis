@@ -45,6 +45,9 @@ export const QUERY_KEYS = {
     STATEMENTS: (...args: any[]) => ['gpf', 'statements', ...args].filter(Boolean),
     FINANCIAL_YEARS: (...args: any[]) => ['gpf', 'financial-years', ...args].filter(Boolean),
   },
+  E_PAY_SLIP: {
+    LIST: (...args: any[]) => ['e-payslip', ...args].filter(Boolean),
+  },
 };
 
 /**
@@ -82,4 +85,5 @@ export const STALE_TIMES = {
   /** Tax data — slow-changing annually. */
   TAX: 1000 * 60 * 15, // 15 minutes
   GPF: 1000 * 60 * 15,
+  E_PAY_SLIP: 1000 * 60 * 15,
 } as const;

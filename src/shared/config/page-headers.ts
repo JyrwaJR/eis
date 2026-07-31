@@ -34,6 +34,7 @@ export const PAGE_HEADERS = {
   '/tax/edit': { title: 'Edit Tax Details', showBackButton: true },
   '/tax/create': { title: 'New Tax Record', showBackButton: true },
   '/gpf-statements': { title: 'GPF Statements', showBackButton: true },
+  '/e-pay-slip': { title: 'E-Pay Slip', showBackButton: true },
   '/nps-statements': { title: 'NPS Statements', showBackButton: true },
 } as const satisfies Record<string, PageHeaderConfig>;
 

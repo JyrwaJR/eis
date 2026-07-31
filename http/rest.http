@@ -37,3 +37,11 @@ POST http://10.179.35.51:82/api/fetch/gpf/statement
   "gpfSeries": "MEG/POL",
   "gpfAccNo": "12279"
 }
+
+###
+# @name get epayslip
+POST http://10.179.35.51:82/api/get/epayslip
+
+{
+    "ge_number": "1069587"
+}

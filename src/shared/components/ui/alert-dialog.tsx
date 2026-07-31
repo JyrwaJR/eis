@@ -39,7 +39,7 @@ export const AlertDialogAction = ({
   variant = 'primary',
   ...props
 }: AlertDialogActionProps) => (
-  <Button className={cn('flex-1', className)} variant={variant} {...props} />
+  <Button className={cn('flex-1 text-center', className)} variant={variant} {...props} />
 );
 
 /**
@@ -50,5 +50,10 @@ export const AlertDialogCancel = ({
   title = 'Cancel',
   ...props
 }: React.ComponentProps<typeof Button>) => (
-  <Button className={cn('flex-1', className)} variant="outline" title={title} {...props} />
+  <Button
+    className={cn('flex-1 text-center', className)}
+    variant="outline"
+    title={title}
+    {...props}
+  />
 );

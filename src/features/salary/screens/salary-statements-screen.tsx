@@ -3,12 +3,13 @@ import { Container } from '@components/layout';
 import { EmptyScreen } from '@components/screens';
 import { SalaryStatementsListSkeleton, useSalaryStatements } from '@features/salary';
 import { useSalaryYears } from '@hooks/use-salary-years';
-import { Add01Icon, CrossIcon, FileDownloadIcon, ShareIcon } from '@hugeicons/core-free-icons';
+import { Add01Icon, CrossIcon, FileDownloadIcon } from '@hugeicons/core-free-icons';
 import { HugeiconsIcon } from '@hugeicons/react-native';
 import { formatCurrency } from '@utils/formatters';
 import { cn, getCurrentYear, getPreviousMonth } from '@utils/helpers';
 import React, { useState } from 'react';
 import { View, Text, ScrollView, TouchableOpacity, Platform, RefreshControl } from 'react-native';
+import { shareSalaryStatementPdf } from '../uitls/helpers/share-salary-statement-pdf';
 
 const currentMonth: string = getPreviousMonth();
 const currentYear: string = getCurrentYear().toString();
@@ -90,6 +91,7 @@ export function SalaryStatement() {
               </Text>
             </View>
 
+            {/* Actions  
             <View className="flex-row gap-x-4 space-x-4">
               <TouchableOpacity
                 disabled
@@ -98,7 +100,7 @@ export function SalaryStatement() {
                 <Text className="ml-1 text-sm font-semibold text-primary">PDF</Text>
               </TouchableOpacity>
               <TouchableOpacity
-                disabled
+                onPress={async () => await shareSalaryStatementPdf(salary)}
                 className="h-11 flex-row items-center space-x-2 rounded-md border border-border px-4 py-3 disabled:opacity-50">
                 <HugeiconsIcon icon={ShareIcon} size={20} color="#6b7280" className="mr-2" />
                 <Text className="ml-1 text-sm font-semibold text-graphite dark:text-gray-300">
@@ -106,8 +108,8 @@ export function SalaryStatement() {
                 </Text>
               </TouchableOpacity>
             </View>
+              */}
           </View>
-
           {/* Details Grid (Stacked on Mobile) */}
           <View className="flex-col gap-y-6 space-y-6">
             {/* Earnings Section */}
@@ -188,7 +190,7 @@ export function SalaryStatement() {
           </Text>
         </View>
         <TouchableOpacity
-          disabled
+          onPress={async () => await shareSalaryStatementPdf(salary)}
           className="h-12 flex-row items-center justify-center gap-x-2 rounded-md bg-primary px-6 disabled:bg-primary/50">
           <HugeiconsIcon icon={FileDownloadIcon} size={20} color="white" className="mr-2" />
           <Text className="text-sm font-semibold uppercase tracking-wide text-white">

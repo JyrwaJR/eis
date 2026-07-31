@@ -1,0 +1,24 @@
+import { useQuery } from '@tanstack/react-query';
+import { axiosInstanceWithoutEncryption } from '@utils/api/axios';
+import { EPayslip } from '../types';
+import { useAuthStore } from '@stores/auth.store';
+import { QUERY_KEYS } from '@utils/constants';
+
+export function useEPayslip({ geNumber }: { geNumber: string }) {
+  const { user } = useAuthStore();
+  const isGeNumberExist = !!user?.ge_number;
+  const enabled = !!isGeNumberExist || !!geNumber;
+
+  return useQuery({
+    queryKey: QUERY_KEYS.E_PAY_SLIP.LIST(isGeNumberExist ? user?.ge_number : geNumber),
+    queryFn: () =>
+      axiosInstanceWithoutEncryption.post<{ data: EPayslip }>(
+        'http://10.179.35.51:82/api/get/epayslip',
+        {
+          ge_number: '1069587',
+        }
+      ),
+    select: (data) => data.data.data,
+    enabled,
+  });
+}

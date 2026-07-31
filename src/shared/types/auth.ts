@@ -26,6 +26,7 @@ export type UserT = {
   emp_type: EmployeeTypeT;
   emp_gazetted: 'Y' | 'N';
   gis_applicable: string;
+  ge_number: string;
   inc_dt: string;
 
   office_id: string;

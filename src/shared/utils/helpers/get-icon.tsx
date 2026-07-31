@@ -42,6 +42,8 @@ export const getDrawerIcons = (path: string): typeof HugeiconsIcon => {
       return NotificationSquareIcon;
     case '/gpf-statements':
       return DocumentAttachmentIcon;
+    case '/e-pay-slip':
+      return DocumentAttachmentIcon;
     case '/nps-statements':
       return GoogleDocIcon;
     default:
