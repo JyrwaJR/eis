@@ -22,8 +22,8 @@ export const GeNumberForm = ({ onSubmit, error }: GeNumberFormProps) => {
   const isValid = GE_NUMBER_REGEX.test(trimmed);
 
   return (
-    <Container className="flex-1 justify-center">
-      <View className="gap-y-6 px-2">
+    <Container className="">
+      <View className="gap-y-6">
         <View className="gap-y-2">
           <Text className="text-2xl font-bold text-foreground">E-Pay Slip</Text>
           <Text className="text-base leading-6 text-graphite">
