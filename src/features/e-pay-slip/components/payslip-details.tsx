@@ -1,7 +1,13 @@
 import React, { useState } from 'react';
 import { ScrollView, Text, TouchableOpacity, View } from 'react-native';
 import { HugeiconsIcon } from '@hugeicons/react-native';
-import { CheckmarkBadge01Icon, File01Icon, Download01Icon } from '@hugeicons/core-free-icons';
+import {
+  AlertCircleIcon,
+  CheckmarkBadge01Icon,
+  CheckmarkCircle02Icon,
+  Download01Icon,
+  File01Icon,
+} from '@hugeicons/core-free-icons';
 import { useSnackbar } from '@hooks';
 import { EPayslip } from '../types';
 import { downloadEPayslipPdf } from '../utils/download-e-payslip-pdf';
@@ -28,9 +34,9 @@ export const PayslipDetails = ({ payslip, downloadEnabled = true }: PayslipDetai
     setIsDownloading(true);
     try {
       await downloadEPayslipPdf(payslip);
-      showSnackbar('Share sheet opened', 'checkmark-circle');
+      showSnackbar('Share sheet opened', CheckmarkCircle02Icon);
     } catch (err) {
-      showSnackbar(err instanceof Error ? err.message : 'Share failed', 'alert-circle');
+      showSnackbar(err instanceof Error ? err.message : 'Share failed', AlertCircleIcon);
     } finally {
       setIsDownloading(false);
     }

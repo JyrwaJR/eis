@@ -1,6 +1,6 @@
 import { useCallback } from 'react';
 import { useSnackbarStore } from '@stores/snackbar.store';
-import type { IoniconsIconName } from '@react-native-vector-icons/ionicons';
+import type { IconSvgElement } from '@hugeicons/react-native';
 
 /**
  * Convenience hook for showing and dismissing the snackbar banner.
@@ -9,7 +9,7 @@ import type { IoniconsIconName } from '@react-native-vector-icons/ionicons';
  * ```tsx
  * const { showSnackbar } = useSnackbar();
  * showSnackbar('Profile updated');
- * showSnackbar('Changes saved', 'checkmark-circle');
+ * showSnackbar('Changes saved', CheckmarkCircle02Icon);
  * ```
  */
 export const useSnackbar = () => {
@@ -17,7 +17,7 @@ export const useSnackbar = () => {
   const dismissSnackbar = useSnackbarStore((state) => state.dismissSnackbar);
 
   const show = useCallback(
-    (message: string, icon?: IoniconsIconName) => {
+    (message: string, icon?: IconSvgElement) => {
       showSnackbar(message, icon);
     },
     [showSnackbar]

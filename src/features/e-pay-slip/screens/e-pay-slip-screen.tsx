@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Container } from '@components/layout';
 import { EmptyScreen } from '@components/screens';
 import { useSnackbar } from '@hooks';
+import { AlertCircleIcon } from '@hugeicons/core-free-icons';
 import { useAuthStore } from '@stores/auth.store';
 import { GeNumberForm } from '../components/ge-number-form';
 import { PayslipConfirmDialog } from '../components/payslip-confirm-dialog';
@@ -60,7 +61,7 @@ export const EPaySlipScreen = () => {
       if (!res.success) {
         showSnackbar(
           res.message || 'Could not save your GE number. Please try again.',
-          'alert-circle'
+          AlertCircleIcon
         );
         return;
       }
@@ -70,7 +71,7 @@ export const EPaySlipScreen = () => {
       setConfirmedGeNumber(enteredGeNumber);
       setPendingGeNumber(null);
     } catch {
-      showSnackbar('Could not save your GE number. Please try again.', 'alert-circle');
+      showSnackbar('Could not save your GE number. Please try again.', AlertCircleIcon);
     }
   };
 

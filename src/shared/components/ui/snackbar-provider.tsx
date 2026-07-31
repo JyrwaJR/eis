@@ -3,7 +3,7 @@ import { Animated, TouchableOpacity, Text, View, Dimensions, Platform } from 're
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useSnackbarStore } from '@stores/snackbar.store';
 import { useTheme } from '@hooks/use-theme';
-import { Icon } from '@components/ui/icon';
+import { HugeiconsIcon } from '@hugeicons/react-native';
 
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
 const BANNER_MAX_WIDTH = SCREEN_WIDTH * 0.9;
@@ -153,7 +153,7 @@ export const SnackbarProvider = () => {
           }}>
           {icon ? (
             <View style={{ marginRight: 8 }}>
-              <Icon name={icon} size={20} color={isDark ? '#1a1a1a' : '#ffffff'} />
+              <HugeiconsIcon icon={icon} size={20} color={isDark ? '#1a1a1a' : '#ffffff'} />
             </View>
           ) : null}
           <Text
