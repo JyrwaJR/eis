@@ -13,7 +13,6 @@ export interface Dependencies {
   '@hookform/resolvers': string;
   '@hugeicons/core-free-icons': string;
   '@hugeicons/react-native': string;
-  '@react-native-vector-icons/ionicons': string;
   '@react-navigation/drawer': string;
   '@react-navigation/native': string;
   '@tanstack/react-query': string;
