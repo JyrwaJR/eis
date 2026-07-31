@@ -1,5 +1,17 @@
 import { LeaveTypeCode } from '@sharedTypes/leave';
-import type { IoniconsIconName } from '@react-native-vector-icons/ionicons';
+import type { IconSvgElement } from '@hugeicons/react-native';
+import {
+  Building01Icon,
+  HandPointingLeft01Icon,
+  HeartIcon,
+  Home01Icon,
+  Medicine01Icon,
+  Shield01Icon,
+  Sun01Icon,
+  Time01Icon,
+  UmbrellaIcon,
+  WomanIcon,
+} from '@hugeicons/core-free-icons';
 
 export const LEAVE_TYPES: Record<LeaveTypeCode, LeaveTypeCode> = {
   COM: 'COM',
@@ -15,31 +27,31 @@ export const LEAVE_TYPES: Record<LeaveTypeCode, LeaveTypeCode> = {
 };
 
 /**
- * Maps every recognised {@link LeaveTypeCode} to a matching Ionicons
+ * Maps every recognised {@link LeaveTypeCode} to a matching Hugeicons
  * glyph so leave cards and headers show a distinct visual per type.
  *
- * Falls back to `'calendar-outline'` when the type is unknown (e.g.
- * during loading or a new server-side type not yet in the union).
+ * Falls back to `Calendar01Icon` when the type is unknown (e.g. during
+ * loading or a new server-side type not yet in the union).
  */
-export const LEAVE_ICONS: Record<LeaveTypeCode, IoniconsIconName> = {
+export const LEAVE_ICONS: Record<LeaveTypeCode, IconSvgElement> = {
   /** Compensatory Off */
-  COM: 'heart',
+  COM: HeartIcon,
   /** Leave Not Due */
-  LND: 'business',
+  LND: Building01Icon,
   /** Extra Ordinary Leave */
-  EOL: 'sunny-outline',
+  EOL: Sun01Icon,
   /** Leave Preparatory to Retirement */
-  LPA: 'hand-left',
+  LPA: HandPointingLeft01Icon,
   /** Earned Leave */
-  EL: 'umbrella',
+  EL: UmbrellaIcon,
   /** Half Pay Leave */
-  HPL: 'time-outline',
+  HPL: Time01Icon,
   /** Maternity Leave */
-  ML: 'woman',
+  ML: WomanIcon,
   /** Sick Leave */
-  SL: 'medkit',
+  SL: Medicine01Icon,
   /** Work Place Leave */
-  WPL: 'home',
+  WPL: Home01Icon,
   /** Personal / Privilege Leave */
-  PL: 'shield-checkmark',
+  PL: Shield01Icon,
 };

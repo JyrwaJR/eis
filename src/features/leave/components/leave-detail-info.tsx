@@ -1,9 +1,16 @@
 import React from 'react';
 import { View, Text } from 'react-native';
-import { Icon } from '@components/ui/icon';
-import type { IoniconsIconName } from '@react-native-vector-icons/ionicons';
 import { Card } from '@components/ui/card';
 import { ILeaveDetails } from '../types';
+import { HugeiconsIcon } from '@hugeicons/react-native';
+import type { IconSvgElement } from '@hugeicons/react-native';
+import {
+  AlarmClockIcon,
+  Calculator01Icon,
+  Calendar01Icon,
+  Calendar03Icon,
+  ClipboardIcon,
+} from '@hugeicons/core-free-icons';
 
 /**
  * Props accepted by the {@link LeaveDetailInfo} component.
@@ -16,10 +23,10 @@ interface LeaveDetailInfoProps {
 /**
  * Renders a single labelled row inside the leave details card.
  *
- * Each row consists of an {@link Icon} icon on the
+ * Each row consists of a {@link HugeiconsIcon} icon on the
  * left, a label (uppercase, subtle) above the value on the right.
  *
- * @param icon - Name of the Icon glyph to display.
+ * @param icon - Hugeicons glyph object to display.
  * @param label - Short label text (e.g. `From`, `To`, `Duration`).
  * @param value - The value text shown below the label.
  */
@@ -28,13 +35,13 @@ const InfoRow = ({
   label,
   value,
 }: {
-  icon: IoniconsIconName;
+  icon: IconSvgElement;
   label: string;
   value: string;
 }) => (
   <View className="mb-4 flex-row items-start">
     <View className="mr-3 mt-0.5 w-6 items-center">
-      <Icon name={icon} size={20} color={'#636363'} />
+      <HugeiconsIcon icon={icon} size={20} color={'#636363'} />
     </View>
     <View className="flex-1">
       <Text className="mb-0.5 text-xs font-medium text-graphite">{label}</Text>
@@ -48,15 +55,15 @@ export const LeaveDetailInfo = ({ leave }: LeaveDetailInfoProps) => (
     <Text className="mb-4 text-xs font-bold uppercase tracking-wider text-graphite">
       Leave Details
     </Text>
-    <InfoRow icon="calendar-outline" label="From" value={leave.from_dt} />
-    <InfoRow icon="calendar-number-outline" label="To" value={leave.to_dt} />
+    <InfoRow icon={Calendar01Icon} label="From" value={leave.from_dt} />
+    <InfoRow icon={Calendar03Icon} label="To" value={leave.to_dt} />
     <InfoRow
-      icon="calculator-outline"
+      icon={Calculator01Icon}
       label="Duration"
       value={`${leave.no_days} ${parseInt(leave.no_days) === 1 ? 'day' : 'days'}`}
     />
-    <InfoRow icon="clipboard-outline" label="Leave Type" value={leave.leave_desc} />
-    <InfoRow icon="alarm-outline" label="Order Date" value={leave.order_dt} />
+    <InfoRow icon={ClipboardIcon} label="Leave Type" value={leave.leave_desc} />
+    <InfoRow icon={AlarmClockIcon} label="Order Date" value={leave.order_dt} />
     {leave.reason_for_leave && (
       <View className="mt-2 rounded-md bg-secondary p-4">
         <Text className="mb-1.5 text-xs font-medium text-graphite">Reason</Text>

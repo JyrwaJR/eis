@@ -4,7 +4,8 @@ import { Card } from '@components/ui/card';
 import { ILeaveDetails } from '../types';
 import { LeaveTypeCode } from '@sharedTypes/leave';
 import { LEAVE_ICONS } from '../utils/constants';
-import { Icon } from '@components/ui/icon';
+import { HugeiconsIcon } from '@hugeicons/react-native';
+import { Calendar01Icon } from '@hugeicons/core-free-icons';
 
 interface LeaveBalanceCardProps {
   item: ILeaveDetails;
@@ -19,8 +20,8 @@ export const LeaveBalanceCard = ({ item }: LeaveBalanceCardProps) => (
       <View className="flex-row items-center justify-between py-3">
         <View className="flex-row items-center gap-3">
           <View className="rounded-md bg-primary-soft p-2">
-            <Icon
-              name={LEAVE_ICONS[item?.type as LeaveTypeCode] ?? 'calendar-outline'}
+            <HugeiconsIcon
+              icon={LEAVE_ICONS[item?.type as LeaveTypeCode] ?? Calendar01Icon}
               size={20}
               color="#024ad8"
             />
