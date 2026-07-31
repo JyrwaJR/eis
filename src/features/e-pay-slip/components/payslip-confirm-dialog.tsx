@@ -1,16 +1,7 @@
 import React from 'react';
-import { Text, View } from 'react-native';
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-} from '@components/ui';
+import { Modal, Text, View } from 'react-native';
 import { EPayslip } from '../types';
+import { Button } from '@components/ui';
 
 interface PayslipConfirmDialogProps {
   open: boolean;
@@ -25,7 +16,8 @@ interface PayslipConfirmDialogProps {
  * Confirmation dialog shown after a newly entered GE number returns a
  * payslip. Displays the payslip identity alongside the signed-in user's
  * name so the user can verify ownership before the GE number is persisted
- * and the PDF download is unlocked.
+ * and the PDF download is unlocked. Rendered as a light (theme-aware)
+ * fade-animated native modal per the E-Pay Slip design mockup.
  */
 export const PayslipConfirmDialog = ({
   open,
@@ -35,46 +27,63 @@ export const PayslipConfirmDialog = ({
   onConfirm,
   onCancel,
 }: PayslipConfirmDialogProps) => (
-  <AlertDialog open={open} onOpenChange={(next) => !next && !isConfirming && onCancel()}>
-    <AlertDialogContent>
-      <AlertDialogHeader>
-        <AlertDialogTitle>Confirm Your Payslip</AlertDialogTitle>
-        <AlertDialogDescription>
-          Please confirm this payslip belongs to you ({userName}) before downloading.
-        </AlertDialogDescription>
-      </AlertDialogHeader>
+  <Modal
+    animationType="fade"
+    transparent={true}
+    visible={open}
+    onRequestClose={() => !isConfirming && onCancel()}>
+    <View className="flex-1 items-center justify-center bg-black/70 px-5">
+      {/* Modal Container */}
+      <View className="w-full max-w-[350px] flex-col overflow-hidden rounded-md border border-border bg-white">
+        <View className="p-6">
+          <Text className="mb-2 text-xl font-bold">Confirm Your Payslip</Text>
+          <Text className="mb-6 text-base leading-relaxed text-graphite">
+            Please confirm this payslip belongs to you{' '}
+            <Text className="font-semibold text-gray-900">({userName})</Text> before downloading.
+          </Text>
 
-      {payslip && (
-        <View className="gap-y-2 rounded-md border border-border bg-gray-50 p-4 dark:bg-white/5">
-          <Row label="Name" value={payslip.name} />
-          <Row label="Designation" value={payslip.designation} />
-          <Row label="GE Number" value={payslip.ge_number} />
-          <Row label="Payslip No." value={payslip.payslip_no} />
-          <Row label="Payslip Date" value={payslip.payslip_date} />
+          {/* Identity Block */}
+          {payslip && (
+            <View className="flex-col rounded-md border border-border bg-border/5 p-4 ">
+              <IdentityRow label="Name" value={payslip.name} />
+              <Divider />
+              <IdentityRow label="Designation" value={payslip.designation} />
+              <Divider />
+              <IdentityRow label="GE Number" value={payslip.ge_number} />
+              <Divider />
+              <IdentityRow label="Payslip No." value={payslip.payslip_no} />
+              <Divider />
+              <IdentityRow label="Payslip Date" value={payslip.payslip_date} />
+            </View>
+          )}
         </View>
-      )}
 
-      <AlertDialogFooter>
-        <AlertDialogCancel
-          variant={'outline'}
-          title="No"
-          onPress={onCancel}
-          disabled={isConfirming}
-        />
-        <AlertDialogAction
-          title={isConfirming ? 'Saving...' : 'Yes'}
-          onPress={onConfirm}
-          isLoading={isConfirming}
-        />
-      </AlertDialogFooter>
-    </AlertDialogContent>
-  </AlertDialog>
+        {/* Footer Buttons */}
+        <View className="flex-col gap-y-3 px-6 pb-6">
+          <Button activeOpacity={0.8} disabled={isConfirming} onPress={onConfirm}>
+            {isConfirming ? 'Saving...' : 'This is my payslip'}
+          </Button>
+
+          <Button
+            variant={'outline'}
+            activeOpacity={0.8}
+            disabled={isConfirming}
+            onPress={onCancel}>
+            Not mine
+          </Button>
+        </View>
+      </View>
+    </View>
+  </Modal>
 );
 
 /** Renders a single label/value row inside the confirmation body. */
-const Row = ({ label, value }: { label: string; value: string }) => (
-  <View className="flex-row justify-between gap-x-4">
+const IdentityRow = ({ label, value }: { label: string; value: string }) => (
+  <View className="flex-row items-center justify-between">
     <Text className="text-sm text-graphite">{label}</Text>
-    <Text className="shrink text-sm font-semibold text-foreground">{value}</Text>
+    <Text className="shrink text-sm font-semibold">{value}</Text>
   </View>
 );
+
+/** Thin separator between identity rows. */
+const Divider = () => <View className="my-3 h-px bg-border" />;

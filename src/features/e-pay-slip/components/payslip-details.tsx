@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
-import { Text, View } from 'react-native';
-import { Button } from '@components/ui';
+import { ScrollView, Text, TouchableOpacity, View } from 'react-native';
+import { HugeiconsIcon } from '@hugeicons/react-native';
+import { CheckmarkBadge01Icon, File01Icon, Download01Icon } from '@hugeicons/core-free-icons';
 import { useSnackbar } from '@hooks';
-import { cn } from '@utils/helpers/cn';
 import { EPayslip } from '../types';
 import { downloadEPayslipPdf } from '../utils/download-e-payslip-pdf';
+import { Container } from '@components/layout';
+import { cn } from '@utils/helpers';
 
 interface PayslipDetailsProps {
   payslip: EPayslip;
@@ -13,22 +15,22 @@ interface PayslipDetailsProps {
 }
 
 /**
- * Shows the confirmed e-pay slip identity fields and the Download PDF
- * action. When `downloadEnabled` is false (before ownership confirmation)
- * the download button is disabled.
+ * Shows the confirmed e-pay slip identity fields and the Download PDF /
+ * Share Slip actions. When `downloadEnabled` is false (before ownership
+ * confirmation) both actions are disabled.
  */
 export const PayslipDetails = ({ payslip, downloadEnabled = true }: PayslipDetailsProps) => {
   const { showSnackbar } = useSnackbar();
   const [isDownloading, setIsDownloading] = useState(false);
 
-  const handleDownload = async () => {
+  const handleDownlaodEPaySlip = async () => {
     if (isDownloading || !downloadEnabled) return;
     setIsDownloading(true);
     try {
       await downloadEPayslipPdf(payslip);
-      showSnackbar('E-pay slip downloaded', 'checkmark-circle');
+      showSnackbar('Share sheet opened', 'checkmark-circle');
     } catch (err) {
-      showSnackbar(err instanceof Error ? err.message : 'Download failed', 'alert-circle');
+      showSnackbar(err instanceof Error ? err.message : 'Share failed', 'alert-circle');
     } finally {
       setIsDownloading(false);
     }
@@ -44,27 +46,85 @@ export const PayslipDetails = ({ payslip, downloadEnabled = true }: PayslipDetai
   ];
 
   return (
-    <View className="gap-y-6 pt-2">
-      <View className="overflow-hidden rounded-md border border-border bg-white dark:bg-gray-800">
-        {rows.map((row, index) => (
-          <View
-            key={row.label}
-            className={cn(
-              'flex-row items-center justify-between gap-x-4 px-4 py-3',
-              index < rows.length - 1 && 'border-b border-border'
-            )}>
-            <Text className="text-sm text-graphite">{row.label}</Text>
-            <Text className="shrink text-sm font-semibold text-foreground">{row.value}</Text>
-          </View>
-        ))}
-      </View>
+    <Container>
+      <ScrollView contentContainerClassName=" pt-6 pb-10" showsVerticalScrollIndicator={false}>
+        {/* Header Text Section */}
+        <View className="mb-6">
+          <Text className="mb-1 text-2xl font-bold text-gray-900">Slip Details</Text>
+          <Text className="text-sm text-graphite">Review your monthly earnings statement</Text>
+        </View>
 
-      <Button
-        title={isDownloading ? 'Downloading...' : 'Download PDF'}
-        onPress={handleDownload}
-        disabled={!downloadEnabled}
-        isLoading={isDownloading}
-      />
-    </View>
+        {/* Institutional Detail Card */}
+        <View className="mb-6 flex-col overflow-hidden rounded-md border border-border bg-white">
+          {/* Institutional Badge Header */}
+          <View className="flex-row items-center justify-between border-b border-border bg-primary/5 px-4 py-3">
+            <Text className="text-sm font-semibold uppercase tracking-wider text-primary">
+              Official Document
+            </Text>
+            <HugeiconsIcon icon={CheckmarkBadge01Icon} size={20} color="#2563eb" />
+          </View>
+
+          {/* Detail Rows */}
+          <View className="flex-col">
+            {rows.map((row, index) => (
+              <DetailRow
+                key={row.label}
+                label={row.label}
+                value={row.value}
+                isLast={index === rows.length - 1}
+              />
+            ))}
+          </View>
+        </View>
+
+        {/* Illustration / Visual Decorative Element */}
+        <View className="mb-6 flex h-40 w-full items-center justify-center rounded-md border border-primary bg-primary/5">
+          <View className="flex-col items-center">
+            <View className="mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-primary">
+              <HugeiconsIcon icon={File01Icon} size={24} color="#ffffff" />
+            </View>
+            <Text className="text-sm font-semibold text-primary">Digital Signature Encrypted</Text>
+          </View>
+        </View>
+
+        {/* Action Section */}
+        <View className="flex-col gap-y-4">
+          <TouchableOpacity
+            activeOpacity={0.8}
+            disabled={!downloadEnabled || isDownloading}
+            className={cn(
+              'flex h-16 w-full flex-row items-center justify-center rounded-md bg-primary',
+              !downloadEnabled || isDownloading ? 'opacity-50' : ''
+            )}
+            onPress={handleDownlaodEPaySlip}>
+            <View className="mr-2">
+              <HugeiconsIcon icon={Download01Icon} size={20} color="#ffffff" />
+            </View>
+            <Text className="text-sm font-semibold uppercase tracking-wide text-white">
+              {isDownloading ? 'Downloading...' : 'Download PDF'}
+            </Text>
+          </TouchableOpacity>
+        </View>
+      </ScrollView>
+    </Container>
   );
 };
+
+/** Renders a single label/value row inside the institutional detail card. */
+const DetailRow = ({
+  label,
+  value,
+  isLast = false,
+}: {
+  label: string;
+  value: string;
+  isLast?: boolean;
+}) => (
+  <View
+    className={`min-h-[56px] flex-row items-center justify-between bg-white px-4 py-4 ${
+      !isLast ? 'border-b border-border' : ''
+    }`}>
+    <Text className="text-sm text-graphite">{label}</Text>
+    <Text className="text-base font-bold">{value}</Text>
+  </View>
+);

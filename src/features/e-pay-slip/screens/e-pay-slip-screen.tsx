@@ -110,7 +110,7 @@ export const EPaySlipScreen = () => {
   const showConfirmation = isNewEntryFetch;
 
   return (
-    <Container className="flex-1">
+    <>
       <PayslipDetails payslip={payslip} downloadEnabled={!showConfirmation} />
       <PayslipConfirmDialog
         open={showConfirmation}
@@ -120,6 +120,6 @@ export const EPaySlipScreen = () => {
         onConfirm={handleConfirmPayslip}
         onCancel={handleCancelPayslip}
       />
-    </Container>
+    </>
   );
 };
