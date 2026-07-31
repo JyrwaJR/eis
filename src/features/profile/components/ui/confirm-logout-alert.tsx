@@ -53,7 +53,7 @@ interface ConfirmLogoutAlertProps {
  *
  * return (
  *   <>
- *     <SettingRow icon="logout" label="Log Out" isDestructive onPress={() => setShowLogoutAlert(true)} />
+ *     <SettingRow icon={Logout01Icon} label="Log Out" isDestructive onPress={() => setShowLogoutAlert(true)} />
  *     <ConfirmLogoutAlert open={showLogoutAlert} onValueChange={handleLogoutConfirm} />
  *   </>
  * );

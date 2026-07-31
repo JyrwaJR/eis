@@ -4,7 +4,8 @@ import { Button } from '@components/ui/button';
 import { useRouter } from 'expo-router';
 import { PAGE_ROUTES } from '@utils/constants/routes';
 import { useAuthStore } from '@stores/auth.store';
-import { Icon } from '@components/ui/icon';
+import { HugeiconsIcon } from '@hugeicons/react-native';
+import { Shield01Icon } from '@hugeicons/core-free-icons';
 
 interface ForbiddenProps {
   title?: string;
@@ -33,7 +34,7 @@ export const Forbidden = ({
   return (
     <View className="flex-1 items-center justify-center gap-y-2 p-6">
       <View className="mb-6 h-24 w-24 items-center justify-center rounded-md bg-red-50 dark:bg-red-900/20">
-        <Icon name="shield-checkmark" size={48} color="#EF4444" />
+        <HugeiconsIcon icon={Shield01Icon} size={48} color="#EF4444" />
       </View>
 
       <Text className="mb-2 text-center text-4xl font-semibold text-foreground">{title}</Text>

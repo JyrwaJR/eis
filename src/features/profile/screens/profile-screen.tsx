@@ -103,7 +103,6 @@ export const ProfileScreen = () => {
   if (!profile)
     return (
       <EmptyScreen
-        icon="person"
         refresh={refetch}
         refreshLabel="Refresh"
         title="Profile not found"

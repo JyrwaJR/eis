@@ -1,12 +1,13 @@
 import React from 'react';
 import { View, TouchableOpacity, Switch, Text } from 'react-native';
-import { Icon } from '@components/ui/icon';
-import type { IoniconsIconName } from '@react-native-vector-icons/ionicons';
+import { HugeiconsIcon } from '@hugeicons/react-native';
+import type { IconSvgElement } from '@hugeicons/react-native';
+import { ChevronRightIcon } from '@hugeicons/core-free-icons';
 import { cn } from '@utils/helpers/cn';
 
 /** Props for the SettingRow component. */
 interface SettingRowProps {
-  icon: IoniconsIconName;
+  icon: IconSvgElement;
   label: string;
   description?: string;
   isDestructive?: boolean;
@@ -46,8 +47,8 @@ export const SettingRow = ({
             'items-center justify-center rounded-md p-2',
             isDestructive ? 'bg-red-50 dark:bg-red-900/20' : 'bg-muted'
           )}>
-          <Icon
-            name={icon}
+          <HugeiconsIcon
+            icon={icon}
             size={20}
             color={iconColor || (isDestructive ? '#EF4444' : '#64748B')}
           />
@@ -75,7 +76,7 @@ export const SettingRow = ({
           style={{ transform: [{ scaleX: 0.8 }, { scaleY: 0.8 }] }}
         />
       ) : (
-        <Icon name="chevron-forward" size={20} color="#CBD5E1" />
+        <HugeiconsIcon icon={ChevronRightIcon} size={20} color="#CBD5E1" />
       )}
     </View>
   );

@@ -1,6 +1,5 @@
 import React from 'react';
 import { View, Text } from 'react-native';
-import type { IoniconsIconName } from '@react-native-vector-icons/ionicons';
 import { cn } from '@utils/helpers/cn';
 import { Container } from '../layout/container';
 import { Button } from '@components/ui';
@@ -11,7 +10,6 @@ interface EmptyScreenProps {
   title: string;
   refresh?: () => void;
   message?: string;
-  icon?: IoniconsIconName;
   refreshLabel?: string;
 }
 

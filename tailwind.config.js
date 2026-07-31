@@ -143,7 +143,7 @@ module.exports = {
       },
 
       /* ── HP Design System — Spacing ──────────────────── */
-      spacing: {
+      gap: {
         xxs: '4px',
         xs: '8px',
         sm: '12px',

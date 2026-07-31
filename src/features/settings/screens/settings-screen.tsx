@@ -16,6 +16,7 @@ import {
 } from '@components/ui';
 import { useThemeStore } from '@stores/theme.store';
 import { useTheme } from '@hooks/use-theme';
+import { Moon01Icon, Shield01Icon, Sun01Icon } from '@hugeicons/core-free-icons';
 
 /**
  * Settings screen for the app.
@@ -56,7 +57,7 @@ export const SettingsScreen = () => {
           <SectionHeader title="Appearance" />
           <View className="mb-8 overflow-hidden rounded-md border border-border px-4">
             <SettingRow
-              icon={theme === 'dark' ? 'moon' : 'sunny'}
+              icon={theme === 'dark' ? Moon01Icon : Sun01Icon}
               iconColor={resolvedTheme === 'dark' ? '#FFFFFF' : '#64748B'}
               label="Dark Mode"
               description="Reduce eye strain with a darker color scheme"
@@ -71,7 +72,7 @@ export const SettingsScreen = () => {
 
           <View className="mb-8 overflow-hidden rounded-md border border-border px-4">
             <SettingRow
-              icon={'shield-checkmark'}
+              icon={Shield01Icon}
               label="Enable Biometric"
               description="Adjust the appearance of the app"
               value={isEnabled}

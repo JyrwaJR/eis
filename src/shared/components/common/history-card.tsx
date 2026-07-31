@@ -1,6 +1,8 @@
 import React from 'react';
 import { View, TouchableOpacity, Text } from 'react-native';
-import { Icon } from '@components/ui/icon';
+import { HugeiconsIcon } from '@hugeicons/react-native';
+import { ChevronRightIcon, File01Icon } from '@hugeicons/core-free-icons';
+import { getStatusIcon } from '@utils/helpers/get-icon';
 import { cn } from '@utils/helpers/cn';
 import { formatDate } from '@utils/formatters/formatters';
 import { getStatusColor } from '@utils/helpers';
@@ -40,7 +42,7 @@ export const SalaryStatementListItem = ({
       <View className="mb-2 flex-row items-center justify-between">
         <View className="flex-row items-center gap-2">
           <View className="rounded-lg bg-primary-soft p-2">
-            <Icon name="document-text-outline" size={24} color="#2563EB" />
+            <HugeiconsIcon icon={File01Icon} size={24} color="#2563EB" />
           </View>
           <View>
             <Text className="text-lg font-bold text-foreground">
@@ -51,7 +53,7 @@ export const SalaryStatementListItem = ({
             </Text>
           </View>
         </View>
-        {onPress && <Icon name="chevron-forward" size={24} color="#94A3B8" />}
+        {onPress && <HugeiconsIcon icon={ChevronRightIcon} size={24} color="#94A3B8" />}
       </View>
 
       <View className="my-2 h-[1px] bg-muted" />
@@ -64,8 +66,8 @@ export const SalaryStatementListItem = ({
         <View className="items-end">
           <View
             className={cn('mb-1 flex-row items-center gap-1 rounded-md px-2 py-1', statusStyle.bg)}>
-            <Icon
-              name={item.status === 'PAID' ? 'checkmark-circle' : 'time-outline'}
+            <HugeiconsIcon
+              icon={getStatusIcon(item.status)}
               size={12}
               color={item.status === 'PAID' ? '#166534' : '#C2410C'}
             />
