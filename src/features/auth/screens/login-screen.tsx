@@ -9,7 +9,6 @@ import { LoginSchema } from '../validators/login.schema';
 import { PAGE_ROUTES } from '@utils/constants/routes';
 import { Button } from '@components/ui/button';
 import { Input } from '@components/ui/input';
-import { Icon } from '@components/ui/icon';
 import { useLoginMutation } from '../hooks/use-login-mutation';
 import { useAuthStore } from '@stores/auth.store';
 import { AuthFooter, AuthLoginHeader } from '../components';
@@ -20,6 +19,7 @@ import { useRateLimit } from '@hooks';
 import { useSnackbar } from '@hooks/use-snackbar';
 import { HugeiconsIcon } from '@hugeicons/react-native';
 import {
+  ArrowRight01Icon,
   IdentityCardIcon,
   EyeClosedIcon,
   ViewIcon,
@@ -278,7 +278,9 @@ export const LoginScreen = () => {
                 <Text className="text-button-md uppercase tracking-[2px]  text-primary-foreground">
                   {isOAuthError ? 'Retry Connection' : isLimited ? 'Please wait' : 'Continue'}
                 </Text>
-                {!isButtonLoading && <Icon name="arrow-forward" size={18} color="#FFFFFF" />}
+                {!isButtonLoading && (
+                  <HugeiconsIcon icon={ArrowRight01Icon} size={18} color="#FFFFFF" />
+                )}
               </View>
             </Button>
           </View>

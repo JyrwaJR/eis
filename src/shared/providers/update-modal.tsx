@@ -2,7 +2,8 @@ import React, { useEffect } from 'react';
 import { View, Text, TouchableOpacity, Modal, ActivityIndicator } from 'react-native';
 import { useUpdateStore } from '@stores/update.store';
 import { BlurView } from 'expo-blur';
-import { Icon } from '@components/ui/icon';
+import { HugeiconsIcon } from '@hugeicons/react-native';
+import { Rocket01Icon } from '@hugeicons/core-free-icons';
 
 export const UpdateModal: React.FC = () => {
   const isUpdateReady = useUpdateStore((s) => s.isUpdateReady);
@@ -25,7 +26,7 @@ export const UpdateModal: React.FC = () => {
           className="w-full overflow-hidden rounded-3xl border border-white/20 bg-white/70 p-8 shadow-2xl">
           <View className="items-center">
             <View className="mb-4 h-16 w-16 items-center justify-center rounded-md bg-blue-500/10">
-              <Icon name="rocket-outline" size={32} color="#3b82f6" />
+              <HugeiconsIcon icon={Rocket01Icon} size={32} color="#3b82f6" />
             </View>
 
             <Text className="mb-2 text-center text-2xl font-bold text-gray-900">
