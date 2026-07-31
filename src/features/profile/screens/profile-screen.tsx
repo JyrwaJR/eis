@@ -256,7 +256,7 @@ export const ProfileScreen = () => {
         </View>
 
         {/* ── Actions ── */}
-        <View className="mb-4 mt-8 gap-y-4 px-5">
+        <View className="mb-4 mt-8">
           <TouchableOpacity
             activeOpacity={0.7}
             onPress={() => setShowLogoutAlert(true)}

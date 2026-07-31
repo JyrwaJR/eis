@@ -34,8 +34,8 @@ export function HomeScreen() {
             </Text>
             <Text className="mt-1 text-graphite">{user?.emp_dept}</Text>
           </View>
-          <View className="items-center justify-center rounded-md bg-primary p-5">
-            <Text className="text-4xl font-black  uppercase text-white">
+          <View className="items-center justify-center rounded-md bg-primary p-3">
+            <Text className="text-2xl font-black  uppercase text-white">
               {getInitials(user?.emp_fname, user?.emp_mname, user?.emp_lname)}
             </Text>
           </View>
