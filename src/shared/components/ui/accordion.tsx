@@ -9,7 +9,8 @@ import Animated, {
   useAnimatedRef,
   runOnUI,
 } from 'react-native-reanimated';
-import { Icon } from '@components/ui/icon';
+import { HugeiconsIcon } from '@hugeicons/react-native';
+import { ChevronDownIcon } from '@hugeicons/core-free-icons';
 import { cn } from '../../utils/helpers/cn';
 
 const AccordionContext = React.createContext<{
@@ -97,7 +98,7 @@ export const AccordionTrigger = ({
       className={cn('flex-row items-center justify-between py-4', className)}>
       <Text className="flex-1 text-base font-medium">{children}</Text>
       <Animated.View style={arrowStyle}>
-        <Icon name="chevron-down" size={18} color="#636363" />
+        <HugeiconsIcon icon={ChevronDownIcon} size={18} color="#636363" />
       </Animated.View>
     </TouchableOpacity>
   );

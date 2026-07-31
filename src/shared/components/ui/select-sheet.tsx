@@ -17,13 +17,18 @@ import Animated, {
   Extrapolate,
   runOnJS,
 } from 'react-native-reanimated';
-import { Icon } from '@components/ui/icon';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { cn } from '@utils/helpers/cn';
 import { Ternary } from '@components/common';
 import { Button } from './button';
 import { HugeiconsIcon } from '@hugeicons/react-native';
-import { FileNotFoundIcon, Refresh01Icon } from '@hugeicons/core-free-icons';
+import {
+  CheckmarkCircle02Icon,
+  ChevronDownIcon,
+  EllipseIcon,
+  FileNotFoundIcon,
+  Refresh01Icon,
+} from '@hugeicons/core-free-icons';
 
 /**
  * A single option shape for the {@link SelectSheet} component.
@@ -145,7 +150,7 @@ export const SelectSheet = (props: SelectSheetProps) => {
           )}>
           {displayText}
         </Text>
-        <Icon name="chevron-down" size={18} color="#9ca3af" />
+        <HugeiconsIcon icon={ChevronDownIcon} size={18} color="#9ca3af" />
       </TouchableOpacity>
 
       {error && <Text className="ml-1 mt-2 text-base text-destructive">{error}</Text>}
@@ -290,9 +295,9 @@ const SelectSheetModal = (props: SelectSheetModalProps) => {
                       )}
                     </View>
                     {isSelected ? (
-                      <Icon name="checkmark-circle" size={22} color="#3b82f6" />
+                      <HugeiconsIcon icon={CheckmarkCircle02Icon} size={22} color="#3b82f6" />
                     ) : (
-                      <Icon name="ellipse-outline" size={22} color="#d1d5db" />
+                      <HugeiconsIcon icon={EllipseIcon} size={22} color="#d1d5db" />
                     )}
                   </TouchableOpacity>
                 );
