@@ -64,6 +64,10 @@ export const EPaySlipScreen = () => {
           AlertCircleIcon
         );
         return;
+      } else {
+        if (res.message) {
+          showSnackbar(res.message, AlertCircleIcon);
+        }
       }
       // GE number is persisted on the backend; refresh employee details so
       // `user.ge_number` is repopulated from the API response.
