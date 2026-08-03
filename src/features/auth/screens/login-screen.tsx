@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, Pressable } from 'react-native';
+import { View, Text, TouchableOpacity } from 'react-native';
 import { Link } from 'expo-router';
 import { useForm, FormProvider, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -21,9 +21,9 @@ import { HugeiconsIcon } from '@hugeicons/react-native';
 import {
   ArrowRight01Icon,
   IdentityCardIcon,
-  EyeClosedIcon,
-  ViewIcon,
   LockPasswordIcon,
+  PasswordValidationIcon,
+  SquareUnlock01Icon,
 } from '@hugeicons/core-free-icons';
 import { Ternary } from '@components/common';
 
@@ -161,7 +161,7 @@ export const LoginScreen = () => {
                   <HugeiconsIcon
                     size={24}
                     strokeWidth={2}
-                    className="text-gray-500"
+                    className="text-graphite"
                     icon={IdentityCardIcon}
                   />
                 </View>
@@ -200,7 +200,7 @@ export const LoginScreen = () => {
                   <HugeiconsIcon
                     strokeWidth={2}
                     className="text-gray-500"
-                    icon={LockPasswordIcon}
+                    icon={PasswordValidationIcon}
                     size={24}
                   />
                 </View>
@@ -226,7 +226,7 @@ export const LoginScreen = () => {
                     />
                   )}
                 />
-                <Pressable
+                <TouchableOpacity
                   className="absolute bottom-0 right-3 top-0 z-10 justify-center"
                   onPress={() => setShowPassword((prev) => !prev)}
                   hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}>
@@ -235,21 +235,21 @@ export const LoginScreen = () => {
                     ifTrue={
                       <HugeiconsIcon
                         strokeWidth={2}
-                        className="text-gray-500"
-                        icon={ViewIcon}
+                        className="text-graphite"
+                        icon={SquareUnlock01Icon}
                         size={22}
                       />
                     }
                     ifFalse={
                       <HugeiconsIcon
                         strokeWidth={2}
-                        className="text-gray-500"
-                        icon={EyeClosedIcon}
+                        className="text-graphite"
+                        icon={LockPasswordIcon}
                         size={22}
                       />
                     }
                   />
-                </Pressable>
+                </TouchableOpacity>
               </View>
               {methods.formState.errors.password?.message && (
                 <Text className="ml-1 mt-2 text-base text-destructive">
