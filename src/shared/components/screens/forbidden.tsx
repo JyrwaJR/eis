@@ -16,7 +16,6 @@ interface ForbiddenProps {
   /** Overrides the default explanatory message shown under the title. Defaults to a permission notice. */
   message?: string;
   /** Custom handler for the "Go Back Home" button. Defaults to replacing the current route with the home page. */
-  onPressHome?: () => void;
   /** When provided, renders a "Try Again" button that invokes this handler on press. */
   onPressTryAgain?: () => void;
 }
@@ -46,18 +45,13 @@ interface ForbiddenProps {
 export const Forbidden = ({
   title = 'Access Restricted',
   message = 'You do not have permission to view this page. Contact your administrator if you believe this is a mistake.',
-  onPressHome,
   onPressTryAgain,
 }: ForbiddenProps) => {
   const router = useRouter();
   const { logout } = useAuthStore();
 
   const handlePress = () => {
-    if (onPressHome) {
-      onPressHome();
-    } else {
-      router.replace(PAGE_ROUTES.HOME);
-    }
+    router.replace(PAGE_ROUTES.HOME);
   };
 
   return (
