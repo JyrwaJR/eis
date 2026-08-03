@@ -124,7 +124,7 @@ export const Button = ({
           // to live inside a <Text> component or they are dropped silently
           <Text
             className={cn(
-              'text-button-md font-bold uppercase tracking-widest',
+              'text-center text-button-md font-bold uppercase tracking-widest',
               colors.textClass,
               className
             )}>

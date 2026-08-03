@@ -70,6 +70,7 @@ export const GeNumberForm = ({ onSubmit, error }: GeNumberFormProps) => {
     resolver: zodResolver(AddGeNumberSchema),
     defaultValues,
   });
+
   const watchGeNumber = useWatch({ control: form.control, name: 'ge_number' });
 
   return (
