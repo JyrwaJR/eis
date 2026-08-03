@@ -25,7 +25,9 @@ export function useUpdateGeNumber() {
     onSuccess: (data, { geNumber }) => {
       if (data.success) {
         queryClient.invalidateQueries({ queryKey: QUERY_KEYS.E_PAY_SLIP.LIST(geNumber) });
+        return data;
       }
+      return data;
     },
   });
 }
