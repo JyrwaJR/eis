@@ -1,22 +1,51 @@
 import React from 'react';
-import { View, TouchableOpacity, Text } from 'react-native';
+import { View, Text } from 'react-native';
 import { Button } from '@components/ui/button';
-import { useRouter } from 'expo-router';
+import { Stack, useRouter } from 'expo-router';
 import { PAGE_ROUTES } from '@utils/constants/routes';
 import { useAuthStore } from '@stores/auth.store';
 import { HugeiconsIcon } from '@hugeicons/react-native';
-import { Shield01Icon } from '@hugeicons/core-free-icons';
+import { SecurityBlockIcon } from '@hugeicons/core-free-icons';
 
+/**
+ * Props for the {@link Forbidden} screen component.
+ */
 interface ForbiddenProps {
+  /** Overrides the default title shown at the top of the screen. Defaults to 'Access Restricted'. */
   title?: string;
+  /** Overrides the default explanatory message shown under the title. Defaults to a permission notice. */
   message?: string;
+  /** Custom handler for the "Go Back Home" button. Defaults to replacing the current route with the home page. */
   onPressHome?: () => void;
+  /** When provided, renders a "Try Again" button that invokes this handler on press. */
   onPressTryAgain?: () => void;
 }
 
+/**
+ * Renders a full-screen "Access Denied" state for routes the user is not
+ * permitted to view. Displays a security icon, the failure title and message,
+ * and action buttons: "Go Back Home", an optional "Try Again", and "Logout".
+ *
+ * By default, "Go Back Home" replaces the current route with the home page via
+ * the expo-router router, and "Logout" clears the authenticated session through
+ * {@link useAuthStore}. Pass `onPressHome` or `onPressTryAgain` to override the
+ * respective default behavior; the "Try Again" button is rendered only when
+ * `onPressTryAgain` is provided. The screen hides the native header by
+ * registering a `Stack.Screen` with `headerShown: false`.
+ *
+ * @example
+ * <Forbidden />
+ *
+ * @example
+ * <Forbidden
+ *   title="Workspace Locked"
+ *   message="Your workspace has been locked by an administrator."
+ *   onPressTryAgain={retryWorkspaceSync}
+ * />
+ */
 export const Forbidden = ({
-  title = 'Access Denied',
-  message = 'You do not have permission to view this page.',
+  title = 'Access Restricted',
+  message = 'You do not have permission to view this page. Contact your administrator if you believe this is a mistake.',
   onPressHome,
   onPressTryAgain,
 }: ForbiddenProps) => {
@@ -32,31 +61,51 @@ export const Forbidden = ({
   };
 
   return (
-    <View className="flex-1 items-center justify-center gap-y-2 p-6">
-      <View className="mb-6 h-24 w-24 items-center justify-center rounded-md bg-red-50 dark:bg-red-900/20">
-        <HugeiconsIcon icon={Shield01Icon} size={48} color="#EF4444" />
+    <>
+      <Stack.Screen
+        options={{
+          headerShown: false,
+        }}
+      />
+      <View className="flex-1 items-center justify-center gap-y-5 p-6">
+        <View className="h-24 w-24 items-center justify-center rounded-md bg-destructive/20">
+          <HugeiconsIcon icon={SecurityBlockIcon} size={48} color="#EF4444" />
+        </View>
+
+        <Text className="text-center text-4xl font-bold tracking-widest text-foreground">
+          {title}
+        </Text>
+
+        <Text className="text-center text-base leading-6 text-muted-foreground">{message}</Text>
+
+        <Button
+          onPress={handlePress}
+          size={'lg'}
+          className="w-full"
+          variant={'outline'}
+          activeOpacity={0.8}>
+          Go Back Home
+        </Button>
+
+        {onPressTryAgain && (
+          <Button
+            variant={'primary'}
+            size={'lg'}
+            className="w-full"
+            onPress={() => onPressTryAgain && onPressTryAgain()}
+            activeOpacity={0.7}>
+            Try Again
+          </Button>
+        )}
+        <Button
+          className="w-full"
+          size={'lg'}
+          variant={'destructive'}
+          onPress={logout}
+          activeOpacity={0.8}>
+          Logout
+        </Button>
       </View>
-
-      <Text className="mb-2 text-center text-4xl font-semibold text-foreground">{title}</Text>
-
-      <Text className="mb-8 text-center text-base leading-6 text-muted-foreground">{message}</Text>
-
-      <Button onPress={handlePress} variant={'outline'} activeOpacity={0.8}>
-        Go Back Home
-      </Button>
-
-      <Button variant={'destructive'} onPress={logout} activeOpacity={0.8}>
-        Logout
-      </Button>
-
-      {onPressTryAgain && (
-        <TouchableOpacity
-          onPress={onPressTryAgain}
-          activeOpacity={0.7}
-          className="mt-4 rounded-md border border-border px-8 py-3">
-          <Text className="font-medium text-charcoal">Try Again</Text>
-        </TouchableOpacity>
-      )}
-    </View>
+    </>
   );
 };
