@@ -14,6 +14,7 @@ export type RpcRequest<TParams = unknown> = {
   params?: TParams;
 };
 
+type Target = 'eis' | 'ag' | 'nps';
 /**
  * Calls a backend function via the generic RPC `/make_request` endpoint.
  *
@@ -34,7 +35,7 @@ export type RpcRequest<TParams = unknown> = {
 export const rpc = async <TResult, TParams = unknown>(
   functionName: string,
   params?: TParams,
-  target?: 'eis'
+  target?: Target
 ): Promise<ApiResponse<TResult>> => {
   const endpoint: string = target === 'eis' ? `/make_request` : '/make_request';
   return http.post<TResult>(endpoint, {
