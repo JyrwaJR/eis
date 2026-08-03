@@ -1,3 +1,4 @@
+import { ONLY_LETTER_AND_NUMBER } from '@utils/constants';
 import { passwordValidation } from '@validators/common';
 import { z } from 'zod';
 
@@ -26,7 +27,8 @@ export const LoginSchema = z
   .object({
     emp_cd: z
       .string('Employee code is required')
-      .min(1, 'Employee code is required')
+      .min(5, 'Employee code is required')
+      .regex(ONLY_LETTER_AND_NUMBER, 'Employee code must only contain letters and numbers')
       .transform((val) => val.toUpperCase()),
     password:
       process.env.NODE_ENV === 'development'
