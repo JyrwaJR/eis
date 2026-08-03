@@ -15,8 +15,8 @@ export const METHODS = {
   GET_NOTIFICATIONS: 'get_notifications',
   GET_SALARY_STATEMENTS: 'get_salary_statement',
   GET_SALARY_YEARS: 'get_sal_years',
+  INSERT_GE_NUMBER: 'insert_ge_no',
   // Not implemented below
-  UPDATE_GE_NUMBER: 'update_ge_number',
   GET_EMP_SALARY_STATEMENTS_DETAILS: 'get_employee_salary_statements_DETAILS',
   INSERT_NOTIFICATION_TOKEN: 'insert_notification_token',
   GET_EMP_TAX_LIST: 'get_employee_tax_list',

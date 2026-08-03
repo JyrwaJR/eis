@@ -21,7 +21,7 @@ export function useUpdateGeNumber() {
 
   return useMutation<ApiResponse<void>, Error, { geNumber: string }>({
     mutationFn: ({ geNumber }: { geNumber: string }) =>
-      rpc<void>(METHODS.UPDATE_GE_NUMBER, { emp_cd, ge_number: geNumber }),
+      rpc<void>(METHODS.INSERT_GE_NUMBER, { emp_cd, ge_no: geNumber }),
     onSuccess: (data, { geNumber }) => {
       if (data.success) {
         queryClient.invalidateQueries({ queryKey: QUERY_KEYS.E_PAY_SLIP.LIST(geNumber) });

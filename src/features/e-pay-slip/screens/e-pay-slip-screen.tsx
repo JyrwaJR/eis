@@ -29,7 +29,7 @@ const ENTRY_ERROR = 'No e-pay slip found for this GE number. Please check and tr
  */
 export const EPaySlipScreen = () => {
   const { user, refresh } = useAuthStore();
-  const existingGeNumber = user?.ge_number?.trim() ?? '';
+  const existingGeNumber = user?.ge_no?.trim() ?? '';
 
   const [enteredGeNumber, setEnteredGeNumber] = useState('');
   const [pendingGeNumber, setPendingGeNumber] = useState<string | null>(null);

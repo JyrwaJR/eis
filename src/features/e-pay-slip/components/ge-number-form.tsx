@@ -35,7 +35,7 @@ interface GeNumberFormProps {
  * sample GE number is pre-populated to speed up manual testing; in
  * production the field starts empty.
  */
-const defaultValues = { ge_number: isDevelopment ? '1069587' : '' };
+const defaultValues = { ge_number: isDevelopment ? process.env.EXPO_PUBLIC_GE_NO || '' : '' };
 
 /**
  * Entry form shown when the signed-in user has no GE number stored.
