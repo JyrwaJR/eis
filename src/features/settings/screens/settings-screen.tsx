@@ -1,22 +1,10 @@
-import React from 'react';
 import { View, ScrollView } from 'react-native';
 import { Container } from '@components/layout/container';
 import { SectionHeader } from '@components/common/section-header';
-import { useLocalAuthStore } from '@stores/local-auth.store';
 import { SettingRow } from '@components/common/setting-row';
-import {
-  AlertDialog,
-  AlertDialogContent,
-  AlertDialogTitle,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogHeader,
-} from '@components/ui';
 import { useThemeStore } from '@stores/theme.store';
 import { useTheme } from '@hooks/use-theme';
-import { Moon01Icon, Shield01Icon, Sun01Icon } from '@hugeicons/core-free-icons';
+import { Moon01Icon, Sun01Icon } from '@hugeicons/core-free-icons';
 
 /**
  * Settings screen for the app.
@@ -35,8 +23,6 @@ import { Moon01Icon, Shield01Icon, Sun01Icon } from '@hugeicons/core-free-icons'
  * ```
  */
 export const SettingsScreen = () => {
-  const { setIsEnabled, isEnabled } = useLocalAuthStore();
-  const [isOpenConfirmEnableBiometric, setIsOpenConfirmEnableBiometric] = React.useState(false);
   const { theme, toggleTheme } = useThemeStore();
   const resolvedTheme = useTheme();
 
@@ -44,11 +30,6 @@ export const SettingsScreen = () => {
    * Handles the user's confirmation to toggle biometric authentication.
    * Closes the confirmation dialog and flips the biometric enabled state.
    */
-  const onConfirmed = () => {
-    setIsOpenConfirmEnableBiometric(false);
-    setIsEnabled(!isEnabled);
-  };
-
   return (
     <Container className="flex-1">
       <ScrollView className="flex-1 px-2">
@@ -66,43 +47,8 @@ export const SettingsScreen = () => {
               showBorder={true}
             />
           </View>
-
-          {/* Notifications Section */}
-          <SectionHeader title="Security" />
-
-          <View className="mb-8 overflow-hidden rounded-md border border-border px-4">
-            <SettingRow
-              icon={Shield01Icon}
-              label="Enable Biometric"
-              description="Adjust the appearance of the app"
-              value={isEnabled}
-              onValueChange={() => setIsOpenConfirmEnableBiometric(true)}
-              showBorder={true}
-            />
-          </View>
         </View>
       </ScrollView>
-      <AlertDialog
-        open={isOpenConfirmEnableBiometric}
-        onOpenChange={setIsOpenConfirmEnableBiometric}>
-        <AlertDialogContent>
-          <AlertDialogHeader>
-            <AlertDialogTitle>Are you sure?</AlertDialogTitle>
-            <AlertDialogDescription>
-              This action cannot be undone.{' '}
-              {`"${isEnabled ? 'Disable biometric' : 'Enable biometric'}"`}
-            </AlertDialogDescription>
-          </AlertDialogHeader>
-          <AlertDialogFooter>
-            <AlertDialogCancel onPress={() => setIsOpenConfirmEnableBiometric(false)} />
-            <AlertDialogAction
-              variant="destructive"
-              title="Continue"
-              onPress={() => onConfirmed()}
-            />
-          </AlertDialogFooter>
-        </AlertDialogContent>
-      </AlertDialog>
     </Container>
   );
 };
