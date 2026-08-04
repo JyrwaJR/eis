@@ -2,7 +2,6 @@ import { useAuthStore } from '@stores/auth.store';
 import { useLocalAuthStore } from '@stores/local-auth.store';
 import { useCallback, useEffect } from 'react';
 import { Forbidden } from '@components/screens/forbidden';
-import { View } from 'react-native';
 import { isRealDevice } from '@utils/helpers/expo';
 import { Container } from '@components/layout';
 
@@ -62,14 +61,17 @@ export const LocalAuthRedirect = ({ children }: LocalAuthRedirectProps) => {
     handleSensitiveAction();
   }, [isSupported, isEnabled, user]);
 
-  return (
-    <View className="flex-1">
-      {children}
-      {isEnabled && !isRealDevice() && user && !isAuthenticated && (
-        <Container>
-          <Forbidden onPressTryAgain={() => handleTryAgain()} />
-        </Container>
-      )}
-    </View>
-  );
+  if (isEnabled && !isRealDevice() && user && !isAuthenticated) {
+    return (
+      <Container>
+        <Forbidden
+          title="Local Authentication Required"
+          message="Authentication is required to access this feature. Please authenticate to continue."
+          onPressTryAgain={() => handleTryAgain()}
+        />
+      </Container>
+    );
+  }
+
+  return <>{children}</>;
 };
