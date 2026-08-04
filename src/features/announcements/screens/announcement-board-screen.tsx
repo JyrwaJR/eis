@@ -21,7 +21,12 @@ export const AnnouncementBoardScreen = () => {
   if (isLoading) return <AnnouncementBoardSkeleton />;
 
   if (!announcements || announcements.length === 0) {
-    return <EmptyScreen title="No announcements yet" />;
+    return (
+      <EmptyScreen
+        title="No announcements available"
+        message="There are currently no announcements to display. Please check back later for updates."
+      />
+    );
   }
 
   return (
