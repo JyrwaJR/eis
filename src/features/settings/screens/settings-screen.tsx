@@ -9,10 +9,12 @@ import { Moon01Icon, Sun01Icon } from '@hugeicons/core-free-icons';
 /**
  * Settings screen for the app.
  *
- * Displays configuration sections including Appearance and Security. The Security
- * section provides a biometric toggle that requires user confirmation via an alert
- * dialog before enabling or disabling local authentication. A version label is
- * rendered at the bottom of the screen.
+ * Renders the Appearance section with a Dark Mode toggle bound to the global
+ * theme store:
+ * - The switch value reflects the current theme (`dark` or `light`) and flips
+ *   it via `useThemeStore().toggleTheme` when toggled.
+ * - The row icon and its tint adapt to the resolved theme so they remain
+ *   visible in both light and dark modes.
  *
  * Navigation is handled by Expo Router; this screen is registered at the
  * `(app)/settings` route.
@@ -26,10 +28,6 @@ export const SettingsScreen = () => {
   const { theme, toggleTheme } = useThemeStore();
   const resolvedTheme = useTheme();
 
-  /**
-   * Handles the user's confirmation to toggle biometric authentication.
-   * Closes the confirmation dialog and flips the biometric enabled state.
-   */
   return (
     <Container className="flex-1">
       <ScrollView className="flex-1 px-2">
