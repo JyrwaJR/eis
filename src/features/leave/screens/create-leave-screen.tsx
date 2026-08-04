@@ -46,6 +46,8 @@ export function CreateLeaveScreen() {
   const methods = useForm<CreateLeaveInputs>({
     resolver: zodResolver(CreateLeaveSchema),
     defaultValues,
+    shouldFocusError: true,
+    shouldUnregister: true,
   });
 
   const { mutate, isPending } = useCreateLeave();

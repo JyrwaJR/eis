@@ -95,6 +95,9 @@ export const UpdateLeaveScreen = () => {
   const methods = useForm<UpdateLeaveInput>({
     resolver: zodResolver(UpdateLeaveSchema),
     defaultValues,
+    shouldFocusError: true,
+    shouldUnregister: true,
+    mode: 'all',
   });
 
   // Pre-populate form when existing leave data is loaded
