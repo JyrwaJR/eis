@@ -1,7 +1,7 @@
 import type { GPFMonthlyData, GPFSummary } from './gpf-statement';
 
 /** Column definition for the GPF summary table. */
-export interface SummaryColumn {
+export interface GPFSummaryColumn {
   /** The key in GPFSummary to display. */
   key: keyof GPFSummary;
   /** The human-readable column header label. */
@@ -13,7 +13,7 @@ export interface SummaryColumn {
 }
 
 /** Column definition for the monthly GPF data table. */
-export interface MonthlyColumn {
+export interface GPFMonthlyColumn {
   /** The key in GPFMonthlyData to display. */
   key: keyof GPFMonthlyData;
   /** The human-readable column header label. */
