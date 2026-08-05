@@ -4,29 +4,6 @@ import { GpfFinancialYear } from '../types';
 import { useAuthStore } from '@stores/auth.store';
 import { axiosInstanceWithoutEncryption } from '@utils/api/axios';
 
-export const mockFinancialYears: GpfFinancialYear[] = [
-  {
-    value: '2024-2025',
-    label: '2024–2025',
-  },
-  {
-    value: '2023-2024',
-    label: '2023–2024',
-  },
-  {
-    value: '2022-2023',
-    label: '2022–2023',
-  },
-  {
-    value: '2021-2022',
-    label: '2021–2022',
-  },
-  {
-    value: '2020-2021',
-    label: '2020–2021',
-  },
-];
-
 export function useGPFFinancialYear() {
   const { isSignedIn, user } = useAuthStore();
 
@@ -35,10 +12,8 @@ export function useGPFFinancialYear() {
   const isEnabled = !!isSignedIn && empType === 'DB';
 
   const body = {
-    // gpfSeries: user?.pf_series,
-    // gpfAccNo: user?.pf_no,
-    gpfSeries: 'MEG/POL',
-    gpfAccNo: '12279',
+    gpfSeries: user?.pf_series,
+    gpfAccNo: user?.pf_no,
   };
 
   return useQuery({
