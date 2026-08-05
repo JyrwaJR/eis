@@ -8,7 +8,7 @@ import { Skeleton } from '@components/ui/skeleton';
  *
  * Layout: a row with a label and a selectable pill.
  */
-const YearSelectSkeleton = () => (
+export const GPFYearSelectSkeleton = () => (
   <View className="mb-4">
     <Skeleton className="h-11 w-full rounded-md" />
   </View>
@@ -121,7 +121,7 @@ const SummaryTableSkeleton = () => (
  */
 export const GpfStatementSkeleton = () => (
   <View className="gap-y-4">
-    <YearSelectSkeleton />
+    <GPFYearSelectSkeleton />
     <EmployeeInfoSkeleton />
     <MonthlyTableSkeleton />
     <SummaryTableSkeleton />

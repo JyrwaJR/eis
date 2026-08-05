@@ -2,6 +2,7 @@ import React, { useMemo } from 'react';
 import { SelectSheet } from '@components/ui';
 import type { LeaveReasonCode } from '@features/leave/types';
 import { useGPFFinancialYear } from '../hooks';
+import { GPFYearSelectSkeleton } from './skeleton';
 
 interface GPFYearSelectSheetProps {
   /** Currently selected leave reason code */
@@ -11,6 +12,7 @@ interface GPFYearSelectSheetProps {
   /** Optional validation error message */
   error?: string;
   disabled?: boolean;
+  loading?: boolean;
 }
 
 /**
@@ -34,6 +36,7 @@ export const GPFYearSelectSheet = ({
   onSelect,
   error,
   disabled,
+  loading,
 }: GPFYearSelectSheetProps) => {
   const { data: financialYears = [], refetch, isFetching, isLoading } = useGPFFinancialYear();
   const options = useMemo(
@@ -44,6 +47,10 @@ export const GPFYearSelectSheet = ({
       })),
     [financialYears]
   );
+
+  if (loading) {
+    return <GPFYearSelectSkeleton />;
+  }
 
   return (
     <SelectSheet
