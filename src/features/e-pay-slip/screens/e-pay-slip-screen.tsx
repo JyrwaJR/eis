@@ -5,8 +5,8 @@ import { useSnackbar } from '@hooks';
 import { AlertCircleIcon } from '@hugeicons/core-free-icons';
 import { useAuthStore } from '@stores/auth.store';
 import { GeNumberForm } from '../components/ge-number-form';
-import { PayslipConfirmDialog } from '../components/payslip-confirm-dialog';
-import { PayslipDetails } from '../components/payslip-details';
+import { EPayslipConfirmDialog } from '../components/e-payslip-confirm-dialog';
+import { EPayslipDetails } from '../components/e-payslip-details';
 import { EPaySlipSkeleton } from '../components/skeleton';
 import { useEPayslip } from '../hooks/use-e-payslip';
 import { useUpdateGeNumber } from '../hooks/use-update-ge-number';
@@ -116,8 +116,8 @@ export const EPaySlipScreen = () => {
 
   return (
     <>
-      <PayslipDetails payslip={payslip} downloadEnabled={!showConfirmation} />
-      <PayslipConfirmDialog
+      <EPayslipDetails payslip={payslip} downloadEnabled={!showConfirmation} />
+      <EPayslipConfirmDialog
         open={showConfirmation}
         payslip={payslip}
         userName={userName}

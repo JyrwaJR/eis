@@ -1,18 +1,13 @@
-import React, { useState } from 'react';
-import { ScrollView, Text, TouchableOpacity, View } from 'react-native';
+import React from 'react';
+import { ScrollView, Text, View } from 'react-native';
 import { HugeiconsIcon } from '@hugeicons/react-native';
-import {
-  AlertCircleIcon,
-  CheckmarkBadge01Icon,
-  CheckmarkCircle02Icon,
-  Download01Icon,
-  File01Icon,
-} from '@hugeicons/core-free-icons';
-import { useSnackbar } from '@hooks';
+import { CheckmarkBadge01Icon, File01Icon } from '@hugeicons/core-free-icons';
 import { EPayslip } from '../types';
-import { downloadEPayslipPdf } from '../utils/download-e-payslip-pdf';
 import { Container } from '@components/layout';
-import { cn } from '@utils/helpers';
+import { Button } from '@components/ui';
+import { previewBase64PDF } from '@utils/helpers/preview-pdf';
+import { logger } from '@utils/logger';
+import { useSnackbar } from '@hooks';
 
 interface PayslipDetailsProps {
   payslip: EPayslip;
@@ -25,20 +20,26 @@ interface PayslipDetailsProps {
  * Share Slip actions. When `downloadEnabled` is false (before ownership
  * confirmation) both actions are disabled.
  */
-export const PayslipDetails = ({ payslip, downloadEnabled = true }: PayslipDetailsProps) => {
-  const { showSnackbar } = useSnackbar();
-  const [isDownloading, setIsDownloading] = useState(false);
 
-  const handleDownlaodEPaySlip = async () => {
-    if (isDownloading || !downloadEnabled) return;
-    setIsDownloading(true);
+export const EPayslipDetails = ({ payslip, downloadEnabled = true }: PayslipDetailsProps) => {
+  const { showSnackbar } = useSnackbar();
+
+  const handlePreviewEPaySlip = async () => {
+    if (!payslip?.pdf) {
+      // show a toast/snackbar if you have one
+      return;
+    }
+
+    const fileName = [payslip.payslip_no, payslip.payslip_date]
+      .filter(Boolean)
+      .join('-')
+      .replace(/[^\w.-]+/g, '-'); // remove invalid filename characters
+
     try {
-      await downloadEPayslipPdf(payslip);
-      showSnackbar('Share sheet opened', CheckmarkCircle02Icon);
-    } catch (err) {
-      showSnackbar(err instanceof Error ? err.message : 'Share failed', AlertCircleIcon);
-    } finally {
-      setIsDownloading(false);
+      previewBase64PDF(payslip.pdf, fileName);
+    } catch (error) {
+      logger.error('Failed to preview payslip PDF:', error);
+      showSnackbar('Failed to preview payslip PDF');
     }
   };
 
@@ -94,22 +95,15 @@ export const PayslipDetails = ({ payslip, downloadEnabled = true }: PayslipDetai
         </View>
 
         {/* Action Section */}
-        <View className="flex-col gap-y-4">
-          <TouchableOpacity
+        <View className="flex-row flex-wrap gap-x-2">
+          <Button
             activeOpacity={0.8}
-            disabled={!downloadEnabled || isDownloading}
-            className={cn(
-              'flex h-16 w-full flex-row items-center justify-center rounded-md bg-primary',
-              !downloadEnabled || isDownloading ? 'opacity-50' : ''
-            )}
-            onPress={handleDownlaodEPaySlip}>
-            <View className="mr-2">
-              <HugeiconsIcon icon={Download01Icon} size={20} color="#ffffff" />
-            </View>
-            <Text className="text-sm font-semibold uppercase tracking-wide text-white">
-              {isDownloading ? 'Downloading...' : 'Download PDF'}
-            </Text>
-          </TouchableOpacity>
+            disabled={!downloadEnabled}
+            size={'lg'}
+            className="flex-1"
+            onPress={handlePreviewEPaySlip}>
+            Preview
+          </Button>
         </View>
       </ScrollView>
     </Container>

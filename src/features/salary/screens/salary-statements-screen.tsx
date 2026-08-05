@@ -9,7 +9,7 @@ import { formatCurrency } from '@utils/formatters';
 import { cn, getCurrentYear, getPreviousMonth } from '@utils/helpers';
 import React, { useState } from 'react';
 import { View, Text, ScrollView, TouchableOpacity, Platform, RefreshControl } from 'react-native';
-import { shareSalaryStatementPdf } from '../uitls/helpers/share-salary-statement-pdf';
+import { previewSalaryStatementPdf } from '../uitls/helpers/share-salary-statement-pdf';
 
 const currentMonth: string = getPreviousMonth();
 const currentYear: string = getCurrentYear().toString();
@@ -190,7 +190,7 @@ export function SalaryStatement() {
           </Text>
         </View>
         <TouchableOpacity
-          onPress={async () => await shareSalaryStatementPdf(salary)}
+          onPress={async () => await previewSalaryStatementPdf(salary)}
           className="h-12 flex-row items-center justify-center gap-x-2 rounded-md bg-primary px-6 disabled:bg-primary/50">
           <HugeiconsIcon icon={FileDownloadIcon} size={20} color="white" className="mr-2" />
           <Text className="text-sm font-semibold uppercase tracking-wide text-white">

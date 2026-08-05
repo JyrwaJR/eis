@@ -19,7 +19,7 @@ interface PayslipConfirmDialogProps {
  * and the PDF download is unlocked. Rendered as a light (theme-aware)
  * fade-animated native modal per the E-Pay Slip design mockup.
  */
-export const PayslipConfirmDialog = ({
+export const EPayslipConfirmDialog = ({
   open,
   payslip,
   userName,

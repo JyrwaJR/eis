@@ -63,4 +63,7 @@ export const PAGE_ROUTES = {
     EDIT: '/tax/edit' as Route,
     CREATE: '/tax/create' as Route,
   },
+  PREVIEW: {
+    PDF: '/pdf-preview?uri=:uri' as Route,
+  },
 };

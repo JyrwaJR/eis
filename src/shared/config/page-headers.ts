@@ -36,6 +36,7 @@ export const PAGE_HEADERS = {
   '/gpf-statements': { title: 'GPF Statements', showBackButton: true },
   '/e-pay-slip': { title: 'E-Pay Slip', showBackButton: true },
   '/nps-statements': { title: 'NPS Statements', showBackButton: true },
+  '/pdf-preview': { title: 'Preview PDF', showBackButton: true, showDrawer: false },
 } as const satisfies Record<string, PageHeaderConfig>;
 
 export type PageHeaderRoute = keyof typeof PAGE_HEADERS;

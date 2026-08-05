@@ -1,30 +1,21 @@
 import * as Print from 'expo-print';
-import * as Sharing from 'expo-sharing';
 import { generateSalaryStatementHtml } from './generate-salary-statement-html';
+import { previewBase64PDF } from '@utils/helpers/preview-pdf';
 import { SalaryStatement } from '@sharedTypes/satatement';
 
-export async function shareSalaryStatementPdf(statement: SalaryStatement) {
+export async function previewSalaryStatementPdf(statement: SalaryStatement) {
   const html = generateSalaryStatementHtml(statement);
 
   // Generate PDF
-  const { uri } = await Print.printToFileAsync({
+  const { uri, base64 } = await Print.printToFileAsync({
     html,
-    base64: false,
+    base64: true,
   });
 
-  // Check sharing availability
-  const available = await Sharing.isAvailableAsync();
-
-  if (!available) {
-    throw new Error('Sharing is not available on this device');
+  if (!uri || !base64) {
+    return;
   }
 
-  // Open native share sheet
-  await Sharing.shareAsync(uri, {
-    mimeType: 'application/pdf',
-    dialogTitle: 'Share Salary Statement',
-    UTI: 'com.adobe.pdf', // iOS
-  });
-
-  return uri;
+  const name = Date.now().toString();
+  previewBase64PDF(base64, name);
 }

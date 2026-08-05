@@ -72,3 +72,7 @@ export const dateValidation = (label: string) =>
     .min(10, `${label} is required`)
     .max(10, `${label} must be 10 characters long`)
     .regex(DATE_YYYY_MM_DD_REGEX, `${label} must be in dd-mm-yyyy format`);
+
+export const isValidPDFUriSchema = z.url().refine((uri) => uri.toLowerCase().endsWith('.pdf'), {
+  message: 'Must be a PDF URI',
+});
