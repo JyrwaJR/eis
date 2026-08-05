@@ -2,26 +2,7 @@ import React from 'react';
 import { View, Text } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import type { GPFSummary } from '../types';
-
-/** Column definition for the summary table. */
-interface Column {
-  /** The key in GPFSummary to display. */
-  key: keyof GPFSummary;
-  /** The human-readable column header label. */
-  label: string;
-  /** Minimum width in px to keep columns readable when scrolling. */
-  minWidth: number;
-  /** When true, renders the cell with emphasis styling (bold, primary color). */
-  emphasis?: boolean;
-}
-
-const COLUMNS: Column[] = [
-  { key: 'summary', label: 'Summary', minWidth: 130 },
-  { key: 'balanceI', label: 'Balance I', minWidth: 130 },
-  { key: 'balanceII', label: 'Balance II', minWidth: 130 },
-  { key: 'total', label: 'Total', minWidth: 130, emphasis: true },
-  { key: 'missingCredits', label: 'Missing Credits', minWidth: 130 },
-];
+import { SUMMARY_COLUMNS } from '../utils/constants';
 
 /**
  * Renders the GPF summary data in a horizontally scrollable table.
@@ -59,7 +40,7 @@ export const SummaryVerticalView = ({ data }: { data: Summary[] }) => {
         <View>
           {/* Header row */}
           <View className="flex-row bg-primary">
-            {COLUMNS.map((col) => (
+            {SUMMARY_COLUMNS.map((col) => (
               <View key={col.key} style={{ minWidth: col.minWidth }} className="px-sm py-md">
                 <Text className="text-caption-sm font-semibold uppercase tracking-wider text-white">
                   {col.label}
@@ -75,7 +56,7 @@ export const SummaryVerticalView = ({ data }: { data: Summary[] }) => {
               className={`flex-row border-t border-border ${
                 index % 2 === 0 ? 'bg-surface' : 'bg-muted/20'
               }`}>
-              {COLUMNS.map((col) => {
+              {SUMMARY_COLUMNS.map((col) => {
                 const value = row[col.key] || '-';
                 return (
                   <View key={col.key} style={{ minWidth: col.minWidth }} className="px-sm py-md">

@@ -2,29 +2,7 @@ import React from 'react';
 import { View, Text } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import type { GPFMonthlyData } from '../types';
-
-/** Column definition for the monthly data table. */
-interface Column {
-  /** The key in GPFMonthlyData to display. */
-  key: keyof GPFMonthlyData;
-  /** The human-readable column header label. */
-  label: string;
-  /** Minimum width in px to keep columns readable when scrolling. */
-  minWidth: number;
-  /** When true, renders the cell with emphasis styling (bold, primary color). */
-  emphasis?: boolean;
-}
-
-const COLUMNS: Column[] = [
-  { key: 'month', label: 'Month', minWidth: 100 },
-  { key: 'subscription', label: 'Subscription', minWidth: 100 },
-  { key: 'refund', label: 'Refund', minWidth: 100 },
-  { key: 'other', label: 'Other', minWidth: 80 },
-  { key: 'category', label: 'Category', minWidth: 100 },
-  { key: 'total', label: 'Total', minWidth: 100, emphasis: true },
-  { key: 'debit', label: 'Debit', minWidth: 100 },
-  { key: 'type', label: 'Type', minWidth: 100 },
-];
+import { MONTHLY_COLUMNS } from '../utils/constants';
 
 /**
  * Renders a horizontally scrollable table of monthly GPF data.
@@ -61,7 +39,7 @@ export const GPFMonthlyTable = ({ data }: { data: MonthlyData[] }) => {
         <View>
           {/* Header row */}
           <View className="flex-row bg-primary">
-            {COLUMNS.map((col) => (
+            {MONTHLY_COLUMNS.map((col) => (
               <View key={col.key} style={{ minWidth: col.minWidth }} className="px-sm py-md">
                 <Text className="text-caption-sm font-semibold uppercase tracking-wider text-white">
                   {col.label}
@@ -77,7 +55,7 @@ export const GPFMonthlyTable = ({ data }: { data: MonthlyData[] }) => {
               className={`flex-row border-t border-border ${
                 index % 2 === 0 ? 'bg-surface' : 'bg-muted/20'
               }`}>
-              {COLUMNS.map((col) => {
+              {MONTHLY_COLUMNS.map((col) => {
                 const value = row[col.key] || '-';
                 return (
                   <View key={col.key} style={{ minWidth: col.minWidth }} className="px-sm py-md">
