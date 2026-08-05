@@ -2,9 +2,6 @@ import React from 'react';
 import { View, Text } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import type { GPFMonthlyData } from '../types';
-import { Button } from '@components/ui';
-import { HugeiconsIcon } from '@hugeicons/react-native';
-import { DownloadIcon } from '@hugeicons/core-free-icons';
 
 /** Column definition for the monthly data table. */
 interface Column {
@@ -57,10 +54,6 @@ export const GPFMonthlyTable = ({ data }: { data: MonthlyData[] }) => {
           <View className="h-4 w-0.5 rounded-full bg-primary" />
           <Text className="text-display-xs text-ink">GPF Monthly Details</Text>
         </View>
-        <Button size="sm" onPress={() => {}} className="gap-x-2">
-          <HugeiconsIcon icon={DownloadIcon} strokeWidth={2} className="text-white" size={16} />
-          <Text className="text-button-sm uppercase tracking-wider text-white">PDF</Text>
-        </Button>
       </View>
 
       {/* ── Scrollable table ── */}
