@@ -19,9 +19,9 @@ type LoginResponse = {
 
 export const useLoginMutation = () => {
   const { fetchUser, setEmpCode } = useAuthStore();
-  const { invalidateQueries } = useQueryClient();
+  const queryClient = useQueryClient();
   return useMutation<ApiResponse<LoginResponse>, unknown, LoginFormInputs>({
-    mutationKey: QUERY_KEYS.AUTH.ME,
+    mutationKey: QUERY_KEYS.AUTH.ME(),
     meta: { auth: true },
     mutationFn: async (data) => {
       if (!data.emp_cd) throw new Error('Employee code is needed');
@@ -53,14 +53,18 @@ export const useLoginMutation = () => {
         return data;
       }
       logger.info('Unsuccessful login — removing access token');
-      await TokenStoreManager.removeAccessToken();
-      invalidateQueries({ queryKey: QUERY_KEYS.AUTH.OAUTH_TOKEN });
+      await Promise.all([
+        TokenStoreManager.removeAccessToken(),
+        queryClient.invalidateQueries({ queryKey: QUERY_KEYS.AUTH.OAUTH_TOKEN }),
+      ]);
 
       return data;
     },
     onError: async (error) => {
-      await TokenStoreManager.removeAccessToken();
-      invalidateQueries({ queryKey: QUERY_KEYS.AUTH.OAUTH_TOKEN });
+      Promise.all([
+        TokenStoreManager.removeAccessToken(),
+        queryClient.invalidateQueries({ queryKey: QUERY_KEYS.AUTH.OAUTH_TOKEN }),
+      ]);
       return error;
     },
   });

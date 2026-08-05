@@ -158,8 +158,8 @@ export function SalaryStatement() {
                   deductions.map((item, index) => (
                     <SalaryStatementItemRow
                       key={index}
-                      label={item.pname}
-                      amount={`${formatCurrency(item.amount)}`}
+                      label={item.pname.replace('_', ' ')}
+                      amount={`${formatCurrency(item.amount.replace('-', ''))}`}
                       isLast={index === deductions.length - 1}
                     />
                   ))
