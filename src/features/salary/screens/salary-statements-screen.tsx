@@ -126,7 +126,7 @@ export function SalaryStatement() {
                   earnings.map((item, index) => (
                     <SalaryStatementItemRow
                       key={index}
-                      label={item.pname}
+                      label={item.pname.replace('_', ' ')}
                       amount={`${formatCurrency(item.amount)}`}
                       isLast={index === earnings.length - 1}
                     />
