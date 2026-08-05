@@ -18,7 +18,7 @@ type LoginResponse = {
 };
 
 export const useLoginMutation = () => {
-  const { fetchUser, setEmpCode } = useAuthStore();
+  const { refresh, setEmpCode } = useAuthStore();
   const queryClient = useQueryClient();
   return useMutation<ApiResponse<LoginResponse>, unknown, LoginFormInputs>({
     mutationKey: QUERY_KEYS.AUTH.ME(),
@@ -45,9 +45,7 @@ export const useLoginMutation = () => {
           // Fetch user profile in background — doesn't block navigation.
           // The profile populates the store asynchronously after the home
           // screen renders.
-          fetchUser().catch((err) => {
-            logger.error('Background fetchUser failed', err);
-          });
+          refresh();
         }
 
         return data;

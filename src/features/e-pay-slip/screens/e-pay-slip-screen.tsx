@@ -48,7 +48,7 @@ export const EPaySlipScreen = () => {
     setEnteredGeNumber(geNumber);
     if (pendingGeNumber === geNumber) {
       // Re-submitting the same number after a fetch error: retry the query.
-      void refetch();
+      refresh();
     } else {
       setPendingGeNumber(geNumber);
     }
