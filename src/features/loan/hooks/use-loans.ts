@@ -1,7 +1,7 @@
 import { useAuthStore } from '@stores/auth.store';
 import { useQuery } from '@tanstack/react-query';
 import { rpc } from '@utils/api';
-import { METHODS, QUERY_KEYS } from '@utils/constants';
+import { METHODS, QUERY_KEYS, STALE_TIMES } from '@utils/constants';
 import { LoanT } from '../types';
 
 /**
@@ -28,5 +28,6 @@ export function useLoans() {
     enabled: isSignedIn,
     queryFn: () => rpc<LoanT[]>(METHODS.GET_EMP_LOAN, { emp_cd }),
     select: (data) => data.data,
+    staleTime: STALE_TIMES.LOAN,
   });
 }

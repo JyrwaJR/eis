@@ -48,6 +48,9 @@ export const QUERY_KEYS = {
   E_PAY_SLIP: {
     LIST: (...args: any[]) => ['e-payslip', ...args].filter(Boolean),
   },
+  LOAN: {
+    LIST: (...args: any[]) => ['loan', ...args].filter(Boolean),
+  },
 };
 
 /**
@@ -86,4 +89,5 @@ export const STALE_TIMES = {
   TAX: 1000 * 60 * 15, // 15 minutes
   GPF: 1000 * 60 * 15,
   E_PAY_SLIP: 1000 * 60 * 15,
+  LOAN: 1000 * 60 * 15,
 } as const;
