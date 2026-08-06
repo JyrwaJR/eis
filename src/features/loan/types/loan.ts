@@ -9,7 +9,7 @@ export type LoanT = {
   recovery_status: LoanStatusT;
 };
 
-export interface LoanItemI extends LoanT {
+export interface LoanItemI extends Omit<LoanT, 'loan_id'> {
   int_balance: string;
   int_inst_amt: string;
   int_lst_inst_rec: string;

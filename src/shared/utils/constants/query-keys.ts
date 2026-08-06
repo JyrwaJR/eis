@@ -50,6 +50,7 @@ export const QUERY_KEYS = {
   },
   LOAN: {
     LIST: (...args: any[]) => ['loan', ...args].filter(Boolean),
+    DETAILS: (...args: any[]) => ['loan', 'details', ...args].filter(Boolean),
   },
 };
 
