@@ -21,8 +21,8 @@ export const getStatusColor = (
     // Leave: Verified
     case 'Verified':
     // Salary: Paid / Processed
-    case 'PAID':
     case 'Open':
+    case 'PAID':
     case 'PROCESSED':
       return {
         bg: 'bg-green-100 dark:bg-green-900/30',
@@ -34,7 +34,6 @@ export const getStatusColor = (
     case 'Pending':
     case 'Entry':
     // Salary: Pending / Held
-    case 'Close':
     case 'PENDING':
     case 'HELD':
     // Tax: Not Filed
@@ -55,6 +54,7 @@ export const getStatusColor = (
 
     // Leave: Rejected
     case 'Rejected':
+    case 'Close':
     // Salary: Failed
     case 'FAILED':
       return {
