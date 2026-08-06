@@ -123,12 +123,12 @@ export const formatDate = (date: string | Date | null | undefined) => {
  * formattedAmount(150000) // "₹1,50,000"
  * ```
  */
-export const formattedAmount = (amount: number, currency = 'INR') => {
+export const formattedAmount = (amount: number | string, currency = 'INR') => {
   return new Intl.NumberFormat('en-IN', {
     style: 'currency',
     currency,
     maximumFractionDigits: 0,
-  }).format(amount);
+  }).format(parseInt(amount.toString()));
 };
 
 /**

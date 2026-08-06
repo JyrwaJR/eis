@@ -91,8 +91,8 @@ export function LoanDetailScreen() {
         </View>
 
         {/* Interest & Recovery Card */}
-        <View className="mb-6 flex-col rounded-2xl border border-gray-200 bg-white p-4 shadow-sm dark:border-neutral-700 dark:bg-neutral-800">
-          <Text className="mb-1 border-b border-gray-200 pb-3 text-sm font-bold uppercase tracking-wide text-gray-900 dark:border-neutral-700 dark:text-white">
+        <View className="mb-6 flex-col rounded-2xl border border-border bg-white p-4">
+          <Text className="mb-1 border-b border-border pb-3 text-sm font-bold uppercase tracking-wide text-graphite">
             Interest &amp; Recovery
           </Text>
 
@@ -129,12 +129,10 @@ function DetailRow({
   return (
     <View
       className={`flex-row items-center justify-between ${
-        !isLast ? 'mb-2 border-b border-gray-100 pb-2 dark:border-neutral-700/50' : 'min-h-[44px]'
+        !isLast ? 'mb-2 border-b border-border pb-2' : 'min-h-[44px]'
       }`}>
-      <Text className="flex-1 pr-4 text-base text-gray-500 dark:text-gray-400">{label}</Text>
-      <Text className="text-right text-base font-medium text-gray-900 dark:text-white">
-        {value}
-      </Text>
+      <Text className="flex-1 pr-4 text-base text-graphite">{label}</Text>
+      <Text className="text-right text-base font-medium text-graphite">{value}</Text>
     </View>
   );
 }
