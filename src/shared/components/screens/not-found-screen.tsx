@@ -23,16 +23,20 @@ export const NotFoundScreen = ({
       <View className="mt-4 w-full items-center justify-center gap-3">
         <Button
           className="w-full"
-          title="Go Back"
+          variant={'outline'}
+          size={'lg'}
           onPress={() => {
             if (canGoBack) {
               router.back();
             } else {
               router.push(PAGE_ROUTES.HOME);
             }
-          }}
-        />
-        <Button title="Go Home" className="w-full" onPress={() => router.push(PAGE_ROUTES.HOME)} />
+          }}>
+          Go Back
+        </Button>
+        <Button size={'lg'} className="w-full" onPress={() => router.push(PAGE_ROUTES.HOME)}>
+          Home
+        </Button>
       </View>
     </View>
   );
