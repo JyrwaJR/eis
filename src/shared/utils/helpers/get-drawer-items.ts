@@ -13,6 +13,7 @@ const commonMenuItems: MenuItemsT[] = [
   { title: 'Home', href: '/' as Route },
   { title: 'Announcements', href: '/announcements' as Route },
   { title: 'E-Pay Slip', href: '/e-pay-slip' as Route },
+  { title: 'Loan Management', href: '/loans' as Route },
   // { title: 'Income Tax', href: '/tax' as Route, icon: 'cash-outline' },
 ];
 

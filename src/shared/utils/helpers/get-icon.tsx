@@ -15,6 +15,7 @@ import {
   Alert02Icon,
   CancelCircleIcon,
   HelpCircleIcon,
+  MoneyBag02Icon,
 } from '@hugeicons/core-free-icons';
 
 export const getTabIcons = (path: string): typeof HugeiconsIcon => {
@@ -44,6 +45,8 @@ export const getDrawerIcons = (path: string): typeof HugeiconsIcon => {
       return DocumentAttachmentIcon;
     case '/e-pay-slip':
       return DocumentAttachmentIcon;
+    case '/loans':
+      return MoneyBag02Icon;
     case '/nps-statements':
       return GoogleDocIcon;
     default:

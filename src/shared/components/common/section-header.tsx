@@ -26,7 +26,7 @@ interface SectionHeaderProps {
  */
 export const SectionHeader = ({ title, className }: SectionHeaderProps) => {
   return (
-    <View className={cn('my-5', className)}>
+    <View className={cn('my-2', className)}>
       <View className="flex-row items-center justify-between">
         <View className="flex-row items-center gap-sm">
           <View className="h-4 w-0.5 rounded-md bg-primary" />

@@ -16,7 +16,6 @@ import { getStatusColor } from '@utils/helpers';
  */
 export function LoanCard({ item }: { item: LoanT }) {
   const router = useRouter();
-  const isOpen = item.recovery_status === 'Open';
 
   const onPressLoan = () => {
     if (item.loan_id) {
@@ -33,8 +32,13 @@ export function LoanCard({ item }: { item: LoanT }) {
           <Text className="text-lg font-bold">{item.loan_desc}</Text>
           <Text className="text-sm text-primary">Loan No. {item.loan_id}</Text>
         </View>
-        <View className={cn('rounded-md px-2.5 py-1', getStatusColor(item.recovery_status))}>
-          <Text className={cn('text-xs font-medium', isOpen ? 'text-primary' : 'text-graphite')}>
+        <View
+          className={cn(
+            'rounded-md px-2.5 py-1',
+            getStatusColor(item.recovery_status).bg,
+            getStatusColor(item.recovery_status).border
+          )}>
+          <Text className={cn('text-xs font-medium', getStatusColor(item.recovery_status).text)}>
             {item.recovery_status}
           </Text>
         </View>

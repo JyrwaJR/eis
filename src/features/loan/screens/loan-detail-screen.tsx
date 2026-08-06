@@ -9,6 +9,7 @@ import { PAGE_ROUTES } from '@utils/constants';
 import { Card } from '@components/ui';
 import { DetailRow } from '@components/common';
 import { cn } from '@utils/helpers/cn';
+import { getStatusColor } from '@utils/helpers';
 
 type LoanDetailSearchParamsT = {
   /** Unique identifier of the loan record (read from the `loanId` route segment). */
@@ -49,8 +50,6 @@ export function LoanDetailScreen() {
     );
   }
 
-  const isOpen = data.recovery_status === 'Open';
-
   return (
     <Container className="flex-1">
       <ScrollView
@@ -62,12 +61,13 @@ export function LoanDetailScreen() {
         <View
           className={cn(
             'mb-6 w-full flex-row items-center justify-center gap-2 rounded-md border p-4',
-            isOpen ? 'border-primary bg-primary/10' : 'border-border bg-graphite/5'
+            getStatusColor(data.recovery_status).bg,
+            getStatusColor(data.recovery_status).border
           )}>
           <Text
             className={cn(
               'text-sm font-bold uppercase tracking-widest',
-              isOpen ? 'text-primary' : 'text-graphite'
+              getStatusColor(data.recovery_status).text
             )}>
             {data.recovery_status}
           </Text>
