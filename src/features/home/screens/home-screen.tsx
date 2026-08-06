@@ -32,7 +32,9 @@ export function HomeScreen() {
             <Text className="text-2xl font-bold">
               Welcome, {user?.emp_fname} {user?.emp_mname} {user?.emp_lname}
             </Text>
-            <Text className="mt-1 text-graphite">{user?.emp_dept}</Text>
+            <Text className="mt-1 text-graphite">
+              {user?.emp_dept} - {user?.emp_designation}
+            </Text>
           </View>
           <View className="items-center justify-center rounded-md bg-primary p-3">
             <Text className="text-2xl font-black  uppercase text-white">

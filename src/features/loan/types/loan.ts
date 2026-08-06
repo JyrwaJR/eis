@@ -1,4 +1,5 @@
 export type LoanStatusT = 'Close' | 'Open';
+
 export type RecoveryOfT = 'Principal' | 'Interest';
 
 export type LoanT = {
