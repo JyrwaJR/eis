@@ -55,6 +55,13 @@ export const PAGE_ROUTES = {
     DETAILS: (params?: Record<string, string>) =>
       buildUrlWithQuery(`/leaves/detail`, { ...params }) as Route,
   },
+  LOAN: {
+    /** Main loan list screen. */
+    LIST: '/loans' as const,
+    /** Individual loan detail view, keyed by the `loan_id` query param. */
+    DETAILS: (params?: Record<string, string>) =>
+      buildUrlWithQuery(`/loans/detail`, { ...params }) as Route,
+  },
   STATEMENT: '/statement' as const,
   ANNOUNCEMENT: '/announcements' as const,
   TAX: {
