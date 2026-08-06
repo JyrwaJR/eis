@@ -74,16 +74,16 @@ export function LoanDetailScreen() {
         </View>
 
         {/* Loan Group */}
-        <View className="mb-6 flex-col rounded-2xl border border-graphite/20">
+        <View className="mb-6 flex-col rounded-md border border-graphite/20">
           {/* Loan Header Card */}
-          <View className="flex-col rounded-t-2xl bg-primary p-4">
+          <View className="flex-col rounded-t-md bg-primary p-4">
             <Text className="mb-1 text-sm text-blue-100 dark:text-blue-200">Loan Description</Text>
             <Text className="text-2xl font-bold text-white">{data.loan_desc}</Text>
             <Text className="mt-2 text-sm text-blue-100 dark:text-blue-200">Loan No. {loanId}</Text>
           </View>
 
           {/* Loan Summary Card */}
-          <View className="flex-col rounded-b-2xl bg-white p-4 dark:bg-neutral-800">
+          <View className="flex-col rounded-b-md bg-white p-4 dark:bg-neutral-800">
             <DetailRow label="Amount Disbursed" value={formattedAmount(parseInt(data.amt_dis))} />
             <DetailRow label="Recovery Of" value={data.recovery_of} />
             <DetailRow label="Recovery Status" value={data.recovery_status} isLast />
@@ -91,7 +91,7 @@ export function LoanDetailScreen() {
         </View>
 
         {/* Interest & Recovery Card */}
-        <View className="mb-6 flex-col rounded-2xl border border-border bg-white p-4">
+        <View className="mb-6 flex-col rounded-md border border-border bg-white p-4">
           <Text className="mb-1 border-b border-border pb-3 text-sm font-bold uppercase tracking-wide text-graphite">
             Interest &amp; Recovery
           </Text>
