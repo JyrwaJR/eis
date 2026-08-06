@@ -18,6 +18,7 @@ export const METHODS = {
   INSERT_GE_NUMBER: 'insert_ge_no',
   GET_EMP_LOAN: 'get_employee_loan',
   GET_EMP_LOAN_DETAILS: 'get_employee_loan_details',
+  GET_EMP_OVERVIEW: 'get_employee_overview',
   // Not implemented below
   GET_EMP_SALARY_STATEMENTS_DETAILS: 'get_employee_salary_statements_DETAILS',
   INSERT_NOTIFICATION_TOKEN: 'insert_notification_token',

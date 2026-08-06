@@ -1,40 +1,43 @@
 import React from 'react';
-import { View, TouchableOpacity, Image, Text } from 'react-native';
+import { Image, Text, TouchableOpacity, View } from 'react-native';
 import { router } from 'expo-router';
 import { PAGE_ROUTES } from '@utils/constants/routes';
-import type { LeaveListItem } from '@sharedTypes/leave';
-import { formatDate } from '@utils/formatters/formatters';
 import { getStatusColor } from '@utils/helpers';
-import { useLeaves } from '@hooks';
-import { isActiveLeave } from '../utils';
 import { Button } from '@components/ui';
+import { useHomeOverview } from '../hooks';
+import { isActiveOverviewLeave, formatHomeDate } from '../utils';
+import type { HomeLeaveT } from '../types/home';
 
 /**
- * Leave history preview card shown in the "Recent History" section.
+ * Leave history preview shown in the "Recent History" section.
  *
- * Displays the most recent leave application — type, dates, status — and navigates
- * to the leave detail screen on press.
+ * Displays the single `latest_leave` returned by the home overview endpoint
+ * when it is **not** active (rejected or already finished). Shows the empty
+ * state when there is no leave, or when the latest leave is still active
+ * (it is shown in the "Active Applications" card instead). Tapping the row
+ * opens the leave detail screen.
  */
 export const HomeLeaveHistory = () => {
-  const { data: leaves } = useLeaves();
-  const leaveHistory = leaves?.filter((leave) => !isActiveLeave(leave));
+  const { data } = useHomeOverview();
+  const latest = data?.latest_leave;
+  const history = latest && !isActiveOverviewLeave(latest) ? latest : null;
 
-  const onPressLeave = (leave: LeaveListItem) => {
-    const { leave_cd, from_dt1, order_dt1 } = leave;
-    const pageUrl = PAGE_ROUTES.LEAVE.DETAILS({
-      leave_cd,
-      from_dt: from_dt1,
-      order_dt: order_dt1,
-    });
-    router.push(pageUrl);
+  const onPressLeave = (leave: HomeLeaveT) => {
+    router.push(
+      PAGE_ROUTES.LEAVE.DETAILS({
+        leave_cd: leave.leave_cd,
+        from_dt: leave.from_dt,
+        order_dt: leave.order_dt,
+      })
+    );
   };
 
-  if (!leaveHistory || leaveHistory.length === 0) {
+  if (!history) {
     return (
-      <View className="flex-1  items-center justify-center gap-y-4 border border-border p-6">
+      <View className="flex-1 items-center justify-center gap-y-4 border border-border p-6">
         <Image
           source={require('../../../shared/assets/images/empty-list.jpg')}
-          className="aspect-square h-64 object-cover object-center "
+          className="aspect-square h-64 object-cover object-center"
         />
         <Text className="text-center text-lg font-bold tracking-wider text-black">
           No leave history
@@ -54,26 +57,21 @@ export const HomeLeaveHistory = () => {
   }
 
   return (
-    <>
-      {leaveHistory.map((item, index) => (
-        <View
-          key={index}
-          className="flex-row items-center justify-between border-b border-border py-4">
-          <TouchableOpacity onPress={() => onPressLeave(item)}>
-            <Text className="text-sm text-primary">{item.leave_desc}</Text>
-            <Text className="text-lg font-semibold">{item.reason_for_leave}</Text>
+    <View className="flex-row items-center justify-between border-b border-border py-4">
+      <TouchableOpacity onPress={() => onPressLeave(history)}>
+        <Text className="text-sm text-primary">{history.leave_desc}</Text>
+        <Text className="text-lg font-semibold">{history.reason_for_leave}</Text>
 
-            <View className="flex-1 flex-row gap-x-2">
-              <Text className="text-gray-500">{formatDate(item.from_dt1)}</Text>
-              <Text className="text-gray-500">-</Text>
-
-              <Text className="text-gray-500">{formatDate(item.to_dt1)}</Text>
-            </View>
-          </TouchableOpacity>
-
-          <Text className={getStatusColor(item.verify_flg_desc).text}>{item.verify_flg_desc}</Text>
+        <View className="flex-1 flex-row gap-x-2">
+          <Text className="text-gray-500">{formatHomeDate(history.from_dt)}</Text>
+          <Text className="text-gray-500">-</Text>
+          <Text className="text-gray-500">{formatHomeDate(history.to_dt)}</Text>
         </View>
-      ))}
-    </>
+      </TouchableOpacity>
+
+      <Text className={getStatusColor(history.verify_flg_desc).text}>
+        {history.verify_flg_desc}
+      </Text>
+    </View>
   );
 };

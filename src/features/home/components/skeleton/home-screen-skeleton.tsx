@@ -55,6 +55,19 @@ const QuickActionsGridSkeleton = () => (
 );
 
 /**
+ * Skeleton placeholder that mimics the notification banner.
+ */
+const NotificationBannerSkeleton = () => (
+  <View className="mt-6 flex-row items-start gap-x-3 rounded-md border border-border bg-white p-4">
+    <Skeleton className="h-7 w-7 rounded" />
+    <View className="flex-1 gap-y-1.5">
+      <Skeleton className="h-4 w-40 rounded" />
+      <Skeleton className="h-3 w-56 rounded" />
+    </View>
+  </View>
+);
+
+/**
  * Skeleton placeholder that mimics a single leave history row.
  *
  * Layout: leave description, reason, date range, status text.
@@ -93,6 +106,9 @@ export const HomeScreenSkeleton = () => (
       contentContainerStyle={{ paddingBottom: 40 }}>
       {/* Welcome Header */}
       <WelcomeHeaderSkeleton />
+
+      {/* Notification banner */}
+      <NotificationBannerSkeleton />
 
       {/* Active Applications section */}
       <Skeleton className="mb-3 mt-8 h-5 w-44 rounded" />

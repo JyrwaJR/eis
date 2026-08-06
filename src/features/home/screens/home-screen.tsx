@@ -7,15 +7,16 @@ import { ScrollView, View, Text, RefreshControl } from 'react-native';
 import {
   HomeActiveLeaveCard,
   HomeLeaveHistory,
+  HomeNotificationCard,
   HomeQuickActions,
   HomeScreenSkeleton,
 } from '../components';
-import { useLeaves } from '@hooks';
 import { getInitials } from '@utils/helpers';
+import { useHomeOverview } from '../hooks';
 
 export function HomeScreen() {
   const { user } = useAuthStore();
-  const { isLoading, isFetching, refetch } = useLeaves();
+  const { isLoading, isFetching, refetch } = useHomeOverview();
 
   if (isLoading) return <HomeScreenSkeleton />;
 
@@ -42,6 +43,9 @@ export function HomeScreen() {
             </Text>
           </View>
         </View>
+
+        {/* Notification banner */}
+        <HomeNotificationCard />
 
         {/* Active Applications */}
 
