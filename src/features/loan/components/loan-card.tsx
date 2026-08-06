@@ -4,6 +4,7 @@ import { cn } from '@utils/helpers/cn';
 import { useRouter } from 'expo-router';
 import { PAGE_ROUTES } from '@utils/constants';
 import { LoanT } from '../types';
+import { EmptyScreen } from '@components/screens';
 
 /**
  * Displays a single loan row in the loan list and navigates to the loan detail
@@ -18,8 +19,21 @@ export function LoanCard({ item }: { item: LoanT }) {
   const isOpen = item.recovery_status === 'Open';
 
   const onPressLoan = () => {
-    router.push(PAGE_ROUTES.LOAN.DETAILS({ loan_id: item.loan_id }));
+    if (item.loan_id) {
+      router.push(PAGE_ROUTES.LOAN.DETAILS(item.loan_id));
+    }
   };
+
+  if (!item.loan_id) {
+    return (
+      <EmptyScreen
+        title="No Loans Found"
+        message="You don't have any loans yet. Loans assigned to you will appear here."
+        refresh={() => router.back()}
+        refreshLabel="Go Back"
+      />
+    );
+  }
 
   return (
     <TouchableOpacity

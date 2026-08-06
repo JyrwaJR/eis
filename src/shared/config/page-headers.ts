@@ -34,7 +34,7 @@ export const PAGE_HEADERS = {
   '/tax/edit': { title: 'Edit Tax Details', showBackButton: true },
   '/tax/create': { title: 'New Tax Record', showBackButton: true },
   '/loans': { title: 'My Loans', showBackButton: true },
-  '/loans/detail': { title: 'Loan Details', showBackButton: true },
+  '/loans/[loanId]': { title: 'Loan Details', showBackButton: true },
   '/gpf-statements': { title: 'GPF Statements', showBackButton: true },
   '/e-pay-slip': { title: 'E-Pay Slip', showBackButton: true },
   '/nps-statements': { title: 'NPS Statements', showBackButton: true },

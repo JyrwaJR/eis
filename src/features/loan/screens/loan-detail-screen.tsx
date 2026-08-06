@@ -11,8 +11,8 @@ import { DetailRow } from '@components/common';
 import { cn } from '@utils/helpers/cn';
 
 type LoanDetailSearchParamsT = {
-  /** Unique identifier of the loan record (read from the `loan_id` query param). */
-  loan_id?: string;
+  /** Unique identifier of the loan record (read from the `loanId` route segment). */
+  loanId?: string;
 };
 
 /**
@@ -22,18 +22,16 @@ type LoanDetailSearchParamsT = {
 const formatAmount = (value: string) => (value.includes('Rs') ? value : `Rs ${value}`);
 
 /**
- * Loan detail screen. Resolves the loan by the `loan_id` query param via
+ * Loan detail screen. Resolves the loan by the `loanId` route segment via
  * `useLoan()` and renders every field of the record (description, loan number,
  * disbursed amount, recovery type/status, and interest balance/installment data).
  *
- * Redirects to the list when `loan_id` is missing, shows `LoanDetailSkeleton`
+ * Redirects to the list when `loanId` is missing, shows `LoanDetailSkeleton`
  * while loading, renders `EmptyScreen` when the record is missing,
  * and is otherwise the scrollable detail view with pull-to-refresh.
  */
 export function LoanDetailScreen() {
-  const { loan_id } = useLocalSearchParams<LoanDetailSearchParamsT>();
-
-  const loanId = Array.isArray(loan_id) ? loan_id[0] : loan_id;
+  const { loanId } = useLocalSearchParams<LoanDetailSearchParamsT>();
 
   const { data, isLoading, isFetching, refetch } = useLoan({ loanId: loanId ?? '' });
 
