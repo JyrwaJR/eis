@@ -4,12 +4,12 @@ import { cn } from '@utils/helpers/cn';
 import { useRouter } from 'expo-router';
 import { PAGE_ROUTES } from '@utils/constants';
 import { LoanT } from '../types';
-import { EmptyScreen } from '@components/screens';
+import { getStatusColor } from '@utils/helpers';
 
 /**
  * Displays a single loan row in the loan list and navigates to the loan detail
- * screen when pressed. The pressed loan's `loan_id` is forwarded as the
- * `loan_id` query param so the detail screen can resolve the full record.
+ * screen when pressed. The pressed loan's `loan_id` is forwarded as the dynamic
+ * `/loans/:loanId` route segment so the detail screen can resolve the full record.
  *
  * Shows the loan description, loan number, recovery status badge (color-coded
  * by open/close), disbursed amount, and the recovery type (Principal/Interest).
@@ -24,17 +24,6 @@ export function LoanCard({ item }: { item: LoanT }) {
     }
   };
 
-  if (!item.loan_id) {
-    return (
-      <EmptyScreen
-        title="No Loans Found"
-        message="You don't have any loans yet. Loans assigned to you will appear here."
-        refresh={() => router.back()}
-        refreshLabel="Go Back"
-      />
-    );
-  }
-
   return (
     <TouchableOpacity
       onPress={onPressLoan}
@@ -44,7 +33,7 @@ export function LoanCard({ item }: { item: LoanT }) {
           <Text className="text-lg font-bold">{item.loan_desc}</Text>
           <Text className="text-sm text-primary">Loan No. {item.loan_id}</Text>
         </View>
-        <View className={cn('rounded-md px-2.5 py-1', isOpen ? 'bg-primary/10' : 'bg-graphite/10')}>
+        <View className={cn('rounded-md px-2.5 py-1', getStatusColor(item.recovery_status))}>
           <Text className={cn('text-xs font-medium', isOpen ? 'text-primary' : 'text-graphite')}>
             {item.recovery_status}
           </Text>
