@@ -44,16 +44,16 @@ export const HomeActiveLeaveCard = () => {
   }
 
   return (
-    <View className="mb-3 rounded-md border border-gray-200 bg-white p-4">
+    <View className="mb-3 rounded-md border border-border bg-white p-4">
       <TouchableOpacity onPress={() => onPressLeave(active)} className="flex-row justify-between">
         <View>
           <Text className="text-sm text-primary">{active.leave_desc}</Text>
           <Text className="font-semibold text-primary">{active.reason_for_leave}</Text>
 
           <View className="flex-1 flex-row gap-x-2">
-            <Text className="mt-1 text-gray-500">{formatHomeDate(active.from_dt)}</Text>
-            <Text className="mt-1 text-gray-500">-</Text>
-            <Text className="mt-1 text-gray-500">{formatHomeDate(active.to_dt)}</Text>
+            <Text className="mt-1 text-graphite">{formatHomeDate(active.from_dt)}</Text>
+            <Text className="mt-1 text-graphite">-</Text>
+            <Text className="mt-1 text-graphite">{formatHomeDate(active.to_dt)}</Text>
           </View>
         </View>
 
