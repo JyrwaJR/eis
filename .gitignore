@@ -62,3 +62,4 @@ expo-env.d.ts
 android
 ios
 nativewind-env.d.ts
+_tmp_*
