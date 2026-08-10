@@ -4,13 +4,15 @@ import { Text, View } from 'react-native';
 import { Button } from '../ui/button';
 import { PAGE_ROUTES } from '@utils/constants/routes';
 
+type NotFoundScreenProps = {
+  title?: string;
+  message?: string;
+};
+
 export const NotFoundScreen = ({
   title = '404 - Page Not Found',
   message = 'The page you are trying to access does not exist. Please try again.',
-}: {
-  title?: string;
-  message?: string;
-}) => {
+}: NotFoundScreenProps) => {
   const canGoBack = router.canGoBack();
   return (
     <View className="flex-1 flex-col items-center justify-center gap-4 bg-white p-6">
