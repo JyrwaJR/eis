@@ -9,7 +9,7 @@ import { Container } from '@components/layout/container';
  * list is loading.
  */
 const LoanCardSkeleton = () => (
-  <View className="mb-4 rounded-md border border-gray-200 bg-white p-4 shadow-sm dark:border-gray-800 dark:bg-gray-900">
+  <View className="mb-4 rounded-md border border-border bg-white p-4 shadow-sm dark:border-border dark:bg-gray-900">
     <View className="mb-2 flex-row items-start justify-between">
       <View className="flex-1 gap-y-1.5 pr-2">
         <Skeleton className="h-5 w-40 rounded-md" />

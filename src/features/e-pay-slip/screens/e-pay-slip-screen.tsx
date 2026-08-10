@@ -79,7 +79,7 @@ export const EPaySlipScreen = () => {
     }
   };
 
-  const handleCancelPayslip = () => setPendingGeNumber(null);
+  const handleConformationCancelPayslip = () => setPendingGeNumber(null);
 
   const userName = [user?.emp_fname, user?.emp_mname, user?.emp_lname].filter(Boolean).join(' ');
 
@@ -123,7 +123,7 @@ export const EPaySlipScreen = () => {
         userName={userName}
         isConfirming={updateGeNumber.isPending}
         onConfirm={handleConfirmPayslip}
-        onCancel={handleCancelPayslip}
+        onCancel={handleConformationCancelPayslip}
       />
     </>
   );
