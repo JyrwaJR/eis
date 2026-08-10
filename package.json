@@ -4,7 +4,7 @@
   "main": "expo-router/entry",
   "scripts": {
     "android": "APP_VARIANT=development expo run:android",
-    "dev": "APP_VARIANT=development expo start --clear",
+    "dev": "expo start --clear",
     "start": "expo start",
     "lint": "eslint \"**/*.{js,jsx,ts,tsx}\" --fix",
     "format": "prettier \"**/*.{js,jsx,ts,tsx,json}\" --write",

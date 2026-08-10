@@ -14,11 +14,11 @@ export const NotFoundScreen = ({
   const canGoBack = router.canGoBack();
   return (
     <View className="flex-1 flex-col items-center justify-center gap-4 bg-white p-6">
-      <Text className="text-4xl font-bold text-red-500">404</Text>
+      <Text className="text-4xl font-bold text-destructive">404</Text>
 
-      <Text className="text-2xl font-bold text-red-500">{title}</Text>
+      <Text className="text-2xl font-bold text-destructive">{title}</Text>
 
-      <Text className="text-center text-gray-500">{message}</Text>
+      <Text className="text-center text-graphite">{message}</Text>
 
       <View className="mt-4 w-full items-center justify-center gap-3">
         <Button
