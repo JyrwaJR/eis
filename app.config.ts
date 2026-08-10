@@ -5,7 +5,7 @@ import { ExpoConfig, ConfigContext } from 'expo/config';
  * Controls which build profile is active: development, preview, or production.
  * When unset, defaults to `undefined` which maps to the production profile.
  */
-const APP_VARIANT = process.env.APP_VARIANT;
+const APP_VARIANT = process.env.EXPO_PUBLIC_APP_VARIANT || 'development';
 
 /** Whether the current build targets the development environment. */
 const isDev = APP_VARIANT === 'development';
@@ -14,7 +14,7 @@ const isDev = APP_VARIANT === 'development';
 const isPreview = APP_VARIANT === 'preview';
 
 /** Semantic version of the application. Must match the version in `eas.json`. */
-const APP_VERSION = '1.0.0';
+const APP_VERSION = process.env.EXPO_PUBLIC_APP_VERSION || '1.0.0';
 
 /**
  * Asset file paths used across iOS and Android configurations.
