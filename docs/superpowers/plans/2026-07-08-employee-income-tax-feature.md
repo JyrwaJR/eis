@@ -22,7 +22,7 @@
 - All new files must follow the existing feature module pattern: `types/`, `hooks/`, `screens/`, `components/`, `utils/constants/`, `validators/`
 - All exports must have JSDoc comments
 - Use named exports over default exports (except Expo Router page files which must have default exports)
-- Follow shadcn/hp design system: `rounded-2xl border border-gray-100 bg-white p-5 shadow-sm` card pattern
+- Follow shadcn/hp design system: `rounded-md border border-gray-100 bg-white p-5 shadow-sm` card pattern
 - Dark mode support required via `dark:` variants
 - Indian number formatting (e.g., `Rs 12,75,000`) using `toLocaleString('en-IN')`
 - All screens must handle loading, error, empty states
@@ -537,7 +537,7 @@ export function TaxSummaryCard({
   return (
     <TouchableOpacity
       onPress={onPress}
-      className="mb-3 rounded-2xl border border-gray-100 bg-white p-5 shadow-sm dark:border-gray-800 dark:bg-gray-900">
+      className="mb-3 rounded-md border border-gray-100 bg-white p-5 shadow-sm dark:border-gray-800 dark:bg-gray-900">
       <View className="mb-3 flex-row items-center justify-between">
         <View className="flex-1">
           <Text className="text-base font-bold text-gray-900 dark:text-white">
@@ -799,7 +799,7 @@ export default function EmployeeTaxDetailScreen() {
         />
 
         {/* Employee Particulars */}
-        <View className="mb-6 rounded-2xl border border-gray-100 bg-white p-5 shadow-sm dark:border-gray-800 dark:bg-gray-900">
+        <View className="mb-6 rounded-md border border-gray-100 bg-white p-5 shadow-sm dark:border-gray-800 dark:bg-gray-900">
           <Text className="mb-4 text-xs font-bold uppercase tracking-wider text-gray-400">
             Employee Particulars
           </Text>
@@ -810,7 +810,7 @@ export default function EmployeeTaxDetailScreen() {
         </View>
 
         {/* Income Summary */}
-        <View className="mb-6 rounded-2xl border border-gray-100 bg-white p-5 shadow-sm dark:border-gray-800 dark:bg-gray-900">
+        <View className="mb-6 rounded-md border border-gray-100 bg-white p-5 shadow-sm dark:border-gray-800 dark:bg-gray-900">
           <SectionHeader title="Income Summary" />
           <DetailRow label="Gross Annual Income" value={`Rs ${data.grossAnnualIncome.toLocaleString('en-IN')}`} />
           <DetailRow label="Standard Deduction" value={`Rs ${data.standardDeduction.toLocaleString('en-IN')}`} />
@@ -818,7 +818,7 @@ export default function EmployeeTaxDetailScreen() {
         </View>
 
         {/* Regime & Slab Breakdown */}
-        <View className="mb-6 rounded-2xl border border-gray-100 bg-white p-5 shadow-sm dark:border-gray-800 dark:bg-gray-900">
+        <View className="mb-6 rounded-md border border-gray-100 bg-white p-5 shadow-sm dark:border-gray-800 dark:bg-gray-900">
           <View className="mb-4 flex-row items-center justify-between">
             <SectionHeader title="Tax Computation" />
             <View className={`rounded-md px-3 py-1 ${data.regime === 'NEW' ? 'bg-blue-100 dark:bg-blue-900/30' : 'bg-amber-100 dark:bg-amber-900/30'}`}>
@@ -840,7 +840,7 @@ export default function EmployeeTaxDetailScreen() {
 
         {/* Old Regime Deductions (if applicable) */}
         {data.regime === 'OLD' && (
-          <View className="mb-6 rounded-2xl border border-gray-100 bg-white p-5 shadow-sm dark:border-gray-800 dark:bg-gray-900">
+          <View className="mb-6 rounded-md border border-gray-100 bg-white p-5 shadow-sm dark:border-gray-800 dark:bg-gray-900">
             <SectionHeader title="Deductions Claimed" />
             <DetailRow label="Section 80C (PF, ELSS, Insurance)" value={`Rs ${data.deductions80C.toLocaleString('en-IN')}`} />
             <DetailRow label="Section 80D (Health Insurance)" value={`Rs ${data.deductions80D.toLocaleString('en-IN')}`} />
@@ -852,7 +852,7 @@ export default function EmployeeTaxDetailScreen() {
         )}
 
         {/* Payment Summary */}
-        <View className="mb-6 rounded-2xl border border-gray-100 bg-white p-5 shadow-sm dark:border-gray-800 dark:bg-gray-900">
+        <View className="mb-6 rounded-md border border-gray-100 bg-white p-5 shadow-sm dark:border-gray-800 dark:bg-gray-900">
           <SectionHeader title="Payment Summary" />
           <DetailRow label="TDS Deducted" value={`Rs ${data.tdsDeducted.toLocaleString('en-IN')}`} />
           <DetailRow label="Tax Paid (Self-Assessment)" value={`Rs ${data.taxPaid.toLocaleString('en-IN')}`} />
@@ -1004,7 +1004,7 @@ export default function EditTaxDetailScreen() {
       <ScrollView className="flex-1 px-6 pt-6" showsVerticalScrollIndicator={false}>
 
         {/* Regime Selection */}
-        <View className="mb-6 rounded-2xl border border-gray-100 bg-white p-5 shadow-sm dark:border-gray-800 dark:bg-gray-900">
+        <View className="mb-6 rounded-md border border-gray-100 bg-white p-5 shadow-sm dark:border-gray-800 dark:bg-gray-900">
           <SectionHeader title="Tax Regime" />
           <Text className="mb-3 text-xs text-gray-500">
             Select the tax regime applicable for this employee.
@@ -1053,7 +1053,7 @@ export default function EditTaxDetailScreen() {
         </View>
 
         {/* Deductions Section */}
-        <View className="mb-6 rounded-2xl border border-gray-100 bg-white p-5 shadow-sm dark:border-gray-800 dark:bg-gray-900">
+        <View className="mb-6 rounded-md border border-gray-100 bg-white p-5 shadow-sm dark:border-gray-800 dark:bg-gray-900">
           <SectionHeader title="Deductions (Old Regime)" />
           <Text className="mb-4 text-xs text-gray-500">
             Enter the deduction amounts claimed by the employee.

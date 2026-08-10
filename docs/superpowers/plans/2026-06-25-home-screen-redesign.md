@@ -284,7 +284,7 @@ export const QuickActions = () => {
             onPress={() => action.route && router.push(action.route)}
             activeOpacity={0.7}
             className="items-center">
-            <View className="mb-2 h-14 w-14 items-center justify-center rounded-2xl bg-blue-50 dark:bg-blue-900/20">
+            <View className="mb-2 h-14 w-14 items-center justify-center rounded-md bg-blue-50 dark:bg-blue-900/20">
               <MaterialCommunityIcons name={action.icon} size={26} color={iconColor} />
             </View>
             <Text variant="subtext" size="xs" className="text-center font-medium">
@@ -420,7 +420,7 @@ export const AnnouncementsPreview = ({ announcements }: AnnouncementsPreviewProp
       <TouchableOpacity
         key={item.id}
         activeOpacity={0.7}
-        className="mb-3 rounded-2xl border border-gray-100 bg-white p-4 shadow-sm dark:border-gray-800 dark:bg-gray-900">
+        className="mb-3 rounded-md border border-gray-100 bg-white p-4 shadow-sm dark:border-gray-800 dark:bg-gray-900">
         <View className="mb-1 flex-row items-center justify-between">
           <Text
             className="flex-1 text-sm font-semibold text-gray-900 dark:text-white"

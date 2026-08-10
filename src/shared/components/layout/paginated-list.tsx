@@ -71,7 +71,7 @@ export function PaginatedList<T>({
     return (
       <View className="flex-1 gap-y-4 p-4">
         {Array.from({ length: skeletonCount }).map((_, index) => (
-          <Skeleton key={index} className={cn('w-full rounded-2xl', className)} />
+          <Skeleton key={index} className={cn('w-full rounded-md', className)} />
         ))}
       </View>
     );

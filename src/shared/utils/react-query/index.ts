@@ -42,7 +42,7 @@ export const queryClient = new QueryClient({
       gcTime: 1000 * 60 * 30, // 30 min — gives persistence time to serialize
       retry: 3,
       refetchOnReconnect: true,
-      refetchOnWindowFocus: false, // mobile: AppState-based, not visibilitychange
+      refetchOnWindowFocus: true, // mobile: AppState-based, not visibilitychange
     },
   },
 });

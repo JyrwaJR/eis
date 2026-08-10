@@ -52,7 +52,7 @@ export const GovtHeaderSkeleton = ({
 }: GovtHeaderSkeletonProps) => (
   <View className={cn('mb-8 items-center gap-y-2', className)}>
     {/* Icon placeholder — matches h-16 w-16 emoji container */}
-    <Skeleton className="mb-3 h-16 w-16 rounded-2xl" />
+    <Skeleton className="mb-3 h-16 w-16 rounded-md" />
 
     {/* "Government of India" label placeholder — matches text-[11px] */}
     <Skeleton className="h-3 w-28 rounded" />

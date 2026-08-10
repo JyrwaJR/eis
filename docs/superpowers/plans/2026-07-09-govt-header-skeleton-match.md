@@ -4,7 +4,7 @@
 
 **Goal:** Rewrite `GovtHeaderSkeleton` to precisely mirror the layout structure of the `GovtHeader` component, following the established skeleton pattern used by `SectionHeaderSkeleton`.
 
-**Architecture:** The current skeleton uses a card wrapper (`rounded-2xl bg-white p-6 shadow-sm border`) with a horizontal flex-row layout — completely different from the actual `GovtHeader` which uses a centered vertical stack (`items-center gap-y-2`) with no card wrapper. The fix is a single-file rewrite of the skeleton component, plus adding it to the barrel export. No consumer changes needed since all optional props default to their non-rendering state.
+**Architecture:** The current skeleton uses a card wrapper (`rounded-md bg-white p-6 shadow-sm border`) with a horizontal flex-row layout — completely different from the actual `GovtHeader` which uses a centered vertical stack (`items-center gap-y-2`) with no card wrapper. The fix is a single-file rewrite of the skeleton component, plus adding it to the barrel export. No consumer changes needed since all optional props default to their non-rendering state.
 
 **Tech Stack:** React Native (Expo), TypeScript
 
@@ -28,7 +28,7 @@
 
 | Aspect                | Actual GovtHeader                     | Current Skeleton                                         |
 | --------------------- | ------------------------------------- | -------------------------------------------------------- |
-| Outer container       | `mb-8 items-center gap-y-2` (no card) | `mb-6 rounded-2xl border bg-white p-6 shadow-sm` (card)  |
+| Outer container       | `mb-8 items-center gap-y-2` (no card) | `mb-6 rounded-md border bg-white p-6 shadow-sm` (card)   |
 | Layout direction      | Centered vertical (`items-center`)    | Horizontal row (`flex-row items-center justify-between`) |
 | Icon                  | Emoji in `h-16 w-16` centered view    | Missing                                                  |
 | "Govt of India" label | `text-[11px]` subtext variant         | Missing (replaced by left-aligned skeleton lines)        |
@@ -95,7 +95,7 @@ export const GovtHeaderSkeleton = ({
 }: GovtHeaderSkeletonProps) => (
   <View className={cn('mb-8 items-center gap-y-2', className)}>
     {/* Icon placeholder — matches h-16 w-16 emoji container */}
-    <Skeleton className="mb-3 h-16 w-16 rounded-2xl" />
+    <Skeleton className="mb-3 h-16 w-16 rounded-md" />
 
     {/* "Government of India" label placeholder — matches text-[11px] */}
     <Skeleton className="h-3 w-28 rounded" />
@@ -114,7 +114,7 @@ export const GovtHeaderSkeleton = ({
 
 **Key rationale for each skeleton element:**
 
-- **Icon:** `h-16 w-16 rounded-2xl` — matches the `h-16 w-16` icon container. `rounded-2xl` follows the `SectionHeaderSkeleton` icon convention.
+- **Icon:** `h-16 w-16 rounded-md` — matches the `h-16 w-16` icon container. `rounded-md` follows the `SectionHeaderSkeleton` icon convention.
 - **Govt of India label:** `h-3 w-28 rounded` — `h-3` approximates `text-[11px]` (~14px line height), `w-28` (~112px) accommodates "Government of India" at that font size.
 - **Title:** `h-7 rounded-md` — matches `variant="heading"` (~28px line height). Width defaults to `w-56` (~224px) which covers most title lengths.
 - **Subtitle:** `h-4 rounded` — matches `variant="subtext"` (~16px line height). Width defaults to `w-40` (~160px).

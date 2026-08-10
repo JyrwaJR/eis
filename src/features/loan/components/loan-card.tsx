@@ -30,7 +30,7 @@ export function LoanCard({ item }: { item: LoanT }) {
     <TouchableOpacity
       onPress={onPressLoan}
       activeOpacity={0.8}
-      className="flex-col rounded-xl border border-border bg-white p-4">
+      className="flex-col rounded-md border border-border bg-white p-4">
       {/* Top Row: Title, Loan No, and Badge */}
       <View className="flex-row items-start justify-between">
         <View className="flex-col gap-y-3">

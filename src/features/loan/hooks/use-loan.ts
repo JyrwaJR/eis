@@ -16,5 +16,6 @@ export function useLoan({ loanId }: UseLoanProps) {
     queryFn: () => rpc<LoanItemI>(METHODS.GET_EMP_LOAN_DETAILS, { emp_cd, loan_id: loanId }),
     select: (data) => data?.data,
     staleTime: STALE_TIMES.LOAN,
+    refetchOnMount: true,
   });
 }

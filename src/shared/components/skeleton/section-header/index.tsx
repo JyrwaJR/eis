@@ -54,7 +54,7 @@ export const SectionHeaderSkeleton = ({
       <Skeleton className="h-10 w-[3px] rounded-md" />
 
       {/* Icon */}
-      {hasIcon && <Skeleton className="h-12 w-12 rounded-2xl" />}
+      {hasIcon && <Skeleton className="h-12 w-12 rounded-md" />}
 
       {/* Title + subtitle */}
       <View className="flex-1 gap-y-2">

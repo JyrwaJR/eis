@@ -14,7 +14,7 @@
 - All exports must have JSDoc comments
 - Named exports preferred
 - Use `Skeleton` from `@components/ui/skeleton` (Reanimated pulse animation)
-- Follow shadcn/hp card pattern: `rounded-2xl border border-gray-100 bg-white p-5 shadow-sm dark:border-gray-800 dark:bg-gray-900`
+- Follow shadcn/hp card pattern: `rounded-md border border-gray-100 bg-white p-5 shadow-sm dark:border-gray-800 dark:bg-gray-900`
 - Dark mode support via `dark:` variants
 - Each skeleton card uses `View` wrappers with `gap-y-*` for vertical spacing
 - Screens replace `if (isLoading) return <LoadingScreen />` with `if (isLoading) return <TaxXxxSkeleton />`
@@ -75,7 +75,7 @@ import { Container } from '@components/layout/container';
  * - Regime indicator dot + label (left) and Tax amount (right)
  */
 const TaxSummaryCardSkeleton = () => (
-  <View className="mb-3 rounded-2xl border border-gray-100 bg-white p-5 shadow-sm dark:border-gray-800 dark:bg-gray-900">
+  <View className="mb-3 rounded-md border border-gray-100 bg-white p-5 shadow-sm dark:border-gray-800 dark:bg-gray-900">
     {/* Row 1: Name + Designation | Status badge */}
     <View className="mb-3 flex-row items-center justify-between">
       <View className="flex-1 gap-y-1.5">
@@ -188,7 +188,7 @@ import { Container } from '@components/layout/container';
  * - FY badge (right-aligned pill)
  */
 const GovtHeaderSkeleton = () => (
-  <View className="mb-6 rounded-2xl border border-gray-100 bg-white p-6 shadow-sm dark:border-gray-800 dark:bg-gray-900">
+  <View className="mb-6 rounded-md border border-gray-100 bg-white p-6 shadow-sm dark:border-gray-800 dark:bg-gray-900">
     <View className="mb-3 flex-row items-center justify-between">
       <View className="gap-y-1.5">
         <Skeleton className="h-4 w-44 rounded" />
@@ -208,7 +208,7 @@ const GovtHeaderSkeleton = () => (
  * - Large rupee amount
  */
 const SummaryCardSkeleton = () => (
-  <View className="mb-6 rounded-2xl border border-gray-100 bg-white p-5 shadow-sm dark:border-gray-800 dark:bg-gray-900">
+  <View className="mb-6 rounded-md border border-gray-100 bg-white p-5 shadow-sm dark:border-gray-800 dark:bg-gray-900">
     <Skeleton className="mb-2 h-3 w-32 rounded" />
     <Skeleton className="h-8 w-44 rounded-md" />
   </View>
@@ -229,7 +229,7 @@ const DetailCardSkeleton = ({
   titleWidth?: string;
   rows?: number;
 }) => (
-  <View className="mb-6 rounded-2xl border border-gray-100 bg-white p-5 shadow-sm dark:border-gray-800 dark:bg-gray-900">
+  <View className="mb-6 rounded-md border border-gray-100 bg-white p-5 shadow-sm dark:border-gray-800 dark:bg-gray-900">
     <Skeleton className={`mb-4 h-4 ${titleWidth} rounded`} />
     {Array.from({ length: rows }).map((_, i) => (
       <View key={i} className="mb-4 flex-row items-center justify-between">
@@ -250,7 +250,7 @@ const DetailCardSkeleton = ({
  * - Bottom summary rows (base tax, rebate, surcharge, cess, total, effective rate)
  */
 const TaxComputationSkeleton = () => (
-  <View className="mb-6 rounded-2xl border border-gray-100 bg-white p-5 shadow-sm dark:border-gray-800 dark:bg-gray-900">
+  <View className="mb-6 rounded-md border border-gray-100 bg-white p-5 shadow-sm dark:border-gray-800 dark:bg-gray-900">
     <View className="mb-4 flex-row items-center justify-between">
       <Skeleton className="h-4 w-32 rounded" />
       <Skeleton className="h-6 w-24 rounded-md" />
@@ -379,7 +379,7 @@ import { Container } from '@components/layout/container';
  * - Two regime buttons (New Regime / Old Regime)
  */
 const RegimeSelectorSkeleton = () => (
-  <View className="mb-6 rounded-2xl border border-gray-100 bg-white p-5 shadow-sm dark:border-gray-800 dark:bg-gray-900">
+  <View className="mb-6 rounded-md border border-gray-100 bg-white p-5 shadow-sm dark:border-gray-800 dark:bg-gray-900">
     <Skeleton className="mb-2 h-4 w-24 rounded" />
     <Skeleton className="mb-4 h-3 w-64 rounded" />
     <View className="flex-row gap-3">
@@ -412,7 +412,7 @@ const FormFieldSkeleton = () => (
  * - 6 form field skeletons (80C, 80D, HRA, LTA, Home Loan, NPS)
  */
 const DeductionsCardSkeleton = () => (
-  <View className="mb-6 rounded-2xl border border-gray-100 bg-white p-5 shadow-sm dark:border-gray-800 dark:bg-gray-900">
+  <View className="mb-6 rounded-md border border-gray-100 bg-white p-5 shadow-sm dark:border-gray-800 dark:bg-gray-900">
     <Skeleton className="mb-2 h-4 w-44 rounded" />
     <Skeleton className="mb-4 h-3 w-64 rounded" />
     {Array.from({ length: 6 }).map((_, i) => (
@@ -485,7 +485,7 @@ import { Container } from '@components/layout/container';
  * - Two regime buttons (New Regime / Old Regime)
  */
 const RegimeSelectorSkeleton = () => (
-  <View className="mb-6 rounded-2xl border border-gray-100 bg-white p-5 shadow-sm dark:border-gray-800 dark:bg-gray-900">
+  <View className="mb-6 rounded-md border border-gray-100 bg-white p-5 shadow-sm dark:border-gray-800 dark:bg-gray-900">
     <Skeleton className="mb-4 h-4 w-24 rounded" />
     <View className="flex-row gap-3">
       <Skeleton className="flex-1 h-12 rounded-md" />
@@ -516,7 +516,7 @@ const FormFieldSkeleton = () => (
  * - 6 form field skeletons (80C, 80D, HRA, LTA, Home Loan, NPS)
  */
 const DeductionsCardSkeleton = () => (
-  <View className="mb-6 rounded-2xl border border-gray-100 bg-white p-5 shadow-sm dark:border-gray-800 dark:bg-gray-900">
+  <View className="mb-6 rounded-md border border-gray-100 bg-white p-5 shadow-sm dark:border-gray-800 dark:bg-gray-900">
     <Skeleton className="mb-4 h-4 w-24 rounded" />
     {Array.from({ length: 6 }).map((_, i) => (
       <FormFieldSkeleton key={i} />

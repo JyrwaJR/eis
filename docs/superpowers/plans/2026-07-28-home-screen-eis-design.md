@@ -220,7 +220,7 @@ export const HomeQuickActions = () => {
       onPress={() => action.route && router.push(action.route as Route)}
       activeOpacity={0.7}
       className="flex-1 items-center">
-      <View className="mb-2 h-14 w-14 items-center justify-center rounded-2xl bg-primary/10">
+      <View className="mb-2 h-14 w-14 items-center justify-center rounded-md bg-primary/10">
         <Icon name={action.icon} size={26} color="#024ad8" />
       </View>
       <Text variant="caption-md" className="text-on-surface-variant text-center font-medium">
@@ -234,7 +234,7 @@ export const HomeQuickActions = () => {
       <Text variant="display-xs" className="text-on-surface mb-4">
         Quick Actions
       </Text>
-      <View className="bg-surface-container-lowest rounded-2xl p-4 shadow-sm">
+      <View className="bg-surface-container-lowest rounded-md p-4 shadow-sm">
         <View className="mb-6 flex-row justify-between gap-4">{topRow.map(renderAction)}</View>
         <View className="flex-row justify-between gap-4">{bottomRow.map(renderAction)}</View>
       </View>
@@ -286,7 +286,7 @@ interface HomeActiveLeaveCardProps {
 }
 
 export const HomeActiveLeaveCard = ({ leave }: HomeActiveLeaveCardProps) => (
-  <Card variant="default" className="bg-surface-container-lowest mb-3 rounded-2xl shadow-sm">
+  <Card variant="default" className="bg-surface-container-lowest mb-3 rounded-md shadow-sm">
     <CardContent className="p-4">
       <View className="mb-3 flex-row items-center justify-between">
         <View className="flex-row items-center gap-2">
@@ -368,7 +368,7 @@ export const HomeLeavePreview = ({ leave }: HomeLeavePreviewProps) => {
   };
 
   return (
-    <Card variant="default" className="bg-surface-container-lowest rounded-2xl p-4 shadow-sm">
+    <Card variant="default" className="bg-surface-container-lowest rounded-md p-4 shadow-sm">
       <TouchableOpacity onPress={onPressLeave} activeOpacity={0.7}>
         <View className="flex-row items-center justify-between">
           <View className="flex-1 flex-row items-center gap-2">
@@ -425,7 +425,7 @@ import { Text } from '@components/ui/text';
 import { Icon } from '@components/ui/icon';
 
 export const HomeLeaveEmptyCard = () => (
-  <Card variant="default" className="bg-surface-container-lowest rounded-2xl shadow-sm">
+  <Card variant="default" className="bg-surface-container-lowest rounded-md shadow-sm">
     <CardContent className="p-4">
       <View className="flex-row items-center gap-3">
         <Icon name="calendar-number-outline" size={22} color="#747686" />

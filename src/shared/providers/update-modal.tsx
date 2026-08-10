@@ -45,13 +45,13 @@ export const UpdateModal: React.FC = () => {
               <View className="w-full flex-row gap-4">
                 <TouchableOpacity
                   onPress={skipUpdate}
-                  className="flex-1 items-center justify-center rounded-2xl bg-gray-200 py-4">
+                  className="flex-1 items-center justify-center rounded-md bg-gray-200 py-4">
                   <Text className="text-base font-semibold text-gray-700">Remind Later</Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity
                   onPress={runUpdate}
-                  className="flex-1 items-center justify-center rounded-2xl bg-blue-600 py-4 shadow-lg shadow-blue-500/30">
+                  className="flex-1 items-center justify-center rounded-md bg-blue-600 py-4 shadow-lg shadow-blue-500/30">
                   <Text className="text-base font-semibold text-white">Update Now</Text>
                 </TouchableOpacity>
               </View>

@@ -60,12 +60,12 @@
 
 ## Border Radius
 
-| Token         | Tailwind Class | Value  | When to Use                                             |
-| ------------- | -------------- | ------ | ------------------------------------------------------- |
-| card radius   | `rounded-md`   | 16px   | Cards, section containers — **never use `rounded-2xl`** |
-| button radius | `rounded-md`   | 4px    | All buttons, text inputs                                |
-| lg            | `rounded-lg`   | 8px    | Badge pills, category cards                             |
-| pill          | `rounded-md`   | 9999px | Status badges, chips, filter tags                       |
+| Token         | Tailwind Class | Value  | When to Use                                            |
+| ------------- | -------------- | ------ | ------------------------------------------------------ |
+| card radius   | `rounded-md`   | 16px   | Cards, section containers — **never use `rounded-md`** |
+| button radius | `rounded-md`   | 4px    | All buttons, text inputs                               |
+| lg            | `rounded-lg`   | 8px    | Badge pills, category cards                            |
+| pill          | `rounded-md`   | 9999px | Status badges, chips, filter tags                      |
 
 ## Shadow / Elevation
 
@@ -208,7 +208,7 @@ Use `mb-4` for consistent list item spacing.
 | `bg-gray-100`                               | `bg-muted`                                                     |
 | `border-gray-100` / `border-gray-200`       | `border-border`                                                |
 | `text-blue-600` / `text-blue-700`           | `text-primary`                                                 |
-| `rounded-2xl`                               | `rounded-md`                                                   |
+| `rounded-md`                                | `rounded-md`                                                   |
 | `text-xs font-bold uppercase text-gray-400` | `<Text variant="subtext" size="xs">`                           |
 | `text-lg font-bold`                         | `<Text variant="heading" size="lg">`                           |
 | `text-sm font-semibold`                     | `<Text variant="body-emphasis">` or `<Text weight="semibold">` |
