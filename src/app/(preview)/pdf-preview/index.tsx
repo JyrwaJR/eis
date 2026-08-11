@@ -56,7 +56,7 @@ export default function PdfPreviewScreen() {
         showsVerticalScrollIndicator
         showsHorizontalScrollIndicator
         source={{ uri }}
-        style={{ flex: 1 }}
+        style={{ flex: 1, padding: 0, margin: 0 }}
       />
       <View className="flex-row items-center justify-center">
         <Button className="w-full" size={'lg'} onPress={() => Sharing.shareAsync(uri)}>

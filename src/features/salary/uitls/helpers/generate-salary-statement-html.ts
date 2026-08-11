@@ -139,9 +139,9 @@ function buildSectionRows(items: SalaryStatementItem[]): string {
     .map(
       (item, index) =>
         `        <tr class="${index % 2 === 0 ? 'bg-white' : 'bg-gray-100'}">
-          <td class="border border-gray-300 p-1 text-center" style="padding:6px">${index + 1}</td>
-          <td class="border border-gray-300 p-1" style="padding:6px">${escapeHtml(item.pname)}</td>
-          <td class="border border-gray-300 p-1 text-right tabular-nums" style="padding:6px">${formatCurrency(item.amount)}</td>
+          <td class="border border-gray-300 p-1 text-center" style="padding:3px">${index + 1}</td>
+          <td class="border border-gray-300 p-1" style="padding:3px">${escapeHtml(item.pname)}</td>
+          <td class="border border-gray-300 p-1 text-right tabular-nums" style="padding:3px">${formatCurrency(item.amount)}</td>
         </tr>`
     )
     .join('\n');
@@ -183,9 +183,9 @@ function buildSalarySection(
       <tbody>
 ${rows}
         <tr class="bg-gray-100">
-          <td class="border border-gray-300 p-1 text-center" style="padding:6px"></td>
-          <td class="border border-gray-300 p-1 text-base font-bold" style="padding:6px">Total</td>
-          <td class="border border-gray-300 p-1 text-right font-bold text-base tabular-nums" style="padding:6px">${formatCurrency(total)}</td>
+          <td class="border border-gray-300 p-1 text-center" style="padding:3px"></td>
+          <td class="border border-gray-300 p-1 text-base font-bold" style="padding:3px">Total</td>
+          <td class="border border-gray-300 p-1 text-right font-bold text-base tabular-nums" style="padding:3px">${formatCurrency(total)}</td>
         </tr>
       </tbody>
     </table>`;
@@ -228,7 +228,7 @@ function buildIdentityBlock(statement: SalaryStatementWithIdentity): string {
     .join('\n            ');
 
   return `
-    <div class="border border-gray-300 bg-gray-100 p-2 mb-2" style="padding:10px">
+    <div class="border border-gray-300 bg-gray-100 p-1 mb-2" style="padding:6px">
       ${employeeName ? `<div class="font-bold text-blue-800" style="font-size:16px">${escapeHtml(employeeName)}</div>` : ''}
       ${roleLine ? `<div class="text-gray-700" style="font-size:13px;margin-top:2px">${roleLine}</div>` : ''}
       ${chips ? `<div class="mt-1 flex flex-wrap gap-4" style="font-size:13px">\n            ${chips}\n          </div>` : ''}
@@ -280,14 +280,13 @@ export function generateSalaryStatementHtml(statement: SalaryStatementWithIdenti
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>NIC Salary Statement</title>
   <style>
     ${salaryStatementCss}
 
     @page {
       size: A4;
-      margin: 14mm 12mm;
+    margin:12mm;
     }
 
     body {
@@ -296,7 +295,7 @@ export function generateSalaryStatementHtml(statement: SalaryStatementWithIdenti
     }
   </style>
 </head>
-<body class="m-0 p-0 border bg-white text-gray-900 font-sans leading-relaxed" style="font-size:14px">
+<body class="m-0 p-0 bg-white text-gray-900 font-sans leading-relaxed" style="font-size:14px">
 
   <!-- Watermark -->
   <div class="fixed whitespace-nowrap pointer-events-none font-serif font-bold" style="top:46%;left:50%;transform:translate(-50%,-50%) rotate(-32deg);font-size:64px;letter-spacing:3px;color:rgba(30,64,175,0.08);z-index:0">
@@ -304,28 +303,28 @@ export function generateSalaryStatementHtml(statement: SalaryStatementWithIdenti
   </div>
 
   <!-- Main Container -->
-  <div class="relative" style="z-index:1;padding:14mm 12mm;margin:0 auto">
+  <div class="relative" style="z-index:1;padding:0; margin:0 auto">
 
     <!-- Top Tricolor Bar -->
     ${tricolorBar}
 
     <!-- Masthead Header -->
-    <div class="mb-3" style="border:1.5px solid #1e40af">
+    <div class="mb-3 p-2 rounded-md" style="border:1.5px solid #1e40af">
       <table class="w-full border-collapse" role="presentation">
-        <tr>
-          <td class="border-none p-2 align-middle" style="width:70px">
+        <tr class="border-0 flex justify-between items-center flex-row">
+          <td class="border-0 p-1">
             ${OFFICIAL_SEAL_SVG}
           </td>
 
-          <td class="border-none p-2 align-middle text-center">
+          <td class="border-none p-1 text-center">
             <h1 class="m-0 font-serif text-xl tracking-wide text-blue-800 font-bold" style="letter-spacing:1px">GOVERNMENT OF MEGHALAYA</h1>
             <h2 class="m-0 text-sm tracking-wide text-gray-800 font-bold" style="margin-top:2px">Directorate of Treasuries</h2>
-            <div class="inline-block mt-1 px-4 py-1 bg-blue-600 text-white font-bold" style="font-size:13px;letter-spacing:2px">
+            <div class="inline-block mt-1 px-4 py-1 bg-blue-600 rounded-md text-white font-bold" style="font-size:13px;letter-spacing:2px">
               SALARY STATEMENT
             </div>
           </td>
 
-          <td class="border-none p-2 align-middle text-right text-blue-800 leading-tight" style="width:190px;font-size:12px">
+          <td class="border-none p-1 text-right text-blue-800 leading-tight" style="font-size:12px">
             <span class="block text-red-800 font-bold uppercase tracking-wider">Statement No.</span>
             ${escapeHtml(statement.voucher_no)}
 
@@ -342,35 +341,35 @@ export function generateSalaryStatementHtml(statement: SalaryStatementWithIdenti
     <!-- Info Table -->
     <table class="w-full border-collapse mb-1">
       <tr>
-        <td class="font-bold bg-gray-100 text-blue-800 border border-gray-300 px-2 py-1" style="width:26%;font-size:13px">GPF Description</td>
-        <td class="border border-gray-300 px-2 py-1" style="width:24%;font-size:13px">${escapeHtml(statement.gpf_desc)}</td>
+        <td class="font-bold bg-gray-100 text-blue-800 border border-gray-300 px-1 py-0.5" style="width:26%;font-size:13px">GPF Description</td>
+        <td class="border border-gray-300 px-1 py-0.5" style="width:24%;font-size:13px">${escapeHtml(statement.gpf_desc)}</td>
 
-        <td class="font-bold bg-gray-100 text-blue-800 border border-gray-300 px-2 py-1" style="width:26%;font-size:13px">GPF Number</td>
-        <td class="border border-gray-300 px-2 py-1" style="width:24%;font-size:13px">${escapeHtml(statement.gpf_no)}</td>
+        <td class="font-bold bg-gray-100 text-blue-800 border border-gray-300 px-1 py-0.5" style="width:26%;font-size:13px">GPF Number</td>
+        <td class="border border-gray-300 px-1 py-0.5" style="width:24%;font-size:13px">${escapeHtml(statement.gpf_no)}</td>
       </tr>
 
       <tr>
-        <td class="font-bold bg-gray-100 text-blue-800 border border-gray-300 px-2 py-1" style="font-size:13px">Bank Account Number</td>
-        <td class="border border-gray-300 px-2 py-1" style="font-size:13px">${escapeHtml(statement.bank_no)}</td>
+        <td class="font-bold bg-gray-100 text-blue-800 border border-gray-300 px-1 py-0.5" style="font-size:13px">Bank Account Number</td>
+        <td class="border border-gray-300 px-1 py-0.5" style="font-size:13px">${escapeHtml(statement.bank_no)}</td>
 
-        <td class="font-bold bg-gray-100 text-blue-800 border border-gray-300 px-2 py-1" style="font-size:13px">Voucher Number</td>
-        <td class="border border-gray-300 px-2 py-1" style="font-size:13px">${escapeHtml(statement.voucher_no)}</td>
+        <td class="font-bold bg-gray-100 text-blue-800 border border-gray-300 px-1 py-0.5" style="font-size:13px">Voucher Number</td>
+        <td class="border border-gray-300 px-1 py-0.5" style="font-size:13px">${escapeHtml(statement.voucher_no)}</td>
       </tr>
 
       <tr>
-        <td class="font-bold bg-gray-100 text-blue-800 border border-gray-300 px-2 py-1" style="font-size:13px">Voucher Date</td>
-        <td class="border border-gray-300 px-2 py-1" style="font-size:13px">${escapeHtml(statement.voucher_date)}</td>
+        <td class="font-bold bg-gray-100 text-blue-800 border border-gray-300 px-1 py-0.5" style="font-size:13px">Voucher Date</td>
+        <td class="border border-gray-300 px-1 py-0.5" style="font-size:13px">${escapeHtml(statement.voucher_date)}</td>
 
-        <td class="font-bold bg-gray-100 text-blue-800 border border-gray-300 px-2 py-1" style="font-size:13px">Pay in Pay Band</td>
-        <td class="border border-gray-300 px-2 py-1 tabular-nums" style="font-size:13px">₹ ${formatCurrency(statement.pay_in_pb)}</td>
+        <td class="font-bold bg-gray-100 text-blue-800 border border-gray-300 px-1 py-0.5" style="font-size:13px">Pay in Pay Band</td>
+        <td class="border border-gray-300 px-1 py-0.5 tabular-nums" style="font-size:13px">₹ ${formatCurrency(statement.pay_in_pb)}</td>
       </tr>
 
       <tr>
-        <td class="font-bold bg-gray-100 text-blue-800 border border-gray-300 px-2 py-1" style="font-size:13px">Grade Pay</td>
-        <td class="border border-gray-300 px-2 py-1 text-left" style="font-size:13px">₹ ${formatCurrency(statement.grade_pay)}</td>
+        <td class="font-bold bg-gray-100 text-blue-800 border border-gray-300 px-1 py-0.5" style="font-size:13px">Grade Pay</td>
+        <td class="border border-gray-300 px-1 py-0.5 text-left" style="font-size:13px">₹ ${formatCurrency(statement.grade_pay)}</td>
 
-        <td class="border border-gray-300 px-2 py-1"></td>
-        <td class="border border-gray-300 px-2 py-1"></td>
+        <td class="border border-gray-300 px-1 py-0.5"></td>
+        <td class="border border-gray-300 px-1 py-0.5"></td>
       </tr>
     </table>
 
@@ -389,21 +388,16 @@ export function generateSalaryStatementHtml(statement: SalaryStatementWithIdenti
     <div class="mt-1" style="border:1.5px solid #1e40af">
       <table class="w-full border-collapse" role="presentation">
         <tr class="bg-blue-600 text-white font-bold text-base">
-          <td class="px-3 py-2">NET PAY</td>
-          <td class="px-3 py-2 text-right tabular-nums">₹ ${formatCurrency(statement.net_pay)}</td>
+          <td class="px-2 py-1">NET PAY</td>
+          <td class="px-2 py-1 text-right tabular-nums">₹ ${formatCurrency(statement.net_pay)}</td>
         </tr>
       </table>
     </div>
 
     <!-- Amount in Words -->
-    <div class="border border-gray-300 bg-gray-100 p-2 mt-3" style="font-size:14px;border-left:3px solid #991b1b;padding:10px">
+    <div class="border border-gray-300 bg-gray-100 p-1 mt-3" style="font-size:14px;border-left:3px solid #991b1b;padding:6px">
       <span class="block font-bold uppercase text-red-800 mb-0" style="font-size:12px;letter-spacing:1.5px">Amount in Words</span>
       <strong>${escapeHtml(statement.net_pay_in_word)}</strong>
-    </div>
-
-    <!-- Bottom Tricolor Bar -->
-    <div class="mt-4">
-      ${tricolorBar}
     </div>
 
     <!-- Footer Notes -->
