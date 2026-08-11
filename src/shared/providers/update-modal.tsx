@@ -1,16 +1,16 @@
 import React, { useEffect } from 'react';
 import { View, Text, TouchableOpacity, Modal, ActivityIndicator } from 'react-native';
-import { useUpdateStore } from '@stores/update.store';
+import { useAppUpdateStore } from '@stores/update.store';
 import { BlurView } from 'expo-blur';
 import { HugeiconsIcon } from '@hugeicons/react-native';
 import { Rocket01Icon } from '@hugeicons/core-free-icons';
 
 export const UpdateModal: React.FC = () => {
-  const isUpdateReady = useUpdateStore((s) => s.isUpdateReady);
-  const isDownloading = useUpdateStore((s) => s.isDownloading);
-  const runUpdate = useUpdateStore((s) => s.runUpdate);
-  const skipUpdate = useUpdateStore((s) => s.skipUpdate);
-  const checkAndDownloadUpdate = useUpdateStore((s) => s.checkAndDownloadUpdate);
+  const isUpdateReady = useAppUpdateStore((s) => s.isUpdateReady);
+  const isDownloading = useAppUpdateStore((s) => s.isDownloading);
+  const runUpdate = useAppUpdateStore((s) => s.runUpdate);
+  const skipUpdate = useAppUpdateStore((s) => s.skipUpdate);
+  const checkAndDownloadUpdate = useAppUpdateStore((s) => s.checkAndDownloadUpdate);
 
   useEffect(() => {
     checkAndDownloadUpdate();

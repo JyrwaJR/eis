@@ -1,8 +1,8 @@
 import { create } from 'zustand';
 import * as ExpoUpdates from 'expo-updates';
-import { Alert } from 'react-native';
+import { logger } from '@utils/logger';
 
-type UpdateStore = {
+type AppUpdateStore = {
   isUpdateAvailable: boolean;
   isUpdateReady: boolean;
   isDownloading: boolean;
@@ -13,7 +13,7 @@ type UpdateStore = {
   skipUpdate: () => void;
 };
 
-export const useUpdateStore = create<UpdateStore>()((set) => ({
+export const useAppUpdateStore = create<AppUpdateStore>()((set) => ({
   isUpdateAvailable: false,
   isUpdateReady: false,
   isDownloading: false,
@@ -21,7 +21,7 @@ export const useUpdateStore = create<UpdateStore>()((set) => ({
 
   checkAndDownloadUpdate: async () => {
     if (__DEV__) {
-      console.log('[UpdateStore] Skipping update check in development mode.');
+      logger.log('[AppUpdateStore] Skipping update check in development mode.');
       return;
     }
 
@@ -40,8 +40,9 @@ export const useUpdateStore = create<UpdateStore>()((set) => ({
       }
     } catch (error) {
       const errorMessage = error instanceof Error ? error.message : 'Unknown update error';
-      console.error('[UpdateStore] Check failed:', errorMessage);
+      logger.error('[AppUpdateStore] Check failed:', errorMessage);
       set({ updateError: errorMessage, isDownloading: false });
+      return;
     }
   },
 
@@ -49,8 +50,8 @@ export const useUpdateStore = create<UpdateStore>()((set) => ({
     try {
       await ExpoUpdates.reloadAsync();
     } catch (error) {
-      console.error('[UpdateStore] Reload failed:', error);
-      Alert.alert('Error', 'Failed to apply update. Please restart the app manually.');
+      logger.error('[AppUpdateStore] Reload failed:', error);
+      return;
     }
   },
 
