@@ -11,10 +11,12 @@ let isRefreshing = false;
  * Each entry holds resolve/reject callbacks so they can be retried once the
  * new token is obtained.
  */
-let pendingQueue: {
+type PendingQueueT = {
   resolve: (token: string) => void;
   reject: (err: any) => void;
-}[] = [];
+};
+
+let pendingQueue: PendingQueueT[] = [];
 
 /**
  * Drains the pending request queue, resolving or rejecting each entry.
