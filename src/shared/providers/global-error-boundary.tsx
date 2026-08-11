@@ -1,11 +1,12 @@
 import React, { Component, ErrorInfo, ReactNode } from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
-import { BlurView } from 'expo-blur';
+import { View, Text } from 'react-native';
 import { HugeiconsIcon } from '@hugeicons/react-native';
 import { AlertCircleIcon } from '@hugeicons/core-free-icons';
 import * as Updates from 'expo-updates';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { logger } from '@utils/logger';
+import { Button } from '@components/ui/button';
+import { Container } from '@components/layout';
 
 interface Props {
   children?: ReactNode;
@@ -48,51 +49,53 @@ export class GlobalErrorBoundary extends Component<Props, State> {
   public render() {
     if (this.state.hasError) {
       return (
-        <SafeAreaView className="flex-1 bg-gray-50">
-          <View className="flex-1 items-center justify-center px-6">
-            <BlurView
-              intensity={40}
-              tint="light"
-              className="w-full overflow-hidden rounded-3xl border border-white/40 bg-white/60 p-8 shadow-2xl">
-              <View className="items-center">
-                <View className="mb-6 h-20 w-20 items-center justify-center rounded-md bg-red-100">
-                  <HugeiconsIcon icon={AlertCircleIcon} size={48} color="#ef4444" />
-                </View>
-
-                <Text className="mb-3 text-center text-2xl font-bold text-gray-900">
-                  Something went wrong
-                </Text>
-
-                <Text className="mb-8 text-center text-base text-gray-600">
-                  An unexpected error occurred. We&apos;ve been notified and are looking into it.
-                </Text>
-
-                {__DEV__ && this.state.error && (
-                  <View className="mb-8 w-full rounded-md bg-black/5 p-4">
-                    <Text className="font-mono text-xs text-red-600">
-                      {this.state.error.toString()}
-                    </Text>
+        <Container>
+          <SafeAreaView className="flex-1">
+            <View className="flex-1 items-center justify-center px-6">
+              <View className="w-full overflow-hidden rounded-md border border-border p-8">
+                <View className="items-center">
+                  <View className="mb-6 h-20 w-20 items-center justify-center rounded-md border-destructive bg-destructive/10">
+                    <HugeiconsIcon icon={AlertCircleIcon} size={48} className="text-destructive" />
                   </View>
-                )}
 
-                <TouchableOpacity
-                  onPress={this.handleReset}
-                  activeOpacity={0.8}
-                  hitSlop={{ top: 20, bottom: 20, left: 20, right: 20 }}
-                  className="w-full items-center justify-center rounded-md bg-gray-900 py-4 shadow-lg">
-                  <Text className="text-lg font-bold text-white">Try Again</Text>
-                </TouchableOpacity>
+                  <Text className="mb-3 text-center text-2xl font-bold">Something went wrong</Text>
 
-                <TouchableOpacity
-                  onPress={() => this.setState({ hasError: false, error: null })}
-                  hitSlop={{ top: 20, bottom: 20, left: 20, right: 20 }}
-                  className="mt-4">
-                  <Text className="text-sm font-medium text-gray-500 underline">Dismiss</Text>
-                </TouchableOpacity>
+                  <Text className="mb-8 text-center text-base text-graphite">
+                    An unexpected error occurred. We&apos;ve been notified and are looking into it.
+                  </Text>
+
+                  {__DEV__ && this.state.error && (
+                    <View className="mb-8 w-full rounded-md bg-graphite/10 p-4">
+                      <Text className="font-mono text-xs text-destructive">
+                        {this.state.error.toString()}
+                      </Text>
+                    </View>
+                  )}
+
+                  <View className="gap-y-2">
+                    <Button
+                      onPress={this.handleReset}
+                      activeOpacity={0.8}
+                      size={'lg'}
+                      className="w-full"
+                      hitSlop={{ top: 20, bottom: 20, left: 20, right: 20 }}>
+                      Try Again
+                    </Button>
+
+                    <Button
+                      size={'lg'}
+                      variant={'link'}
+                      onPress={() => this.setState({ hasError: false, error: null })}
+                      hitSlop={{ top: 20, bottom: 20, left: 20, right: 20 }}
+                      className="w-full">
+                      Dismiss
+                    </Button>
+                  </View>
+                </View>
               </View>
-            </BlurView>
-          </View>
-        </SafeAreaView>
+            </View>
+          </SafeAreaView>
+        </Container>
       );
     }
 
