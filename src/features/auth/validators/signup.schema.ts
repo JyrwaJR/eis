@@ -20,7 +20,7 @@ export const SignUpSchema = z
     if (password !== confirm_password) {
       ctx.addIssue({
         code: 'custom',
-        message: 'Passwords do not match',
+        message: 'Passwords does not match',
         path: ['confirm_password'],
       });
     }

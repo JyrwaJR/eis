@@ -2,6 +2,7 @@ import {
   DATE_YYYY_MM_DD_REGEX,
   LOWERCASE_LETTER_REGEX,
   NUMBER_REGEX,
+  ONLY_LETTER_AND_NUMBER,
   ONLY_NUMBER_REGEX,
   SPECIAL_CHARACTER_REGEX,
   UPPERCASE_LETTER_REGEX,
@@ -32,14 +33,17 @@ export const phoneValidation = z
  * {@link UPPERCASE_LETTER_REGEX}, {@link NUMBER_REGEX}, and
  * {@link SPECIAL_CHARACTER_REGEX} respectively).
  */
-export const passwordValidation = z
-  .string('Password is required')
-  .min(8, 'Password must be at least 8 characters')
-  .max(64, 'Password must be less than 64 characters')
-  .regex(LOWERCASE_LETTER_REGEX, 'Must contain a lowercase letter')
-  .regex(UPPERCASE_LETTER_REGEX, 'Must contain an uppercase letter')
-  .regex(NUMBER_REGEX, 'Must contain a number')
-  .regex(SPECIAL_CHARACTER_REGEX, 'Must contain a special character');
+export const passwordValidation =
+  process.env.NODE_ENV === 'development'
+    ? z.string('Password is required').min(1, 'Password is required')
+    : z
+        .string('Password is required')
+        .min(8, 'Password must be at least 8 characters')
+        .max(64, 'Password must be less than 64 characters')
+        .regex(LOWERCASE_LETTER_REGEX, 'Must contain a lowercase letter')
+        .regex(UPPERCASE_LETTER_REGEX, 'Must contain an uppercase letter')
+        .regex(NUMBER_REGEX, 'Must contain a number')
+        .regex(SPECIAL_CHARACTER_REGEX, 'Must contain a special character');
 
 /**
  * Zod enum schema validating an RPC method name.
@@ -79,3 +83,14 @@ export const isValidPDFUriSchema = z
   .refine((uri) => uri.toLowerCase().endsWith('.pdf'), {
     message: 'Must be a PDF URI',
   });
+
+export const empCdValidation = z
+  .string('Employee code is required')
+  .min(5, 'Employee Code must be at least 6 in length')
+  .regex(ONLY_LETTER_AND_NUMBER, 'Employee code must only contain letters and numbers')
+  .transform((val) => val.toUpperCase());
+
+export const otpValidiation = z
+  .string('OTP is required')
+  .length(6, 'OTP must be exactly 6 digits')
+  .regex(ONLY_NUMBER_REGEX, 'OTP must only contain numbers');

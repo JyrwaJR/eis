@@ -79,7 +79,7 @@ export const GeNumberForm = ({ onSubmit, error }: GeNumberFormProps) => {
         {/* Graphic Element */}
         <View className="mb-8 w-full flex-row justify-center">
           <View className="h-32 w-32 items-center justify-center rounded-full bg-primary/5">
-            <HugeiconsIcon icon={DocumentAttachmentIcon} size={52} color="#2563eb" />
+            <HugeiconsIcon icon={DocumentAttachmentIcon} size={52} className="text-primary" />
           </View>
         </View>
 
@@ -102,7 +102,8 @@ export const GeNumberForm = ({ onSubmit, error }: GeNumberFormProps) => {
               <View className="relative mb-1.5 justify-center">
                 <Input
                   placeholder="Enter GE number"
-                  placeholderTextColor="#9ca3af"
+                  // placeholderTextColor="#9ca3af"
+                  placeholderClassName="text-graphite"
                   keyboardType="number-pad"
                   maxLength={10}
                   autoFocus

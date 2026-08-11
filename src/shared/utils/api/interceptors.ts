@@ -4,6 +4,7 @@ import { logger } from '../logger/logger';
 import { attemptTokenRefresh, shouldSkipRefresh } from './token-refresh';
 import { decrypt, encrypt } from '@lib/encryption';
 import { cleanupSession } from './session-cleanup';
+import { randomUUID } from 'expo-crypto';
 
 const APP_ID = process.env.EXPO_PUBLIC_APP_ID;
 
@@ -61,6 +62,12 @@ type DecryptedData = {
 export function setupInterceptors(instance: AxiosInstance, options?: { encryption?: boolean }) {
   instance.interceptors.request.use(async (config) => {
     const token = await TokenStoreManager.getAccessToken();
+    const traceId = randomUUID();
+
+    if (traceId) {
+      config.headers['x-trace-id'] = traceId;
+    }
+
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
@@ -91,7 +98,7 @@ export function setupInterceptors(instance: AxiosInstance, options?: { encryptio
           } catch {}
         }
 
-        if (decrypted.status_code === '401') {
+        if (parseInt(decrypted.status_code) === 401) {
           logger.log('Unauthorized Removing Token');
           await cleanupSession();
         }

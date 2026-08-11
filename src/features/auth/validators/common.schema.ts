@@ -1,17 +1,10 @@
 import {
   LOWERCASE_LETTER_REGEX,
   NUMBER_REGEX,
-  ONLY_NUMBER_REGEX,
   SPECIAL_CHARACTER_REGEX,
   UPPERCASE_LETTER_REGEX,
 } from '@utils/constants/regex';
 import { z } from 'zod';
-
-export const phoneValidation = z
-  .string()
-  .min(1, 'Phone number is required')
-  .length(10, 'Phone number must be exactly 10 digits')
-  .regex(ONLY_NUMBER_REGEX, 'Phone number must only contain digits');
 
 export const passwordValidation = z
   .string('Password is required')

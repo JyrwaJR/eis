@@ -60,7 +60,7 @@ export function useGetOAuthToken() {
     },
     // Don't auto-fetch — the screen triggers it via refetch() on mount
     enabled: false,
-    retry: 2,
+    retry: true,
     staleTime: 1000 * 60 * 5,
   });
 }
