@@ -10,6 +10,7 @@ import { METHODS } from '@utils/constants';
 type AuthStore = {
   user?: UserT | null;
   emp_cd: string;
+  setEmpCode: (empCode: string) => void;
   isSignedIn: boolean;
   isAuthLoading: boolean;
   role: RoleT;
@@ -28,6 +29,7 @@ export const useAuthStore = create<AuthStore>()(
       isSignedIn: false,
       isAuthLoading: true,
       emp_cd: '',
+      setEmpCode: (value: string) => set({ emp_cd: value }),
       isGazetted: false,
       role: 'USER',
 
