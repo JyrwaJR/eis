@@ -1,4 +1,5 @@
 import { SalaryStatement } from '@sharedTypes/satatement';
+import { salaryStatementCss } from './salary-statement-css';
 
 /**
  * Optional identity and pay-period fields that a fuller statement payload
@@ -85,34 +86,109 @@ function formatGeneratedTimestamp(date: Date = new Date()): string {
   }
 }
 
-// Generic placeholder seal for the letterhead. It is an original, abstract
-// monogram badge — not a reproduction of the National or State Emblem — so
-// it is safe to ship as a default. Swap the <td class="seal-cell"> contents
-// in generateSalaryStatementHtml for an <img> of your approved letterhead
-// crest if/when you have that digital asset.
-const OFFICIAL_SEAL_SVG = `<svg width="50" height="50" viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="presentation">
-  <circle cx="25" cy="25" r="23" fill="none" stroke="#0b3d63" stroke-width="1.6" />
-  <circle cx="25" cy="25" r="18.5" fill="none" stroke="#7a1220" stroke-width="1" stroke-dasharray="2,1.6" />
-  <text x="25" y="23" text-anchor="middle" font-family="Georgia, 'Noto Serif', serif" font-size="11" font-weight="700" fill="#0b3d63">GoM</text>
-  <text x="25" y="32.5" text-anchor="middle" font-family="Arial, sans-serif" font-size="3.8" letter-spacing="0.6" fill="#7a1220">MEGHALAYA</text>
+/**
+ * Generic placeholder seal SVG for the letterhead. Uses blue-800 (#1e40af)
+ * and red-800 (#991b1b) to match the Tailwind colour palette available in
+ * the pre-compiled CSS. Swap the contents for an `<img>` of the approved
+ * letterhead crest when a digital asset becomes available.
+ */
+const OFFICIAL_SEAL_SVG = `<svg width="60" height="60" viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="presentation">
+  <circle cx="25" cy="25" r="23" fill="none" stroke="#1e40af" stroke-width="1.6" />
+  <circle cx="25" cy="25" r="18.5" fill="none" stroke="#991b1b" stroke-width="1" stroke-dasharray="2,1.6" />
+  <text x="25" y="23" text-anchor="middle" font-family="Georgia, serif" font-size="11" font-weight="700" fill="#1e40af">GoM</text>
+  <text x="25" y="32.5" text-anchor="middle" font-family="Arial, sans-serif" font-size="3.8" letter-spacing="0.6" fill="#991b1b">MEGHALAYA</text>
 </svg>`;
 
 /**
- * Builds the itemised "Salary Components" table rows.
+ * Splits salary line items into earnings (positive amounts) and deductions
+ * (negative amounts) so they can be rendered in separate tables matching
+ * the two-section government salary statement layout.
  *
  * @param items - The line items from `statement.s_data`.
+ * @returns An object with `earnings` and `deductions` arrays.
+ */
+function splitEarningsAndDeductions(items: SalaryStatementItem[]): {
+  earnings: SalaryStatementItem[];
+  deductions: SalaryStatementItem[];
+} {
+  const earnings: SalaryStatementItem[] = [];
+  const deductions: SalaryStatementItem[] = [];
+
+  for (const item of items) {
+    const amount = parseFloat(item.amount);
+    if (Number.isFinite(amount) && amount < 0) {
+      deductions.push(item);
+    } else {
+      earnings.push(item);
+    }
+  }
+
+  return { earnings, deductions };
+}
+
+/**
+ * Builds itemised table rows for a salary section (Gross Earning or
+ * Deduction). Uses alternating row backgrounds via Tailwind classes
+ * available in the pre-compiled CSS (bg-white / bg-gray-100).
+ *
+ * @param items - The line items to render.
  * @returns HTML `<tr>` markup for each item, joined with newlines.
  */
-function buildComponentRows(items: SalaryStatementItem[]): string {
+function buildSectionRows(items: SalaryStatementItem[]): string {
   return items
     .map(
-      (item, index) => `        <tr>
-          <td class="center">${index + 1}</td>
-          <td>${escapeHtml(item.pname)}</td>
-          <td class="num">${formatCurrency(item.amount)}</td>
+      (item, index) =>
+        `        <tr class="${index % 2 === 0 ? 'bg-white' : 'bg-gray-100'}">
+          <td class="border border-gray-300 p-1 text-center" style="padding:6px">${index + 1}</td>
+          <td class="border border-gray-300 p-1" style="padding:6px">${escapeHtml(item.pname)}</td>
+          <td class="border border-gray-300 p-1 text-right tabular-nums" style="padding:6px">${formatCurrency(item.amount)}</td>
         </tr>`
     )
     .join('\n');
+}
+
+/**
+ * Builds a complete salary section: section header, table with rows, and
+ * a total row. Used for both the "Gross Earning" and "Deduction" sections.
+ *
+ * @param title - The section heading (e.g. "Gross Earning", "Deduction").
+ * @param items - The line items to render in this section.
+ * @param total - The pre-computed total for this section.
+ * @returns HTML markup for the full section.
+ */
+function buildSalarySection(
+  title: string,
+  items: SalaryStatementItem[],
+  total: string | number
+): string {
+  if (items.length === 0) {
+    return '';
+  }
+
+  const rows = buildSectionRows(items);
+
+  return `
+    <div class="font-bold uppercase text-red-800 mt-4 mb-1" style="font-size:13px;letter-spacing:1.6px;border-bottom:1.5px solid #991b1b;padding-bottom:4px">
+      ${escapeHtml(title)}
+    </div>
+
+    <table class="w-full border-collapse">
+      <thead>
+        <tr>
+          <th class="border border-gray-300 px-2 py-1 bg-blue-600 text-white font-bold uppercase tracking-wider text-center" style="width:10%;font-size:12px">Sl.</th>
+          <th class="border border-gray-300 px-2 py-1 bg-blue-600 text-white font-bold uppercase tracking-wider text-left" style="font-size:12px">Description</th>
+          <th class="border border-gray-300 px-2 py-1 bg-blue-600 text-white font-bold uppercase tracking-wider text-right" style="width:26%;font-size:12px">Amount (₹)</th>
+        </tr>
+      </thead>
+      <tbody>
+${rows}
+        <tr class="bg-gray-100">
+          <td class="border border-gray-300 p-1 text-center" style="padding:6px"></td>
+          <td class="border border-gray-300 p-1 text-base font-bold" style="padding:6px">Total</td>
+          <td class="border border-gray-300 p-1 text-right font-bold text-base tabular-nums" style="padding:6px">${formatCurrency(total)}</td>
+        </tr>
+      </tbody>
+    </table>`;
 }
 
 /**
@@ -147,35 +223,37 @@ function buildIdentityBlock(statement: SalaryStatementWithIdentity): string {
     .filter((chip): chip is { label: string; value: string } => chip !== null)
     .map(
       (chip) =>
-        `<span class="chip"><span class="chip-label">${escapeHtml(chip.label)}</span>${escapeHtml(chip.value)}</span>`
+        `<div><span class="text-red-800 font-bold" style="margin-right:4px">${escapeHtml(chip.label)}</span>${escapeHtml(chip.value)}</div>`
     )
-    .join('');
+    .join('\n            ');
 
   return `
-    <div class="identity-block">
-      ${employeeName ? `<div class="name">${escapeHtml(employeeName)}</div>` : ''}
-      ${roleLine ? `<div class="role">${roleLine}</div>` : ''}
-      ${chips ? `<div class="chips">${chips}</div>` : ''}
+    <div class="border border-gray-300 bg-gray-100 p-2 mb-2" style="padding:10px">
+      ${employeeName ? `<div class="font-bold text-blue-800" style="font-size:16px">${escapeHtml(employeeName)}</div>` : ''}
+      ${roleLine ? `<div class="text-gray-700" style="font-size:13px;margin-top:2px">${roleLine}</div>` : ''}
+      ${chips ? `<div class="mt-1 flex flex-wrap gap-4" style="font-size:13px">\n            ${chips}\n          </div>` : ''}
     </div>`;
 }
 
 /**
  * Generates a complete, printable HTML salary statement document for the
- * given salary statement data. The returned HTML is self-contained (it
- * includes its own stylesheet) and is suitable for printing to PDF via
- * `expo-print` or rendering in a WebView.
+ * given salary statement data. The returned HTML is self-contained — it
+ * embeds the pre-compiled Tailwind CSS from `@shared/styles/tailwind.min.css`
+ * and uses only utility classes available in that file. Suitable for
+ * printing to PDF via `expo-print` or rendering in a WebView.
  *
  * Visual design follows Indian government treasury/payroll document
  * conventions: a gazette-style masthead with letterhead seal, a tricolour
- * accent, a faint security watermark, an Earnings / Net-Pay-Summary split
- * with an accounting-style double-rule total, Indian digit-grouped
- * currency, and a signed-and-sealed footer consistent with the language
- * used by Meghalaya's own digitally-signed e-Payslip system.
+ * accent bar, a faint security watermark, separate Gross Earning and
+ * Deduction sections with totals, a highlighted net-pay card, the net
+ * pay written out in words, and a signed footer.
  *
- * The document includes: the Government of Meghalaya letterhead, an
- * optional employee-identity strip, payment/account information, a table
- * of salary components, a net-pay summary card, the net pay written out in
- * words, signature lines and a footer note.
+ * Tailwind colour mapping (design → available in pre-compiled CSS):
+ * - blue-900 → blue-600 (bg) / blue-800 (text/border)
+ * - red-900 → red-800
+ * - slate-* → gray-*
+ * - emerald-600 → green-600
+ * - amber-500 → amber-500
  *
  * @param statement - The salary statement data to render. Accepts the
  * standard `SalaryStatement` shape; optional identity fields (employee
@@ -184,494 +262,168 @@ function buildIdentityBlock(statement: SalaryStatementWithIdentity): string {
  * @returns A full HTML document as a string.
  */
 export function generateSalaryStatementHtml(statement: SalaryStatementWithIdentity): string {
-  const rows = buildComponentRows(statement.s_data);
+  const { earnings, deductions } = splitEarningsAndDeductions(statement.s_data);
+  const earningsHtml = buildSalarySection('Gross Earning', earnings, statement.totalEmolument);
+  const deductionsHtml = buildSalarySection('Deduction', deductions, statement.totalPayItem);
   const identityBlockHtml = buildIdentityBlock(statement);
   const generatedAt = formatGeneratedTimestamp();
 
-  const tricolorBar = `<table class="tricolor-bar" role="presentation"><tr>
-      <td style="background:#FF9933;"></td>
-      <td style="background:#ffffff;"></td>
-      <td style="background:#128807;"></td>
-    </tr></table>`;
+  const tricolorBar = `<table class="w-full border-collapse mb-2" role="presentation">
+      <tr>
+        <td class="h-1 p-0 border-none bg-amber-500" style="width:33.33%"></td>
+        <td class="h-1 p-0 border-none bg-white" style="width:33.33%"></td>
+        <td class="h-1 p-0 border-none bg-green-600" style="width:33.33%"></td>
+      </tr>
+    </table>`;
 
   return `<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>NIC Salary Statement</title>
   <style>
-    /*
-     * Colors are intentionally hardcoded (not CSS custom properties).
-     * This document is printed via WebViews of varying age (expo-print on
-     * older Android devices, or other HTML-to-PDF renderers) and several
-     * of those do not support CSS custom properties (var(--x)) — using
-     * literal hex values here guarantees the letterhead colors always render.
-     *   Ink Navy:     #0b3d63
-     *   Seal Maroon:  #7a1220
-     *   Graphite:     #1c1c1c
-     *   Hairline:     #c7cbd1
-     *   Panel tint:   #f4f6f8
-     */
+    ${salaryStatementCss}
 
     @page {
       size: A4;
       margin: 14mm 12mm;
     }
 
-    * {
-      box-sizing: border-box;
-    }
-
-    html, body {
-      margin: 0;
-      padding: 0;
-      background: #ffffff;
-      color: #1c1c1c;
-      font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif;
-      font-size: 11px;
-      line-height: 1.4;
+    body {
       -webkit-print-color-adjust: exact;
       print-color-adjust: exact;
     }
-
-    .watermark {
-      position: fixed;
-      top: 46%;
-      left: 50%;
-      transform: translate(-50%, -50%) rotate(-32deg);
-      font-family: Georgia, 'Noto Serif', 'Times New Roman', serif;
-      font-size: 54px;
-      font-weight: 700;
-      letter-spacing: 3px;
-      color: rgba(11, 61, 99, 0.09);
-      white-space: nowrap;
-      z-index: 0;
-      pointer-events: none;
-    }
-
-    .content {
-      position: relative;
-      z-index: 1;
-    }
-
-    .tricolor-bar {
-      width: 100%;
-      border-collapse: collapse;
-      margin-bottom: 7px;
-    }
-
-    .tricolor-bar td {
-      height: 4px;
-      padding: 0;
-      border: none;
-      width: 33.34%;
-    }
-
-    .masthead {
-      border: 1.5px solid #0b3d63;
-      margin-bottom: 10px;
-    }
-
-    .masthead-table {
-      width: 100%;
-      border-collapse: collapse;
-    }
-
-    .masthead-table td {
-      border: none;
-      padding: 9px 12px;
-      vertical-align: middle;
-    }
-
-    .seal-cell {
-      width: 58px;
-    }
-
-    .ref-cell {
-      width: 150px;
-      text-align: right;
-      font-size: 9px;
-      color: #0b3d63;
-      line-height: 1.6;
-    }
-
-    .ref-cell .ref-label {
-      display: block;
-      color: #7a1220;
-      font-weight: 700;
-      letter-spacing: 0.3px;
-    }
-
-    .masthead-center {
-      text-align: center;
-    }
-
-    .masthead-center h1 {
-      margin: 0;
-      font-family: Georgia, 'Noto Serif', 'Times New Roman', serif;
-      font-size: 19px;
-      letter-spacing: 1.1px;
-      color: #0b3d63;
-    }
-
-    .masthead-center h2 {
-      margin: 2px 0 0;
-      font-size: 11px;
-      font-weight: normal;
-      letter-spacing: 0.3px;
-      color: #1c1c1c;
-    }
-
-    .doc-title {
-      display: inline-block;
-      margin-top: 7px;
-      padding: 3px 16px;
-      background: #0b3d63;
-      color: #ffffff;
-      font-size: 10.5px;
-      font-weight: 700;
-      letter-spacing: 2px;
-    }
-
-    .identity-block {
-      border: 1px solid #c7cbd1;
-      background: #f4f6f8;
-      padding: 8px 12px;
-      margin-bottom: 10px;
-    }
-
-    .identity-block .name {
-      font-size: 13px;
-      font-weight: 700;
-      color: #0b3d63;
-    }
-
-    .identity-block .role {
-      font-size: 10.5px;
-      margin-top: 1px;
-    }
-
-    .identity-block .chips {
-      margin-top: 4px;
-    }
-
-    .chip {
-      display: inline-block;
-      margin: 2px 14px 0 0;
-      font-size: 10px;
-    }
-
-    .chip-label {
-      color: #7a1220;
-      font-weight: 700;
-      margin-right: 4px;
-    }
-
-    .info-table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-bottom: 4px;
-    }
-
-    .info-table td {
-      border: 1px solid #c7cbd1;
-      padding: 6px 10px;
-      font-size: 10.5px;
-    }
-
-    .info-table .label {
-      width: 26%;
-      font-weight: 700;
-      background: #f4f6f8;
-      color: #0b3d63;
-    }
-
-    .info-table .value {
-      width: 24%;
-    }
-
-    .eyebrow {
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: 1.6px;
-      text-transform: uppercase;
-      color: #7a1220;
-      border-bottom: 1.5px solid #7a1220;
-      padding-bottom: 3px;
-      margin: 16px 0 6px;
-    }
-
-    table.ledger {
-      width: 100%;
-      border-collapse: collapse;
-    }
-
-    table.ledger th,
-    table.ledger td {
-      border: 1px solid #c7cbd1;
-      padding: 5px 8px;
-    }
-
-    table.ledger thead th {
-      background: #0b3d63;
-      color: #ffffff;
-      font-size: 9.5px;
-      letter-spacing: 0.5px;
-      text-transform: uppercase;
-      font-weight: 700;
-      text-align: left;
-    }
-
-    table.ledger tbody tr {
-      page-break-inside: avoid;
-    }
-
-    table.ledger tbody tr:nth-child(even) {
-      background: #f4f6f8;
-    }
-
-    .center {
-      text-align: center;
-    }
-
-    .num {
-      text-align: right;
-      font-variant-numeric: tabular-nums;
-    }
-
-    .summary-card {
-      border: 1.5px solid #0b3d63;
-      margin-top: 4px;
-      page-break-inside: avoid;
-    }
-
-    .summary-card table {
-      width: 100%;
-      border-collapse: collapse;
-    }
-
-    .summary-card td {
-      border: none;
-      border-bottom: 1px solid #c7cbd1;
-      padding: 6px 12px;
-      font-size: 11px;
-    }
-
-    .summary-label {
-      font-weight: 600;
-    }
-
-    .summary-amount {
-      text-align: right;
-      font-variant-numeric: tabular-nums;
-    }
-
-    .total-rule td {
-      border-top: 3px double #1c1c1c;
-    }
-
-    .net-pay-row td {
-      background: #0b3d63;
-      color: #ffffff;
-      font-size: 14.5px;
-      font-weight: 700;
-      padding: 10px 12px;
-      border-bottom: none;
-      letter-spacing: 0.4px;
-    }
-
-    .words-box {
-      border: 1px solid #c7cbd1;
-      border-left: 3px solid #7a1220;
-      background: #f4f6f8;
-      padding: 8px 12px;
-      margin-top: 12px;
-      font-size: 11.5px;
-    }
-
-    .words-box .eyebrow-inline {
-      display: block;
-      font-size: 9.5px;
-      font-weight: 700;
-      letter-spacing: 1.2px;
-      text-transform: uppercase;
-      color: #7a1220;
-      margin-bottom: 2px;
-    }
-
-    .signature-table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 46px;
-      page-break-inside: avoid;
-    }
-
-    .signature-table td {
-      border: none;
-      text-align: center;
-      font-size: 10.5px;
-      width: 33.33%;
-    }
-
-    .sig-space {
-      height: 30px;
-    }
-
-    .sig-line {
-      border-top: 1px solid #1c1c1c;
-      padding-top: 5px;
-      font-weight: 700;
-    }
-
-    .footer {
-      margin-top: 16px;
-    }
-
-    .footer .disclaimer {
-      font-size: 9.5px;
-      font-weight: 700;
-    }
-
-    .footer .small-note {
-      font-size: 9px;
-      color: #555;
-      margin-top: 1px;
-    }
-
-    .footer-meta {
-      display: table;
-      width: 100%;
-      margin-top: 6px;
-      font-size: 8.5px;
-      color: #666;
-    }
-
-    .footer-meta .cell {
-      display: table-cell;
-    }
-
-    .footer-meta .right {
-      text-align: right;
-    }
   </style>
 </head>
-<body>
-  <div class="watermark">GOVERNMENT OF MEGHALAYA</div>
-  <div class="content">
+<body class="m-0 p-0 border bg-white text-gray-900 font-sans leading-relaxed" style="font-size:14px">
 
+  <!-- Watermark -->
+  <div class="fixed whitespace-nowrap pointer-events-none font-serif font-bold" style="top:46%;left:50%;transform:translate(-50%,-50%) rotate(-32deg);font-size:64px;letter-spacing:3px;color:rgba(30,64,175,0.08);z-index:0">
+    GOVERNMENT OF MEGHALAYA
+  </div>
+
+  <!-- Main Container -->
+  <div class="relative" style="z-index:1;padding:14mm 12mm;margin:0 auto">
+
+    <!-- Top Tricolor Bar -->
     ${tricolorBar}
 
-    <div class="masthead">
-      <table class="masthead-table" role="presentation">
+    <!-- Masthead Header -->
+    <div class="mb-3" style="border:1.5px solid #1e40af">
+      <table class="w-full border-collapse" role="presentation">
         <tr>
-          <td class="seal-cell">${OFFICIAL_SEAL_SVG}</td>
-          <td class="masthead-center">
-            <h1>GOVERNMENT OF MEGHALAYA</h1>
-            <h2>Directorate of Accounts &amp; Treasuries</h2>
-            <div class="doc-title">NIC PAYROLL &middot; SALARY STATEMENT</div>
+          <td class="border-none p-2 align-middle" style="width:70px">
+            ${OFFICIAL_SEAL_SVG}
           </td>
-          <td class="ref-cell">
-            <span class="ref-label">Statement No.</span>${escapeHtml(statement.voucher_no)}
-            <span class="ref-label" style="margin-top:4px;">Date</span>${escapeHtml(statement.voucher_date)}
+
+          <td class="border-none p-2 align-middle text-center">
+            <h1 class="m-0 font-serif text-xl tracking-wide text-blue-800 font-bold" style="letter-spacing:1px">GOVERNMENT OF MEGHALAYA</h1>
+            <h2 class="m-0 text-sm tracking-wide text-gray-800 font-bold" style="margin-top:2px">Directorate of Treasuries</h2>
+            <div class="inline-block mt-1 px-4 py-1 bg-blue-600 text-white font-bold" style="font-size:13px;letter-spacing:2px">
+              SALARY STATEMENT
+            </div>
+          </td>
+
+          <td class="border-none p-2 align-middle text-right text-blue-800 leading-tight" style="width:190px;font-size:12px">
+            <span class="block text-red-800 font-bold uppercase tracking-wider">Statement No.</span>
+            ${escapeHtml(statement.voucher_no)}
+
+            <span class="block text-red-800 font-bold uppercase tracking-wider mt-1">Date</span>
+            ${escapeHtml(statement.voucher_date)}
           </td>
         </tr>
       </table>
     </div>
+
+    <!-- Identity Block -->
     ${identityBlockHtml}
 
-    <table class="info-table">
+    <!-- Info Table -->
+    <table class="w-full border-collapse mb-1">
       <tr>
-        <td class="label">GPF Description</td>
-        <td class="value">${escapeHtml(statement.gpf_desc)}</td>
-        <td class="label">GPF Number</td>
-        <td class="value">${escapeHtml(statement.gpf_no)}</td>
+        <td class="font-bold bg-gray-100 text-blue-800 border border-gray-300 px-2 py-1" style="width:26%;font-size:13px">GPF Description</td>
+        <td class="border border-gray-300 px-2 py-1" style="width:24%;font-size:13px">${escapeHtml(statement.gpf_desc)}</td>
+
+        <td class="font-bold bg-gray-100 text-blue-800 border border-gray-300 px-2 py-1" style="width:26%;font-size:13px">GPF Number</td>
+        <td class="border border-gray-300 px-2 py-1" style="width:24%;font-size:13px">${escapeHtml(statement.gpf_no)}</td>
       </tr>
+
       <tr>
-        <td class="label">Bank Account Number</td>
-        <td class="value">${escapeHtml(statement.bank_no)}</td>
-        <td class="label">Voucher Number</td>
-        <td class="value">${escapeHtml(statement.voucher_no)}</td>
+        <td class="font-bold bg-gray-100 text-blue-800 border border-gray-300 px-2 py-1" style="font-size:13px">Bank Account Number</td>
+        <td class="border border-gray-300 px-2 py-1" style="font-size:13px">${escapeHtml(statement.bank_no)}</td>
+
+        <td class="font-bold bg-gray-100 text-blue-800 border border-gray-300 px-2 py-1" style="font-size:13px">Voucher Number</td>
+        <td class="border border-gray-300 px-2 py-1" style="font-size:13px">${escapeHtml(statement.voucher_no)}</td>
       </tr>
+
       <tr>
-        <td class="label">Voucher Date</td>
-        <td class="value">${escapeHtml(statement.voucher_date)}</td>
-        <td class="label">Pay in Pay Band</td>
-        <td class="value num">${formatCurrency(statement.pay_in_pb)}</td>
+        <td class="font-bold bg-gray-100 text-blue-800 border border-gray-300 px-2 py-1" style="font-size:13px">Voucher Date</td>
+        <td class="border border-gray-300 px-2 py-1" style="font-size:13px">${escapeHtml(statement.voucher_date)}</td>
+
+        <td class="font-bold bg-gray-100 text-blue-800 border border-gray-300 px-2 py-1" style="font-size:13px">Pay in Pay Band</td>
+        <td class="border border-gray-300 px-2 py-1 tabular-nums" style="font-size:13px">₹ ${formatCurrency(statement.pay_in_pb)}</td>
       </tr>
+
       <tr>
-        <td class="label">Grade Pay</td>
-        <td class="value num">${formatCurrency(statement.grade_pay)}</td>
-        <td class="label"></td>
-        <td class="value"></td>
+        <td class="font-bold bg-gray-100 text-blue-800 border border-gray-300 px-2 py-1" style="font-size:13px">Grade Pay</td>
+        <td class="border border-gray-300 px-2 py-1 text-left" style="font-size:13px">₹ ${formatCurrency(statement.grade_pay)}</td>
+
+        <td class="border border-gray-300 px-2 py-1"></td>
+        <td class="border border-gray-300 px-2 py-1"></td>
       </tr>
     </table>
 
-    <div class="eyebrow">Salary Components</div>
-    <table class="ledger">
-      <thead>
-        <tr>
-          <th style="width:10%">Sl.</th>
-          <th>Description</th>
-          <th style="width:26%" class="num">Amount (₹)</th>
-        </tr>
-      </thead>
-      <tbody>
-${rows}
-      </tbody>
-    </table>
+    <!-- Gross Earning Section -->
+    ${earningsHtml}
 
-    <div class="eyebrow">Net Pay Summary</div>
-    <div class="summary-card">
-      <table role="presentation">
-        <tr>
-          <td class="summary-label">Total Emoluments</td>
-          <td class="summary-amount">₹ ${formatCurrency(statement.totalEmolument)}</td>
-        </tr>
-        <tr>
-          <td class="summary-label">Total Deductions</td>
-          <td class="summary-amount">₹ ${formatCurrency(statement.totalPayItem)}</td>
-        </tr>
-        <tr class="total-rule">
-          <td class="summary-label">Net Amount (TotalNG)</td>
-          <td class="summary-amount">₹ ${formatCurrency(statement.totalng)}</td>
-        </tr>
-        <tr class="net-pay-row">
-          <td>NET PAY</td>
-          <td class="summary-amount">₹ ${formatCurrency(statement.net_pay)}</td>
+    <!-- Deduction Section -->
+    ${deductionsHtml}
+
+    <!-- Net Pay Summary Section Header -->
+    <div class="font-bold uppercase text-red-800 mt-4 mb-1" style="font-size:13px;letter-spacing:1.6px;border-bottom:1.5px solid #991b1b;padding-bottom:4px">
+      Net Pay Summary
+    </div>
+
+    <!-- Summary Card -->
+    <div class="mt-1" style="border:1.5px solid #1e40af">
+      <table class="w-full border-collapse" role="presentation">
+        <tr class="bg-blue-600 text-white font-bold text-base">
+          <td class="px-3 py-2">NET PAY</td>
+          <td class="px-3 py-2 text-right tabular-nums">₹ ${formatCurrency(statement.net_pay)}</td>
         </tr>
       </table>
     </div>
 
-    <div class="words-box">
-      <span class="eyebrow-inline">Amount in Words</span>
+    <!-- Amount in Words -->
+    <div class="border border-gray-300 bg-gray-100 p-2 mt-3" style="font-size:14px;border-left:3px solid #991b1b;padding:10px">
+      <span class="block font-bold uppercase text-red-800 mb-0" style="font-size:12px;letter-spacing:1.5px">Amount in Words</span>
       <strong>${escapeHtml(statement.net_pay_in_word)}</strong>
     </div>
 
-    <table class="signature-table" role="presentation">
-      <tr>
-        <td class="sig-space"></td>
-        <td class="sig-space"></td>
-        <td class="sig-space"></td>
-      </tr>
-      <tr>
-        <td class="sig-line">Drawing &amp; Disbursing Officer</td>
-        <td class="sig-line">Treasury Officer</td>
-        <td class="sig-line">Employee Signature</td>
-      </tr>
-    </table>
+    <!-- Bottom Tricolor Bar -->
+    <div class="mt-4">
+      ${tricolorBar}
+    </div>
 
-    <div style="margin-top:16px;">${tricolorBar}</div>
+    <!-- Footer Notes -->
+    <div class="mt-4">
+      <div class="font-bold" style="font-size:12px">
+        This is a computer-generated, digitally signed salary statement.
+      </div>
 
-    <div class="footer">
-      <div class="disclaimer">This is a computer-generated, digitally signed salary statement issued through the NIC Payroll System and does not require a physical signature.</div>
-      <div class="small-note">In case of any discrepancy, please contact your Drawing &amp; Disbursing Officer or the concerned Treasury Office.</div>
-      <div class="footer-meta">
-        <div class="cell">Generated on: ${generatedAt}</div>
-        <div class="cell right">Statement Ref: ${escapeHtml(statement.voucher_no)}</div>
+      <div class="text-gray-600" style="font-size:11px;margin-top:2px">
+        In case of any discrepancy, please contact the concerned Treasury Office.
+      </div>
+
+      <div class="flex justify-between items-center mt-1 text-gray-500" style="font-size:10.5px">
+        <div>Generated on: ${generatedAt}</div>
+        <div class="text-right">Statement Ref: ${escapeHtml(statement.voucher_no)}</div>
       </div>
     </div>
 
   </div>
+
 </body>
 </html>`;
 }
