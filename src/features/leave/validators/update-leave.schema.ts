@@ -5,6 +5,7 @@ import {
   leaveOrderNoValidation,
   refineLeaveDates,
   leaveRemarksValidation,
+  leaveReasonTextValidation,
 } from './common';
 import { dateValidation } from '@validators/common';
 
@@ -17,8 +18,8 @@ export const UpdateLeaveSchema = z
     remarks: leaveRemarksValidation,
     order_dt: dateValidation('Order date'),
     order_no: leaveOrderNoValidation,
-    reason_text: z.string().nullable().optional(),
-    reason_cd: z.string().nullable().optional(),
+    reason_text: leaveReasonTextValidation.optional(),
+    reason_cd: leaveRemarksValidation.optional(),
   })
   .superRefine((data, ctx) => refineLeaveDates(data, ctx));
 

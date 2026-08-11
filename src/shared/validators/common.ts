@@ -18,9 +18,10 @@ import { METHODS } from '@utils/constants';
  */
 export const phoneValidation = z
   .string('Phone number is required')
-  .min(10, 'Phone number is required')
+  .min(10, 'Phone number must be less than 10 digits')
   .length(10, 'Phone number must be exactly 10 digits')
-  .regex(ONLY_NUMBER_REGEX, 'Phone number must only contain digits');
+  .regex(ONLY_NUMBER_REGEX, 'Phone number must only contain digits')
+  .trim();
 
 /**
  * Zod schema validating a strong password.
@@ -33,7 +34,6 @@ export const phoneValidation = z
  */
 export const passwordValidation = z
   .string('Password is required')
-  .min(1, 'Password is required')
   .min(8, 'Password must be at least 8 characters')
   .max(64, 'Password must be less than 64 characters')
   .regex(LOWERCASE_LETTER_REGEX, 'Must contain a lowercase letter')
@@ -73,6 +73,9 @@ export const dateValidation = (label: string) =>
     .max(10, `${label} must be 10 characters long`)
     .regex(DATE_YYYY_MM_DD_REGEX, `${label} must be in dd-mm-yyyy format`);
 
-export const isValidPDFUriSchema = z.url().refine((uri) => uri.toLowerCase().endsWith('.pdf'), {
-  message: 'Must be a PDF URI',
-});
+export const isValidPDFUriSchema = z
+  .url('PDF uri is required')
+  .trim()
+  .refine((uri) => uri.toLowerCase().endsWith('.pdf'), {
+    message: 'Must be a PDF URI',
+  });

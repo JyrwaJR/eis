@@ -1,4 +1,4 @@
-import { MutationCache, QueryCache, QueryClient } from '@tanstack/react-query';
+import { MutationCache, QueryCache, QueriesOptions, QueryClient } from '@tanstack/react-query';
 import { logger } from '@utils/logger';
 import { toast } from 'sonner-native';
 
@@ -21,6 +21,15 @@ export * from './online-manager';
  * - Refetch on reconnect is enabled; window focus refetch is disabled
  *   (mobile uses AppState-based focus manager instead).
  */
+
+const defaultOptionConfig: QueriesOptions<any> = {
+  staleTime: 1000 * 60 * 15, // 15 minutes — baseline stale time
+  gcTime: 1000 * 60 * 30, // 30 min — gives persistence time to serialize
+  retry: 3,
+  refetchOnReconnect: true,
+  refetchOnWindowFocus: true, // mobile: AppState-based, not visibilitychange
+};
+
 export const queryClient = new QueryClient({
   queryCache: new QueryCache({
     onError: (error, query) => {
@@ -28,21 +37,17 @@ export const queryClient = new QueryClient({
         toast.error('Something went wrong', { description: error.message });
       }
       logger.error('Query error', error, { queryKey: query.queryKey });
+      return error;
     },
   }),
   mutationCache: new MutationCache({
     onError: (error) => {
       toast.error('Something went wrong', { description: error.message });
       logger.error('Mutation error', error);
+      return error;
     },
   }),
   defaultOptions: {
-    queries: {
-      staleTime: 1000 * 60 * 15, // 15 minutes — baseline stale time
-      gcTime: 1000 * 60 * 30, // 30 min — gives persistence time to serialize
-      retry: 3,
-      refetchOnReconnect: true,
-      refetchOnWindowFocus: true, // mobile: AppState-based, not visibilitychange
-    },
+    queries: defaultOptionConfig,
   },
 });
