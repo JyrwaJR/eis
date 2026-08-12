@@ -18,6 +18,7 @@ import { truncateText } from '@utils/formatters';
 export function HomeScreen() {
   const { user } = useAuthStore();
   const { isLoading, isFetching, refetch } = useHomeOverview();
+  const nameString = `${user?.emp_fname} ${user?.emp_mname} ${user?.emp_lname}`;
 
   if (isLoading) return <HomeScreenSkeleton />;
 
@@ -32,7 +33,7 @@ export function HomeScreen() {
         <View className="flex-1 flex-row items-center justify-between">
           <View className="flex-1 items-start justify-center">
             <Text className="text-2xl font-bold">
-              Welcome, {user?.emp_fname} {user?.emp_mname} {user?.emp_lname}
+              Welcome, {truncateText({ text: nameString, maxLength: 23 })}
             </Text>
             <Text className="mt-1 text-graphite">
               {truncateText({ text: user?.emp_dept || '', maxLength: 37 })} -{' '}
