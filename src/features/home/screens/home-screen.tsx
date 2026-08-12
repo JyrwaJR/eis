@@ -13,6 +13,7 @@ import {
 } from '../components';
 import { getInitials } from '@utils/helpers';
 import { useHomeOverview } from '../hooks';
+import { truncateText } from '@utils/formatters';
 
 export function HomeScreen() {
   const { user } = useAuthStore();
@@ -34,7 +35,8 @@ export function HomeScreen() {
               Welcome, {user?.emp_fname} {user?.emp_mname} {user?.emp_lname}
             </Text>
             <Text className="mt-1 text-graphite">
-              {user?.emp_dept} - {user?.emp_designation}
+              {truncateText({ text: user?.emp_dept || '', maxLength: 37 })} -{' '}
+              {truncateText({ text: user?.emp_designation || '', maxLength: 20 })}
             </Text>
           </View>
           <View className="items-center justify-center rounded-md bg-primary p-3">
