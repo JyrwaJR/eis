@@ -92,12 +92,22 @@ function formatGeneratedTimestamp(date: Date = new Date()): string {
  * the pre-compiled CSS. Swap the contents for an `<img>` of the approved
  * letterhead crest when a digital asset becomes available.
  */
-const OFFICIAL_SEAL_SVG = `<svg width="60" height="60" viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="presentation">
+const OFFICIAL_SEAL_SVG = ` 
+<svg width="60" height="60" viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="presentation">
   <circle cx="25" cy="25" r="23" fill="none" stroke="#1e40af" stroke-width="1.6" />
   <circle cx="25" cy="25" r="18.5" fill="none" stroke="#991b1b" stroke-width="1" stroke-dasharray="2,1.6" />
-  <text x="25" y="23" text-anchor="middle" font-family="Georgia, serif" font-size="11" font-weight="700" fill="#1e40af">GoM</text>
-  <text x="25" y="32.5" text-anchor="middle" font-family="Arial, sans-serif" font-size="3.8" letter-spacing="0.6" fill="#991b1b">MEGHALAYA</text>
-</svg>`;
+<text
+  x="25"
+  y="25"
+  text-anchor="middle"
+  dominant-baseline="middle"
+  font-family="Arial, sans-serif"
+  font-size="3.8"
+  letter-spacing="0.6"
+  fill="#991b1b"
+>EisMegh</text>
+</svg> 
+`;
 
 /**
  * Splits salary line items into earnings (positive amounts) and deductions
