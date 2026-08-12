@@ -150,7 +150,7 @@ function buildSectionRows(items: SalaryStatementItem[]): string {
       (item, index) =>
         `        <tr class="${index % 2 === 0 ? 'bg-white' : 'bg-gray-100'}">
           <td class="border border-gray-300 p-1 text-center" style="padding:3px">${index + 1}</td>
-          <td class="border border-gray-300 p-1" style="padding:3px">${escapeHtml(item.pname)}</td>
+          <td class="border border-gray-300 p-1" style="padding:3px">${escapeHtml(item.pname.replace('_', ' '))}</td>
           <td class="border border-gray-300 p-1 text-right tabular-nums" style="padding:3px">${formatCurrency(item.amount)}</td>
         </tr>`
     )
