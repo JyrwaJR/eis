@@ -20,13 +20,13 @@ const commonMenuItems: MenuItemsT[] = [
 const dbMenuItems: MenuItemsT[] = [
   ...commonMenuItems,
   { title: 'GPF Statements', href: '/gpf-statements' as Route },
-  ...fotterMenuItems,
+  // ...fotterMenuItems,
 ];
 
 const dcMenuItems: MenuItemsT[] = [
   ...commonMenuItems,
   { title: 'NPS Statements', href: '/nps-statements' as Route },
-  ...fotterMenuItems,
+  // ...fotterMenuItems,
 ];
 
 const defaultMenuItems: MenuItemsT[] = [...commonMenuItems, ...fotterMenuItems];
