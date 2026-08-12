@@ -10,6 +10,8 @@ import { cn, getCurrentYear, getPreviousMonth } from '@utils/helpers';
 import React, { useEffect, useState } from 'react';
 import { View, Text, ScrollView, TouchableOpacity, Platform, RefreshControl } from 'react-native';
 import { previewSalaryStatementPdf } from '../uitls/helpers/share-salary-statement-pdf';
+import { useSnackbar } from '@hooks';
+import { logger } from '@utils/logger';
 
 const currentMonth: string = getPreviousMonth();
 const currentYear: string = getCurrentYear().toString();
@@ -18,6 +20,7 @@ export function SalaryStatement() {
   const [selectedYear, setSelectedYear] = useState<string>(currentYear);
   const [selectedMonth, setSelectedMonth] = useState<string>(currentMonth.toUpperCase());
   const [isDownloading, setIsDownloading] = useState<boolean>(false);
+  const { showSnackbar } = useSnackbar();
 
   const {
     data: salaryYears,
@@ -43,9 +46,14 @@ export function SalaryStatement() {
   const noStatementMessage = `No salary statement is available for the selected month ${selectedMonth.toLowerCase()} ${selectedYear}.`;
 
   const handleOnPressPreview = () => {
-    setIsDownloading(true);
-    if (salary) {
-      previewSalaryStatementPdf(salary);
+    try {
+      setIsDownloading(true);
+      if (salary) {
+        previewSalaryStatementPdf(salary);
+      }
+    } catch (error: any) {
+      showSnackbar(error.message);
+      logger.error('Salary Statement Preview pdf', error);
     }
   };
 
