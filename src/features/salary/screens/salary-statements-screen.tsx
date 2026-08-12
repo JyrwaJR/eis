@@ -7,7 +7,7 @@ import { Add01Icon, CrossIcon, FileDownloadIcon } from '@hugeicons/core-free-ico
 import { HugeiconsIcon } from '@hugeicons/react-native';
 import { formatCurrency } from '@utils/formatters';
 import { cn, getCurrentYear, getPreviousMonth } from '@utils/helpers';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text, ScrollView, TouchableOpacity, Platform, RefreshControl } from 'react-native';
 import { previewSalaryStatementPdf } from '../uitls/helpers/share-salary-statement-pdf';
 
@@ -17,6 +17,7 @@ const currentYear: string = getCurrentYear().toString();
 export function SalaryStatement() {
   const [selectedYear, setSelectedYear] = useState<string>(currentYear);
   const [selectedMonth, setSelectedMonth] = useState<string>(currentMonth.toUpperCase());
+  const [isDownloading, setIsDownloading] = useState<boolean>(false);
 
   const {
     data: salaryYears,
@@ -40,6 +41,19 @@ export function SalaryStatement() {
   const deductions = salary?.s_data?.filter((item) => parseFloat(item.amount) < 0) || [];
 
   const noStatementMessage = `No salary statement is available for the selected month ${selectedMonth.toLowerCase()} ${selectedYear}.`;
+
+  const handleOnPressPreview = () => {
+    setIsDownloading(true);
+    if (salary) {
+      previewSalaryStatementPdf(salary);
+    }
+  };
+
+  useEffect(() => {
+    if (isDownloading) {
+      setTimeout(() => setIsDownloading(false), 3000);
+    }
+  }, [isDownloading]);
 
   if (isLoading || isLoadingSalYear) {
     return <SalaryStatementsListSkeleton />;
@@ -190,7 +204,8 @@ export function SalaryStatement() {
           </Text>
         </View>
         <TouchableOpacity
-          onPress={async () => await previewSalaryStatementPdf(salary)}
+          onPress={handleOnPressPreview}
+          disabled={isDownloading}
           className="h-12 flex-row items-center justify-center gap-x-2 rounded-md bg-primary px-6 disabled:bg-primary/50">
           <HugeiconsIcon icon={FileDownloadIcon} size={20} color="white" className="mr-2" />
           <Text className="text-sm font-semibold uppercase tracking-wide text-white">
