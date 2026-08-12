@@ -11,12 +11,14 @@ import React, { useEffect, useState } from 'react';
 import { View, Text, ScrollView, TouchableOpacity, Platform, RefreshControl } from 'react-native';
 import { previewSalaryStatementPdf } from '../uitls/helpers/share-salary-statement-pdf';
 import { useSnackbar } from '@hooks';
+import { useAuthStore } from '@stores/auth.store';
 import { logger } from '@utils/logger';
 
 const currentMonth: string = getPreviousMonth();
 const currentYear: string = getCurrentYear().toString();
 
 export function SalaryStatement() {
+  const { user, emp_cd } = useAuthStore();
   const [selectedYear, setSelectedYear] = useState<string>(currentYear);
   const [selectedMonth, setSelectedMonth] = useState<string>(currentMonth.toUpperCase());
   const [isDownloading, setIsDownloading] = useState<boolean>(false);
@@ -49,7 +51,15 @@ export function SalaryStatement() {
     try {
       setIsDownloading(true);
       if (salary) {
-        previewSalaryStatementPdf(salary);
+        previewSalaryStatementPdf({
+          ...salary,
+          employeeName: `${user?.emp_fname} ${user?.emp_mname} ${user?.emp_lname}`,
+          designation: user?.emp_designation,
+          department: user?.emp_dept,
+          employeeCode: emp_cd,
+          panNumber: user?.emp_pan_number,
+          payPeriod: salary.voucher_date,
+        });
       }
     } catch (error: any) {
       showSnackbar(error.message);

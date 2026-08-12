@@ -105,7 +105,7 @@ const OFFICIAL_SEAL_SVG = `
   font-size="3.8"
   letter-spacing="0.6"
   fill="#991b1b"
->EisMegh</text>
+>MeghEis</text>
 </svg> 
 `;
 
@@ -245,6 +245,80 @@ function buildIdentityBlock(statement: SalaryStatementWithIdentity): string {
     </div>`;
 }
 
+interface WatermarkOptions {
+  text?: string;
+  rows?: number;
+  columns?: number;
+  fontSize?: string;
+  color?: string;
+  opacity?: number;
+  rotation?: number;
+}
+
+function generateWatermark({
+  text = 'GOVERNMENT OF MEGHALAYA',
+  rows = 6,
+  columns = 3,
+  fontSize = '22px',
+  color = '#1e40af',
+  opacity = 0.08,
+  rotation = -32,
+}: WatermarkOptions = {}): string {
+  const watermarks: string[] = [];
+
+  for (let row = 0; row < rows; row++) {
+    for (let column = 0; column < columns; column++) {
+      const top = 8 + row * 18;
+      const left = 17 + column * 35;
+
+      watermarks.push(`
+        <div
+          class="
+            absolute
+            whitespace-nowrap
+            pointer-events-none
+            select-none
+            font-serif
+            font-bold
+            tracking-widest
+            text-blue-800
+            z-50
+          "
+          style="
+            top: ${top}%;
+            left: ${left}%;
+            transform: translate(-50%, -50%) rotate(${rotation}deg);
+            font-size: ${fontSize};
+            color: ${color};
+            opacity: ${opacity};
+          "
+        >
+          ${escapeHtml(text)}
+        </div>
+      `);
+    }
+  }
+
+  return `
+    <div
+      class="
+        absolute
+        inset-0
+        overflow-hidden
+        pointer-events-none
+        z-50
+      "
+      style="
+        width: 100%;
+        height: 100%;
+      "
+      aria-hidden="true"
+    >
+      ${watermarks.join('\n')}
+    </div>
+  `;
+}
+
 /**
  * Generates a complete, printable HTML salary statement document for the
  * given salary statement data. The returned HTML is self-contained — it
@@ -275,8 +349,11 @@ export function generateSalaryStatementHtml(statement: SalaryStatementWithIdenti
   const { earnings, deductions } = splitEarningsAndDeductions(statement.s_data);
   const earningsHtml = buildSalarySection('Gross Earning', earnings, statement.totalEmolument);
   const deductionsHtml = buildSalarySection('Deduction', deductions, statement.totalPayItem);
-  const identityBlockHtml = buildIdentityBlock(statement);
+  const identityBlockHtml = buildIdentityBlock({
+    ...statement,
+  });
   const generatedAt = formatGeneratedTimestamp();
+  const waterMark = generateWatermark();
 
   const tricolorBar = `<table class="w-full border-collapse mb-2" role="presentation">
       <tr>
@@ -296,7 +373,7 @@ export function generateSalaryStatementHtml(statement: SalaryStatementWithIdenti
 
     @page {
       size: A4;
-    margin:12mm;
+      margin:12mm;
     }
 
     body {
@@ -308,10 +385,7 @@ export function generateSalaryStatementHtml(statement: SalaryStatementWithIdenti
 <body class="m-0 p-0 bg-white text-gray-900 font-sans leading-relaxed" style="font-size:14px">
 
   <!-- Watermark -->
-  <div class="fixed whitespace-nowrap pointer-events-none font-serif font-bold" style="top:46%;left:50%;transform:translate(-50%,-50%) rotate(-32deg);font-size:64px;letter-spacing:3px;color:rgba(30,64,175,0.08);z-index:0">
-    GOVERNMENT OF MEGHALAYA
-  </div>
-
+  ${waterMark}
   <!-- Main Container -->
   <div class="relative" style="z-index:1;padding:0; margin:0 auto">
 
