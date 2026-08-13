@@ -18,7 +18,7 @@ import {
 import { HugeiconsIcon } from '@hugeicons/react-native';
 import { transformData } from '@utils/helpers';
 import React from 'react';
-import { View, ScrollView, Text } from 'react-native';
+import { View, ScrollView, Text, RefreshControl } from 'react-native';
 import { Card } from '@components/ui/card';
 import { useAuthStore } from '@stores/auth.store';
 import { useSnackbar } from '@hooks';
@@ -31,6 +31,7 @@ export function GPFStatementScreen() {
     data: gpfStatement,
     isLoading,
     refetch,
+    isFetching,
   } = useGpfStatements({ financialYear: selectedYear });
 
   if (isLoading) {
@@ -75,6 +76,7 @@ export function GPFStatementScreen() {
       <ScrollView
         className="flex-1"
         contentContainerStyle={{ gap: 16 }}
+        refreshControl={<RefreshControl refreshing={isFetching} onRefresh={refetch} />}
         showsVerticalScrollIndicator={false}>
         {/* Title & Year Selector */}
         <GPFYearSelectSheet
@@ -151,7 +153,7 @@ export function GPFStatementScreen() {
               </View>
               <View className="flex-1 gap-y-1">
                 <Text className="text-caption-md text-graphite">Interest Rate</Text>
-                <Text className="text-body-emphasis">{emp.interest_rate}%</Text>
+                <Text className="text-body-emphasis">{emp?.interest_rate}%</Text>
               </View>
             </View>
           </View>

@@ -15,17 +15,16 @@ Content-Type: application/json
 Authorization: Bearer {{TOKEN}}
 
 { 
-
+      "functionName": "employee_login",
+      "password": "MeghE1TSE",
+      "emp_cd": "2009200083T"
 }
 
 ###
 # @name get gpf financial year
 POST http://10.179.35.51:82/api/fetch/gpf/financialyear
 
-{ 
-  "gpfSeries": "POL",
-  "gpfAccNo": "12279"
-}
+{ "gpfSeries": "POL", "gpfAccNo": "12279" }
 
 ### 
 # @name get gpf statement

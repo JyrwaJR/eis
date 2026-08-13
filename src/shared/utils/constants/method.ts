@@ -19,9 +19,12 @@ export const METHODS = {
   GET_EMP_LOAN: 'get_employee_loan',
   GET_EMP_LOAN_DETAILS: 'get_employee_loan_details',
   GET_EMP_OVERVIEW: 'get_employee_overview',
-  // Not implemented below
-  GET_EMP_SALARY_STATEMENTS_DETAILS: 'get_employee_salary_statements_DETAILS',
+  GET_E_PAY_SLIP: 'get_epay_slip_data',
+  GET_GPF_FINANCIAL_YEAR: 'get_financial_year',
+  GET_GPF_STATEMENT: 'view_statement',
   INSERT_NOTIFICATION_TOKEN: 'insert_notification_token',
+
+  // Not implemented below
   GET_EMP_TAX_LIST: 'get_employee_tax_list',
   GET_EMP_TAX_DETAIL: 'get_employee_tax_detail',
   UPDATE_EMP_TAX_DETAIL: 'update_employee_tax_detail',
