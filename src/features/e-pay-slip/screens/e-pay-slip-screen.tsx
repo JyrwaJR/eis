@@ -10,6 +10,7 @@ import { EPayslipDetails } from '../components/e-payslip-details';
 import { EPaySlipSkeleton } from '../components/skeleton';
 import { useEPayslip } from '../hooks/use-e-payslip';
 import { useUpdateGeNumber } from '../hooks/use-update-ge-number';
+import { router } from 'expo-router';
 
 const ENTRY_ERROR = 'No e-pay slip found for this GE number. Please check and try again.';
 
@@ -37,7 +38,7 @@ export const EPaySlipScreen = () => {
 
   const activeGeNumber = existingGeNumber || confirmedGeNumber || pendingGeNumber || '';
 
-  const { data: payslip, isLoading, isError, refetch } = useEPayslip({ geNumber: activeGeNumber });
+  const { data: payslip, isLoading, isError } = useEPayslip({ geNumber: activeGeNumber });
   const updateGeNumber = useUpdateGeNumber();
   const { showSnackbar } = useSnackbar();
 
@@ -106,7 +107,8 @@ export const EPaySlipScreen = () => {
         <EmptyScreen
           title="Unable to load e-pay slip"
           message="No e-pay slip could be fetched for the given GE number. Please try again."
-          refresh={refetch}
+          refresh={() => router.back()}
+          refreshLabel="Go Back"
         />
       </Container>
     );
