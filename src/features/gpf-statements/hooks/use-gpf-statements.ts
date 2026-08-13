@@ -23,8 +23,6 @@ export function useGpfStatements({ financialYear }: Props) {
     queryFn: () =>
       rpc<GPFStatement>(METHODS.GET_GPF_STATEMENT, {
         financial_year: financialYear,
-        // TODO: On Live api rtype will be remove
-        r_type: 'S',
         gpf_series: user?.pf_series,
         gpf_acc_no: user?.pf_no,
       }),
