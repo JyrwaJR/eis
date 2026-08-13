@@ -8,6 +8,7 @@ import { useAuthStore } from '@stores/auth.store';
 import { HugeiconsIcon } from '@hugeicons/react-native';
 import { getDrawerIcons } from '@utils/helpers/get-icon';
 import { getDrawerItems } from '@utils/helpers/get-drawer-items';
+import { env } from '@utils/env';
 
 export type MenuItemsT = {
   id?: number;
@@ -33,7 +34,7 @@ export function CustomDrawerContent(props: DrawerContentComponentProps) {
       className="bg-stone">
       <View className="mb-6 flex-col items-center justify-center gap-y-3 pt-4">
         <Text className={cn('text-center text-3xl font-black tracking-[2px] text-primary')}>
-          {process.env.EXPO_PUBLIC_APP_NAME}
+          {env.EXPO_PUBLIC_APP_NAME}
         </Text>
         <Text className={cn('text-center text-lg tracking-widest text-graphite')}>
           Meghalaya Employees Information System

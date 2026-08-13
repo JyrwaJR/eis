@@ -5,9 +5,10 @@ import RNFetchBlob from 'rn-fetch-blob';
 import { METHODS } from '@utils/constants';
 import { HttpClient } from '@sharedTypes/api';
 import { cleanupSession } from './session-cleanup';
+import { env } from '@utils/env';
 
-const APP_ID = process.env.EXPO_PUBLIC_APP_ID;
-const API_URL = process.env.EXPO_PUBLIC_API_URL;
+const APP_ID = env.EXPO_PUBLIC_APP_ID;
+const API_URL = env.EXPO_PUBLIC_API_URL;
 
 const BASE_CONFIG = {
   trusty: true,

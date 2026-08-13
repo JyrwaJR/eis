@@ -2,6 +2,7 @@ import axios, { AxiosError, InternalAxiosRequestConfig, AxiosInstance } from 'ax
 import { TokenStoreManager } from '@stores/token.store';
 import { queryClient } from '../react-query';
 import { cleanupSession } from './session-cleanup';
+import { env } from '@utils/env';
 
 /** Tracks whether a token refresh is already in-flight to prevent concurrent calls. */
 let isRefreshing = false;
@@ -104,7 +105,7 @@ export async function attemptTokenRefresh(
       throw new Error('MISSING_REFRESH_TOKEN');
     }
 
-    const res = await axios.post(`${process.env.EXPO_PUBLIC_API_URL}${''}`, {
+    const res = await axios.post(`${env.EXPO_PUBLIC_API_URL}${''}`, {
       refresh_token: refreshToken,
     });
 

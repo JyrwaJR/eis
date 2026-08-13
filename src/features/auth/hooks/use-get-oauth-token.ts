@@ -3,10 +3,11 @@ import { TokenStoreManager } from '@stores/token.store';
 import { logger } from '@utils/logger';
 import RNFetchBlob from 'rn-fetch-blob';
 import { QUERY_KEYS } from '@utils/constants';
+import { env } from '@utils/env';
 
-const BASIC_AUTH_TOKEN = process.env.EXPO_PUBLIC_BASIC_AUTH;
+const BASIC_AUTH_TOKEN = env.EXPO_PUBLIC_BASIC_AUTH;
 
-const API_URL = process.env.EXPO_PUBLIC_API_OAUTH_URL;
+const API_URL = env.EXPO_PUBLIC_API_OAUTH_URL;
 
 const url = `${API_URL}/oauth2/token`;
 

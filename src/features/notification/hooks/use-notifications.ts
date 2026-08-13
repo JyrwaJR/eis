@@ -8,6 +8,7 @@ import { toast } from '@components/ui';
 import { withRetry } from '@utils/helpers/retry';
 import { NotificationService } from '@services/notification.service';
 import { isRealDevice } from '@utils/helpers/expo';
+import { env } from '@utils/env';
 
 /**
  * Whitelist of permitted internal routes for push-triggered navigation.
@@ -69,7 +70,7 @@ export const useNotifications = () => {
     const register = async () => {
       const { registeredEmpCd } = useNotificationStore.getState();
 
-      if (registeredEmpCd === emp_cd && process.env.NODE_ENV === 'production') {
+      if (registeredEmpCd === emp_cd && env.NODE_ENV === 'production') {
         logger.info('NotificationHook: Skipping registration — already registered', { emp_cd });
         return;
       }

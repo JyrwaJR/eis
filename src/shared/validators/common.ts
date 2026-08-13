@@ -9,6 +9,7 @@ import {
 } from '@utils/constants/regex';
 import { z } from 'zod';
 import { METHODS } from '@utils/constants';
+import { env } from '@utils/env';
 
 /**
  * Zod schema validating a phone number.
@@ -34,7 +35,7 @@ export const phoneValidation = z
  * {@link SPECIAL_CHARACTER_REGEX} respectively).
  */
 export const passwordValidation =
-  process.env.NODE_ENV === 'development'
+  env.NODE_ENV === 'development'
     ? z.string('Password is required').min(1, 'Password is required')
     : z
         .string('Password is required')

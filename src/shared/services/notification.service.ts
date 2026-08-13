@@ -5,6 +5,7 @@ import * as Constants from 'expo-constants';
 import { logger } from '@utils/logger/logger';
 import { rpc } from '@utils/api';
 import { METHODS } from '@utils/constants';
+import { env } from '@utils/env';
 
 type TErrorType = 'PERMISSION_DENIED' | 'NOT_A_DEVICE' | 'CONFIG_ERROR' | 'NETWORK_ERROR';
 
@@ -73,7 +74,7 @@ export const NotificationService = {
       const token = tokenResponse.data;
 
       // 2. Register with Backend
-      if (process.env.NODE_ENV === 'development') {
+      if (env.NODE_ENV === 'development') {
         logger.info('NotificationService: Skipping backend registration in development', {
           expoToken: token,
         });

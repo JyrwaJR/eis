@@ -5,8 +5,9 @@ import { attemptTokenRefresh, shouldSkipRefresh } from './token-refresh';
 import { decrypt, encrypt } from '@lib/encryption';
 import { cleanupSession } from './session-cleanup';
 import { randomUUID } from 'expo-crypto';
+import { env } from '@utils/env';
 
-const APP_ID = process.env.EXPO_PUBLIC_APP_ID;
+const APP_ID = env.EXPO_PUBLIC_APP_ID;
 
 /**
  * Shape of a decrypted backend response envelope.

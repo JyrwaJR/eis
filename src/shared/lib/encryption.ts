@@ -1,7 +1,8 @@
+import { env } from '@utils/env';
 import CryptoJS from 'crypto-js';
 
-const appSk = process.env.EXPO_PUBLIC_APP_SK ?? '';
-const appIv = process.env.EXPO_PUBLIC_APP_IV ?? '';
+const appSk = env.EXPO_PUBLIC_APP_SK ?? '';
+const appIv = env.EXPO_PUBLIC_APP_IV ?? '';
 
 /**
  * Module-level cache for the derived AES key and IV.

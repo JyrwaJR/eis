@@ -1,4 +1,4 @@
-import { http } from '@utils/api';
+// import { http } from '@utils/api';
 import type { LogErrorType } from './types';
 
 /**
@@ -21,7 +21,7 @@ export const logTransporter = async (type: LogErrorType, message: string, conten
 
   try {
     console.log(logEntry);
-    await http.post('/logs', logEntry);
+    // await http.post('/logs', logEntry);
   } catch (error) {
     console.log('Failed to send logs to server', error);
   }

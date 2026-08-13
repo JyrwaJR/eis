@@ -12,8 +12,9 @@ import { Input, Button } from '@components/ui';
 import { Controller, useForm, useWatch } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { AddGeNumberSchema } from '../validators';
+import { env } from '@utils/env';
 
-const isDevelopment = process.env.NODE_ENV === 'development';
+const isDevelopment = env.NODE_ENV === 'development';
 
 interface GeNumberFormProps {
   /**

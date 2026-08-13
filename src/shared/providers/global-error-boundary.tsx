@@ -7,6 +7,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { logger } from '@utils/logger';
 import { Button } from '@components/ui/button';
 import { Container } from '@components/layout';
+import { env } from '@utils/env';
 
 interface Props {
   children?: ReactNode;
@@ -28,7 +29,7 @@ export class GlobalErrorBoundary extends Component<Props, State> {
   }
 
   public componentDidCatch(error: Error, errorInfo: ErrorInfo) {
-    if (process.env.NODE_ENV === 'production') {
+    if (env.NODE_ENV === 'production') {
       logger.error('[GlobalErrorBoundary] caught error:', error, errorInfo);
     }
   }

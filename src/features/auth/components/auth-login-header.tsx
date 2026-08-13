@@ -1,3 +1,4 @@
+import { env } from '@utils/env';
 import React from 'react';
 import { View, Text } from 'react-native';
 
@@ -27,7 +28,7 @@ export const AuthLoginHeader = ({ title, subtitle }: AuthLoginHeaderProps) => (
   <View className="mb-8 items-center">
     <View className="gap-y-2">
       <Text className="text-center text-2xl font-medium tracking-[2px] text-primary">
-        {process.env.EXPO_PUBLIC_APP_NAME}
+        {env.EXPO_PUBLIC_APP_NAME}
       </Text>
       <Text className="text-center text-3xl font-bold tracking-[4px]">{title}</Text>
       {subtitle && <Text className="text-center text-lg text-muted-foreground">{subtitle}</Text>}

@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { setupInterceptors } from './interceptors';
+import { env } from '@utils/env';
 
 /**
  * Creates a configured Axios instance with interceptors and optional encryption.
@@ -10,7 +11,7 @@ import { setupInterceptors } from './interceptors';
  */
 export function createAxiosInstance(options?: { encryption?: boolean }) {
   const instance = axios.create({
-    baseURL: process.env.EXPO_PUBLIC_API_URL,
+    baseURL: env.EXPO_PUBLIC_API_URL,
     withCredentials: true,
     timeout: 10000,
     timeoutErrorMessage: 'Request timed out. Please try again.',

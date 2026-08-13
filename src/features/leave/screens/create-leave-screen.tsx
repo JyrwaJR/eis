@@ -24,8 +24,9 @@ import { calculateDaysBetweenDatesWithoutWeekends, cn, formatDateInput } from '@
 import { PAGE_ROUTES } from '@utils/constants';
 import { LeaveTypeCode } from '@sharedTypes/leave';
 import { SectionHeader } from '@components/common';
+import { env } from '@utils/env';
 
-const isDev = process.env.NODE_ENV === 'development';
+const isDev = env.NODE_ENV === 'development';
 
 const defaultValues: CreateLeaveInputs = {
   leave_cd: 'SL',

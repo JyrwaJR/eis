@@ -1,6 +1,7 @@
 import type { LogErrorType } from './types';
 import { formatData } from './format';
 import { logTransporter } from './transport';
+import { env } from '@utils/env';
 
 /**
  * Core logging method that dispatches to both the console and the remote server.
@@ -13,12 +14,12 @@ import { logTransporter } from './transport';
  * @param args - Arguments forwarded from the public logger methods.
  */
 const logMethod = async (type: LogErrorType, ...args: any[]): Promise<void> => {
-  if (process.env.NODE_ENV === 'development') {
+  if (env.NODE_ENV === 'development') {
     console.log(formatData(type, ...args));
     return;
   }
 
-  if (process.env.NODE_ENV === 'production' && type !== 'LOG') {
+  if (env.NODE_ENV === 'production' && type !== 'LOG') {
     try {
       let message: string;
       let content: string;
