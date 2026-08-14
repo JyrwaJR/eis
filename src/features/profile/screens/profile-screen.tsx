@@ -23,20 +23,18 @@ import { getFullName, getInitials } from '@utils/helpers';
  * Card wrapper with a blue left-border accent and an icon header.
  * Groups related profile details into visually distinct sections.
  */
-function SectionCard({
-  title,
-  icon,
-  children,
-}: {
+type ProfileSectionCardProps = {
   title: string;
   icon: readonly (readonly [string, { readonly [key: string]: string | number }])[];
   children: React.ReactNode;
-}) {
+};
+
+function ProfileSectionCard({ title, icon, children }: ProfileSectionCardProps) {
   return (
     <View className="rounded-md border border-l-2 border-border border-l-primary bg-white p-4">
       <View className="mb-4 flex-row items-center">
         <HugeiconsIcon icon={icon} size={20} className="text-primary" />
-        <Text className="ml-2 text-base font-semibold text-gray-900 dark:text-white">{title}</Text>
+        <Text className="ml-2 text-base font-semibold">{title}</Text>
       </View>
       {children}
     </View>
@@ -44,20 +42,18 @@ function SectionCard({
 }
 
 /**
- * A label-value pair rendered inside a {@link SectionCard}.
+ * A label-value pair rendered inside a {@link ProfileSectionCard}.
  *
  * Supports half-width (`w-[48%]`, default) or full-width (`w-full`) layout
  * for flexible grid arrangements within a section.
  */
-function DetailItem({
-  label,
-  value,
-  width = 'w-[48%]',
-}: {
+type ProfileDetailItemProps = {
   label: string;
   value: string;
   width?: string;
-}) {
+};
+
+function ProfileDetailItem({ label, value, width = 'w-[48%]' }: ProfileDetailItemProps) {
   return (
     <View className={`flex-col ${width}`}>
       <Text className="mb-1 text-xs">{label}</Text>
@@ -67,7 +63,7 @@ function DetailItem({
 }
 
 /** Thin horizontal divider for separating logical groups inside a section. */
-function SectionDivider() {
+function ProfileSectionDivider() {
   return <View className="my-2 w-full border-t border-border" />;
 }
 
@@ -139,7 +135,7 @@ export const ProfileScreen = () => {
           <View className="flex-row flex-wrap justify-center gap-2">
             <View className="flex-row items-center rounded-md bg-graphite/10 px-3 py-1 ">
               <View className="mr-1.5">
-                <HugeiconsIcon icon={BadgeIcon} size={16} color="#4b5563" />
+                <HugeiconsIcon icon={BadgeIcon} size={16} className="text-graphite" />
               </View>
               <Text className="text-sm font-medium text-graphite">{emp_cd || '-'}</Text>
             </View>
@@ -157,44 +153,50 @@ export const ProfileScreen = () => {
         {/* ── Details Sections ── */}
         <View className="gap-y-4">
           {/* Personal Details */}
-          <SectionCard title="Personal Details" icon={UserIcon}>
+          <ProfileSectionCard title="Personal Details" icon={UserIcon}>
             <View className="flex-row flex-wrap justify-between gap-y-4">
-              <DetailItem label="Full Name" value={fullName} width="w-full" />
-              <DetailItem label="Date of Birth" value={formatDate(profile.emp_birth_dt)} />
-              <DetailItem label="Gender" value={profile.emp_sex || '-'} />
-              <DetailItem label="Blood Group" value="-" />
-              <DetailItem label="Marital Status" value="-" />
-              <DetailItem label="Status" value={profile.emp_status || '-'} />
+              <ProfileDetailItem label="Full Name" value={fullName} width="w-full" />
+              <ProfileDetailItem label="Date of Birth" value={formatDate(profile.emp_birth_dt)} />
+              <ProfileDetailItem label="Gender" value={profile.emp_sex || '-'} />
+              <ProfileDetailItem label="Blood Group" value="-" />
+              <ProfileDetailItem label="Marital Status" value="-" />
+              <ProfileDetailItem label="Status" value={profile.emp_status || '-'} />
             </View>
-          </SectionCard>
+          </ProfileSectionCard>
 
           {/* Contact Details */}
-          <SectionCard title="Contact Details" icon={ContactBookIcon}>
+          <ProfileSectionCard title="Contact Details" icon={ContactBookIcon}>
             <View className="flex-col gap-y-4">
               <View className="flex-row justify-between">
-                <DetailItem label="Email" value={profile.emp_email || '-'} />
-                <DetailItem label="Phone" value={profile.emp_phone || '-'} />
+                <ProfileDetailItem label="Email" value={profile.emp_email || '-'} />
+                <ProfileDetailItem label="Phone" value={profile.emp_phone || '-'} />
               </View>
-              <DetailItem label="Address" value="-" width="w-full" />
+              <ProfileDetailItem label="Address" value="-" width="w-full" />
             </View>
-          </SectionCard>
+          </ProfileSectionCard>
 
           {/* Employment Details */}
-          <SectionCard title="Employment Details" icon={Briefcase02Icon}>
+          <ProfileSectionCard title="Employment Details" icon={Briefcase02Icon}>
             <View className="flex-row flex-wrap justify-between gap-y-4">
-              <DetailItem label="Designation" value={profile.emp_designation || '-'} />
-              <DetailItem label="Department" value={profile.emp_dept || '-'} />
-              <DetailItem label="Parent Department" value={profile.parent_dept || '-'} />
-              <DetailItem label="State Service" value={profile.state_service || '-'} />
-              <DetailItem label="Office" value={profile.office_name || '-'} />
-              <DetailItem label="Joining Date" value={formatDate(profile.emp_date_of_joining)} />
-              <DetailItem label="Increment Date" value={formatDate(profile.inc_dt)} />
-              <DetailItem label="Superannuation" value={formatDate(profile.emp_supan_dt)} />
-              <DetailItem label="City Class" value={profile.emp_city_class || '-'} />
-              <DetailItem label="Gazetted" value={profile.emp_gazetted === 'N' ? 'No' : 'Yes'} />
-              <DetailItem label="Employee Type" value={profile.emp_type || '-'} />
+              <ProfileDetailItem label="Designation" value={profile.emp_designation || '-'} />
+              <ProfileDetailItem label="Department" value={profile.emp_dept || '-'} />
+              <ProfileDetailItem label="Parent Department" value={profile.parent_dept || '-'} />
+              <ProfileDetailItem label="State Service" value={profile.state_service || '-'} />
+              <ProfileDetailItem label="Office" value={profile.office_name || '-'} />
+              <ProfileDetailItem
+                label="Joining Date"
+                value={formatDate(profile.emp_date_of_joining)}
+              />
+              <ProfileDetailItem label="Increment Date" value={formatDate(profile.inc_dt)} />
+              <ProfileDetailItem label="Superannuation" value={formatDate(profile.emp_supan_dt)} />
+              <ProfileDetailItem label="City Class" value={profile.emp_city_class || '-'} />
+              <ProfileDetailItem
+                label="Gazetted"
+                value={profile.emp_gazetted === 'N' ? 'No' : 'Yes'}
+              />
+              <ProfileDetailItem label="Employee Type" value={profile.emp_type || '-'} />
 
-              <SectionDivider />
+              <ProfileSectionDivider />
 
               <Text className="mb-1.5 w-full text-sm text-graphite">Pay Information</Text>
               <View className="mb-2 w-full flex-row flex-wrap gap-x-4 gap-y-2">
@@ -203,55 +205,58 @@ export const ProfileScreen = () => {
                 <Text className="text-base font-medium">₹{profile.basic_pay || '-'}</Text>
               </View>
 
-              <DetailItem label="W.E.F Date" value={formatDate(profile.wef_dt)} />
+              <ProfileDetailItem label="W.E.F Date" value={formatDate(profile.wef_dt)} />
 
-              <SectionDivider />
+              <ProfileSectionDivider />
 
-              <DetailItem
+              <ProfileDetailItem
                 label="DDO / Treasury"
                 value={`${profile.ddo_code || '-'} / ${profile.trea_code || '-'}`}
                 width="w-full"
               />
-              <DetailItem label="DDO Name" value={profile.ddo_name || '-'} width="w-full" />
+              <ProfileDetailItem label="DDO Name" value={profile.ddo_name || '-'} width="w-full" />
             </View>
-          </SectionCard>
+          </ProfileSectionCard>
 
           {/* Bank & PF Details */}
-          <SectionCard title="Bank Details" icon={Wallet02Icon}>
+          <ProfileSectionCard title="Bank Details" icon={Wallet02Icon}>
             <View className="flex-row flex-wrap justify-between gap-y-4">
-              <DetailItem label="Bank Name" value="-" width="w-full" />
-              <DetailItem label="Account No." value={profile.emp_bank_account_no || '-'} />
-              <DetailItem label="IFSC Code" value={profile.emp_bank_ifsc || '-'} />
+              <ProfileDetailItem label="Bank Name" value="-" width="w-full" />
+              <ProfileDetailItem label="Account No." value={profile.emp_bank_account_no || '-'} />
+              <ProfileDetailItem label="IFSC Code" value={profile.emp_bank_ifsc || '-'} />
 
-              <SectionDivider />
+              <ProfileSectionDivider />
 
               <Text className="mb-1.5 w-full text-sm text-graphite">PF Information</Text>
-              <DetailItem label="PF Type" value={profile.pf_type || '-'} />
-              <DetailItem label="PF Agency" value={profile.pf_agency || '-'} />
-              <DetailItem label="PF Series" value={profile.pf_series || '-'} />
+              <ProfileDetailItem label="PF Type" value={profile.pf_type || '-'} />
+              <ProfileDetailItem label="PF Agency" value={profile.pf_agency || '-'} />
+              <ProfileDetailItem label="PF Series" value={profile.pf_series || '-'} />
               {profile.emp_type === 'DB' ? (
-                <DetailItem label="PF Account No." value={profile.pf_no || '-'} />
+                <ProfileDetailItem label="PF Account No." value={profile.pf_no || '-'} />
               ) : (
-                <DetailItem label="PRAN Account No." value={profile.pf_pran_no || '-'} />
+                <ProfileDetailItem label="PRAN Account No." value={profile.pf_pran_no || '-'} />
               )}
 
-              <SectionDivider />
+              <ProfileSectionDivider />
 
               <Text className="mb-1.5 w-full text-sm text-graphite">GIS Information</Text>
-              <DetailItem label="GIS Applicable" value={profile.gis_applicable || '-'} />
-              <DetailItem label="Current GIS Group" value={profile.current_gis_group || '-'} />
+              <ProfileDetailItem label="GIS Applicable" value={profile.gis_applicable || '-'} />
+              <ProfileDetailItem
+                label="Current GIS Group"
+                value={profile.current_gis_group || '-'}
+              />
             </View>
-          </SectionCard>
+          </ProfileSectionCard>
 
           {/* Identification */}
-          <SectionCard title="Identification" icon={IdentityCardIcon}>
+          <ProfileSectionCard title="Identification" icon={IdentityCardIcon}>
             <View className="flex-row flex-wrap justify-between gap-y-4">
-              <DetailItem label="PAN" value={profile.emp_pan_number || '-'} />
-              <DetailItem label="PRAN" value={profile.pf_pran_no || '-'} />
-              <DetailItem label="UAN" value="-" />
-              <DetailItem label="CGHS No." value="-" />
+              <ProfileDetailItem label="PAN" value={profile.emp_pan_number || '-'} />
+              <ProfileDetailItem label="PRAN" value={profile.pf_pran_no || '-'} />
+              <ProfileDetailItem label="UAN" value="-" />
+              <ProfileDetailItem label="CGHS No." value="-" />
             </View>
-          </SectionCard>
+          </ProfileSectionCard>
         </View>
 
         {/* ── Actions ── */}

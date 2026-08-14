@@ -52,6 +52,10 @@ export const QUERY_KEYS = {
     LIST: (...args: any[]) => ['loan', ...args].filter(Boolean),
     DETAILS: (...args: any[]) => ['loan', 'details', ...args].filter(Boolean),
   },
+  NPS: {
+    LIST: (...args: any[]) => ['nps', ...args].filter(Boolean),
+    DETAILS: (...args: any[]) => ['nps', 'details', ...args].filter(Boolean),
+  },
 };
 
 /**
@@ -91,4 +95,5 @@ export const STALE_TIMES = {
   GPF: 1000 * 60 * 15,
   E_PAY_SLIP: 1000 * 60 * 15,
   LOAN: 1000 * 60 * 15,
+  NPS: 1000 * 60 * 15,
 } as const;
