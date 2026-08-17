@@ -1,6 +1,6 @@
 import { Container } from '@components/layout';
 import { EmptyScreen } from '@components/screens';
-import React from 'react';
+import React, { useState } from 'react';
 import { RefreshControl, ScrollView } from 'react-native';
 import {
   NPSMemberInfoCard,
@@ -10,6 +10,8 @@ import {
 } from '../components';
 import { useNpsStatements } from '../hooks';
 import { buildMonthlyRows, buildSummaryRows } from '../utils';
+import { NpsFinYearSelectSheet } from '../components/nps-fin-years';
+import { router } from 'expo-router';
 
 /**
  * NPS Statement (Annexure-5) screen.
@@ -20,9 +22,26 @@ import { buildMonthlyRows, buildSummaryRows } from '../utils';
  * pull-to-refresh triggers a refetch.
  */
 export const NpsStatementsScreen = () => {
-  const financialYear = '2025';
-  const { data, isLoading, refetch, isFetching } = useNpsStatements({ financialYear });
+  const [financialYear, setFinancialYear] = useState<string | null>(null);
+  const { data, isLoading, refetch, isFetching } = useNpsStatements({ finYear: financialYear });
 
+  if (!financialYear) {
+    return (
+      <Container>
+        <NpsFinYearSelectSheet
+          selectedyear={financialYear || ''}
+          onSelect={(value) => setFinancialYear(value)}
+          disabled={isFetching}
+        />
+        <EmptyScreen
+          title="No NPS Statement"
+          message={'Please select a year to continue'}
+          refresh={() => router.back()}
+          refreshLabel="Go Back"
+        />
+      </Container>
+    );
+  }
   if (isLoading) {
     return (
       <Container>
@@ -48,6 +67,11 @@ export const NpsStatementsScreen = () => {
 
   return (
     <Container>
+      <NpsFinYearSelectSheet
+        selectedyear={financialYear || ''}
+        onSelect={(value) => setFinancialYear(value)}
+        disabled={isFetching}
+      />
       <ScrollView
         className="flex-1"
         contentContainerStyle={{ gap: 16 }}

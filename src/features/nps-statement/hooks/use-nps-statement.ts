@@ -5,10 +5,10 @@ import { METHODS, QUERY_KEYS, STALE_TIMES } from '@utils/constants';
 import { NPSAnnux5 } from '../types/nps';
 
 type Props = {
-  financialYear: string;
+  finYear?: string | null;
 };
 
-export function useNpsStatements({ financialYear }: Props) {
+export function useNpsStatements({ finYear }: Props) {
   const { isSignedIn, user } = useAuthStore();
 
   const pran = user?.pf_pran_no;
@@ -16,16 +16,16 @@ export function useNpsStatements({ financialYear }: Props) {
 
   const isFieldsExist = !!pran || !!ppan;
 
-  const isEnabled = isSignedIn && isFieldsExist;
+  const isEnabled = isSignedIn && isFieldsExist && !!finYear;
 
   return useQuery({
     enabled: isEnabled,
-    queryKey: QUERY_KEYS.NPS.LIST(pran, ppan, financialYear),
+    queryKey: QUERY_KEYS.NPS.LIST(pran, ppan, finYear),
     queryFn: () =>
       rpc<NPSAnnux5>(METHODS.GET_NPS_ANNEX5, {
         pran: pran,
         ppan,
-        fin_year: financialYear,
+        fin_year: finYear,
       }),
     select: (data) => data.data,
     staleTime: STALE_TIMES.NPS,

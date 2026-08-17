@@ -30,7 +30,7 @@ interface FinYearSelectSheetProps {
  * />
  * ```
  */
-export const FinYearSelectSheet = ({
+export const NpsFinYearSelectSheet = ({
   selectedyear,
   onSelect,
   error,
@@ -50,7 +50,7 @@ export const FinYearSelectSheet = ({
     <SelectSheet
       // label="GPF Year"
       placeholder="Select Year"
-      title="Select GPF Year"
+      title="Select Financial Year"
       options={options ?? []}
       refetch={refetch}
       selectedValue={selectedyear}
