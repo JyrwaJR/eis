@@ -194,6 +194,8 @@ export const ProfileScreen = () => {
                 label="Gazetted"
                 value={profile.emp_gazetted === 'N' ? 'No' : 'Yes'}
               />
+
+              <ProfileDetailItem label="PPan" value={profile.ppan || '-'} />
               <ProfileDetailItem label="Employee Type" value={profile.emp_type || '-'} />
 
               <ProfileSectionDivider />
