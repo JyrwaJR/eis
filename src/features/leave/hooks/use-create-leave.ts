@@ -3,8 +3,8 @@ import { rpc } from '@utils/api';
 import { METHODS, QUERY_KEYS } from '@utils/constants';
 import { CreateLeaveInputs } from '../validators';
 import { useAuthStore } from '@stores/auth.store';
-import { LeaveTypeCode } from '../types';
 import { ApiResponse } from '@sharedTypes/api';
+import { LeaveTypeCode } from '@sharedTypes/leave';
 
 /**
  * Creates a leave request via the `create_leave_request` RPC.
