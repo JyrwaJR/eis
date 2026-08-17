@@ -28,6 +28,7 @@ export type UserT = {
   gis_applicable: string;
   ge_no: string;
   inc_dt: string;
+  ppan: string | null;
 
   office_id: string;
   office_name: string;
