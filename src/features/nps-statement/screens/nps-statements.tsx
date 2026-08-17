@@ -22,7 +22,7 @@ import { router } from 'expo-router';
  * pull-to-refresh triggers a refetch.
  */
 export const NpsStatementsScreen = () => {
-  const [financialYear, setFinancialYear] = useState<string | null>(null);
+  const [financialYear, setFinancialYear] = useState<string | null>('2025'); // BUG: Remove the hard coded year
   const { data, isLoading, refetch, isFetching } = useNpsStatements({ finYear: financialYear });
 
   if (!financialYear) {
@@ -53,6 +53,11 @@ export const NpsStatementsScreen = () => {
   if (!data) {
     return (
       <Container>
+        <NpsFinYearSelectSheet
+          selectedyear={financialYear || ''}
+          onSelect={(value) => setFinancialYear(value)}
+          disabled={isFetching}
+        />
         <EmptyScreen
           title="No NPS Statement"
           message={`No NPS Statement found for financial year ${financialYear}.`}
