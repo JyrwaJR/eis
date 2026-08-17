@@ -1,5 +1,5 @@
-import { UnderDevelopment } from '@components/screens';
+import { NpsStatementsScreen } from '@features/nps-statement';
 
 export default function page() {
-  return <UnderDevelopment />;
+  return <NpsStatementsScreen />;
 }
