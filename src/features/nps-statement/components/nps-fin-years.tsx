@@ -37,6 +37,8 @@ export const NpsFinYearSelectSheet = ({
   disabled,
 }: FinYearSelectSheetProps) => {
   const { data: financialYears = [], refetch, isFetching, isLoading } = useNpsFinYear();
+  console.log(financialYears);
+
   const options = useMemo(
     () =>
       financialYears

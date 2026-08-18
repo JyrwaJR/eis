@@ -10,7 +10,6 @@ export function useNpsFinYear() {
 
   const body = {
     pran: user?.pf_pran_no,
-    ppan: user?.ppan,
   };
 
   return useQuery({

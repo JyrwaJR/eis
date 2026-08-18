@@ -12,6 +12,7 @@ import { useNpsStatements } from '../hooks';
 import { buildMonthlyRows, buildSummaryRows } from '../utils';
 import { NpsFinYearSelectSheet } from '../components/nps-fin-years';
 import { router } from 'expo-router';
+import { useAuthStore } from '@stores/auth.store';
 
 /**
  * NPS Statement (Annexure-5) screen.
@@ -23,7 +24,34 @@ import { router } from 'expo-router';
  */
 export const NpsStatementsScreen = () => {
   const [financialYear, setFinancialYear] = useState<string | null>('');
+  const { user } = useAuthStore();
   const { data, isLoading, refetch, isFetching } = useNpsStatements({ finYear: financialYear });
+
+  if (!user?.pf_pran_no) {
+    return (
+      <Container>
+        <EmptyScreen
+          title="PRAN No. is not updated"
+          message={'Please update PRAN No. in treasury database'}
+          refresh={() => router.back()}
+          refreshLabel="Go Back"
+        />
+      </Container>
+    );
+  }
+
+  if (!user?.ppan) {
+    return (
+      <Container>
+        <EmptyScreen
+          title="PPAN is not updated"
+          message={'Please update PPAN in treasury database'}
+          refresh={() => router.back()}
+          refreshLabel="Go Back"
+        />
+      </Container>
+    );
+  }
 
   if (!financialYear) {
     return (
