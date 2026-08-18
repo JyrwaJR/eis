@@ -66,6 +66,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
+    "@babel/plugin-transform-react-jsx": "^7.29.7",
     "@commitlint/cli": "^21.0.2",
     "@commitlint/config-conventional": "^21.0.2",
     "@tanstack/eslint-plugin-query": "^5.101.0",
