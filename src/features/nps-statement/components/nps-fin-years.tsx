@@ -39,10 +39,12 @@ export const NpsFinYearSelectSheet = ({
   const { data: financialYears = [], refetch, isFetching, isLoading } = useNpsFinYear();
   const options = useMemo(
     () =>
-      financialYears?.map((year) => ({
-        label: year.label,
-        value: year.value,
-      })),
+      financialYears
+        ?.map((year) => ({
+          label: year.fin_year,
+          value: year.id,
+        }))
+        .filter((value) => value.value !== '0'),
     [financialYears]
   );
 

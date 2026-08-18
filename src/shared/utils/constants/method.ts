@@ -24,6 +24,7 @@ export const METHODS = {
   GET_GPF_STATEMENT: 'view_statement',
   INSERT_NOTIFICATION_TOKEN: 'insert_notification_token',
   GET_NPS_ANNEX5: 'get_annex5',
+  GET_NPS_FINANCIAL_YEAR: 'get_nps_fin_year',
 
   // Not implemented below
   GET_EMP_TAX_LIST: 'get_employee_tax_list',

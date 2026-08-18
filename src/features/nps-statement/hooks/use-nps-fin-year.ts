@@ -9,14 +9,14 @@ export function useNpsFinYear() {
   const isEnabled = !!isSignedIn;
 
   const body = {
-    gpf_series: user?.pf_series,
-    gpf_acc_no: user?.pf_no,
+    pran: user?.pf_pran_no,
+    ppan: user?.ppan,
   };
 
   return useQuery({
     queryKey: QUERY_KEYS.GPF.FINANCIAL_YEARS(body),
     enabled: isEnabled,
-    queryFn: () => rpc<{ label: string; value: string }[]>(METHODS.GET_GPF_FINANCIAL_YEAR, body),
+    queryFn: () => rpc<{ fin_year: string; id: string }[]>(METHODS.GET_NPS_FINANCIAL_YEAR, body),
     select: (data) => data.data,
     staleTime: STALE_TIMES.GPF,
   });
