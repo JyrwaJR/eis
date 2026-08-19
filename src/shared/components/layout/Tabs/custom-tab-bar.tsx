@@ -14,8 +14,8 @@ export const CustomTabBar = ({
 }: any & { tabConfig: TabRouteT[] }) => {
   return (
     <View
-      className="flex-row items-center justify-between gap-0 border-t border-border bg-background px-2 py-2"
-      style={{ paddingBottom: insets.bottom + 6 }}>
+      className="flex-row items-center justify-around border-t border-border/40 bg-background px-3 pt-2"
+      style={{ paddingBottom: Math.max(insets.bottom + 4, 12) }}>
       {state.routes.map((route: any, index: number) => {
         const { options } = descriptors[route.key];
         const isFocused = state.index === index;
@@ -36,35 +36,33 @@ export const CustomTabBar = ({
           }
         };
 
-        const icon = getTabIcons(route.name);
-
-        const isShowDivider = index < state.routes.length - 1;
+        const icon = getTabIcons(route.name, isFocused);
 
         return (
-          <React.Fragment key={route.key}>
-            <TouchableOpacity
-              key={route.key}
-              onPress={onPress}
-              activeOpacity={0.7}
-              testID={`TAB_${route.name.toUpperCase().replace('INDEX', 'HOME')}`}
+          <TouchableOpacity
+            key={route.key}
+            onPress={onPress}
+            activeOpacity={0.7}
+            testID={`TAB_${route.name.toUpperCase().replace('INDEX', 'HOME')}`}
+            className={cn(
+              'flex-1 items-center justify-center  rounded-xl px-2 py-1.5 transition-all',
+              isFocused ? 'bg-primary' : 'bg-transparent'
+            )}>
+            <HugeiconsIcon
+              focusable={false}
+              className={cn(isFocused ? 'text-primary-foreground' : 'text-graphite')}
+              icon={icon}
+              size={20}
+            />
+            <Text
+              numberOfLines={1}
               className={cn(
-                'mx-2 flex-1 items-center justify-center rounded-md p-2',
-                isFocused ? 'bg-primary' : 'border border-primary bg-primary/5'
+                'mt-1 text-center text-xs font-medium',
+                isFocused ? 'font-bold text-primary-foreground' : 'text-graphite'
               )}>
-              <HugeiconsIcon
-                className={cn(isFocused ? 'text-white' : 'text-primary')}
-                icon={icon}
-                size={20}
-              />
-              <Text
-                className={cn(
-                  isFocused ? 'text-md font-bold text-white' : 'font-semibold text-primary'
-                )}>
-                {label}
-              </Text>
-            </TouchableOpacity>
-            {isShowDivider && <View className="h-full w-0.5 border-r border-border" />}
-          </React.Fragment>
+              {label}
+            </Text>
+          </TouchableOpacity>
         );
       })}
     </View>

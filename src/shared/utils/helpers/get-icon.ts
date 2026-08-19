@@ -16,18 +16,22 @@ import {
   CancelCircleIcon,
   HelpCircleIcon,
   MoneyBag02Icon,
+  Home01FreeIcons,
+  PaymentFreeIcons,
+  CalendarAdd01FreeIcons,
+  UserSquareFreeIcons,
 } from '@hugeicons/core-free-icons';
 
-export const getTabIcons = (path: string): typeof HugeiconsIcon => {
+export const getTabIcons = (path: string, isActive?: boolean): typeof HugeiconsIcon => {
   switch (path) {
     case 'index':
-      return Home09Icon;
+      return isActive ? Home01FreeIcons : Home09Icon;
     case 'statement/index':
-      return Payment01Icon;
+      return isActive ? PaymentFreeIcons : Payment01Icon;
     case 'leaves/index':
-      return CalendarAdd01Icon;
+      return isActive ? CalendarAdd01FreeIcons : CalendarAdd01Icon;
     case 'profile/index':
-      return UserSquareIcon;
+      return isActive ? UserSquareFreeIcons : UserSquareIcon;
     default:
       return Home09Icon;
   }
