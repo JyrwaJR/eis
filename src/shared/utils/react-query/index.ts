@@ -24,7 +24,7 @@ export * from './online-manager';
 
 const defaultOptionConfig: QueriesOptions<any> = {
   staleTime: 1000 * 60 * 15, // 15 minutes — baseline stale time
-  gcTime: 1000 * 60 * 30, // 30 min — gives persistence time to serialize
+  gcTime: 0, // 30 min — gives persistence time to serialize
   retry: 3,
   refetchOnReconnect: true,
   refetchOnWindowFocus: true, // mobile: AppState-based, not visibilitychange

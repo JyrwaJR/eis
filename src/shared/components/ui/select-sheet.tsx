@@ -252,7 +252,7 @@ const SelectSheetModal = (props: SelectSheetModalProps) => {
                     <HugeiconsIcon icon={FileNotFoundIcon} className="text-white" size={48} />
                   </View>
                   <Text className="mt-3 text-center text-lg text-graphite">
-                    No options available
+                    No options available. Please check and try again.
                   </Text>
                   {refetch && (
                     <Button

@@ -74,26 +74,27 @@ export const QUERY_KEYS = {
  * });
  * ```
  */
+
 export const STALE_TIMES = {
   /** Auth/session data — stale immediately, always check server. */
-  GLOBAL: 1000 * 60 * 15, // less than a second
+  GLOBAL: 0, // less than a second
   AUTH: 0,
   /** Fast-changing data like leave approvals. */
-  LEAVE_FAST: 1000 * 30, // 30 seconds
+  LEAVE_FAST: 0, // 30 seconds
   /** Leave list/balance queries. */
-  LEAVE: 1000 * 60 * 1, // 1 minute
+  LEAVE: 0, // 1 minute
   /** Moderate cadence — announcements. */
-  ANNOUNCEMENT: 1000 * 60 * 5, // 5 minutes
+  ANNOUNCEMENT: 0, // 5 minutes
   /** Slow-changing reference data — salary, payslips. */
-  SALARY: 1000 * 60 * 15, // 15 minutes
+  SALARY: 0, // 15 minutes
   /** Rarely-changing — employee directory. */
-  EMPLOYEE: 1000 * 60 * 30, // 30 minutes
+  EMPLOYEE: 0, // 30 minutes
   /** Static reference data — pension records. */
-  PENSION: 1000 * 60 * 15, // 15 minutes
+  PENSION: 0, // 15 minutes
   /** Tax data — slow-changing annually. */
-  TAX: 1000 * 60 * 15, // 15 minutes
-  GPF: 1000 * 60 * 15,
-  E_PAY_SLIP: 1000 * 60 * 15,
-  LOAN: 1000 * 60 * 15,
-  NPS: 1000 * 60 * 15,
+  TAX: 0, // 15 minutes
+  GPF: 0,
+  E_PAY_SLIP: 0,
+  LOAN: 0,
+  NPS: 0,
 } as const;
