@@ -1,7 +1,7 @@
 import { Container } from '@components/layout';
 import { EmptyScreen } from '@components/screens';
 import React, { useState } from 'react';
-import { RefreshControl, ScrollView } from 'react-native';
+import { RefreshControl, ScrollView, View } from 'react-native';
 import {
   NPSMemberInfoCard,
   NPSMonthlyTable,
@@ -13,6 +13,9 @@ import { buildMonthlyRows, buildSummaryRows } from '../utils';
 import { NpsFinYearSelectSheet } from '../components/nps-fin-years';
 import { router } from 'expo-router';
 import { useAuthStore } from '@stores/auth.store';
+import { Button } from '@components/ui';
+import { HugeiconsIcon } from '@hugeicons/react-native';
+import { Refresh01Icon } from '@hugeicons/core-free-icons';
 
 /**
  * NPS Statement (Annexure-5) screen.
@@ -27,6 +30,13 @@ export const NpsStatementsScreen = () => {
   const { user } = useAuthStore();
   const { data, isLoading, refetch, isFetching } = useNpsStatements({ finYear: financialYear });
 
+  if (isLoading || isFetching) {
+    return (
+      <Container>
+        <NpsStatementSkeleton />
+      </Container>
+    );
+  }
   if (!user?.pf_pran_no) {
     return (
       <Container>
@@ -70,13 +80,6 @@ export const NpsStatementsScreen = () => {
       </Container>
     );
   }
-  if (isLoading) {
-    return (
-      <Container>
-        <NpsStatementSkeleton />
-      </Container>
-    );
-  }
 
   if (!data) {
     return (
@@ -100,11 +103,19 @@ export const NpsStatementsScreen = () => {
 
   return (
     <Container>
-      <NpsFinYearSelectSheet
-        selectedyear={financialYear || ''}
-        onSelect={(value) => setFinancialYear(value)}
-        disabled={isFetching}
-      />
+      <View className="flex-row items-center gap-2 py-2">
+        <View className="flex-1">
+          <NpsFinYearSelectSheet
+            selectedyear={financialYear || ''}
+            onSelect={(value) => setFinancialYear(value)}
+            disabled={isFetching}
+          />
+        </View>
+
+        <Button onPress={refetch} size={'icon'} className="p-4">
+          <HugeiconsIcon icon={Refresh01Icon} className="text-white" />
+        </Button>
+      </View>
       <ScrollView
         className="flex-1"
         contentContainerStyle={{ gap: 16 }}

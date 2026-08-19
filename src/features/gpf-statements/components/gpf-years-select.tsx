@@ -55,7 +55,7 @@ export const GPFYearSelectSheet = ({
   return (
     <SelectSheet
       // label="GPF Year"
-      placeholder="Select Year"
+      placeholder={isLoading || isFetching ? 'Loading...' : 'Select Year'}
       title="Select GPF Year"
       options={options ?? []}
       refetch={refetch}

@@ -13,6 +13,7 @@ import {
   Calendar02Icon,
   IdentityCardIcon,
   LandmarkIcon,
+  Refresh01Icon,
   TrendingUp,
 } from '@hugeicons/core-free-icons';
 import { HugeiconsIcon } from '@hugeicons/react-native';
@@ -22,6 +23,8 @@ import { View, ScrollView, Text, RefreshControl } from 'react-native';
 import { Card } from '@components/ui/card';
 import { useAuthStore } from '@stores/auth.store';
 import { useSnackbar } from '@hooks';
+import { Button } from '@components/ui';
+import { router } from 'expo-router';
 
 export function GPFStatementScreen() {
   const [selectedYear, setSelectedYear] = React.useState<string>('');
@@ -38,6 +41,26 @@ export function GPFStatementScreen() {
     return (
       <Container>
         <GpfStatementSkeleton />
+      </Container>
+    );
+  }
+
+  if (!selectedYear) {
+    return (
+      <Container>
+        <GPFYearSelectSheet
+          onSelect={(value) => setSelectedYear(value)}
+          selectedyear={selectedYear}
+        />
+        <Button onPress={refetch} variant={'outline'} className="w-full">
+          Refresh
+        </Button>
+        <EmptyScreen
+          title="Financial Years not selected"
+          message={'Please select a financial year to continue'}
+          refresh={() => router.back()}
+          refreshLabel="Go Back"
+        />
       </Container>
     );
   }
@@ -79,10 +102,18 @@ export function GPFStatementScreen() {
         refreshControl={<RefreshControl refreshing={isFetching} onRefresh={refetch} />}
         showsVerticalScrollIndicator={false}>
         {/* Title & Year Selector */}
-        <GPFYearSelectSheet
-          onSelect={(value) => setSelectedYear(value)}
-          selectedyear={selectedYear}
-        />
+        <View className="flex-row items-center gap-2 py-2">
+          <View className="flex-1">
+            <GPFYearSelectSheet
+              onSelect={(value) => setSelectedYear(value)}
+              selectedyear={selectedYear}
+            />
+          </View>
+
+          <Button onPress={refetch} size={'icon'} className="p-4">
+            <HugeiconsIcon icon={Refresh01Icon} className="text-white" />
+          </Button>
+        </View>
 
         {/* Employee Information Card */}
         <Card variant="elevated" className="p-lg">

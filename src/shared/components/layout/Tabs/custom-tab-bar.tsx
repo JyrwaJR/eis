@@ -36,7 +36,7 @@ export const CustomTabBar = ({
           }
         };
 
-        const icon = getTabIcons(route.name, isFocused);
+        const icon = getTabIcons(route.name);
 
         return (
           <TouchableOpacity

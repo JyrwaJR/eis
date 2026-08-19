@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, ScrollView, TouchableOpacity } from 'react-native';
+import { View, Text, ScrollView, TouchableOpacity, RefreshControl } from 'react-native';
 import { HugeiconsIcon } from '@hugeicons/react-native';
 import {
   CheckmarkBadge01Icon,
@@ -90,9 +90,8 @@ function ProfileSectionDivider() {
  * ```
  */
 export const ProfileScreen = () => {
-  const { emp_cd } = useAuthStore();
+  const { emp_cd, user: profile, refresh: refetch, isAuthLoading: isLoading } = useAuthStore();
   const [showLogoutAlert, setShowLogoutAlert] = React.useState(false);
-  const { data: profile, isLoading, refetch } = useProfile();
 
   if (isLoading) return <ProfileScreenSkeleton />;
 
@@ -115,6 +114,7 @@ export const ProfileScreen = () => {
       <ScrollView
         className="flex-1"
         contentContainerStyle={{ paddingBottom: 60, paddingTop: 24 }}
+        refreshControl={<RefreshControl refreshing={isLoading} onRefresh={refetch} />}
         showsVerticalScrollIndicator={false}>
         {/* ── Identity Section ── */}
         <View className="mb-8 flex-col items-center">
