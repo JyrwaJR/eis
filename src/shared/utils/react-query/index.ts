@@ -1,4 +1,5 @@
 import { MutationCache, QueryCache, QueriesOptions, QueryClient } from '@tanstack/react-query';
+import { STALE_TIMES } from '@utils/constants';
 import { logger } from '@utils/logger';
 import { toast } from 'sonner-native';
 
@@ -23,8 +24,8 @@ export * from './online-manager';
  */
 
 const defaultOptionConfig: QueriesOptions<any> = {
-  staleTime: 1000 * 60 * 15, // 15 minutes — baseline stale time
-  gcTime: 0, // 30 min — gives persistence time to serialize
+  staleTime: STALE_TIMES.GLOBAL, // 15 minutes — baseline stale time
+  gcTime: 0, // 0 min — gives persistence time to serialize
   retry: 3,
   refetchOnReconnect: true,
   refetchOnWindowFocus: true, // mobile: AppState-based, not visibilitychange

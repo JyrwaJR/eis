@@ -130,6 +130,8 @@ export const AuthRedirect = ({ children }: Props) => {
 
   const isShowLoadingScreen = (isLoading || !isMounted || (isSignedIn && !role)) && !isOnPublicPage;
 
+  if (isLoading) return <LoadingScreen />;
+
   if (isShowLoadingScreen) {
     return <LoadingScreen />;
   }
