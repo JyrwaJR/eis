@@ -51,10 +51,11 @@ export const NpsFinYearSelectSheet = ({
 
   return (
     <SelectSheet
-      // label="GPF Year"
-      placeholder={isLoading || isFetching ? 'Loading...' : 'Select Year'}
+      label="Financial Years"
+      placeholder={'Select Year'}
       title="Select Financial Year"
       options={options ?? []}
+      loading={isLoading || isFetching}
       refetch={refetch}
       selectedValue={selectedyear}
       onSelect={(value) => onSelect(value as LeaveReasonCode)}

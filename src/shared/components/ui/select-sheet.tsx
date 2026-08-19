@@ -61,6 +61,7 @@ interface SelectSheetProps {
   disabled?: boolean;
 
   refetch?: () => void;
+  loading?: boolean;
 }
 
 /**
@@ -100,6 +101,7 @@ export const SelectSheet = (props: SelectSheetProps) => {
     error,
     disabled,
     refetch,
+    loading,
   } = props;
   const [open, setOpen] = useState(false);
 
@@ -148,7 +150,7 @@ export const SelectSheet = (props: SelectSheetProps) => {
               ? 'font-semibold text-foreground dark:text-white'
               : 'text-muted-foreground'
           )}>
-          {displayText}
+          {loading ? 'Loading...' : displayText}
         </Text>
         <HugeiconsIcon icon={ChevronDownIcon} size={18} color="#9ca3af" />
       </TouchableOpacity>
@@ -164,6 +166,7 @@ export const SelectSheet = (props: SelectSheetProps) => {
         onSelect={handleSelect}
         onClose={handleClose}
         refetch={refetch}
+        isLoading={loading}
       />
     </View>
   );
@@ -186,7 +189,7 @@ type SelectSheetModalProps = {
 };
 
 const SelectSheetModal = (props: SelectSheetModalProps) => {
-  const { open, title, options, selectedValue, onSelect, onClose, refetch } = props;
+  const { open, title, options, selectedValue, onSelect, onClose, refetch, isLoading } = props;
   const insets = useSafeAreaInsets();
   const progress = useSharedValue(0);
 
@@ -258,9 +261,11 @@ const SelectSheetModal = (props: SelectSheetModalProps) => {
                     <Button
                       activeOpacity={0.7}
                       onPress={refetch}
+                      disabled={isLoading}
                       className="mt-4 flex-row items-center gap-x-2 rounded-lg bg-primary px-6 py-2.5 ">
-                      <HugeiconsIcon icon={Refresh01Icon} className="text-white" size={20} />
-                      <Text className="font-semibold text-white">Retry</Text>
+                      <Text className="font-semibold text-white">
+                        {isLoading ? 'Loading...' : 'Retry'}
+                      </Text>
                     </Button>
                   )}
                 </View>

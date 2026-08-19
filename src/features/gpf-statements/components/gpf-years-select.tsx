@@ -54,8 +54,8 @@ export const GPFYearSelectSheet = ({
 
   return (
     <SelectSheet
-      // label="GPF Year"
-      placeholder={isLoading || isFetching ? 'Loading...' : 'Select Year'}
+      label="Financial Year"
+      placeholder={'Select Year'}
       title="Select GPF Year"
       options={options ?? []}
       refetch={refetch}
@@ -63,6 +63,7 @@ export const GPFYearSelectSheet = ({
       onSelect={(value) => onSelect(value as LeaveReasonCode)}
       error={error}
       disabled={disabled || isFetching || isLoading}
+      loading={isFetching || isLoading}
     />
   );
 };

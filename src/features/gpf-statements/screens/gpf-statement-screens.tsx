@@ -37,7 +37,7 @@ export function GPFStatementScreen() {
     isFetching,
   } = useGpfStatements({ financialYear: selectedYear });
 
-  if (isLoading) {
+  if (isLoading || isFetching) {
     return (
       <Container>
         <GpfStatementSkeleton />
@@ -48,13 +48,20 @@ export function GPFStatementScreen() {
   if (!selectedYear) {
     return (
       <Container>
-        <GPFYearSelectSheet
-          onSelect={(value) => setSelectedYear(value)}
-          selectedyear={selectedYear}
-        />
-        <Button onPress={refetch} variant={'outline'} className="w-full">
-          Refresh
-        </Button>
+        <View className="flex-row items-end gap-2 py-2">
+          <View className="flex-1">
+            <GPFYearSelectSheet
+              onSelect={(value) => setSelectedYear(value)}
+              selectedyear={selectedYear}
+            />
+          </View>
+
+          <View className="py-3">
+            <Button disabled={!selectedYear} onPress={refetch} size={'icon'} className="p-4">
+              <HugeiconsIcon icon={Refresh01Icon} className="text-white" />
+            </Button>
+          </View>
+        </View>
         <EmptyScreen
           title="Financial Years not selected"
           message={'Please select a financial year to continue'}
@@ -75,10 +82,20 @@ export function GPFStatementScreen() {
     };
     return (
       <Container>
-        <GPFYearSelectSheet
-          onSelect={(value) => setSelectedYear(value)}
-          selectedyear={selectedYear}
-        />
+        <View className="flex-row items-end gap-2 py-2">
+          <View className="flex-1">
+            <GPFYearSelectSheet
+              onSelect={(value) => setSelectedYear(value)}
+              selectedyear={selectedYear}
+            />
+          </View>
+
+          <View className="py-3">
+            <Button onPress={refetch} size={'icon'} className="p-4">
+              <HugeiconsIcon icon={Refresh01Icon} className="text-white" />
+            </Button>
+          </View>
+        </View>
         <EmptyScreen
           title="No GPF Statement"
           message={'No GPF Statement found, please select a year and try again'}
@@ -102,17 +119,19 @@ export function GPFStatementScreen() {
         refreshControl={<RefreshControl refreshing={isFetching} onRefresh={refetch} />}
         showsVerticalScrollIndicator={false}>
         {/* Title & Year Selector */}
-        <View className="flex-row items-center gap-2 py-2">
-          <View className="flex-1">
+        <View className="flex-row items-end gap-2 py-2">
+          <View className="flex-1 items-center">
             <GPFYearSelectSheet
               onSelect={(value) => setSelectedYear(value)}
               selectedyear={selectedYear}
             />
           </View>
 
-          <Button onPress={refetch} size={'icon'} className="p-4">
-            <HugeiconsIcon icon={Refresh01Icon} className="text-white" />
-          </Button>
+          <View className="py-3">
+            <Button onPress={refetch} size={'icon'} className="p-4">
+              <HugeiconsIcon icon={Refresh01Icon} className="text-white" />
+            </Button>
+          </View>
         </View>
 
         {/* Employee Information Card */}

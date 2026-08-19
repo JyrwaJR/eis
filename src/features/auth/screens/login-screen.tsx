@@ -82,7 +82,7 @@ export const LoginScreen = () => {
   const { isSignedIn, isAuthLoading } = useAuthStore();
   const { startCooldown, isLimited } = useRateLimit('LOGIN_BUTTON_RATE_LIMIT', {
     limit: 1,
-    ms: 10000,
+    ms: 3000,
   });
 
   const { showSnackbar } = useSnackbar();
@@ -117,7 +117,6 @@ export const LoginScreen = () => {
     // If the OAuth token fetch failed, retry on button tap
     if (isOAuthError) {
       fetchOAuthToken();
-      return;
     }
 
     // If the OAuth token is still being fetched, inform the user
@@ -134,6 +133,7 @@ export const LoginScreen = () => {
           showSnackbar(sData.message);
           return sData;
         }
+        fetchOAuthToken();
         toast.error(sData.message);
         return sData;
       },

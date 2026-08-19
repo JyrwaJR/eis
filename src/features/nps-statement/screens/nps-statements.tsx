@@ -37,6 +37,7 @@ export const NpsStatementsScreen = () => {
       </Container>
     );
   }
+
   if (!user?.pf_pran_no) {
     return (
       <Container>
@@ -103,7 +104,7 @@ export const NpsStatementsScreen = () => {
 
   return (
     <Container>
-      <View className="flex-row items-center gap-2 py-2">
+      <View className="flex-row items-end gap-2 py-2">
         <View className="flex-1">
           <NpsFinYearSelectSheet
             selectedyear={financialYear || ''}
@@ -112,9 +113,11 @@ export const NpsStatementsScreen = () => {
           />
         </View>
 
-        <Button onPress={refetch} size={'icon'} className="p-4">
-          <HugeiconsIcon icon={Refresh01Icon} className="text-white" />
-        </Button>
+        <View className="py-3">
+          <Button onPress={refetch} size={'icon'} className="p-4">
+            <HugeiconsIcon icon={Refresh01Icon} className="text-white" />
+          </Button>
+        </View>
       </View>
       <ScrollView
         className="flex-1"
