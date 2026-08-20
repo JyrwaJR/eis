@@ -11,19 +11,18 @@
 #      access token into the @token variable automatically.
 #   2. Run any RPC request below; they all use Bearer {{token}}.
 # ═══════════════════════════════════════════════════════════════════════════
-
 @oauthHost = https://10.179.35.48:9443
 @host = https://10.179.35.48:8243/eisdatafetcher_uat/1.0
 @basicAuth = WEo4U3NiNXFiNWJlZl9KemdhNU1nV1NzUnJBYTp3eHd4NzJDd0lnc0J2aXhkOFlCWUloVGJocDhh
-@token = {{oauthToken.response.body.access_token}}
+@token = eyJ4NXQiOiJNell4TW1Ga09HWXdNV0kwWldObU5EY3hOR1l3WW1NNFpUQTNNV0kyTkRBelpHUXpOR00wWkdSbE5qSmtPREZrWkRSaU9URmtNV0ZoTXpVMlpHVmxOZyIsImtpZCI6Ik16WXhNbUZrT0dZd01XSTBaV05tTkRjeE5HWXdZbU00WlRBM01XSTJOREF6WkdRek5HTTBaR1JsTmpKa09ERmtaRFJpT1RGa01XRmhNelUyWkdWbE5nX1JTMjU2IiwiYWxnIjoiUlMyNTYifQ.eyJzdWIiOiJhZG1pbiIsImF1dCI6IkFQUExJQ0FUSU9OIiwiYXVkIjoiWEo4U3NiNXFiNWJlZl9KemdhNU1nV1NzUnJBYSIsIm5iZiI6MTc4NzIwMDc5MSwiYXpwIjoiWEo4U3NiNXFiNWJlZl9KemdhNU1nV1NzUnJBYSIsInNjb3BlIjoiZGVmYXVsdCIsImlzcyI6Imh0dHBzOlwvXC8xMC4xNzkuMzUuNDg6OTQ0M1wvb2F1dGgyXC90b2tlbiIsImV4cCI6MTc4NzIwMTk5MSwiaWF0IjoxNzg3MjAwNzkxLCJqdGkiOiI1M2Y4ZDUxOS0wZGNkLTQ0YjAtYTc5OC1mZmNmMWUxMjI5NjMifQ.cSU17hcDXLEANChZoEc2duEIDrS_LCaXMsXd2kQH02fSX1ZxFtP_VkUBv7AuJwChF0HLIUFzF1CGvxqmLj0H0MqqFTCNBrbGyV_MdJk7qkRM9x_crQK6-H-qULZKDgUvSJ7halgaTiPrfK6GfW0yYW1QlXCtiM8olkVcVDKRRFGm6aX1IWJ4mrg-RebEe_yaC728ZvCSMwf_DEA15sHWFf6mzUhUi-rPFaRscoze_wjr9xsFBGzWywBHpzNTSCLIePdt1SVbhhkz36JXoKEttcrwP_4Uwn3vokdgbzNShYWSbwnsxj4xlBrJ4yVgnyYBF7kv_X9Rb0QVmCnk1ogS6A
 
 # ═══════════════════════════════════════════════════════════════════════════
 # AUTH
 # ═══════════════════════════════════════════════════════════════════════════
 
 ### 1. OAuth2 client-credentials token (use-get-oauth-token)
+# @kulala-curl-k
 # @name oauthToken
-# @curl -k
 POST {{oauthHost}}/oauth2/token
 Authorization: Basic {{basicAuth}}
 Content-Type: application/x-www-form-urlencoded
@@ -32,7 +31,7 @@ grant_type=client_credentials
 
 ### 2. Employee login (use-login-mutation → employee_login)
 # @name login
-# @curl --insecure
+# @kulala-curl-k
 POST {{host}}/make_request
 Content-Type: application/json
 Authorization: Bearer {{token}}
@@ -41,16 +40,14 @@ Authorization: Bearer {{token}}
   "functionName": "employee_login",
   "emp_cd": "2009200083T",
   "password": "MeghE1TSE"
-}
-
-
+} 
 
 # ═══════════════════════════════════════════════════════════════════════════
 # EMPLOYEE / PROFILE
 # ═══════════════════════════════════════════════════════════════════════════
 
 ### 7. Get employee details (use-profile / auth.store → get_employee_details)
-# @curl -k
+# @kulala-curl-k
 POST {{host}}/make_request
 Content-Type: application/json
 Authorization: Bearer {{token}}
