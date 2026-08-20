@@ -54,6 +54,7 @@ const getAppName = (baseName: string) => {
  *
  * @returns The fully-qualified reverse-domain identifier.
  */
+// TODO: Change when moving to production
 const getIdentifier = () => {
   if (isDev) return 'com.jyrwaboys.eis.dev';
   if (isPreview) return 'com.jyrwaboys.eis.preview';

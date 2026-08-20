@@ -8,6 +8,7 @@ import * as Sharing from 'expo-sharing';
 import { EmptyScreen } from '@components/screens';
 import { PAGE_ROUTES } from '@utils/constants';
 import { isValidPDFUriSchema } from '@validators/common';
+import { Ternary } from '@components/common';
 
 /**
  * PDF preview screen that renders a document from a URI passed as an
@@ -28,8 +29,15 @@ import { isValidPDFUriSchema } from '@validators/common';
  * router.push({ pathname: '/pdf-preview', params: { uri: 'file:///.../statement.pdf' } });
  * ```
  */
+
+type PdfPreviewLocalSearchParamsProps = {
+  uri: string;
+  downloadable: string;
+};
+
 export function PdfPreviewScreen() {
-  const { uri } = useLocalSearchParams<{ uri: string }>();
+  const { uri, downloadable = 'true' } = useLocalSearchParams<PdfPreviewLocalSearchParamsProps>();
+  const isDownloadable = downloadable === 'true' ? true : false;
 
   const onPressGoBack = () => {
     if (router.canGoBack()) {
@@ -59,11 +67,21 @@ export function PdfPreviewScreen() {
         source={{ uri }}
         style={{ flex: 1, padding: 0, margin: 0 }}
       />
-      <View className="flex-row items-center justify-center">
-        <Button className="w-full" size={'lg'} onPress={() => Sharing.shareAsync(uri)}>
-          Download
-        </Button>
-      </View>
+      <Ternary
+        condition={isDownloadable}
+        ifTrue={
+          <View className="flex-row items-center justify-center">
+            <Button
+              disabled={!downloadable}
+              className="w-full"
+              size={'lg'}
+              onPress={() => Sharing.shareAsync(uri)}>
+              Download
+            </Button>
+          </View>
+        }
+        ifFalse={null}
+      />
     </Container>
   );
 }
