@@ -20,7 +20,6 @@ module.exports = defineConfig([
       '.eas/**',
       '*.min.js',
       'pnpm-lock.yaml',
-      './scripts/encryption.js',
     ],
   },
   {
