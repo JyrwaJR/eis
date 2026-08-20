@@ -29,5 +29,6 @@ export function useUpdateGeNumber() {
       }
       return data;
     },
+    retry: false,
   });
 }

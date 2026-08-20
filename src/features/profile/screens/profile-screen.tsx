@@ -12,7 +12,6 @@ import {
   Logout01Icon,
 } from '@hugeicons/core-free-icons';
 import { useAuthStore } from '@stores/auth.store';
-import { useProfile } from '../hooks/use-profile';
 import { ProfileScreenSkeleton, ConfirmLogoutAlert } from '../components';
 import { EmptyScreen } from '@components/screens';
 import { formatDate } from '@utils/formatters';
