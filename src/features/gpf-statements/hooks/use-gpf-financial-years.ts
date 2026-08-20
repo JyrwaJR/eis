@@ -11,15 +11,15 @@ export function useGPFFinancialYear() {
 
   const isEnabled = !!isSignedIn && empType === 'DB';
 
-  const body = {
+  const payload = {
     gpf_series: user?.pf_series,
     gpf_acc_no: user?.pf_no,
   };
 
   return useQuery({
-    queryKey: QUERY_KEYS.GPF.FINANCIAL_YEARS(body),
+    queryKey: QUERY_KEYS.GPF.FINANCIAL_YEARS(payload),
     enabled: isEnabled,
-    queryFn: () => rpc<GpfFinancialYear[]>(METHODS.GET_GPF_FINANCIAL_YEAR, body),
+    queryFn: () => rpc<GpfFinancialYear[]>(METHODS.GET_GPF_FINANCIAL_YEAR, payload),
     select: (data) => data.data,
     staleTime: STALE_TIMES.GPF,
   });
