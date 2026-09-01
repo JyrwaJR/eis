@@ -5,6 +5,20 @@ import { ScrollView, Text, View } from 'react-native';
 import { Container } from '@components/layout';
 import { useLocalSearchParams } from 'expo-router';
 
+/**
+ * Screen that displays the full details of a single e-pay slip.
+ *
+ * Reads `paySlipNo` from the route params and fetches the corresponding
+ * payslip data via {@link useEPayslipDetail}. Shows a skeleton while loading,
+ * an empty-state screen if the payslip cannot be found, or the
+ * {@link EPayslipDetails} component once data is available.
+ *
+ * @example
+ * ```tsx
+ * // Used as an Expo Router screen at /e-pay-slip/[paySlipNo]
+ * <EPaySlipDetailsScreen />
+ * ```
+ */
 export const EPaySlipDetailsScreen = () => {
   const { paySlipNo } = useLocalSearchParams<{ paySlipNo: string }>();
 
