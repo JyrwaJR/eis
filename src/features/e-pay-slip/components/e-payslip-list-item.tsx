@@ -5,7 +5,7 @@ import { ArrowRight01Icon } from '@hugeicons/core-free-icons';
 import { HugeiconsIcon } from '@hugeicons/react-native';
 import { useRouter } from 'expo-router';
 
-export const EPayslipListItem = ({ item }: { item: EPaySlipI }) => {
+export const EPayslipListItemCard = ({ item }: { item: EPaySlipI }) => {
   const router = useRouter();
   return (
     <TouchableOpacity

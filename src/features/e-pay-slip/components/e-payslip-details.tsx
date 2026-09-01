@@ -1,9 +1,8 @@
 import React from 'react';
-import { ScrollView, Text, View } from 'react-native';
+import { Text, View } from 'react-native';
 import { HugeiconsIcon } from '@hugeicons/react-native';
 import { CheckmarkBadge01Icon, File01Icon } from '@hugeicons/core-free-icons';
 import { EPayslip } from '../types';
-import { Container } from '@components/layout';
 import { Button } from '@components/ui';
 import { previewBase64PDF } from '@utils/helpers/preview-pdf';
 import { logger } from '@utils/logger';

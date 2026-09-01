@@ -6,7 +6,7 @@ import { cn } from '@utils/helpers/cn';
 
 /**
  * Loading skeleton for a single e-pay slip list card. Mirrors the layout
- * of {@link EPayslipListItem}: header row with date + action button,
+ * of {@link EPayslipListItemCard}: header row with date + action button,
  * divider, and a details grid.
  */
 const EPaySlipCardSkeleton = () => (
@@ -30,7 +30,7 @@ const EPaySlipCardSkeleton = () => (
         <Skeleton className="mt-1 h-3.5 w-20 rounded" />
       </View>
       <View className="mb-3 w-1/2">
-        <Skeleton className="h-2.5 w-18 rounded" />
+        <Skeleton className="w-18 h-2.5 rounded" />
         <Skeleton className="mt-1 h-3.5 w-24 rounded" />
       </View>
       <View className="w-full">
