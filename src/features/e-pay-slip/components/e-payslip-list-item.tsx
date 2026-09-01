@@ -1,8 +1,8 @@
 import { Text, View } from 'react-native';
-import { EPayslip } from '../types';
+import { EPayslipListItem as EPaySlipI } from '../types';
 import { formatDate } from '@utils/formatters';
 
-export const EPayslipListItem = ({ item }: { item: EPayslip }) => {
+export const EPayslipListItem = ({ item }: { item: EPaySlipI }) => {
   const rows = [
     { label: 'Payslip Number', value: item.payslip_no },
     { label: 'Sign Date', value: formatDate(item.sign_date) },

@@ -47,6 +47,7 @@ export const QUERY_KEYS = {
   },
   E_PAY_SLIP: {
     LIST: (...args: any[]) => ['e-payslip', ...args].filter(Boolean),
+    DETAIL: (...args: any[]) => ['e-payslip', 'details', ...args].filter(Boolean),
   },
   LOAN: {
     LIST: (...args: any[]) => ['loan', ...args].filter(Boolean),

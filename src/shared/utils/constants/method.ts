@@ -20,6 +20,7 @@ export const METHODS = {
   GET_EMP_LOAN_DETAILS: 'get_employee_loan_details',
   GET_EMP_OVERVIEW: 'get_employee_overview',
   GET_E_PAY_SLIP: 'get_epay_slip_data',
+  GET_E_PAY_SLIP_DETAIL: 'get_epay_slip_details', // ge_number payslip_no
   GET_GPF_FINANCIAL_YEAR: 'get_financial_year',
   GET_GPF_STATEMENT: 'view_statement',
   INSERT_NOTIFICATION_TOKEN: 'insert_notification_token',

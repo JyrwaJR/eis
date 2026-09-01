@@ -1,11 +1,11 @@
 import React from 'react';
 import { Modal, Text, View } from 'react-native';
-import { EPayslip } from '../types';
+import { EPayslipListItem } from '../types';
 import { Button } from '@components/ui';
 
 interface PayslipConfirmDialogProps {
   open: boolean;
-  payslip: EPayslip | null;
+  payslip: EPayslipListItem | null;
   userName: string;
   isConfirming?: boolean;
   onConfirm: () => void;
@@ -47,8 +47,6 @@ export const EPayslipConfirmDialog = (props: PayslipConfirmDialogProps) => {
                 <IdentityRow label="GE Number" value={payslip.ge_number} />
                 <Divider />
                 <IdentityRow label="Payslip No." value={payslip.payslip_no} />
-                <Divider />
-                <IdentityRow label="Payslip Date" value={payslip.payslip_date} />
               </View>
             )}
           </View>

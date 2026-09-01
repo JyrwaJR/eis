@@ -31,16 +31,25 @@ import { rpc } from '@utils/api';
  * });
  * ```
  */
-export function useEPayslip({ geNumber }: { geNumber: string }) {
+export function useEPayslipDetail({
+  geNumber,
+  payslipNo,
+}: {
+  geNumber: string;
+  payslipNo: string;
+}) {
   const { user, isSignedIn } = useAuthStore();
   const isGeNumberExist = !!user?.ge_no;
   const enabled = !!isGeNumberExist || !!geNumber;
 
-  const payload: { ge_number: string } = { ge_number: user?.ge_no || geNumber };
+  const payload: { ge_number: string; payslip_no: string } = {
+    ge_number: user?.ge_no || geNumber,
+    payslip_no: payslipNo,
+  };
 
   return useQuery({
-    queryKey: QUERY_KEYS.E_PAY_SLIP.LIST(payload),
-    queryFn: () => rpc<EPayslipListItem[]>(METHODS.GET_E_PAY_SLIP, payload),
+    queryKey: QUERY_KEYS.E_PAY_SLIP.DETAIL(payload),
+    queryFn: () => rpc<EPayslip>(METHODS.GET_E_PAY_SLIP_DETAIL, payload),
     select: (data) => data.data,
     enabled: enabled && isSignedIn,
   });

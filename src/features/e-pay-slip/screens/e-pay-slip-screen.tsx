@@ -6,12 +6,11 @@ import { AlertCircleIcon } from '@hugeicons/core-free-icons';
 import { useAuthStore } from '@stores/auth.store';
 import { GeNumberForm } from '../components/ge-number-form';
 import { EPayslipConfirmDialog } from '../components/e-payslip-confirm-dialog';
-import { EPayslipDetails } from '../components/e-payslip-details';
 import { EPaySlipSkeleton } from '../components/skeleton';
 import { useEPayslip } from '../hooks/use-e-payslip';
 import { useUpdateGeNumber } from '../hooks/use-update-ge-number';
 import { router } from 'expo-router';
-import { FlatList, ScrollView, Text, View } from 'react-native';
+import { FlatList, Text, View } from 'react-native';
 import { EPayslipListItem } from '../components/e-payslip-list-item';
 
 const ENTRY_ERROR = 'No e-pay slip found for this GE number. Please check and try again.';
@@ -131,8 +130,9 @@ export const EPaySlipScreen = () => {
         </View>
         <FlatList
           data={ePaySlips}
-          keyExtractor={(item) => item.file_id + item.payslip_date}
+          keyExtractor={(item) => item.payslip_no + item.sign_date}
           renderItem={({ item }) => <EPayslipListItem item={item} />}
+          showsVerticalScrollIndicator={false}
         />
         <EPayslipConfirmDialog
           open={showConfirmation}
