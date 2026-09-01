@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import { EPayslip, EPayslipListItem } from '../types';
+import { EPayslip } from '../types';
 import { useAuthStore } from '@stores/auth.store';
 import { METHODS, QUERY_KEYS } from '@utils/constants';
 import { rpc } from '@utils/api';
@@ -31,19 +31,13 @@ import { rpc } from '@utils/api';
  * });
  * ```
  */
-export function useEPayslipDetail({
-  geNumber,
-  payslipNo,
-}: {
-  geNumber: string;
-  payslipNo: string;
-}) {
+export function useEPayslipDetail({ payslipNo }: { payslipNo: string }) {
   const { user, isSignedIn } = useAuthStore();
   const isGeNumberExist = !!user?.ge_no;
-  const enabled = !!isGeNumberExist || !!geNumber;
+  const enabled = !!isGeNumberExist;
 
   const payload: { ge_number: string; payslip_no: string } = {
-    ge_number: user?.ge_no || geNumber,
+    ge_number: user?.ge_no || '',
     payslip_no: payslipNo,
   };
 

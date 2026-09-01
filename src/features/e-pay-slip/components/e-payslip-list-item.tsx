@@ -1,47 +1,51 @@
-import { Text, View } from 'react-native';
+import { Text, TouchableOpacity, View } from 'react-native';
 import { EPayslipListItem as EPaySlipI } from '../types';
 import { formatDate } from '@utils/formatters';
+import { ArrowRight01Icon } from '@hugeicons/core-free-icons';
+import { HugeiconsIcon } from '@hugeicons/react-native';
 
 export const EPayslipListItem = ({ item }: { item: EPaySlipI }) => {
-  const rows = [
-    { label: 'Payslip Number', value: item.payslip_no },
-    { label: 'Sign Date', value: formatDate(item.sign_date) },
-    { label: 'Name', value: item.name },
-    { label: 'Designation', value: item.designation },
-  ];
-
   return (
-    <View className="mb-6 flex-col overflow-hidden rounded-md border border-border bg-white">
-      {/* Detail Rows */}
-      <View className="flex-col">
-        {rows.map((row, index) => (
-          <DetailRow
-            key={row.label}
-            label={row.label}
-            value={row.value}
-            isLast={index === rows.length - 1}
-          />
-        ))}
+    <TouchableOpacity
+      activeOpacity={0.7}
+      className="mb-4 rounded-md border border-border bg-white p-4 active:scale-[0.98]">
+      {/* Card Header */}
+      <View className="w-full flex-row items-start justify-between">
+        <View className="flex-col">
+          <Text className="text-xs font-semibold uppercase tracking-wider text-primary">
+            {formatDate(item.sign_date)}
+          </Text>
+          <Text className="mt-0.5 text-lg font-medium text-[#1b1c1c]">{item.payslip_no}</Text>
+        </View>
+
+        {/* Download Icon Button */}
+        <TouchableOpacity className="h-10 w-10 items-center justify-center rounded-full bg-[#cbe2fe] active:bg-primary">
+          <HugeiconsIcon icon={ArrowRight01Icon} size={20} color="#024ad8" />
+        </TouchableOpacity>
       </View>
-    </View>
+
+      {/* Divider */}
+      <View className="my-3 h-[1px] w-full bg-border/50" />
+
+      {/* Slip Details Grid */}
+      <View className="flex-row flex-wrap">
+        <View className="mb-3 w-1/2">
+          <Text className="text-xs text-graphite">Sign Date</Text>
+          <Text className="mt-0.5 text-sm font-medium text-[#1b1c1c]">
+            {formatDate(item.sign_date)}
+          </Text>
+        </View>
+
+        <View className="mb-3 w-1/2">
+          <Text className="text-xs text-graphite">GE Number</Text>
+          <Text className="mt-0.5 text-sm font-medium text-[#1b1c1c]">{item.ge_number}</Text>
+        </View>
+
+        <View className="w-full">
+          <Text className="text-xs text-graphite">Employee</Text>
+          <Text className="mt-0.5 text-sm font-medium text-[#1b1c1c]">{item.name}</Text>
+        </View>
+      </View>
+    </TouchableOpacity>
   );
 };
-
-/** Renders a single label/value row inside the institutional detail card. */
-const DetailRow = ({
-  label,
-  value,
-  isLast = false,
-}: {
-  label: string;
-  value: string;
-  isLast?: boolean;
-}) => (
-  <View
-    className={`min-h-[56px] flex-row items-center justify-between bg-white px-4 py-4 ${
-      !isLast ? 'border-b border-border' : ''
-    }`}>
-    <Text className="text-sm text-graphite">{label}</Text>
-    <Text className="text-base font-bold">{value}</Text>
-  </View>
-);

@@ -6,7 +6,7 @@ import { AlertCircleIcon } from '@hugeicons/core-free-icons';
 import { useAuthStore } from '@stores/auth.store';
 import { GeNumberForm } from '../components/ge-number-form';
 import { EPayslipConfirmDialog } from '../components/e-payslip-confirm-dialog';
-import { EPaySlipSkeleton } from '../components/skeleton';
+import { EPaySlipListSkeleton } from '../components/skeleton';
 import { useEPayslip } from '../hooks/use-e-payslip';
 import { useUpdateGeNumber } from '../hooks/use-update-ge-number';
 import { router } from 'expo-router';
@@ -90,7 +90,7 @@ export const EPaySlipScreen = () => {
 
   // Loading: initial fetch, or the first fetch of a newly entered GE number.
   if (isLoading) {
-    return <EPaySlipSkeleton />;
+    return <EPaySlipListSkeleton />;
   }
 
   // A newly entered GE number failed to fetch: return to the form with an
@@ -119,7 +119,6 @@ export const EPaySlipScreen = () => {
   }
 
   const showConfirmation = isNewEntryFetch;
-  console.log('GE', user?.ge_no);
   return (
     <Container>
       <View className="pb-10">
@@ -133,6 +132,7 @@ export const EPaySlipScreen = () => {
           keyExtractor={(item) => item.payslip_no + item.sign_date}
           renderItem={({ item }) => <EPayslipListItem item={item} />}
           showsVerticalScrollIndicator={false}
+          contentContainerClassName="pb-10"
         />
         <EPayslipConfirmDialog
           open={showConfirmation}
