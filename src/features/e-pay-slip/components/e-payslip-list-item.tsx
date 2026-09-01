@@ -3,11 +3,14 @@ import { EPayslipListItem as EPaySlipI } from '../types';
 import { formatDate } from '@utils/formatters';
 import { ArrowRight01Icon } from '@hugeicons/core-free-icons';
 import { HugeiconsIcon } from '@hugeicons/react-native';
+import { useRouter } from 'expo-router';
 
 export const EPayslipListItem = ({ item }: { item: EPaySlipI }) => {
+  const router = useRouter();
   return (
     <TouchableOpacity
       activeOpacity={0.7}
+      onPress={() => router.push(`/e-pay-slip/${item.payslip_no}`)}
       className="mb-4 rounded-md border border-border bg-white p-4 active:scale-[0.98]">
       {/* Card Header */}
       <View className="w-full flex-row items-start justify-between">

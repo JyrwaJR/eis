@@ -3,17 +3,26 @@ import { EPayslipDetails, EPaySlipDetailsSkeleton } from '../components';
 import { useEPayslipDetail } from '../hooks/use-e-payslip-detail';
 import { ScrollView, Text, View } from 'react-native';
 import { Container } from '@components/layout';
+import { useLocalSearchParams } from 'expo-router';
 
 export const EPaySlipDetailsScreen = () => {
-  const { data: payslip, isLoading } = useEPayslipDetail({ geNumber: '', payslipNo: '' });
+  const { paySlipNo } = useLocalSearchParams<{ paySlipNo: string }>();
+
+  const { data: payslip, isLoading } = useEPayslipDetail({ payslipNo: paySlipNo });
 
   if (!payslip) {
-    return <EmptyScreen title="E-Pay Slip not available" message="" />;
+    return (
+      <EmptyScreen
+        title="E-Pay Slip not available"
+        message="We couldn't load this e-pay slip. Please try again or contact your administrator."
+      />
+    );
   }
 
   if (isLoading) {
     return <EPaySlipDetailsSkeleton />;
   }
+
   return (
     <ScrollView>
       <Container className="gap-5">

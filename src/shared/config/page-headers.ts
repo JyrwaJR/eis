@@ -37,6 +37,7 @@ export const PAGE_HEADERS = {
   '/loans/[loanId]': { title: 'Loan Details', showBackButton: true },
   '/gpf-statements': { title: 'GPF Statements', showBackButton: true },
   '/e-pay-slip': { title: 'E-Pay Slip', showBackButton: true },
+  '/e-pay-slip/[paySlipNo]': { title: 'E-Pay Slip Details', showBackButton: true },
   '/nps-statements': { title: 'NPS Statements', showBackButton: true },
   '/pdf-preview': { title: 'Preview PDF', showBackButton: true, showDrawer: false },
 } as const satisfies Record<string, PageHeaderConfig>;
