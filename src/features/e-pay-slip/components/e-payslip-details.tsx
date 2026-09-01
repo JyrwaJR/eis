@@ -26,7 +26,7 @@ export const EPayslipDetails = ({ payslip, downloadEnabled = true }: PayslipDeta
 
   const handlePreviewEPaySlip = async () => {
     if (!payslip?.pdf) {
-      // show a toast/snackbar if you have one
+      showSnackbar('No PDF');
       return;
     }
 
@@ -53,60 +53,52 @@ export const EPayslipDetails = ({ payslip, downloadEnabled = true }: PayslipDeta
   ];
 
   return (
-    <Container>
-      <ScrollView contentContainerClassName=" pb-10" showsVerticalScrollIndicator={false}>
-        {/* Header Text Section */}
-        <View className="mb-6">
-          <Text className="mb-1 text-2xl font-bold text-gray-900">Slip Details</Text>
-          <Text className="text-sm text-graphite">Review your monthly earnings statement</Text>
+    <>
+      {/* Institutional Detail Card */}
+      <View className="mb-6 flex-col overflow-hidden rounded-md border border-border bg-white">
+        {/* Institutional Badge Header */}
+        <View className="flex-row items-center justify-between border-b border-border bg-primary/5 px-4 py-3">
+          <Text className="text-sm font-semibold uppercase tracking-wider text-primary">
+            Official Document
+          </Text>
+          <HugeiconsIcon icon={CheckmarkBadge01Icon} size={20} color="#2563eb" />
         </View>
 
-        {/* Institutional Detail Card */}
-        <View className="mb-6 flex-col overflow-hidden rounded-md border border-border bg-white">
-          {/* Institutional Badge Header */}
-          <View className="flex-row items-center justify-between border-b border-border bg-primary/5 px-4 py-3">
-            <Text className="text-sm font-semibold uppercase tracking-wider text-primary">
-              Official Document
-            </Text>
-            <HugeiconsIcon icon={CheckmarkBadge01Icon} size={20} color="#2563eb" />
+        {/* Detail Rows */}
+        <View className="flex-col">
+          {rows.map((row, index) => (
+            <DetailRow
+              key={row.label}
+              label={row.label}
+              value={row.value}
+              isLast={index === rows.length - 1}
+            />
+          ))}
+        </View>
+      </View>
+
+      {/* Illustration / Visual Decorative Element */}
+      <View className="mb-6 flex h-40 w-full items-center justify-center rounded-md border border-primary bg-primary/5">
+        <View className="flex-col items-center">
+          <View className="mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-primary">
+            <HugeiconsIcon icon={File01Icon} size={24} color="#ffffff" />
           </View>
-
-          {/* Detail Rows */}
-          <View className="flex-col">
-            {rows.map((row, index) => (
-              <DetailRow
-                key={row.label}
-                label={row.label}
-                value={row.value}
-                isLast={index === rows.length - 1}
-              />
-            ))}
-          </View>
+          <Text className="text-sm font-semibold text-primary">Digital Signature Encrypted</Text>
         </View>
+      </View>
 
-        {/* Illustration / Visual Decorative Element */}
-        <View className="mb-6 flex h-40 w-full items-center justify-center rounded-md border border-primary bg-primary/5">
-          <View className="flex-col items-center">
-            <View className="mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-primary">
-              <HugeiconsIcon icon={File01Icon} size={24} color="#ffffff" />
-            </View>
-            <Text className="text-sm font-semibold text-primary">Digital Signature Encrypted</Text>
-          </View>
-        </View>
-
-        {/* Action Section */}
-        <View className="flex-row flex-wrap gap-x-2">
-          <Button
-            activeOpacity={0.8}
-            disabled={!downloadEnabled}
-            size={'lg'}
-            className="flex-1"
-            onPress={handlePreviewEPaySlip}>
-            Preview
-          </Button>
-        </View>
-      </ScrollView>
-    </Container>
+      {/* Action Section */}
+      <View className="flex-row flex-wrap gap-x-2">
+        <Button
+          activeOpacity={0.8}
+          disabled={!downloadEnabled}
+          size={'lg'}
+          className="flex-1"
+          onPress={handlePreviewEPaySlip}>
+          Preview
+        </Button>
+      </View>
+    </>
   );
 };
 

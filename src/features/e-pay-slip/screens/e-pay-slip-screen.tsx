@@ -11,6 +11,8 @@ import { EPaySlipSkeleton } from '../components/skeleton';
 import { useEPayslip } from '../hooks/use-e-payslip';
 import { useUpdateGeNumber } from '../hooks/use-update-ge-number';
 import { router } from 'expo-router';
+import { FlatList, ScrollView, Text, View } from 'react-native';
+import { EPayslipListItem } from '../components/e-payslip-list-item';
 
 const ENTRY_ERROR = 'No e-pay slip found for this GE number. Please check and try again.';
 
@@ -38,11 +40,14 @@ export const EPaySlipScreen = () => {
 
   const activeGeNumber = existingGeNumber || confirmedGeNumber || pendingGeNumber || '';
 
-  const { data: payslip, isLoading, isError } = useEPayslip({ geNumber: activeGeNumber });
+  const { data: ePaySlips, isLoading, isError } = useEPayslip({ geNumber: activeGeNumber });
+
   const updateGeNumber = useUpdateGeNumber();
+
   const { showSnackbar } = useSnackbar();
 
   const needsGeNumber = !activeGeNumber;
+
   const isNewEntryFetch = !!pendingGeNumber && !confirmedGeNumber;
 
   const handleGeNumberSubmit = (geNumber: string) => {
@@ -101,7 +106,7 @@ export const EPaySlipScreen = () => {
   }
 
   // Existing GE number failed to fetch: full-screen error with retry.
-  if (isError || !payslip) {
+  if (isError || !ePaySlips) {
     return (
       <Container className="flex-1">
         <EmptyScreen
@@ -115,18 +120,29 @@ export const EPaySlipScreen = () => {
   }
 
   const showConfirmation = isNewEntryFetch;
-
+  console.log('GE', user?.ge_no);
   return (
-    <>
-      <EPayslipDetails payslip={payslip} downloadEnabled={!showConfirmation} />
-      <EPayslipConfirmDialog
-        open={showConfirmation}
-        payslip={payslip}
-        userName={userName}
-        isConfirming={updateGeNumber.isPending}
-        onConfirm={handleConfirmPayslip}
-        onCancel={handleConformationCancelPayslip}
-      />
-    </>
+    <Container>
+      <View className="pb-10">
+        {/* Header Text Section */}
+        <View className="mb-6">
+          <Text className="mb-1 text-2xl font-bold text-gray-900">E-Payslips</Text>
+          <Text className="text-sm text-graphite">Review your monthly earnings statement</Text>
+        </View>
+        <FlatList
+          data={ePaySlips}
+          keyExtractor={(item) => item.file_id + item.payslip_date}
+          renderItem={({ item }) => <EPayslipListItem item={item} />}
+        />
+        <EPayslipConfirmDialog
+          open={showConfirmation}
+          payslip={ePaySlips[0]}
+          userName={userName}
+          isConfirming={updateGeNumber.isPending}
+          onConfirm={handleConfirmPayslip}
+          onCancel={handleConformationCancelPayslip}
+        />
+      </View>
+    </Container>
   );
 };

@@ -40,7 +40,7 @@ export function useEPayslip({ geNumber }: { geNumber: string }) {
 
   return useQuery({
     queryKey: QUERY_KEYS.E_PAY_SLIP.LIST(payload),
-    queryFn: () => rpc<EPayslip>(METHODS.GET_E_PAY_SLIP, payload),
+    queryFn: () => rpc<EPayslip[]>(METHODS.GET_E_PAY_SLIP, payload),
     select: (data) => data.data,
     enabled: enabled && isSignedIn,
   });

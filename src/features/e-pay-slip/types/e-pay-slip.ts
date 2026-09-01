@@ -1,10 +1,13 @@
 export type EPayslip = {
-  payslip_no: string;
-  payslip_date: string;
-  sign_date: string;
+  designation: string;
+  file_data: string;
+  file_id: string;
   ge_number: string;
   name: string;
-  designation: string;
-  file_id: string;
+  payslip_date: string;
+  payslip_no: string;
+  sign_date: string;
+  valid_from: string;
+  valid_to: string | null;
   pdf: string;
 };
