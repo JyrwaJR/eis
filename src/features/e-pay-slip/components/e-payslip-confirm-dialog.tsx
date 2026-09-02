@@ -2,6 +2,7 @@ import React from 'react';
 import { Modal, Text, View } from 'react-native';
 import { EPayslipListItem } from '../types';
 import { Button } from '@components/ui';
+import { truncateText } from '@utils/formatters';
 
 interface PayslipConfirmDialogProps {
   open: boolean;
@@ -42,7 +43,10 @@ export const EPayslipConfirmDialog = (props: PayslipConfirmDialogProps) => {
               <View className="flex-col rounded-md border border-border bg-border/5 p-4 ">
                 <IdentityRow label="Name" value={payslip.name} />
                 <Divider />
-                <IdentityRow label="Designation" value={payslip.designation} />
+                <IdentityRow
+                  label="Designation"
+                  value={truncateText({ text: payslip.designation, maxLength: 35 })}
+                />
                 <Divider />
                 <IdentityRow label="GE Number" value={payslip.ge_number} />
                 <Divider />
