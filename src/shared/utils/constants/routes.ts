@@ -74,6 +74,6 @@ export const PAGE_ROUTES = {
   },
   E_PAY_SLIP: {
     LIST: '/e-pay-slip' as Route,
-    DETAIL: '/e-pay-slip/details' as Route,
+    DETAIL: (paySlipNo: string) => `/e-pay-slip/details?paySlipNo=${paySlipNo}` as Route,
   },
 };

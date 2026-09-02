@@ -11,7 +11,7 @@ export const EPayslipListItem = ({ item }: { item: EPaySlipI }) => {
   return (
     <TouchableOpacity
       activeOpacity={0.7}
-      onPress={() => router.push(`${PAGE_ROUTES.E_PAY_SLIP.DETAIL}?paySlipNo=${item.payslip_no}`)}
+      onPress={() => router.push(PAGE_ROUTES.E_PAY_SLIP.DETAIL(item.payslip_no))}
       className="mb-4 rounded-md border border-border bg-white p-4 active:scale-[0.98]">
       {/* Card Header */}
       <View className="w-full flex-row items-start justify-between">
