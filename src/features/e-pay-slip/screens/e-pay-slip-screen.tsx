@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { Container } from '@components/layout';
 import { EmptyScreen } from '@components/screens';
 import { useSnackbar } from '@hooks';
-import { AlertCircleIcon } from '@hugeicons/core-free-icons';
 import { useAuthStore } from '@stores/auth.store';
 import { GeNumberForm } from '../components/ge-number-form';
 import { EPayslipConfirmDialog } from '../components/e-payslip-confirm-dialog';
@@ -75,6 +74,11 @@ export const EPaySlipScreen = () => {
             return;
           }
           showSnackbar(data.message);
+          return;
+        },
+        onError: () => {
+          showSnackbar('Error when updating user GE number, Please try again');
+          setPendingGeNumber(null);
           return;
         },
       }
