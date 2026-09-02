@@ -72,4 +72,8 @@ export const PAGE_ROUTES = {
   PREVIEW: {
     PDF: '/pdf-preview?uri=:uri' as Route,
   },
+  E_PAY_SLIP: {
+    LIST: '/e-pay-slip' as Route,
+    DETAIL: '/e-pay-slip/details' as Route,
+  },
 };

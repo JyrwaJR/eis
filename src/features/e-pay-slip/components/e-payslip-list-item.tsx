@@ -4,13 +4,14 @@ import { formatDate } from '@utils/formatters';
 import { ArrowRight01Icon } from '@hugeicons/core-free-icons';
 import { HugeiconsIcon } from '@hugeicons/react-native';
 import { useRouter } from 'expo-router';
+import { PAGE_ROUTES } from '@utils/constants';
 
 export const EPayslipListItem = ({ item }: { item: EPaySlipI }) => {
   const router = useRouter();
   return (
     <TouchableOpacity
       activeOpacity={0.7}
-      onPress={() => router.push(`/e-pay-slip/details?paySlipNo=${item.payslip_no}`)}
+      onPress={() => router.push(`${PAGE_ROUTES.E_PAY_SLIP.DETAIL}?paySlipNo=${item.payslip_no}`)}
       className="mb-4 rounded-md border border-border bg-white p-4 active:scale-[0.98]">
       {/* Card Header */}
       <View className="w-full flex-row items-start justify-between">
