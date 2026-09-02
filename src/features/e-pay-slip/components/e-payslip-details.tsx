@@ -1,13 +1,13 @@
 import React from 'react';
-import { ScrollView, Text, View } from 'react-native';
+import { Text, View } from 'react-native';
 import { HugeiconsIcon } from '@hugeicons/react-native';
 import { CheckmarkBadge01Icon, File01Icon } from '@hugeicons/core-free-icons';
 import { EPayslip } from '../types';
-import { Container } from '@components/layout';
 import { Button } from '@components/ui';
 import { previewBase64PDF } from '@utils/helpers/preview-pdf';
 import { logger } from '@utils/logger';
 import { useSnackbar } from '@hooks';
+import { formatDate, parseYYYYMMDD } from '@utils/formatters';
 
 interface PayslipDetailsProps {
   payslip: EPayslip;
@@ -45,11 +45,12 @@ export const EPayslipDetails = ({ payslip, downloadEnabled = true }: PayslipDeta
 
   const rows = [
     { label: 'Payslip Number', value: payslip.payslip_no },
-    { label: 'Payslip Date', value: payslip.payslip_date },
-    { label: 'Sign Date', value: payslip.sign_date },
-    { label: 'GE Number', value: payslip.ge_number },
+    { label: 'Payslip Date', value: formatDate(payslip.payslip_date) },
+    { label: 'Sign Date', value: formatDate(payslip.sign_date) },
     { label: 'Name', value: payslip.name },
     { label: 'Designation', value: payslip.designation },
+    { label: 'Valid From ', value: formatDate(payslip.valid_from) },
+    { label: 'Valid To', value: formatDate(payslip.valid_to) || '' },
   ];
 
   return (
