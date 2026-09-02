@@ -8,7 +8,11 @@ import { useLocalSearchParams } from 'expo-router';
 export const EPaySlipDetailsScreen = () => {
   const { paySlipNo } = useLocalSearchParams<{ paySlipNo: string }>();
 
-  const { data: payslip, isLoading } = useEPayslipDetail({ payslipNo: paySlipNo });
+  const { data: payslip, isLoading, isFetching } = useEPayslipDetail({ payslipNo: paySlipNo });
+
+  if (isLoading || isFetching) {
+    return <EPaySlipDetailsSkeleton />;
+  }
 
   if (!payslip) {
     return (
@@ -19,10 +23,6 @@ export const EPaySlipDetailsScreen = () => {
     );
   }
 
-  if (isLoading) {
-    return <EPaySlipDetailsSkeleton />;
-  }
-
   return (
     <ScrollView>
       <Container className="gap-5">
@@ -30,7 +30,7 @@ export const EPaySlipDetailsScreen = () => {
           <Text className="mb-1 text-2xl font-bold text-gray-900">E-Payslips</Text>
           <Text className="text-sm text-graphite">Review your monthly earnings statement</Text>
         </View>
-        <EPayslipDetails payslip={payslip} />;
+        <EPayslipDetails payslip={payslip} />
       </Container>
     </ScrollView>
   );
