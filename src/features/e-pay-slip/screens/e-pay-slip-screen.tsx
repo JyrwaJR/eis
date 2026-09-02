@@ -60,28 +60,25 @@ export const EPaySlipScreen = () => {
   };
 
   const handleConfirmPayslip = async () => {
-    if (!enteredGeNumber) return;
-    try {
-      const res = await updateGeNumber.mutateAsync({ geNumber: enteredGeNumber });
-      if (!res.success) {
-        showSnackbar(
-          res.message || 'Could not save your GE number. Please try again.',
-          AlertCircleIcon
-        );
-        return;
-      } else {
-        if (res.message) {
-          showSnackbar(res.message, AlertCircleIcon);
-        }
-      }
-      // GE number is persisted on the backend; refresh employee details so
-      // `user.ge_number` is repopulated from the API response.
-      refresh();
-      setConfirmedGeNumber(enteredGeNumber);
-      setPendingGeNumber(null);
-    } catch {
-      showSnackbar('Could not save your GE number. Please try again.', AlertCircleIcon);
+    if (!enteredGeNumber) {
+      showSnackbar('GE Number is required to continue');
+      return;
     }
+    updateGeNumber.mutate(
+      { geNumber: enteredGeNumber },
+      {
+        onSuccess: (data) => {
+          if (data.success) {
+            showSnackbar(data.message);
+            setConfirmedGeNumber(enteredGeNumber);
+            setPendingGeNumber(null);
+            return;
+          }
+          showSnackbar(data.message);
+          return;
+        },
+      }
+    );
   };
 
   const handleConformationCancelPayslip = () => setPendingGeNumber(null);

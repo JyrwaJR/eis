@@ -16,7 +16,7 @@ import { ApiResponse } from '@sharedTypes/api';
  * `mutateAsync({ geNumber }): Promise<ApiResponse<void>>`.
  */
 export function useUpdateGeNumber() {
-  const { emp_cd } = useAuthStore();
+  const { emp_cd, refresh } = useAuthStore();
   const queryClient = useQueryClient();
 
   return useMutation<ApiResponse<void>, Error, { geNumber: string }>({
@@ -25,6 +25,7 @@ export function useUpdateGeNumber() {
     onSuccess: (data, { geNumber }) => {
       if (data.success) {
         queryClient.invalidateQueries({ queryKey: QUERY_KEYS.E_PAY_SLIP.LIST(geNumber) });
+        refresh();
         return data;
       }
       return data;
