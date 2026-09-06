@@ -6,7 +6,7 @@ import { HugeiconsIcon } from '@hugeicons/react-native';
 import { useRouter } from 'expo-router';
 import { PAGE_ROUTES } from '@utils/constants';
 
-export const EPayslipListItem = ({ item }: { item: EPaySlipI }) => {
+export const EPayslipListItemCard = ({ item }: { item: EPaySlipI }) => {
   const router = useRouter();
   return (
     <TouchableOpacity

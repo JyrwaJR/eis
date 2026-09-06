@@ -10,7 +10,7 @@ import { useEPayslip } from '../hooks/use-e-payslip';
 import { useUpdateGeNumber } from '../hooks/use-update-ge-number';
 import { router } from 'expo-router';
 import { FlatList, Text, View } from 'react-native';
-import { EPayslipListItem } from '../components/e-payslip-list-item';
+import { EPayslipListItemCard } from '../components/e-payslip-list-item';
 
 const ENTRY_ERROR = 'No e-pay slip found for this GE number. Please check and try again.';
 
@@ -131,7 +131,7 @@ export const EPaySlipScreen = () => {
         <FlatList
           data={ePaySlips}
           keyExtractor={(item) => item.payslip_no + item.sign_date}
-          renderItem={({ item }) => <EPayslipListItem item={item} />}
+          renderItem={({ item }) => <EPayslipListItemCard item={item} />}
           showsVerticalScrollIndicator={false}
           contentContainerClassName="pb-10"
         />
